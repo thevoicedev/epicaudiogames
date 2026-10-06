@@ -1,0 +1,92 @@
+package com.epicaudiogames.app.ui
+
+import android.app.Activity
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.WindowInsets
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBars
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.ModalBottomSheet
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import com.epicaudiogames.app.GameInfo
+import com.epicaudiogames.app.PackInfo
+import com.epicaudiogames.app.Packs
+import com.epicaudiogames.app.Store
+import kotlinx.coroutines.launch
+
+/** A game's packs: what each adds, its price, and buying it (or its download, or that it's installed). */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun StoreSheet(game: GameInfo, store: Store, packs: Packs, onClose: () -> Unit) {
+    val activity = LocalContext.current as? Activity
+    val scope = rememberCoroutineScope()
+    ModalBottomSheet(onDismissRequest = onClose, containerColor = Palette.card) {
+        Column(
+            Modifier.fillMaxWidth().padding(horizontal = 18.dp).padding(bottom = 12.dp)
+                .windowInsetsPadding(WindowInsets.navigationBars),
+            verticalArrangement = Arrangement.spacedBy(14.dp),
+        ) {
+            OutlinedText("MORE ${game.title.uppercase()}", size = 24.sp, fill = Palette.gold, maxLines = 2)
+            store.installs    // read, so the sheet shows a pack as installed once it is
+            for (pack in game.packs) {
+                PackRow(pack, store, packs.isInstalled(pack)) { activity?.let { store.buy(it, pack) } }
+            }
+            store.message?.let {
+                Text(it, style = MaterialTheme.typography.bodyMedium, color = Palette.no)
+            }
+            TextButton(onClick = {
+                store.message = null
+                scope.launch { store.restore() }
+            }, modifier = Modifier.align(Alignment.CenterHorizontally)) {
+                Text("Restore purchases", color = Palette.title)
+            }
+        }
+    }
+}
+
+@Composable
+private fun PackRow(pack: PackInfo, store: Store, installed: Boolean, onBuy: () -> Unit) {
+    Column(verticalArrangement = Arrangement.spacedBy(4.dp)) {
+        Text(pack.title, style = MaterialTheme.typography.titleLarge, color = Palette.title)
+        if (pack.description.isNotEmpty()) {
+            Text(pack.description, style = MaterialTheme.typography.bodyMedium, color = Palette.ink.copy(alpha = 0.85f))
+        }
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("${(pack.size + 500_000) / 1_000_000} MB download", style = MaterialTheme.typography.bodySmall,
+                color = Palette.ink.copy(alpha = 0.7f))
+            Spacer(Modifier.weight(1f))
+            val progress = store.downloading[pack.id]
+            when {
+                installed -> Pill("INSTALLED", Palette.headerLine, Palette.title)
+                progress != null -> LinearProgressIndicator(progress = { progress }, modifier = Modifier.weight(1f),
+                    color = Palette.yes)
+                else -> Button(
+                    onClick = onBuy,
+                    colors = ButtonDefaults.buttonColors(containerColor = Palette.yes),
+                    shape = RoundedCornerShape(18.dp),
+                ) {
+                    Text(store.prices[pack.product] ?: "GET", fontFamily = Lilita, fontSize = 18.sp, color = Color.White)
+                }
+            }
+        }
+    }
+}

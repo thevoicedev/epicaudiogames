@@ -14,7 +14,9 @@ Differences from the skill, on purpose:
   the swipes elsewhere stay random.
 
 Usage (from the repo root): python tools/games/aliencustoms.py   (after node tools/extract_games.js alien-customs)
+The full game, for its pack (tools/make_pack.py): python tools/games/aliencustoms.py --levels 15 --build build/packs
 """
+import argparse
 import json
 import sys
 import zlib
@@ -30,11 +32,17 @@ F = json.loads((ROOT / "tools" / "flows" / f"{GAME}.json").read_text(encoding="u
 A, ITEMS, SUFFIX, NAMES = F["audio"], F["items"], F["suffix"], F["names"]
 PASS, FAIL, PER_ITEM = F["rules"]["pass"], F["rules"]["fail"], F["rules"]["questions"]
 FREE = 5                                   # levels in the base game
-LEVELS = F["levels"][:FREE]
+ap = argparse.ArgumentParser()
+ap.add_argument("--levels", type=int, default=FREE, help="levels to build (all of them: 15)")
+ap.add_argument("--build", help="a folder for a pack build: the map and its audio go to <build>/alien-customs/")
+ARGS = ap.parse_args()
+LEVELS = F["levels"][:ARGS.levels]
 DIALOGUE = A["dialogue"]
+OUT = Path(ARGS.build) / GAME if ARGS.build else None
 
 c = Content(GAME, F["cdn"], voices={"dialogue/": "OFFICER", "slug-audio/": "SLUG"},
-            fixes={"allergy, Cloud": "allergy cloud", "Large umbrellas or diamond-catching": "Large umbrellas are diamond-catching"})
+            fixes={"allergy, Cloud": "allergy cloud", "Large umbrellas or diamond-catching": "Large umbrellas are diamond-catching"},
+            out=OUT / "content" if OUT else None)
 YES_NO = [{"label": "Yes", "value": "yes"}, {"label": "No", "value": "no"}]
 
 
@@ -122,7 +130,7 @@ nodes = {}
 ready = say("Are you ready to play? ")
 
 # Launch (doAlienCustomsIntro): the level the player is on.
-nodes["level_intro"] = {"redirect": [{"when": f"level == {k}", "go": f"L{k}_intro"} for k in range(FREE)],
+nodes["level_intro"] = {"redirect": [{"when": f"level == {k}", "go": f"L{k}_intro"} for k in range(1, len(LEVELS))],
                         "go": "L0_intro"}
 
 for k, lv in enumerate(LEVELS):
@@ -239,14 +247,19 @@ for k, lv in enumerate(LEVELS):
             "end": {"kind": "gameover", "title": "Deported!", "retry": "level_intro"},
         }
 
-    # doAlienCustomsGameOver, won: the next level.
-    last = k + 1 == FREE
+    # doAlienCustomsGameOver, won: the next level. After the free levels, the next one is in the pack; after the
+    # last level of all, the skill starts again from level 1.
+    title = f"Level {k + 1} cleared: {lv['name'].capitalize()}!"
+    if k + 1 < len(LEVELS):
+        end = {"kind": "chapter", "title": title, "next": f"L{k + 1}_intro"}
+    elif len(LEVELS) < len(F["levels"]):
+        end = {"kind": "chapter", "title": title, "next": f"L{k + 1}_intro", "locked": "alien-customs-levels"}
+    else:
+        end = {"kind": "chapter", "title": f"All {len(LEVELS)} levels cleared!", "next": "level_intro"}
     nodes[f"L{k}_win"] = {
-        "set": {"level": "+1"},
+        "set": {"level": "+1" if k + 1 < len(F["levels"]) else 0},
         "say": [bed("background", 0.20), c.bed(A["win"], 1.0), {"pause": 0.8}, dialogue("win")],
-        "end": {"kind": "chapter", "title": f"Level {k + 1} cleared: {lv['name'].capitalize()}!",
-                "next": f"L{k + 1}_intro" if not last else "L5_intro",
-                **({"locked": "alien-customs-levels"} if last else {})},
+        "end": end,
     }
 
 game_map = {
@@ -263,8 +276,8 @@ game_map = {
                     "pardon", "one more time"]),
     "nodes": nodes,
 }
-out = ROOT / "games" / GAME / "map.json"
+out = OUT / "map.json" if OUT else ROOT / "games" / GAME / "map.json"
 out.parent.mkdir(parents=True, exist_ok=True)
 out.write_text(json.dumps(game_map, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 n_files, size = c.size_report()
-print(f"{GAME}: {len(nodes)} nodes, {n_files} audio files, {size / 1e6:.1f} MB -> {out.relative_to(ROOT)}")
+print(f"{GAME}: {len(nodes)} nodes, {n_files} audio files, {size / 1e6:.1f} MB -> {out}")

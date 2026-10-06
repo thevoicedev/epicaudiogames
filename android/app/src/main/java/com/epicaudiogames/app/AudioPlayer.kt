@@ -16,14 +16,21 @@ import androidx.media3.exoplayer.source.MediaSource
 import androidx.media3.exoplayer.source.ProgressiveMediaSource
 import androidx.media3.exoplayer.source.SilenceMediaSource
 import com.epicaudiogames.engine.Step
+import java.io.File
 
 /**
- * Plays a turn from the game's assets (assets/<id>/<path>.m4a, .mp3 or .opus): its clips and pauses one after
- * another, and its beds (music and overlapping sounds) underneath, each from where it appears in the turn until the
- * turn's audio ends. [position] says which clip is playing and where, so the transcript can follow it.
+ * Plays a turn from the game's assets (assets/<id>/<path>.m4a, .mp3 or .opus), or from its installed packs
+ * ([packs], whose files come first): its clips and pauses one after another, and its beds (music and overlapping
+ * sounds) underneath, each from where it appears in the turn until the turn's audio ends. [position] says which clip
+ * is playing and where, so the transcript can follow it.
  */
 @OptIn(UnstableApi::class)
-class AudioPlayer(private val context: Context, private val gameId: String, private val onFinished: () -> Unit) {
+class AudioPlayer(
+    private val context: Context,
+    private val gameId: String,
+    private val packs: List<File>,
+    private val onFinished: () -> Unit,
+) {
     private val attributes = AudioAttributes.Builder().setUsage(C.USAGE_GAME).setContentType(C.AUDIO_CONTENT_TYPE_SPEECH).build()
     private val player = ExoPlayer.Builder(context).setAudioAttributes(attributes, true).build()
     private val sources = ProgressiveMediaSource.Factory(DefaultDataSource.Factory(context))
@@ -149,10 +156,20 @@ class AudioPlayer(private val context: Context, private val gameId: String, priv
     }
 
     private fun uri(path: String): Uri {
+        for (pack in packs) {
+            for (ext in EXTENSIONS) {
+                val f = File(pack, path + ext)
+                if (f.isFile) return Uri.fromFile(f)
+            }
+        }
         val dir = "$gameId/" + path.substringBeforeLast('/', "")
         val name = path.substringAfterLast('/')
         val names = files.getOrPut(dir) { context.assets.list(dir.trimEnd('/'))?.toSet() ?: emptySet() }
-        val file = listOf(".m4a", ".mp3", ".opus").map { name + it }.firstOrNull { it in names } ?: "$name.m4a"
+        val file = EXTENSIONS.map { name + it }.firstOrNull { it in names } ?: "$name.m4a"
         return Uri.parse("asset:///$dir/$file")
+    }
+
+    private companion object {
+        val EXTENSIONS = listOf(".m4a", ".mp3", ".opus")
     }
 }

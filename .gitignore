@@ -20,3 +20,7 @@ captures/
 # Python / Node
 __pycache__/
 node_modules/
+
+# pack builds (tools/make_pack.py)
+build/
+dist/

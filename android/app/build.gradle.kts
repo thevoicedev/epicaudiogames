@@ -16,6 +16,9 @@ android {
         targetSdk = 35
         versionCode = 1
         versionName = "0.1"
+        // Where packs are downloaded from (<url>/<pack>-<version>.zip): gradle property epicPacksUrl, set in
+        // ~/.gradle/gradle.properties or with -PepicPacksUrl=... Empty: the store can't download packs yet.
+        buildConfigField("String", "PACKS_URL", "\"${project.findProperty("epicPacksUrl") ?: ""}\"")
     }
 
     buildTypes {
@@ -37,6 +40,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     // The games ship inside the app for now: games/ (catalog.json and each game's map.json) and content/ (each
@@ -44,6 +48,8 @@ android {
     sourceSets["main"].assets.srcDirs(File(repoRoot, "games"), File(repoRoot, "content"))
     androidResources {
         noCompress += listOf("m4a", "mp3", "opus")
+        // A game's packs (games/<id>/packs/) come in their own downloads, not in the app.
+        ignoreAssetsPatterns += listOf("<dir>packs")
     }
     packaging {
         resources {
@@ -68,6 +74,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.media3:media3-exoplayer:1.4.1")
+    implementation("com.android.billingclient:billing-ktx:7.1.1")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.ui:ui-tooling-preview")
 }

@@ -24,6 +24,7 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import java.io.File
 
 /** One entry in the game's transcript. */
 sealed interface FeedItem {
@@ -46,11 +47,12 @@ class GameController(
     val info: GameInfo,
     val map: GameMap,
     private val saves: Saves,
+    packs: List<File>,
     private val onLeave: () -> Unit,
 ) {
     private val scope = MainScope()
     private val session = Session(map)
-    private val audio = AudioPlayer(context, info.id) { finishTurn() }
+    private val audio = AudioPlayer(context, info.id, packs) { finishTurn() }
     private val listener = Listener(
         context,
         onPartial = { partial = it },

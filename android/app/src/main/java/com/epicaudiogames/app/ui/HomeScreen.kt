@@ -3,6 +3,7 @@ package com.epicaudiogames.app.ui
 import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -38,10 +39,17 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epicaudiogames.app.GameInfo
+import com.epicaudiogames.app.PackInfo
 
-/** The game list: a card per game, with its cover, its description and what's free. */
+/** The game list: a card per game, with its cover, its description, what's free, and its packs. */
 @Composable
-fun HomeScreen(games: List<GameInfo>, inProgress: (String) -> Boolean, onOpen: (GameInfo) -> Unit) {
+fun HomeScreen(
+    games: List<GameInfo>,
+    inProgress: (String) -> Boolean,
+    installed: (PackInfo) -> Boolean,
+    onOpen: (GameInfo) -> Unit,
+    onStore: (GameInfo) -> Unit,
+) {
     Backdrop(Modifier.fillMaxSize()) {
         Column(Modifier.fillMaxSize()) {
             HeaderBar("EPIC AUDIO GAMES")
@@ -58,14 +66,22 @@ fun HomeScreen(games: List<GameInfo>, inProgress: (String) -> Boolean, onOpen: (
                         maxLines = 3,
                     )
                 }
-                items(games, key = { it.id }) { game -> GameCard(game, inProgress(game.id)) { onOpen(game) } }
+                items(games, key = { it.id }) { game ->
+                    GameCard(game, inProgress(game.id), installed, onStore = { onStore(game) }) { onOpen(game) }
+                }
             }
         }
     }
 }
 
 @Composable
-private fun GameCard(game: GameInfo, continuing: Boolean, onClick: () -> Unit) {
+private fun GameCard(
+    game: GameInfo,
+    continuing: Boolean,
+    installed: (PackInfo) -> Boolean,
+    onStore: () -> Unit,
+    onClick: () -> Unit,
+) {
     Card(
         onClick = onClick,
         shape = RoundedCornerShape(22.dp),
@@ -90,6 +106,13 @@ private fun GameCard(game: GameInfo, continuing: Boolean, onClick: () -> Unit) {
             Spacer(Modifier.height(4.dp))
             Text(game.blurb, style = MaterialTheme.typography.bodyMedium, color = Palette.ink.copy(alpha = 0.85f))
             Spacer(Modifier.height(10.dp))
+            // Its packs: one to get (it opens the store), or all of them in.
+            val toGet = game.packs.firstOrNull { !installed(it) }
+            if (game.packs.isNotEmpty()) {
+                Pill(if (toGet != null) "+ ${toGet.title.uppercase()}" else "ALL PACKS INSTALLED", Palette.gold, Palette.ink,
+                    Modifier.clickable(onClick = onStore))
+                Spacer(Modifier.height(8.dp))
+            }
             Row(verticalAlignment = Alignment.CenterVertically) {
                 if (game.free.isNotEmpty()) Pill(game.free.uppercase(), Palette.headerLine, Palette.title)
                 Spacer(Modifier.weight(1f))

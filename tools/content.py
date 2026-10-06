@@ -115,10 +115,10 @@ def word_starts(text, alignment):
 class Content:
     """The content of one game: content/<game>/ and the CDN folder its recorded clips come from."""
 
-    def __init__(self, game, cdn_prefix, voices=None, fixes=None):
+    def __init__(self, game, cdn_prefix, voices=None, fixes=None, out=None):
         self.game = game
         self.prefix = cdn_prefix                    # "en/audio2/leaning-tower-of-pizza/"
-        self.dir = ROOT / "content" / game
+        self.dir = Path(out) if out else ROOT / "content" / game     # a pack build writes elsewhere
         self.voices = voices or {}                  # recorded clip folder -> speaker key, for transcripts
         self.fixes = fixes or {}                    # speech-to-text slips -> what the clip says ("=x": all of it)
         self.used = set()                           # every content path the map plays

@@ -8,28 +8,39 @@ import org.junit.Test
 import java.io.File
 import kotlin.random.Random
 
-/** Every map in games/: loads, and a bot that tries every answer in every state reaches every node and every end. */
+/**
+ * Every map in games/, on its own and with its packs (games/<id>/packs/): loads, and a bot that tries every answer
+ * in every state reaches every node and every end.
+ */
 class MapsTest {
     private val gamesDir = File(System.getProperty("games.dir") ?: "../../games")
 
-    private fun maps(): List<GameMap> {
-        val files = gamesDir.listFiles().orEmpty().map { File(it, "map.json") }.filter { it.isFile }.sortedBy { it.path }
-        assertTrue("no maps in ${gamesDir.absolutePath}", files.isNotEmpty())
-        return files.map { GameMap.load(it) }
+    /** Each game's free map, and the game with all its packs merged in, by a name for the messages. */
+    private fun named(): List<Pair<String, GameMap>> {
+        val dirs = gamesDir.listFiles().orEmpty().filter { File(it, "map.json").isFile }.sortedBy { it.name }
+        assertTrue("no maps in ${gamesDir.absolutePath}", dirs.isNotEmpty())
+        return dirs.flatMap { dir ->
+            val map = File(dir, "map.json")
+            val packs = File(dir, "packs").listFiles { f -> f.extension == "json" }.orEmpty().sortedBy { it.name }
+            listOf(dir.name to GameMap.load(map)) +
+                (if (packs.isEmpty()) emptyList() else listOf("${dir.name} + packs" to GameMap.load(map, packs)))
+        }
     }
+
+    private fun maps() = named().map { it.second }
 
     @Test
     fun botReachesEveryNodeAndEnd() {
-        for (map in maps()) {
+        for ((name, map) in named()) {
             val bot = Bot(map).apply {
                 explore()
                 walk(Random(7), 3000)
             }
             val never = map.nodes.keys - bot.visited
-            assertTrue("${map.id}: never reached ${never.sorted()}", never.isEmpty())
+            assertTrue("$name: never reached ${never.sorted()}", never.isEmpty())
             val ends = map.nodes.values.filter { it.end != null }.map { it.id }.toSet()
-            assertEquals("${map.id}: ends never reached", emptySet<String>(), ends - bot.ends)
-            println("${map.id}: ${bot.states} states${if (bot.capped) " (capped)" else ""} and ${bot.walks} random walks, " +
+            assertEquals("$name: ends never reached", emptySet<String>(), ends - bot.ends)
+            println("$name: ${bot.states} states${if (bot.capped) " (capped)" else ""} and ${bot.walks} random walks, " +
                 "${bot.turns} turns, ${bot.visited.size} nodes, ${bot.ends.size} ends, ${bot.quits} ways out")
         }
     }

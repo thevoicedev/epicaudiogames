@@ -51804,7 +51804,8 @@
    ],
    "end": {
     "kind": "ending",
-    "title": "You caught both werewolves!"
+    "title": "You caught both werewolves!",
+    "locked": "the-werewolf-stories"
    }
   },
   "lose": {
@@ -55926,7 +55927,8 @@
    "end": {
     "kind": "gameover",
     "title": "The werewolves got away!",
-    "retry": "replay"
+    "retry": "replay",
+    "locked": "the-werewolf-stories"
    }
   }
  }

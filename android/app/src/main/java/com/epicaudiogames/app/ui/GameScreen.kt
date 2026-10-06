@@ -88,7 +88,7 @@ import com.epicaudiogames.app.GameController
  * transcript as it's spoken, and the answers: buttons, typing and the mic. At an end, the end panel.
  */
 @Composable
-fun GameScreen(game: GameController) {
+fun GameScreen(game: GameController, onStore: () -> Unit) {
     val context = LocalContext.current
     val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
         game.micAllowed = granted
@@ -121,11 +121,14 @@ fun GameScreen(game: GameController) {
                 }
                 DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                     DropdownMenuItem(text = { Text("Start again") }, onClick = { menu = false; game.startAgain() })
+                    if (game.info.packs.isNotEmpty()) {
+                        DropdownMenuItem(text = { Text("More stories and levels") }, onClick = { menu = false; onStore() })
+                    }
                 }
             }
             TalkingCircle(game)
             Feed(game, Modifier.weight(1f))
-            if (game.end != null) EndPanel(game) else Answers(game)
+            if (game.end != null) EndPanel(game, onStore) else Answers(game)
         }
         if (game.paused) Paused(game)
     }
@@ -321,7 +324,7 @@ private fun AnswerButton(label: String, modifier: Modifier, onClick: () -> Unit)
 
 /** The end: what was reached, and what next. */
 @Composable
-private fun EndPanel(game: GameController) {
+private fun EndPanel(game: GameController, onStore: () -> Unit) {
     val end = game.end ?: return
     Column(
         Modifier
@@ -340,9 +343,16 @@ private fun EndPanel(game: GameController) {
         }
         OutlinedText(heading, size = 30.sp, fill = Palette.gold)
         Text(end.title, style = MaterialTheme.typography.titleLarge, color = Palette.title, textAlign = TextAlign.Center)
+        val pack = game.info.packs.firstOrNull { it.id == end.locked }
         if (end.locked != null && !game.canGoOn) {
-            Text("What happens next is coming soon, in a story pack.", style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center)
+            if (pack != null) {
+                val more = if (end.kind == "chapter") "What happens next is in ${pack.title}." else "There's more: ${pack.title}."
+                Text(more, style = MaterialTheme.typography.bodyMedium, textAlign = TextAlign.Center)
+                EndButton("GET ${pack.title.uppercase()}", Palette.gold, onStore)
+            } else {
+                Text("What happens next is coming soon, in a story pack.", style = MaterialTheme.typography.bodyMedium,
+                    textAlign = TextAlign.Center)
+            }
         }
         if (game.canGoOn) EndButton("NEXT CHAPTER", Palette.yes) { game.nextChapter() }
         EndButton(if (end.kind == "gameover") "TRY AGAIN" else "PLAY AGAIN", Palette.choice) { game.playAgain() }

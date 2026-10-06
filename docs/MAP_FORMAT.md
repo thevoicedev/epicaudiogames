@@ -4,13 +4,15 @@ Every Epic Audio Game is a **map**: a JSON graph of turns. The app's engine walk
 audio with its transcript, listens for an answer, and follows that answer to the next turn. A map is content only
 (JSON and audio). All the logic that reads it lives in the app.
 
-A game folder (or a downloaded pack) holds:
+A game is:
 
 ```
-games/<id>/map.json      the turns
-games/<id>/pack.json     what is free and what is in each paid pack
-content/<id>/<path>.*    the audio (built by tools/, kept out of git)
+games/<id>/map.json             the turns of the free game
+games/<id>/packs/<pack>.json    each paid pack's turns (merged into the map when the player has the pack)
+content/<id>/<path>.*           the free game's audio (built by tools/, kept out of git)
 ```
+
+`games/catalog.json` lists the games, and each game's packs (see Packs).
 
 ## The map
 
@@ -224,20 +226,31 @@ Speech, typed text and buttons are matched the same way:
 as Alexa's Stop and Cancel end a skill. Maps never see them, so they can't be answers (the validator warns about
 them). "Pause" is left to the games: Leaning Tower of Pizza takes it as a mishear of "false".
 
-## Packs (`pack.json`)
+## Packs
+
+A pack is more of a game, bought in the app: more stories or levels. Its map, `games/<id>/packs/<pack>.json`, is
+a piece of the game's map:
 
 ```json
 {
-  "game": "werewolf",
-  "packs": [
-    { "id": "werewolf-base", "free": true, "title": "5 stories" },
-    { "id": "werewolf-more", "product": "werewolf_more_stories", "title": "45 more stories", "nodes": "werewolf-more.json" }
-  ]
+  "format": 1, "game": "alien-customs", "id": "alien-customs-levels", "version": 1,
+  "title": "10 more levels", "description": "...", "product": "alien_customs_levels",
+  "vars": { "...": "..." }, "keep": ["..."], "who": { "...": "..." },
+  "nodes": { "L5_intro": { "...": "..." }, "L4_win": { "...": "..." } }
 }
 ```
 
-A paid pack adds nodes (merged into the map) and their audio. An `end` with `"locked": "<pack id>"` offers the pack
-when it's reached without it.
+When the player has the pack, the app merges it into the map: its `nodes` are added, or replace the map's nodes of
+the same id (a pack usually replaces the few nodes that lead to it, such as the last free level's end); its `vars`,
+`who` and `symbols` are added, and its `keep` joins the map's. Packs merge in the catalog's order.
+
+The free map leads to a pack with an `end` that has `"locked": "<pack id>"` and a `next` that is in the pack: the
+end screen offers the pack, and once it's there, the pack's own version of that end (with no `locked`) goes on.
+
+A pack's download is `<pack>-<version>.zip`: its `pack.json` (the piece of map above) and the audio it plays that
+the free game doesn't ship, at the same paths. `games/catalog.json` lists each game's packs with their title,
+description, Google Play product id, version, size and SHA-256, so the app can show them before buying and check
+the download. `tools/make_pack.py` makes all three from a build of the whole game.
 
 ## Saving
 

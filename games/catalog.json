@@ -35,7 +35,18 @@
       "id": "alien-customs",
       "title": "Alien Customs",
       "blurb": "Convince a strict alien customs officer to let you into Jupiter with your suspicious luggage.",
-      "free": "5 levels free"
+      "free": "5 levels free",
+      "packs": [
+        {
+          "id": "alien-customs-levels",
+          "title": "10 more levels",
+          "description": "Levels 6 to 15, from a sports tournament to a business trip: 30 more items to talk past the officer, from marshmallows to rizz books.",
+          "product": "alien_customs_levels",
+          "version": 1,
+          "size": 25619478,
+          "sha256": "2374c2665f7acd60be2140638397f1ccff51c418af7d7bf86a86d17e9feb6b1e"
+        }
+      ]
     },
     {
       "id": "the-werewolf",

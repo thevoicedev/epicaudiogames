@@ -42,6 +42,12 @@ node tools/capture.js "<launch>" yes ... # prints what the real skill plays on a
                                          #   to check a builder against
 ```
 
+**Packs** (more stories and levels, bought in the app): a builder run with `--build build/packs` and all the
+stories or levels (`aliencustoms.py --levels 15`, `werewolf.py --stories 50`) writes the whole game there; then
+`tools/make_pack.py` cuts the pack out of it: `games/<id>/packs/<pack>.json` (the nodes the free map doesn't have),
+`dist/packs/<pack>-<version>.zip` (that and its audio, for the pack server) and the pack's line in
+`games/catalog.json` (title, Play product id, size, checksum).
+
 `tools/content.py` makes every clip a builder uses: Alexa's lines in the app's voice (ElevenLabs, Jessica, with
 the time of every word), the skill's recordings from the Mini Games CDN (speech-to-text gives their words and
 times; `check=True` compares them with the words in the code, and `turns=True` splits a scene into a line per
@@ -89,6 +95,11 @@ assets, so run the content tools first. The app needs Android 7 (API 24) or late
 - **Listening:** after each question the mic opens by itself, as on Alexa. Silence plays the question again; a
   second silence, or "stop", pauses the game until a tap.
 - **Saves:** each game's place is saved at every question, and "Welcome back!" picks it up.
+- **Packs:** a game's card and menu open its store sheet: each pack's price (Google Play Billing), buying it, then
+  downloading it from the pack server (`-PepicPacksUrl=https://...`, or `epicPacksUrl` in gradle.properties),
+  checking it against the catalog and unpacking it into the app's files. Purchases made before are restored the same
+  way. A locked chapter end offers its pack. Debug builds also install any `<pack>-<version>.zip` pushed to
+  `/sdcard/Android/data/com.epicaudiogames.app/files/incoming/`, to try packs without the store or a server.
 
 Emulator: the `EpicAudioGames_Pixel` AVD (Android 15, 6 GB of storage) was made for this app. The other AVDs on this
 machine are full of other apps' builds.
@@ -101,5 +112,7 @@ machine are full of other apps' builds.
    (on the emulator; speech to be tried on a phone; store listing draft in `docs/STORE_LISTING.md`).
 3. The ElevenLabs voice (Jessica), and Pirate Quest, Leaning Tower of Pizza, Alien Customs (levels 1 to 5) and
    The Werewolf (stories 1 to 5). **Done.**
-4. Packs and purchases (Google Play Billing; packs downloaded from our own storage).
+4. Packs and purchases (Google Play Billing; packs downloaded from our own storage). **Running:** the pack format,
+   the app's store and pack downloads, and the Alien Customs pack (levels 6 to 15) are done; The Werewolf (stories 6
+   to 50) and The Kingdom of Frootopia (stories 2 to 5) next. Needs the pack server and the Play Console products.
 5. Nuclear War, a size pass, and the release build.

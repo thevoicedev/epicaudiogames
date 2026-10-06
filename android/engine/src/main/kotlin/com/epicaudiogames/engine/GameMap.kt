@@ -138,9 +138,34 @@ class GameMap(
     fun node(id: String): Node = nodes[id] ?: throw MapException("$id: no such node")
 
     companion object {
-        fun load(file: File): GameMap = parse(file.readText())
+        fun load(file: File, packs: List<File> = emptyList()): GameMap = parse(file.readText(), packs.map { it.readText() })
 
-        fun parse(text: String): GameMap = MapParser(Json.parseToJsonElement(text).jsonObject).map()
+        /**
+         * A map, with the packs the player has (their pack.json) merged in, in order: each pack's nodes are added or
+         * replace the map's nodes of the same id, and its vars, keep, who and symbols are added (see Packs in
+         * docs/MAP_FORMAT.md).
+         */
+        fun parse(text: String, packs: List<String> = emptyList()): GameMap {
+            var root = Json.parseToJsonElement(text).jsonObject
+            for (pack in packs) root = merge(root, Json.parseToJsonElement(pack).jsonObject)
+            return MapParser(root).map()
+        }
+
+        private fun merge(map: JsonObject, pack: JsonObject): JsonObject {
+            val game = map["id"]?.jsonPrimitive?.content
+            val packGame = pack["game"]?.jsonPrimitive?.content
+            if (packGame != null && packGame != game) throw MapException("pack ${pack["id"]} is for $packGame, not $game")
+            fun obj(o: JsonObject, key: String) = (o[key] as? JsonObject).orEmpty()
+            val out = map.toMutableMap()
+            for (key in listOf("nodes", "vars", "who", "symbols")) {
+                if (key in pack) out[key] = JsonObject(obj(map, key) + obj(pack, key))
+            }
+            if ("keep" in pack) {
+                val keep = ((map["keep"] as? JsonArray).orEmpty() + (pack["keep"] as? JsonArray).orEmpty()).distinct()
+                out["keep"] = JsonArray(keep)
+            }
+            return JsonObject(out)
+        }
 
         private val DEFAULT_WORDS = mapOf(
             "yes" to listOf("yes", "yeah", "yep", "sure", "ok", "okay"),

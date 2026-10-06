@@ -9,6 +9,7 @@ import androidx.activity.compose.BackHandler
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableIntStateOf
@@ -29,7 +30,9 @@ import kotlinx.coroutines.withContext
 import com.epicaudiogames.app.ui.EpicTheme
 import com.epicaudiogames.app.ui.GameScreen
 import com.epicaudiogames.app.ui.HomeScreen
+import com.epicaudiogames.app.ui.StoreSheet
 import com.epicaudiogames.engine.GameMap
+import java.io.File
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,6 +47,11 @@ class MainActivity : ComponentActivity() {
 class AppModel(app: Application) : AndroidViewModel(app) {
     val games = Catalog.load(app.assets)
     val saves = Saves(app)
+    val packs = Packs(app)
+    val store = Store(app, games, packs, viewModelScope).also { it.start() }
+    /** The game whose packs the store sheet shows, if it's open. */
+    var storeFor by mutableStateOf<GameInfo?>(null)
+        private set
     var game by mutableStateOf<GameController?>(null)
         private set
     /** Bumped on the way back to the list, so it shows which games can be carried on. */
@@ -52,6 +60,7 @@ class AppModel(app: Application) : AndroidViewModel(app) {
     /** The game whose map is loading (a big map takes a moment: it loads away from the screen's thread). */
     var opening by mutableStateOf<GameInfo?>(null)
         private set
+    /** Each game's map, with the packs installed when it was loaded (the key names them). */
     private val maps = mutableMapOf<String, GameMap>()
 
     fun open(info: GameInfo) {
@@ -60,17 +69,33 @@ class AppModel(app: Application) : AndroidViewModel(app) {
         opening = info
         viewModelScope.launch {
             val app = getApplication<Application>()
-            val map = maps[info.id] ?: withContext(Dispatchers.Default) {
-                GameMap.parse(app.assets.open("${info.id}/map.json").bufferedReader().use { it.readText() })
-            }.also { maps[info.id] = it }
+            val installed = packs.installed(info)
+            val key = info.id + installed.joinToString("") { (p, _) -> "+${p.id}@${p.version}" }
+            val map = maps[key] ?: withContext(Dispatchers.Default) {
+                GameMap.parse(
+                    app.assets.open("${info.id}/map.json").bufferedReader().use { it.readText() },
+                    installed.map { (_, dir) -> File(dir, "pack.json").readText() },
+                )
+            }.also { maps[key] = it }
             opening = null
-            game = GameController(app, info, map, saves, onLeave = ::home).also { it.open() }
+            game = GameController(app, info, map, saves, installed.map { it.second }, onLeave = ::home).also { it.open() }
         }
     }
 
     fun home() {
         close()
         visits++
+    }
+
+    fun showStore(game: GameInfo?) {
+        storeFor = game
+        if (game != null) viewModelScope.launch { store.restore() }
+    }
+
+    /** A pack was installed: a game waiting at the end its pack unlocks is opened again, with the pack. */
+    fun packInstalled() {
+        val g = game ?: return
+        if (g.end != null) open(g.info)
     }
 
     private fun close() {
@@ -84,8 +109,12 @@ class AppModel(app: Application) : AndroidViewModel(app) {
 @Composable
 fun App(model: AppModel = viewModel()) {
     val game = model.game
+    val installs = model.store.installs
+    LaunchedEffect(installs) { if (installs > 0) model.packInstalled() }
     if (game == null) {
-        key(model.visits) { HomeScreen(model.games, model.saves::inProgress, model::open) }
+        key(model.visits, installs) {
+            HomeScreen(model.games, model.saves::inProgress, model.packs::isInstalled, model::open, model::showStore)
+        }
         if (model.opening != null) {
             Box(Modifier.fillMaxSize().background(androidx.compose.ui.graphics.Color.Black.copy(alpha = 0.35f)),
                 contentAlignment = Alignment.Center) {
@@ -94,6 +123,7 @@ fun App(model: AppModel = viewModel()) {
         }
     } else {
         BackHandler { game.leave() }
-        GameScreen(game)
+        GameScreen(game, onStore = { model.showStore(game.info) })
     }
+    model.storeFor?.let { StoreSheet(it, model.store, model.packs) { model.showStore(null) } }
 }

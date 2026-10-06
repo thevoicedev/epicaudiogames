@@ -81,10 +81,6 @@
   "level_intro": {
    "redirect": [
     {
-     "when": "level == 0",
-     "go": "L0_intro"
-    },
-    {
      "when": "level == 1",
      "go": "L1_intro"
     },

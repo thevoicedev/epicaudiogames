@@ -23,7 +23,9 @@ Differences from the skill, on purpose:
 - story 2's beggar says his own last line (the skill points it at a recording that doesn't exist).
 
 Usage (from the repo root): python tools/games/werewolf.py   (after node tools/extract_games.js the-werewolf)
+The whole game, for its pack (tools/make_pack.py): python tools/games/werewolf.py --stories 50 --build build/packs
 """
+import argparse
 import json
 import re
 import sys
@@ -38,7 +40,16 @@ GAME = "the-werewolf"
 F = json.loads((ROOT / "tools" / "flows" / f"{GAME}.json").read_text(encoding="utf-8"))
 A, SP, CH, META = F["audio"], F["speech"], F["characters"], F["meta"]
 FREE = 5                                   # stories in the base game
-STORIES = F["stories"][:FREE]
+PACK = "the-werewolf-stories"              # the rest of them
+ap = argparse.ArgumentParser()
+ap.add_argument("--stories", type=int, default=FREE, help="stories to build (all of them: 50)")
+ap.add_argument("--build", help="a folder for a pack build: the map and its audio go to <build>/the-werewolf/")
+ARGS = ap.parse_args()
+STORIES = F["stories"][:ARGS.stories]
+N = len(STORIES)
+OUT = Path(ARGS.build) / GAME if ARGS.build else None
+# The free game's ends offer the pack.
+LOCKED = {"locked": PACK} if N < len(F["stories"]) else {}
 KEYS = list(CH)                            # baker, fisherman, mayor, barmaid, farmer, butcher, beggar, blacksmith
 POS = range(1, 9)                          # a villager's place in the story's order
 NAME = {k: CH[k]["name"] for k in KEYS}    # "The Baker"
@@ -60,7 +71,7 @@ voices.update({f"{folder}/{k}/": k.upper() for folder in COMMENTS for k in KEYS}
 voices.update({f"confused/{k}": k.upper() for k in KEYS})
 voices.update({f"werewolf-found/{k}": k.upper() for k in KEYS})
 voices[A["intro"]] = "NARRATOR"            # "The werewolf."
-c = Content(GAME, F["cdn"], voices=voices,
+c = Content(GAME, F["cdn"], voices=voices, out=OUT / "content" if OUT else None,
             fixes={"=Dover": "Bother", "=Father": "Bother",
                    "#DeliciousVillager @McDonald's @PizzaHut. So fresh":
                        "Hashtag Delicious Villager. At McDonald's. At Pizza Hut. So fresh!"})
@@ -190,21 +201,21 @@ def build():
 
     # getOrderedUnsolvedStoryIds: unsolved stories, the ones not played yet first, in story order (all solved: every
     # story again, in order). The offer walks that list with "no" and wraps round (doOfferWerewolfStory).
-    ks = range(1, FREE + 1)
+    ks = range(1, N + 1)
     first = {"allsv": "=" + " && ".join(f"sv{k}" for k in ks)}
     first.update({f"sv{k}": f"=allsv ? false : sv{k}" for k in ks})
     first.update({f"r{k}": f"=sv{k} ? 100 : (us{k} && !allsv ? {10 + k} : {k})" for k in ks})
     first["rmin"] = "=min(" + ", ".join(f"r{k}" for k in ks) + ")"
-    first["off"] = "=" + " : ".join(f"r{k} == rmin ? {k}" for k in ks if k < FREE) + f" : {FREE}"
+    first["off"] = "=" + " : ".join(f"r{k} == rmin ? {k}" for k in ks if k < N) + f" : {N}"
     first["ofirst"] = True
     first["oid"] = 0
     nodes["offer_first"] = {"set": first, "go": "offer"}
-    nxt = {"rcur": "=" + " : ".join(f"off == {k} ? r{k}" for k in ks if k < FREE) + f" : r{FREE}",
+    nxt = {"rcur": "=" + " : ".join(f"off == {k} ? r{k}" for k in ks if k < N) + f" : r{N}",
            "rn": "=min(" + ", ".join(f"r{k} > rcur && r{k} < 100 ? r{k} : 1000" for k in ks) + ")",
            "rt": "=rn == 1000 ? rmin : rn",
-           "nr": "=" + " : ".join(f"r{k} == rt ? {k}" for k in ks if k < FREE) + f" : {FREE}",
+           "nr": "=" + " : ".join(f"r{k} == rt ? {k}" for k in ks if k < N) + f" : {N}",
            # After a story picked by number, the offer walks the stories in order (the skill's allIds).
-           "ni": f"=off % {FREE} + 1",
+           "ni": f"=off % {N} + 1",
            "ofirst": "=oid == 1 ? ni == 1 : rt == rmin",
            "off": "=oid == 1 ? ni : nr"}
     nodes["offer_next"] = {"set": nxt, "go": "offer"}
@@ -476,7 +487,7 @@ def build():
                 pick([[by("wp", you_found), by("w1", long_found), by("w2", little_found)],
                       [by("wq", you_found), by("w2", long_found), by("w1", little_found)]]),
                 fx(A["expandFx"])],
-        "end": {"kind": "ending", "title": "You caught both werewolves!"},
+        "end": {"kind": "ending", "title": "You caught both werewolves!", **LOCKED},
     }
     go_comments = per_villager("were-go-comments", "gameOverComments")
     positive = per_villager("little-positive-comments", "littlePositiveComments")
@@ -490,7 +501,7 @@ def build():
         "say": [music, heard(f"were-go-comments/{A['gameOverFx']}"), say("Game over. "),
                 pick([[by("wp", were_wolves), by("w1", go_comments), grunt, by("w2", positive)],
                       [by("wq", were_wolves), by("w2", go_comments), grunt, by("w1", positive)]])],
-        "end": {"kind": "gameover", "title": "The werewolves got away!", "retry": "replay"},
+        "end": {"kind": "gameover", "title": "The werewolves got away!", "retry": "replay", **LOCKED},
     }
     return nodes
 
@@ -505,7 +516,7 @@ for i in POS:
     variables.update({f"o{i}": "", f"wf{i}": False, f"l{i}": 0, f"a{i}": False, f"iv{i}": False})
 for key in KEYS:
     variables[f"st_{key}"] = 0
-for k in range(1, FREE + 1):
+for k in range(1, N + 1):
     variables.update({f"sv{k}": False, f"us{k}": False, f"r{k}": 0})
 
 game_map = {
@@ -514,7 +525,7 @@ game_map = {
     "title": "The Werewolf",
     "start": "begin",
     "vars": variables,
-    "keep": [f"sv{k}" for k in range(1, FREE + 1)] + [f"us{k}" for k in range(1, FREE + 1)] + ["plays"],
+    "keep": [f"sv{k}" for k in range(1, N + 1)] + [f"us{k}" for k in range(1, N + 1)] + ["plays"],
     "repeat": "reprompt",
     "who": {HOST: "", "NARRATOR": "Narrator", **{key.upper(): CH[key]["display"] for key in KEYS}},
     "words": words(["yes", "yeah", "yep", "yup", "sure"], ["no", "nope", "nah"],
@@ -522,11 +533,11 @@ game_map = {
                     "pardon", "one more time"]),
     "nodes": nodes,
 }
-out = ROOT / "games" / GAME / "map.json"
+out = OUT / "map.json" if OUT else ROOT / "games" / GAME / "map.json"
 out.parent.mkdir(parents=True, exist_ok=True)
 out.write_text(json.dumps(game_map, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
 n_files, size = c.size_report()
-print(f"{GAME}: {len(nodes)} nodes, {n_files} audio files, {size / 1e6:.1f} MB -> {out.relative_to(ROOT)}")
+print(f"{GAME}: {len(nodes)} nodes, {n_files} audio files, {size / 1e6:.1f} MB -> {out}")
 if c.differs:
     print(f"{len(c.differs)} recorded lines say other words than the code (the heard words are shown):")
     for path, code, said in c.differs:
