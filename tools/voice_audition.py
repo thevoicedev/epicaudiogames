@@ -12,6 +12,7 @@ The API key is ELEVENLABS_API_KEY, from the environment or all-minigames-sites/a
 Usage (from the repo root):
   python tools/voice_audition.py --list                   # the account's American female voices
   python tools/voice_audition.py rachel:21m00Tcm4TlvDq8ikWAM jessica:cgSgspJ2msm6clMCkdW9 ...
+  python tools/voice_audition.py --lines nuclear don:JJCR1UICgHnHljtvu5uF ...   # Nuclear War's announcer
 """
 import argparse
 import base64
@@ -40,6 +41,18 @@ LINES = [
     "You finished Noodle Rush, and found the Dragon Fire ending! Want to play again?",
 ]
 
+# Nuclear War gets its own announcer (the user, 6 Oct 2026: "more epic nuclear announcer voice like themed with the
+# game"): its intro, a round's end, a launch, a call, and the war's end.
+NUCLEAR = [
+    "Nuclear War. In this strategy game, you will take on other countries. Allocate your resources and attack other "
+    "nations. Each country has a different motivation. Figure them out to aid your decisions. Good Luck!",
+    "Round 2 of 5 complete. The environment is at 80 percent.",
+    "A bomb will be launched on Moscow. Russia is definitely going to get it.",
+    "A call from the UK is incoming. Would you like to answer?",
+    "The war was stopped due to the environment being so heavily damaged.",
+]
+SETS = {"games": LINES, "nuclear": NUCLEAR}
+
 
 def api_key():
     if os.environ.get("ELEVENLABS_API_KEY"):
@@ -67,11 +80,11 @@ def list_voices():
                   f"{labels.get('age', '')} {labels.get('description') or labels.get('descriptive', '')} {labels.get('use_case', '')}")
 
 
-def render(name, voice_id):
+def render(name, voice_id, lines=LINES):
     folder = OUT / name
     folder.mkdir(parents=True, exist_ok=True)
     parts = []
-    for i, text in enumerate(LINES, 1):
+    for i, text in enumerate(lines, 1):
         mp3 = folder / f"{i}.mp3"
         if not mp3.exists():
             r = call(f"/v1/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_128",
@@ -93,6 +106,7 @@ def render(name, voice_id):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--list", action="store_true", help="list the account's American female voices")
+    ap.add_argument("--lines", choices=sorted(SETS), default="games", help="which lines to render")
     ap.add_argument("voices", nargs="*", help="name:voice_id pairs to audition")
     args = ap.parse_args()
     if args.list:
@@ -100,7 +114,7 @@ def main():
         return
     for pair in args.voices:
         name, _, voice_id = pair.partition(":")
-        render(name, voice_id)
+        render(name, voice_id, SETS[args.lines])
 
 
 if __name__ == "__main__":
