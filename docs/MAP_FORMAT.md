@@ -153,6 +153,8 @@ An answer can also have:
   When all of them have been drawn, the deck starts again. The draws are kept in the variable `deck_<deck>`, so
   declare it in `vars`, and list it in `keep` to carry the deck over to the next play;
 - `{ "end": "quit" }`: leave the game (the player said no to starting, or gave up). The app goes back to its list.
+- `{ "end": "leave" }`: leave the game for now, keeping the player's place: the game is saved at the question just
+  answered, and picks up there next time (as an Alexa game did after "no, not now" ended the session).
 
 ### `redirect`
 

@@ -86,8 +86,8 @@ class MapsTest {
                 }
                 if (seen.add(hash(state))) queue += state
             }
-            for (k in 0 until BRANCHES) {
-                val s = Session(map) { n -> k % n }
+            for (choose in choosers()) {
+                val s = Session(map, choose)
                 record(s, s.start())
             }
             while (queue.isNotEmpty()) {
@@ -100,8 +100,8 @@ class MapsTest {
                     continue
                 }
                 for (input in inputs(map.node(state.node).ask!!)) {
-                    for (k in 0 until BRANCHES) {
-                        val s = Session(map) { n -> k % n }
+                    for (choose in choosers()) {
+                        val s = Session(map, choose)
                         s.restore(state)
                         record(s, if (input == null) s.silence() else s.answer(input))
                     }
@@ -129,6 +129,15 @@ class MapsTest {
                     check(t)
                 }
             }
+        }
+
+        /**
+         * The random choices tried from each state: the first few options every time, and the lowest and highest in
+         * turn (so a dice game can be lost again and again, as in Pirate Quest's empty coin pouch).
+         */
+        private fun choosers(): List<(Int) -> Int> {
+            var i = 0
+            return (0 until BRANCHES).map { k -> { n: Int -> k % n } } + { n: Int -> if (i++ % 2 == 0) 0 else n - 1 }
         }
 
         /** A 64-bit FNV-1a hash of a state: its node, whether it has ended, and its variables (decks aside). */

@@ -889,6 +889,10 @@
        "node": "ac-5a"
       },
       {
+       "flag": "firedNavigator",
+       "value": true
+      },
+      {
        "stat": "reputation",
        "value": 5,
        "once": true
@@ -1267,7 +1271,7 @@
        "trim": false
       },
       {
-       "audio": "pirate-quest/pirate-joke-3.mp3",
+       "audio": "pirate-quest/pirate-joke-1.mp3",
        "trim": false
       },
       {
@@ -1688,7 +1692,7 @@
        "trim": false
       },
       {
-       "audio": "pirate-quest/pirate-win-1.mp3",
+       "audio": "pirate-quest/pirate-win-2.mp3",
        "trim": false
       },
       {
@@ -2658,6 +2662,10 @@
        "node": "ac-18"
       },
       {
+       "flag": "royalInfo",
+       "value": true
+      },
+      {
        "read": "reputation"
       },
       {
@@ -2694,6 +2702,10 @@
      "items": [
       {
        "node": "ac-18"
+      },
+      {
+       "flag": "royalInfo",
+       "value": true
       },
       {
        "read": "reputation"
@@ -3112,7 +3124,7 @@
        "trim": false
       },
       {
-       "audio": "pirate-quest/pirate-win-1.mp3",
+       "audio": "pirate-quest/pirate-win-2.mp3",
        "trim": false
       },
       {
@@ -3196,6 +3208,9 @@
      "stats": {},
      "items": [
       {
+       "read": "royalInfo"
+      },
+      {
        "node": "ac-25"
       },
       {
@@ -3210,6 +3225,32 @@
       }
      ],
      "reprompt": "Want to fight captain blacktooth? ",
+     "asked": true,
+     "error": null
+    },
+    {
+     "stats": {
+      "royalInfo": true
+     },
+     "items": [
+      {
+       "read": "royalInfo"
+      },
+      {
+       "node": "ac-23"
+      },
+      {
+       "voice": "Your crew gathers in a secluded tavern. "
+      },
+      {
+       "audio": "pirate-quest/introduce-english.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Would you like to plan your strategy? "
+      }
+     ],
+     "reprompt": "Would you like to plan your strategy? ",
      "asked": true,
      "error": null
     }
@@ -3306,6 +3347,10 @@
        "node": "ac-25a"
       },
       {
+       "flag": "royalInfo",
+       "value": true
+      },
+      {
        "stat": "reputation",
        "value": 10,
        "once": true
@@ -3352,6 +3397,10 @@
      "items": [
       {
        "node": "ac-25b"
+      },
+      {
+       "flag": "royalInfo",
+       "value": true
       },
       {
        "stat": "health",

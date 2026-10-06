@@ -186,7 +186,8 @@ class GameController(
         val t = turn ?: return
         when {
             t.quit -> {
-                saves.clear(info.id)
+                // "Leave" keeps the player's place (the question they answered), as an ended Alexa session did.
+                if (t.keep) saves.store(info.id, session.save()) else saves.clear(info.id)
                 leave()
             }
             t.end != null -> {

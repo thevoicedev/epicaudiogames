@@ -96,7 +96,7 @@ class Checker:
             if not go["draw"]:
                 self.err(where, "a draw from no nodes")
             return [t for x in go["draw"] for t in self.target(where, x)]
-        if go.get("end") == "quit":
+        if go.get("end") in ("quit", "leave"):
             return []
         self.err(where, f"bad go {go!r}")
         return []
@@ -299,7 +299,7 @@ def _quits(node):
     """Whether any answer, else or go of this node leaves the game."""
     def quits(go):
         if isinstance(go, dict):
-            if go.get("end") == "quit":
+            if go.get("end") in ("quit", "leave"):
                 return True
             return any(quits(c.get("go")) for c in go.get("if", [])) or quits(go.get("else"))
         return False

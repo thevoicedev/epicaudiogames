@@ -135,14 +135,14 @@ class Content:
         print(f"{len(plan['tts'])} lines in Jessica's voice and {len(plan['clips'])} recorded clips "
               f"(cached ones are skipped)...")
         self.tts_many(plan["tts"])
-        list(self.pool.map(lambda c: self._fetch(*c), sorted(plan["clips"])))
+        list(self.pool.map(lambda c: self._fetch(*c), sorted(plan["clips"], key=str)))
         self.used.clear()
         return build()
 
-    def _fetch(self, rel, heard):
+    def _fetch(self, rel, heard, turns=False):
         rel, local = self._cdn(rel)
         if heard:
-            self.transcribe(local)
+            self.transcribe(local, diarize=turns)
 
     def _placeholder(self, kind, who=None, text=None):
         lines = [{"at": 0.0, "len": 1.0, "who": who, "text": text}] if text else []
@@ -203,13 +203,14 @@ class Content:
             local.write_bytes(data)
         return rel, local
 
-    def clip(self, rel, text=None, who=None, sfx=None, check=False):
+    def clip(self, rel, text=None, who=None, sfx=None, check=False, turns=False):
         """A recorded clip as it is: content/<game>/audio/<rel>. Speech is transcribed unless text is given;
         sfx=True marks music and sound effects (no transcript). With check=True, the given text is shown with the
         times speech-to-text heard, unless it heard other words: then those are shown, and the clip is listed in
-        self.differs (a line recorded from other words, or one file shared by two lines)."""
+        self.differs (a line recorded from other words, or one file shared by two lines). With turns=True (a scene
+        with several voices), the transcript is a line per speaker turn."""
         if self.planning is not None:
-            self.planning["clips"].add((rel.split("?")[0], not sfx and (text is None or check)))
+            self.planning["clips"].add((rel.split("?")[0], not sfx and (text is None or check), turns))
             return self._placeholder("audio", who or "VOICE", None if sfx else (text or "planning"))
         rel, local = self._cdn(rel)
         stem = rel.rsplit(".", 1)[0]
@@ -223,6 +224,17 @@ class Content:
         if sfx:
             return {"play": path, "dur": round(dur, 3), "lines": [], "sfx": True}
         who = who or self.speaker(rel)
+        if text is None and turns:
+            heard = self.transcribe(local, diarize=True)
+            if not heard["turns"]:
+                return {"play": path, "dur": round(dur, 3), "lines": [], "sfx": True}
+            lines = []
+            for t in heard["turns"]:
+                line = {"at": t["start"], "len": round(max(0.1, t["end"] - t["start"]), 3), "who": who, "text": t["text"]}
+                if t["w"]:
+                    line["w"] = t["w"]
+                lines.append(line)
+            return {"play": path, "dur": round(dur, 3), "lines": lines}
         if text is None:
             heard = self.transcribe(local)
             if not heard["text"]:
@@ -254,31 +266,53 @@ class Content:
                 return who
         return "VOICE"
 
-    def transcribe(self, local):
-        """What a recorded clip says (ElevenLabs speech-to-text, cached by the file's content)."""
+    def transcribe(self, local, diarize=False):
+        """What a recorded clip says (ElevenLabs speech-to-text, cached by the file's content). With diarize, also
+        its speaker turns: [{"start", "end", "text", "w"}], split where the voice changes."""
         data = local.read_bytes()
-        key = hashlib.sha1(data).hexdigest()[:16]
+        key = hashlib.sha1(data).hexdigest()[:16] + ("-turns" if diarize else "")
         cache = CACHE / "stt" / f"{key}.json"
         if not cache.exists():
-            r = post("/v1/speech-to-text", files=(local.name, data),
-                     data={"model_id": "scribe_v1", "language_code": "en", "tag_audio_events": "false",
-                           "timestamps_granularity": "word"})
+            fields = {"model_id": "scribe_v1", "language_code": "en", "tag_audio_events": "false",
+                      "timestamps_granularity": "word"}
+            if diarize:
+                fields["diarize"] = "true"
+            r = post("/v1/speech-to-text", files=(local.name, data), data=fields)
             cache.parent.mkdir(parents=True, exist_ok=True)
             cache.write_text(json.dumps(r), encoding="utf-8")
         r = json.loads(cache.read_text(encoding="utf-8"))
         words = [w for w in r.get("words", []) if w.get("type") == "word"]
         if not words:
-            return {"text": "", "start": 0.0, "end": 0.0, "w": None, "starts": []}
-        text = clean(r.get("text") or " ".join(w["text"] for w in words))
+            return {"text": "", "start": 0.0, "end": 0.0, "w": None, "starts": [], "turns": []}
+        text = self._fix(clean(r.get("text") or " ".join(w["text"] for w in words)))
+        start = round(words[0]["start"], 3)
+        starts = [round(x["start"] - start, 3) for x in words]
+        w = starts if len(words) == len(text.split()) else None
+        out = {"text": text, "start": start, "end": words[-1]["end"], "w": w, "starts": starts, "turns": []}
+        if diarize:
+            runs = []
+            for t in r.get("words", []):
+                if t.get("type") == "word" and (not runs or t.get("speaker_id") != runs[-1]["who"]):
+                    runs.append({"who": t.get("speaker_id"), "tokens": [], "words": []})
+                if runs and t.get("type") in ("word", "spacing"):
+                    runs[-1]["tokens"].append(t["text"])
+                    if t["type"] == "word":
+                        runs[-1]["words"].append(t)
+            for run_ in runs:
+                said = self._fix(clean("".join(run_["tokens"])))
+                first = run_["words"][0]["start"]
+                out["turns"].append({"start": round(first, 3), "end": run_["words"][-1]["end"], "text": said,
+                                     "w": [round(x["start"] - first, 3) for x in run_["words"]]
+                                     if len(run_["words"]) == len(said.split()) else None})
+        return out
+
+    def _fix(self, text):
         for wrong, right in self.fixes.items():
             if wrong.startswith("="):           # "=Father": only when that is all it heard
                 text = right if text == wrong[1:] else text
             else:
                 text = text.replace(wrong, right)
-        start = round(words[0]["start"], 3)
-        starts = [round(x["start"] - start, 3) for x in words]
-        w = starts if len(words) == len(text.split()) else None
-        return {"text": text, "start": start, "end": words[-1]["end"], "w": w, "starts": starts}
+        return text
 
     def bed(self, rel, volume):
         """A recorded clip under the rest of the turn, at this volume (0 to 1)."""

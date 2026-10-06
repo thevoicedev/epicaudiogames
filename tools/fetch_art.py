@@ -20,6 +20,7 @@ COVERS = {
     "leaning-tower-of-pizza": "leaning-tower-of-pizza.jpg",
     "alien-customs": "alien-custom.jpg",
     "the-werewolf": "the-werewolf.jpg",
+    "pirate-quest": "pirate-quest.jpg",
 }
 
 

@@ -20,6 +20,12 @@
       "free": "5 chapters"
     },
     {
+      "id": "pirate-quest",
+      "title": "Pirate Quest",
+      "blurb": "Gather your crew, roll the dice and outwit rival captains on the hunt for the English fortune.",
+      "free": "The whole quest"
+    },
+    {
       "id": "leaning-tower-of-pizza",
       "title": "Leaning Tower of Pizza",
       "blurb": "Tell lies to grow Pinocchio's nose, and save Venice from the evil pizza robot.",

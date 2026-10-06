@@ -281,14 +281,27 @@ async function pirateQuest() {
         health: [80] };
     globalThis.__eagDice = { captainRolls: [5, 4, 3], willRolls: [1, 2, 3], captainTotal: 12, willTotal: 6, outcome: "win" };
 
+    // The story flags are read and set directly on the saved state (not through getPirateStat): marked by a proxy.
+    const FLAGS = ["royalInfo", "firedNavigator"];
     async function run(node, stats) {
+        const rec = new Recorder();
+        const pirateQuest = new Proxy({ ...START, ...stats, currentNode: node.id, processedNodes: {} }, {
+            get(t, k) {
+                if (FLAGS.includes(k)) rec.mark({ read: k });
+                return t[k];
+            },
+            set(t, k, v) {
+                if (FLAGS.includes(k)) rec.mark({ flag: k, value: v });
+                t[k] = v;
+                return true;
+            },
+        });
         const ad = {
             Session: {
-                [SessionVars.Settings]: { pirateQuest: { ...START, ...stats, currentNode: node.id, processedNodes: {} },
-                    isSubscriber: true, coins: 0 },
+                [SessionVars.Settings]: { pirateQuest, isSubscriber: true, coins: 0 },
                 [SessionVars.SkillState]: SkillStates.PIRATE_QUEST,
             },
-            Response: new Recorder(),
+            Response: rec,
             Audio: audio,
             Util: { supportsHTML: () => false, supportsAPL: () => false, isSubscriber: () => true, getLocale: () => "en-US" },
             Save: () => {},

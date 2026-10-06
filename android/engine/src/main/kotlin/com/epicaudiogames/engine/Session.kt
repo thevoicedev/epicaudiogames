@@ -4,7 +4,8 @@ import kotlin.random.Random
 
 /**
  * What the app does after each call: play [steps] in order, then wait for an answer to [ask], show the end screen
- * for [end], or leave the game ([quit]). [visited] lists the nodes this turn went through.
+ * for [end], or leave the game ([quit]; with [keep], the place is kept). [visited] lists the nodes this turn went
+ * through.
  */
 data class Turn(
     val steps: List<Step>,
@@ -14,6 +15,7 @@ data class Turn(
     val node: String,
     val visited: List<String>,
     val heard: Heard? = null,
+    val keep: Boolean = false,
 )
 
 /** How an answer was understood: the index of the answer taken (null: not understood) and why. */
@@ -37,6 +39,10 @@ class Session(
         private set
     var quit: Boolean = false
         private set
+    /** Left with the place kept (`{ "end": "leave" }`): the game is at the question it left from. */
+    var keep: Boolean = false
+        private set
+    private var asked: String? = null
 
     /** The question waiting for an answer, if there is one. */
     val ask: Ask? get() = if (end == null && !quit) map.nodes[node]?.ask else null
@@ -44,6 +50,7 @@ class Session(
     fun start(): Turn {
         end = null
         quit = false
+        keep = false
         vars.clear()
         vars.putAll(map.vars)
         return play(Go.To(map.start))
@@ -71,12 +78,14 @@ class Session(
         vars.putAll(saved.vars)
         end = if (saved.ended) n.end else null
         quit = false
+        keep = false
     }
 
     fun save() = Saved(node, vars.toMap(), end != null)
 
     fun answer(said: String): Turn {
         val ask = this.ask ?: throw IllegalStateException("the game isn't waiting for an answer (at $node)")
+        asked = node
         val result = Matcher.match(map, ask, vars, said)
         val heard = Heard(said, result.index, result.how)
         val out = mutableListOf<Step>()
@@ -119,7 +128,7 @@ class Session(
     }
 
     private fun turn(steps: List<Step>, visited: List<String>, heard: Heard? = null) =
-        Turn(steps.toList(), ask, end, quit, node, visited.toList(), heard)
+        Turn(steps.toList(), ask, end, quit, node, visited.toList(), heard, keep)
 
     private fun otherwise(ask: Ask, out: MutableList<Step>, visited: MutableList<String>) {
         val e = ask.otherwise
@@ -144,9 +153,15 @@ class Session(
                 vars.putAll(kept)
                 end = null
                 quit = false
+                keep = false
                 enter(go.node, out, visited, hops)
             }
             Go.Quit -> quit = true
+            Go.Leave -> {
+                quit = true
+                keep = true
+                asked?.let { node = it }
+            }
             is Go.Draw -> {
                 val deck = "deck_${go.deck}"
                 val drawn = (vars[deck] as? String).orEmpty().split(',').filter { it.isNotEmpty() }.toSet()

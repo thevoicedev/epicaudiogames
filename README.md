@@ -31,8 +31,8 @@ node tools/parity.js            # plays random walks, and every question with ev
                                 #   real Alexa skill (stubbed, offline) -> tools/cache/parity/
 ```
 
-The coded games (Leaning Tower of Pizza, Alien Customs, The Werewolf, and next Pirate Quest) are built from the
-skill's own tables and a builder per game, which mirrors the skill's responses node by node:
+The coded games (Leaning Tower of Pizza, Alien Customs, The Werewolf and Pirate Quest) are built from the skill's
+own tables and a builder per game, which mirrors the skill's responses node by node:
 
 ```
 node tools/extract_games.js [game]       # the game's tables, speech lists and audio names -> tools/flows/<game>.json
@@ -44,7 +44,8 @@ node tools/capture.js "<launch>" yes ... # prints what the real skill plays on a
 
 `tools/content.py` makes every clip a builder uses: Alexa's lines in the app's voice (ElevenLabs, Jessica, with
 the time of every word), the skill's recordings from the Mini Games CDN (speech-to-text gives their words and
-times; `check=True` compares them with the words in the code), beds, and pre-mixed overlaps. Everything is cached
+times; `check=True` compares them with the words in the code, and `turns=True` splits a scene into a line per
+speaker turn), beds, and pre-mixed overlaps. Everything is cached
 in `tools/cache/`, so a rebuild only renders what changed. The ElevenLabs key comes from `ELEVENLABS_API_KEY` or
 `all-minigames-sites/alexa/.env` and is never printed.
 
@@ -60,8 +61,8 @@ The tests:
 
 - **MapsTest:** a bot tries every answer in every state of every map (up to a limit, then 3,000 random games). It
   must reach every node and every end.
-- **ParityTest**, **LtopTest**, **AlienCustomsTest**, **WerewolfTest:** playthroughs written from the skills' code
-  and the responses `capture.js` recorded.
+- **ParityTest**, **LtopTest**, **AlienCustomsTest**, **WerewolfTest**, **PirateQuestTest:** playthroughs written
+  from the skills' code and the responses `capture.js` recorded.
 - **AlexaReplayTest:** replays the walks `parity.js` recorded in the real skill. Every turn must play the same clips
   as Alexa did, apart from a short list of deliberate differences, each with its reason.
 - **TextTest:** the number, letter and negation readers ported from the skills.
@@ -70,7 +71,7 @@ The tests:
 
 ```
 cd android
-gradlew :app:assembleDebug        # app/build/outputs/apk/debug/app-debug.apk (about 130 MB with six games)
+gradlew :app:assembleDebug        # app/build/outputs/apk/debug/app-debug.apk (about 150 MB with seven games)
 gradlew :app:assembleRelease      # app/build/outputs/apk/release/app-release.apk (about 52 MB, shrunk; signed with
                                   #   the debug key for now, so for testing only)
 adb install -r app/build/outputs/apk/release/app-release.apk
@@ -98,8 +99,7 @@ machine are full of other apps' builds.
    Decoders. **Done.**
 2. The Android app: the game list, the game screen, audio, speech, transcripts and answer buttons. **Running**
    (on the emulator; speech to be tried on a phone; store listing draft in `docs/STORE_LISTING.md`).
-3. The ElevenLabs voice, and Pirate Quest, Leaning Tower of Pizza, Alien Customs and The Werewolf. **Running:**
-   the voice (Jessica), Leaning Tower of Pizza, Alien Customs (levels 1 to 5) and The Werewolf (stories 1 to 5)
-   are done; Pirate Quest is next.
+3. The ElevenLabs voice (Jessica), and Pirate Quest, Leaning Tower of Pizza, Alien Customs (levels 1 to 5) and
+   The Werewolf (stories 1 to 5). **Done.**
 4. Packs and purchases (Google Play Billing; packs downloaded from our own storage).
 5. Nuclear War, a size pass, and the release build.

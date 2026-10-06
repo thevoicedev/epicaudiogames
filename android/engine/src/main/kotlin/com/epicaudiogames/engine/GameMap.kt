@@ -54,6 +54,9 @@ sealed interface Go {
     data class Restart(val node: String) : Go
     data object Quit : Go
 
+    /** Leave the game for now, keeping the player's place: the question just answered, asked again on return. */
+    data object Leave : Go
+
     /**
      * One of [nodes] that this [deck] hasn't drawn yet, at random; when all have been drawn, the deck starts again.
      * The deck's draws are kept in the variable "deck_<deck>".
@@ -245,6 +248,7 @@ class GameMap(
             e is JsonObject && "draw" in e -> Go.Draw(e.getValue("draw").jsonArray.map { it.jsonPrimitive.content },
                 e.optStr("deck") ?: throw MapException("$where: a draw without a deck"))
             e is JsonObject && e.optStr("end") == "quit" -> Go.Quit
+            e is JsonObject && e.optStr("end") == "leave" -> Go.Leave
             else -> throw MapException("$where: can't read the go $e")
         }
 
