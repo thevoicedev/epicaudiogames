@@ -1,0 +1,10 @@
+# Git stores text with LF line endings. These files keep theirs on every checkout, Windows included.
+* text=auto
+gradlew text eol=lf
+*.bat text eol=crlf
+*.jar binary
+*.ttf binary
+*.png binary
+*.jpg binary
+*.m4a binary
+*.mp3 binary
