@@ -1,0 +1,6709 @@
+{
+ "format": 1,
+ "game": "frootopia",
+ "id": "frootopia-stories",
+ "version": 1,
+ "title": "Stories 2 to 5",
+ "description": "The Stowaway, The Mould Moon, The Edge of Everything and The Last Star: the rest of Cosmo, Gribbo and Pip's adventure.",
+ "product": "frootopia_stories",
+ "vars": {},
+ "keep": [],
+ "who": {
+  "HUNTER": "Hunter",
+  "KITCHEN": "Narrator",
+  "PIPRULER": "Pip",
+  "ROT": "Admiral Rot"
+ },
+ "nodes": {
+  "fr-55": {
+   "say": [
+    {
+     "play": "scenes/fr-55",
+     "dur": 19.03,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 11.795,
+       "who": "NARRATOR",
+       "text": "The galaxy of Nutria is at peace. The Great Froot Tree glows brighter than ever. And somewhere, in a cozy little café, you and Sprockle are already planning your next adventure."
+      },
+      {
+       "at": 12.395,
+       "len": 1.473,
+       "who": "SPROCKLE",
+       "text": "That was fun, Cosmo!"
+      },
+      {
+       "at": 17.2,
+       "len": 0.88,
+       "who": "NARRATOR",
+       "text": "The end!"
+      }
+     ]
+    },
+    {
+     "play": "scenes/fr-sting",
+     "dur": 22.644,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.161,
+       "who": "NARRATOR",
+       "text": "But that's not quite the end. That night, Gribbo hangs his jacket on a chair at the café, and heads home."
+      },
+      {
+       "at": 6.761,
+       "len": 9.381,
+       "who": "NARRATOR",
+       "text": "The café is dark, and quiet. And then, deep in the jacket pocket, something tiny and golden opens its eyes."
+      },
+      {
+       "at": 16.492,
+       "len": 2.782,
+       "who": "PIP",
+       "text": "Pip?"
+      },
+      {
+       "at": 19.624,
+       "len": 1.158,
+       "who": "NARRATOR",
+       "text": "To be continued..."
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "chapter",
+    "title": "Quick Ending",
+    "next": "fr2-0"
+   }
+  },
+  "fr2-0": {
+   "say": [
+    {
+     "play": "scenes/fr2-0",
+     "dur": 16.618,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.658,
+       "who": "NARRATOR",
+       "text": "Previously, in Frootopia: Cosmo and his friends smashed the Sludge Core, sent the Mucklars packing, and saved the Great Froot Tree."
+      },
+      {
+       "at": 9.258,
+       "len": 5.66,
+       "who": "NARRATOR",
+       "text": "Everyone went home happy. But that night, Gribbo's jacket pocket began to glow..."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-1"
+  },
+  "fr2-1": {
+   "say": [
+    {
+     "play": "scenes/fr2-1",
+     "dur": 32.032,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.702,
+       "who": "NARRATOR",
+       "text": "The Kingdom of Frootopia. Story two: The Stowaway."
+      },
+      {
+       "at": 6.502,
+       "len": 8.996,
+       "who": "NARRATOR",
+       "text": "It's the morning after the big battle. The café is full of yawning heroes, and Gribbo has just pulled on the jacket he left on his chair last night."
+      },
+      {
+       "at": 15.847,
+       "len": 4.132,
+       "who": "GRIBBO",
+       "text": "Morning, everybody! Who wants a celebration doughnut?"
+      },
+      {
+       "at": 20.33,
+       "len": 3.792,
+       "who": "NARRATOR",
+       "text": "But then his jacket pocket starts to wriggle. And glow."
+      },
+      {
+       "at": 24.471,
+       "len": 6.61,
+       "who": "SPROCKLE",
+       "text": "Uh, Gribbo? Your pocket is glowing. Should we look inside?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-1",
+      "dur": 4.231,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.681,
+        "who": "NARRATOR",
+        "text": "Should we look inside Gribbo's pocket? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-2"
+     },
+     {
+      "no": true,
+      "go": "fr2-1n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-1n": {
+   "say": [
+    {
+     "play": "scenes/fr2-1n",
+     "dur": 5.004,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.804,
+       "who": "NARRATOR",
+       "text": "You don't need to. The pocket pops open all by itself!"
+      }
+     ]
+    }
+   ],
+   "go": "fr2-2"
+  },
+  "fr2-2": {
+   "say": [
+    {
+     "play": "scenes/fr2-2",
+     "dur": 21.485,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.967,
+       "who": "NARRATOR",
+       "text": "Out tumbles a tiny golden fluffball, with enormous sparkly eyes and one little leaf on top of its head."
+      },
+      {
+       "at": 7.567,
+       "len": 1.473,
+       "who": "PIP",
+       "text": "Pip!"
+      },
+      {
+       "at": 9.39,
+       "len": 3.351,
+       "who": "SPROCKLE",
+       "text": "It's adorable! Gribbo, where did you get it?"
+      },
+      {
+       "at": 13.091,
+       "len": 7.444,
+       "who": "GRIBBO",
+       "text": "No idea! I just found it in my pocket! Hey, it's looking at you, Cosmo. Do you hold out your hand?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-2",
+      "dur": 6.246,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 5.696,
+        "who": "NARRATOR",
+        "text": "Do you hold out your hand to the little critter? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-3"
+     },
+     {
+      "no": true,
+      "go": "fr2-2n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-2n": {
+   "say": [
+    {
+     "play": "scenes/fr2-2n",
+     "dur": 11.672,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.56,
+       "who": "NARRATOR",
+       "text": "You keep your hands in your pockets. But the little critter doesn't mind. It hops onto your head, slides down your nose, and lands in your hand!"
+      },
+      {
+       "at": 9.16,
+       "len": 1.562,
+       "who": "PIP",
+       "text": "Pip!"
+      }
+     ]
+    }
+   ],
+   "go": "fr2-3"
+  },
+  "fr2-3": {
+   "say": [
+    {
+     "play": "scenes/fr2-3",
+     "dur": 13.909,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.12,
+       "who": "NARRATOR",
+       "text": "The little critter snuggles into your hand. It's warm, like holding a tiny sun."
+      },
+      {
+       "at": 5.72,
+       "len": 2.23,
+       "who": "PIP",
+       "text": "Pip! Pip! Pip!"
+      },
+      {
+       "at": 8.3,
+       "len": 4.659,
+       "who": "SPROCKLE",
+       "text": "It only says one word! Should we call it Pip?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-3",
+      "dur": 4.49,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.94,
+        "who": "NARRATOR",
+        "text": "Should we call the little critter Pip? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-3y"
+     },
+     {
+      "no": true,
+      "go": "fr2-3n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-3n": {
+   "say": [
+    {
+     "play": "scenes/fr2-3n",
+     "dur": 6.535,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 0.825,
+       "who": "PIP",
+       "text": "Pip!"
+      },
+      {
+       "at": 1.425,
+       "len": 4.16,
+       "who": "NARRATOR",
+       "text": "Pip disagrees. Very loudly. So, Pip it is!"
+      }
+     ]
+    }
+   ],
+   "go": "fr2-4"
+  },
+  "fr2-4": {
+   "say": [
+    {
+     "play": "scenes/fr2-4",
+     "dur": 20.896,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 1.591,
+       "who": "NARRATOR",
+       "text": "Then Pip's tummy rumbles."
+      },
+      {
+       "at": 2.191,
+       "len": 4.287,
+       "who": "NARRATOR",
+       "text": "It zooms across the café and gobbles up every single snack!"
+      },
+      {
+       "at": 6.828,
+       "len": 1.734,
+       "who": "GRIBBO",
+       "text": "My emergency doughnuts!"
+      },
+      {
+       "at": 8.912,
+       "len": 4.16,
+       "who": "NARRATOR",
+       "text": "Pip giggles, and flowers burst out of every cup in the café!"
+      },
+      {
+       "at": 13.422,
+       "len": 6.523,
+       "who": "SPROCKLE",
+       "text": "My Pingotron is going wild! This little thing is full of energy! Cosmo, can we keep Pip?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-4",
+      "dur": 3.514,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 2.964,
+        "who": "NARRATOR",
+        "text": "Can we keep Pip? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-5"
+     },
+     {
+      "no": true,
+      "go": "fr2-4n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-4n": {
+   "say": [
+    {
+     "play": "scenes/fr2-4n",
+     "dur": 4.969,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.769,
+       "who": "NARRATOR",
+       "text": "Pip curls up on the counter and purrs. It's not going anywhere!"
+      }
+     ]
+    }
+   ],
+   "go": "fr2-5"
+  },
+  "fr2-5": {
+   "say": [
+    {
+     "play": "scenes/fr2-5",
+     "dur": 24.056,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.506,
+       "who": "NARRATOR",
+       "text": "Suddenly, the lights flicker, the café goes cold, and a huge hologram fizzes up in the middle of the room."
+      },
+      {
+       "at": 7.106,
+       "len": 10.815,
+       "who": "ROT",
+       "text": "Good morning, Frootopia. I am Admiral Rot. You have something that belongs to me. That little creature. Hand it over."
+      },
+      {
+       "at": 18.271,
+       "len": 0.685,
+       "who": "PIP",
+       "text": "Pip..."
+      },
+      {
+       "at": 19.306,
+       "len": 3.8,
+       "who": "SPROCKLE",
+       "text": "Cosmo, he wants Pip! Do we hand Pip over?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-5",
+      "dur": 4.937,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.387,
+        "who": "NARRATOR",
+        "text": "Do we hand Pip over to Admiral Rot? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-5y"
+     },
+     {
+      "no": true,
+      "go": "fr2-6",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-6": {
+   "say": [
+    {
+     "play": "scenes/fr2-6",
+     "dur": 28.041,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.436,
+       "who": "GRIBBO",
+       "text": "Not today, Admiral! Pip's our friend now."
+      },
+      {
+       "at": 4.036,
+       "len": 6.065,
+       "who": "ROT",
+       "text": "Then I shall come and take it. Tonight! After my bath."
+      },
+      {
+       "at": 10.451,
+       "len": 5.071,
+       "who": "NARRATOR",
+       "text": "The hologram fizzles out. Everyone looks at Pip. Pip looks at everyone."
+      },
+      {
+       "at": 15.872,
+       "len": 4.114,
+       "who": "TULA",
+       "text": "We need to hide it. Somewhere nobody would ever look."
+      },
+      {
+       "at": 20.336,
+       "len": 6.755,
+       "who": "SPROCKLE",
+       "text": "Your house, Cosmo! Nobody ever suspects a pipe-cleaner! Should we hide Pip at your house?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-6",
+      "dur": 3.777,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.227,
+        "who": "NARRATOR",
+        "text": "Should we hide Pip at your house? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-7"
+     },
+     {
+      "no": true,
+      "go": "fr2-6n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-6n": {
+   "say": [
+    {
+     "play": "scenes/fr2-6n",
+     "dur": 8.877,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.677,
+       "who": "NARRATOR",
+       "text": "You think of other places. The sewer? Too smelly. The market? Too shady. Your house it is!"
+      }
+     ]
+    }
+   ],
+   "go": "fr2-7"
+  },
+  "fr2-7": {
+   "say": [
+    {
+     "play": "scenes/fr2-7",
+     "dur": 30.796,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.944,
+       "who": "NARRATOR",
+       "text": "At your house, you hide Pip in the fruit bowl, right between an apple and an orange. The perfect disguise!"
+      },
+      {
+       "at": 7.544,
+       "len": 6.0,
+       "who": "NARRATOR",
+       "text": "But your little sibling spots Pip straight away, and dresses it up in a tiny bow and a party hat."
+      },
+      {
+       "at": 13.894,
+       "len": 2.298,
+       "who": "PIP",
+       "text": "Pip! Pip!"
+      },
+      {
+       "at": 16.542,
+       "len": 3.748,
+       "who": "KITCHEN",
+       "text": "Cosmo? Why is the fruit bowl glowing?"
+      },
+      {
+       "at": 20.64,
+       "len": 3.975,
+       "who": "GRIBBO",
+       "text": "Uh... it's a very healthy fruit bowl!"
+      },
+      {
+       "at": 24.966,
+       "len": 4.88,
+       "who": "NARRATOR",
+       "text": "Pip gives a tiny yawn. Do you make Pip a cosy little bed?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-7",
+      "dur": 4.37,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.82,
+        "who": "NARRATOR",
+        "text": "Do you make Pip a cosy little bed? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-7y"
+     },
+     {
+      "no": true,
+      "go": "fr2-7n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-7n": {
+   "say": [
+    {
+     "play": "scenes/fr2-7n",
+     "dur": 6.873,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.357,
+       "who": "NARRATOR",
+       "text": "Pip makes its own bed. In Gribbo's hat."
+      },
+      {
+       "at": 3.957,
+       "len": 1.966,
+       "who": "GRIBBO",
+       "text": "Fair enough."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-8"
+  },
+  "fr2-8": {
+   "say": [
+    {
+     "play": "scenes/fr2-8",
+     "dur": 17.461,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.496,
+       "who": "NARRATOR",
+       "text": "Later that night, the house is quiet. Pip is curled up like a tiny glowing nightlight."
+      },
+      {
+       "at": 6.096,
+       "len": 2.353,
+       "who": "TULA",
+       "text": "Rot said tonight. I'll keep watch."
+      },
+      {
+       "at": 8.8,
+       "len": 4.122,
+       "who": "NARRATOR",
+       "text": "Outside, something goes squelch. Then squelch again."
+      },
+      {
+       "at": 13.271,
+       "len": 3.24,
+       "who": "SPROCKLE",
+       "text": "What was that? Cosmo, do you keep watch with Tula?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-8",
+      "dur": 3.755,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.205,
+        "who": "NARRATOR",
+        "text": "Do you keep watch with Tula? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-8y"
+     },
+     {
+      "no": true,
+      "go": "fr2-8n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-8n": {
+   "say": [
+    {
+     "play": "scenes/fr2-8n",
+     "dur": 6.676,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.52,
+       "who": "NARRATOR",
+       "text": "You pull a blanket over your head. But Tula taps you on the shoulder."
+      },
+      {
+       "at": 4.12,
+       "len": 1.606,
+       "who": "TULA",
+       "text": "They're here."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-9"
+  },
+  "fr2-9": {
+   "say": [
+    {
+     "play": "scenes/fr2-9",
+     "dur": 18.051,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.96,
+       "who": "NARRATOR",
+       "text": "Suddenly, the front door bursts open! In waddle the Mouldies: fuzzy grey-green blobs with runny noses."
+      },
+      {
+       "at": 7.56,
+       "len": 4.786,
+       "who": "NARRATOR",
+       "text": "And they're sneezing fuzzy spores everywhere! One of them politely wipes its feet."
+      },
+      {
+       "at": 12.696,
+       "len": 4.405,
+       "who": "SPROCKLE",
+       "text": "Rot's minions! They're after Pip! Do we protect Pip?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-9",
+      "dur": 4.415,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.865,
+        "who": "NARRATOR",
+        "text": "Do we protect Pip from the Mouldies? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-9y"
+     },
+     {
+      "no": true,
+      "go": "fr2-9n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-9n": {
+   "say": [
+    {
+     "play": "scenes/fr2-9n",
+     "dur": 3.522,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.322,
+       "who": "NARRATOR",
+       "text": "You freeze. But Pip doesn't."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-10"
+  },
+  "fr2-10": {
+   "say": [
+    {
+     "play": "scenes/fr2-10",
+     "dur": 29.042,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.763,
+       "who": "NARRATOR",
+       "text": "Pip starts to glow. Brighter... and brighter..."
+      },
+      {
+       "at": 4.363,
+       "len": 0.999,
+       "who": "PIP",
+       "text": "Piiiip!"
+      },
+      {
+       "at": 5.712,
+       "len": 4.64,
+       "who": "NARRATOR",
+       "text": "Flash! A burst of golden light knocks every Mouldy flat on its back!"
+      },
+      {
+       "at": 10.702,
+       "len": 3.44,
+       "who": "GRIBBO",
+       "text": "Whoa! The little guy packs a punch!"
+      },
+      {
+       "at": 14.492,
+       "len": 4.85,
+       "who": "NARRATOR",
+       "text": "Pip flops down, worn out. And the Mouldies are already wobbling back up."
+      },
+      {
+       "at": 19.692,
+       "len": 8.4,
+       "who": "TULA",
+       "text": "We have to go. Now. If Pip goes, they'll follow, and leave your house alone. Do we run for Gribbo's ship?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-10",
+      "dur": 3.856,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.306,
+        "who": "NARRATOR",
+        "text": "Do we run for Gribbo's ship? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-11"
+     },
+     {
+      "no": true,
+      "go": "fr2-10n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-10n": {
+   "say": [
+    {
+     "play": "scenes/fr2-10n",
+     "dur": 7.408,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.208,
+       "who": "NARRATOR",
+       "text": "More squelching outside! There's no time to argue. Gribbo grabs Pip, and everyone runs!"
+      }
+     ]
+    }
+   ],
+   "go": "fr2-11"
+  },
+  "fr2-11": {
+   "say": [
+    {
+     "play": "scenes/fr2-11",
+     "dur": 25.812,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.64,
+       "who": "NARRATOR",
+       "text": "You all pile into Gribbo's clunky little ship, and blast off into the night."
+      },
+      {
+       "at": 5.24,
+       "len": 6.96,
+       "who": "GRIBBO",
+       "text": "She's not pretty, but she flies! Mostly. Music, anyone?"
+      },
+      {
+       "at": 12.55,
+       "len": 7.028,
+       "who": "NARRATOR",
+       "text": "Gribbo switches on the radio. A funky space tune starts playing, and Pip starts to dance on the dashboard!"
+      },
+      {
+       "at": 19.929,
+       "len": 4.933,
+       "who": "SPROCKLE",
+       "text": "Look at it go! Cosmo, do you dance too?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-11",
+      "dur": 3.623,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.073,
+        "who": "NARRATOR",
+        "text": "Do you dance with Pip? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-11y"
+     },
+     {
+      "no": true,
+      "go": "fr2-11n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-11n": {
+   "say": [
+    {
+     "play": "scenes/fr2-11n",
+     "dur": 7.35,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.88,
+       "who": "NARRATOR",
+       "text": "You just tap your foot. So Sprockle dances instead. Badly. Very badly."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-12"
+  },
+  "fr2-12": {
+   "say": [
+    {
+     "play": "scenes/fr2-12",
+     "dur": 20.24,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.78,
+       "who": "NARRATOR",
+       "text": "Then the music stops. The radar beeps. Mould ships! A whole fleet of them, right behind you!"
+      },
+      {
+       "at": 7.38,
+       "len": 1.977,
+       "who": "NARRATOR",
+       "text": "Rot's face fizzes onto the screen."
+      },
+      {
+       "at": 9.707,
+       "len": 2.966,
+       "who": "ROT",
+       "text": "You cannot outrun me, pipe-cleaner."
+      },
+      {
+       "at": 13.023,
+       "len": 6.267,
+       "who": "GRIBBO",
+       "text": "Oh, can't we? Hold on to your antennae! Should I do a loop-the-loop?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-12",
+      "dur": 4.376,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.826,
+        "who": "NARRATOR",
+        "text": "Should Gribbo do a loop-the-loop? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-12y"
+     },
+     {
+      "no": true,
+      "go": "fr2-12n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-12n": {
+   "say": [
+    {
+     "play": "scenes/fr2-12n",
+     "dur": 5.807,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.302,
+       "who": "NARRATOR",
+       "text": "Gribbo does one anyway. Oops. Everyone ends up on the ceiling."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-13"
+  },
+  "fr2-13": {
+   "say": [
+    {
+     "play": "scenes/fr2-13",
+     "dur": 19.178,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.44,
+       "who": "NARRATOR",
+       "text": "But more ships keep coming. Zap! A laser hits the back of the ship."
+      },
+      {
+       "at": 6.04,
+       "len": 3.12,
+       "who": "TULA",
+       "text": "They're too fast. We can't lose them out here."
+      },
+      {
+       "at": 9.51,
+       "len": 4.495,
+       "who": "NARRATOR",
+       "text": "Pip hops down onto a crate of fruit and stares at it. Its leaf is twitching."
+      },
+      {
+       "at": 14.355,
+       "len": 3.873,
+       "who": "SPROCKLE",
+       "text": "I think Pip has an idea! Should we let Pip try something?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-13",
+      "dur": 4.15,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.6,
+        "who": "NARRATOR",
+        "text": "Should we let Pip try something? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-14"
+     },
+     {
+      "no": true,
+      "go": "fr2-13n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-13n": {
+   "say": [
+    {
+     "play": "scenes/fr2-13n",
+     "dur": 5.008,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.808,
+       "who": "NARRATOR",
+       "text": "But Pip is already trying something. Pip is very stubborn."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-14"
+  },
+  "fr2-14": {
+   "say": [
+    {
+     "play": "scenes/fr2-14",
+     "dur": 24.217,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.28,
+       "who": "NARRATOR",
+       "text": "Pip closes its eyes and glows. A tiny green shoot pops out of the crate."
+      },
+      {
+       "at": 5.88,
+       "len": 7.76,
+       "who": "NARRATOR",
+       "text": "Then it grows. And grows! A giant vine bursts out of the hatch, and tangles up the Mould ships like spaghetti!"
+      },
+      {
+       "at": 13.99,
+       "len": 4.687,
+       "who": "GRIBBO",
+       "text": "Yee-haw! Take that, fuzzballs!"
+      },
+      {
+       "at": 19.027,
+       "len": 4.24,
+       "who": "NARRATOR",
+       "text": "Pip looks very proud of itself. Do you give Pip a high five?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-14",
+      "dur": 4.241,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.691,
+        "who": "NARRATOR",
+        "text": "Do you give Pip a high five? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-14y"
+     },
+     {
+      "no": true,
+      "go": "fr2-14n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-14n": {
+   "say": [
+    {
+     "play": "scenes/fr2-14n",
+     "dur": 4.145,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.945,
+       "who": "NARRATOR",
+       "text": "So Pip high-fives itself. With its leaf."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-15"
+  },
+  "fr2-15": {
+   "say": [
+    {
+     "play": "scenes/fr2-15",
+     "dur": 24.692,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.184,
+       "who": "NARRATOR",
+       "text": "Everything goes quiet. You float through space under a million stars."
+      },
+      {
+       "at": 4.784,
+       "len": 7.984,
+       "who": "NARRATOR",
+       "text": "Pip giggles at something only Pip can see. And for a moment, every star in the sky twinkles a little brighter."
+      },
+      {
+       "at": 13.118,
+       "len": 10.624,
+       "who": "SPROCKLE",
+       "text": "Did you see that? When Pip laughed, the stars shone brighter! That's impossible. Isn't it? Cosmo, do you think Pip made the stars shine?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-15",
+      "dur": 4.821,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.271,
+        "who": "NARRATOR",
+        "text": "Do you think Pip made the stars shine? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-15y"
+     },
+     {
+      "no": true,
+      "go": "fr2-15n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-15n": {
+   "say": [
+    {
+     "play": "scenes/fr2-15n",
+     "dur": 7.318,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.118,
+       "who": "NARRATOR",
+       "text": "You shrug. Probably a coincidence. Sprockle writes it down too. Just in case."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-16"
+  },
+  "fr2-16": {
+   "say": [
+    {
+     "play": "scenes/fr2-16",
+     "dur": 19.807,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.027,
+       "who": "NARRATOR",
+       "text": "Then, thump! Something lands on the roof."
+      },
+      {
+       "at": 3.627,
+       "len": 6.828,
+       "who": "NARRATOR",
+       "text": "The hatch creaks open, and down drops a stranger in shiny gold armour, with a dark helmet hiding its face."
+      },
+      {
+       "at": 10.804,
+       "len": 2.354,
+       "who": "HUNTER",
+       "text": "The creature. Hand it over."
+      },
+      {
+       "at": 13.508,
+       "len": 1.67,
+       "who": "TULA",
+       "text": "Not a chance."
+      },
+      {
+       "at": 15.528,
+       "len": 3.329,
+       "who": "SPROCKLE",
+       "text": "Cosmo! Do we stand up to the stranger?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr2-16",
+      "dur": 4.47,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.92,
+        "who": "NARRATOR",
+        "text": "Do we stand up to the stranger? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr2-16y"
+     },
+     {
+      "no": true,
+      "go": "fr2-16n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr2-16n": {
+   "say": [
+    {
+     "play": "scenes/fr2-16n",
+     "dur": 5.68,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.48,
+       "who": "NARRATOR",
+       "text": "You try to hide Pip behind your back. But the stranger is far too fast."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-end"
+  },
+  "fr2-end": {
+   "say": [
+    {
+     "play": "scenes/fr2-end",
+     "dur": 29.408,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.28,
+       "who": "NARRATOR",
+       "text": "Whoosh! The stranger scoops Pip into a glass jar, fires up a jetpack, and zooms out through the hatch!"
+      },
+      {
+       "at": 7.88,
+       "len": 2.638,
+       "who": "PIP",
+       "text": "Pip! Pip!"
+      },
+      {
+       "at": 10.868,
+       "len": 7.261,
+       "who": "NARRATOR",
+       "text": "Through the window, you watch the jetpack streak away toward a gigantic grey-green moon. A moon covered in fuzz."
+      },
+      {
+       "at": 18.479,
+       "len": 5.493,
+       "who": "SPROCKLE",
+       "text": "Moons don't have engines! It's a battle station! The Mould Moon!"
+      },
+      {
+       "at": 24.322,
+       "len": 2.414,
+       "who": "GRIBBO",
+       "text": "Hang on, little buddy. We're coming."
+      },
+      {
+       "at": 27.086,
+       "len": 1.372,
+       "who": "NARRATOR",
+       "text": "To be continued..."
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "chapter",
+    "title": "Story 2 complete!",
+    "next": "fr3-0"
+   }
+  },
+  "fr3-0": {
+   "say": [
+    {
+     "play": "scenes/fr3-0",
+     "dur": 17.145,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.014,
+       "who": "NARRATOR",
+       "text": "Previously, in Frootopia: a tiny golden critter called Pip tumbled out of Gribbo's pocket. Admiral Rot wanted Pip for himself."
+      },
+      {
+       "at": 9.614,
+       "len": 6.582,
+       "who": "NARRATOR",
+       "text": "And a masked stranger snatched Pip away, to Rot's giant battle station: the Mould Moon."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-1"
+  },
+  "fr3-1": {
+   "say": [
+    {
+     "play": "scenes/fr3-1",
+     "dur": 32.773,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.263,
+       "who": "NARRATOR",
+       "text": "The Kingdom of Frootopia. Story three: The Mould Moon."
+      },
+      {
+       "at": 7.063,
+       "len": 8.489,
+       "who": "NARRATOR",
+       "text": "Gribbo's ship creeps closer to the Mould Moon. It's enormous, and fuzzy, and it smells like old socks, even from out here."
+      },
+      {
+       "at": 15.902,
+       "len": 7.241,
+       "who": "SPROCKLE",
+       "text": "I've scanned it. Every door is guarded. But there's one way in that isn't. The waste pipes."
+      },
+      {
+       "at": 23.493,
+       "len": 3.18,
+       "who": "GRIBBO",
+       "text": "Of course it's the waste pipes."
+      },
+      {
+       "at": 27.023,
+       "len": 4.8,
+       "who": "TULA",
+       "text": "Cosmo knows pipes better than anyone. Cosmo, will you lead the way in?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-1",
+      "dur": 4.518,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.968,
+        "who": "NARRATOR",
+        "text": "Will you lead the way into the pipes? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-2"
+     },
+     {
+      "no": true,
+      "go": "fr3-1n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-1n": {
+   "say": [
+    {
+     "play": "scenes/fr3-1n",
+     "dur": 8.261,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.061,
+       "who": "NARRATOR",
+       "text": "Sprockle tries to lead instead. He gets lost three times before he even leaves the ship. You'd better lead."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-2"
+  },
+  "fr3-2": {
+   "say": [
+    {
+     "play": "scenes/fr3-2",
+     "dur": 31.507,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 10.64,
+       "who": "NARRATOR",
+       "text": "You squeeze in through a rusty hatch, and drop into a giant pipe. Squelch. Everything is grey, and green, and very, very fuzzy."
+      },
+      {
+       "at": 11.24,
+       "len": 5.4,
+       "who": "GRIBBO",
+       "text": "Ugh! It smells like a giant's armpit in here!"
+      },
+      {
+       "at": 16.99,
+       "len": 7.265,
+       "who": "NARRATOR",
+       "text": "Then you hear a tiny sniffling sound. Behind a pipe sits a baby Mouldy, all alone. It's lost."
+      },
+      {
+       "at": 24.605,
+       "len": 5.951,
+       "who": "SPROCKLE",
+       "text": "Aww. It's one of Rot's, though. Cosmo, do you help the baby Mouldy?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-2",
+      "dur": 4.459,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.909,
+        "who": "NARRATOR",
+        "text": "Do you help the lost baby Mouldy? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-2y"
+     },
+     {
+      "no": true,
+      "go": "fr3-2n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-2n": {
+   "say": [
+    {
+     "play": "scenes/fr3-2n",
+     "dur": 11.702,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.44,
+       "who": "NARRATOR",
+       "text": "You walk on. But it follows you, sniffling."
+      },
+      {
+       "at": 4.04,
+       "len": 6.712,
+       "who": "NARRATOR",
+       "text": "So Gribbo gives it a snack. It sneezes a happy little sneeze, and points down the pipe. That way!"
+      }
+     ]
+    }
+   ],
+   "go": "fr3-3"
+  },
+  "fr3-3": {
+   "say": [
+    {
+     "play": "scenes/fr3-3",
+     "dur": 18.479,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.936,
+       "who": "NARRATOR",
+       "text": "Suddenly, clang! The hatch behind you slams shut. And the walls start to move."
+      },
+      {
+       "at": 7.536,
+       "len": 4.178,
+       "who": "GRIBBO",
+       "text": "The walls are closing in! I'm too young to be a sandwich!"
+      },
+      {
+       "at": 12.064,
+       "len": 5.466,
+       "who": "TULA",
+       "text": "Cosmo! There's a valve on the wall! Do you turn it?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-3",
+      "dur": 4.045,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.495,
+        "who": "NARRATOR",
+        "text": "Do you turn the valve? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-4"
+     },
+     {
+      "no": true,
+      "go": "fr3-3n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-3n": {
+   "say": [
+    {
+     "play": "scenes/fr3-3n",
+     "dur": 7.761,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.561,
+       "who": "NARRATOR",
+       "text": "You hesitate. The walls creak closer. Gribbo squeaks. Okay, okay! You grab the valve!"
+      }
+     ]
+    }
+   ],
+   "go": "fr3-4"
+  },
+  "fr3-4": {
+   "say": [
+    {
+     "play": "scenes/fr3-4",
+     "dur": 25.43,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.278,
+       "who": "NARRATOR",
+       "text": "You heave on the valve. It squeals, and spins, and the walls grind to a stop. Then slowly, they slide back."
+      },
+      {
+       "at": 8.878,
+       "len": 3.018,
+       "who": "GRIBBO",
+       "text": "Phew. Still not a sandwich."
+      },
+      {
+       "at": 12.246,
+       "len": 5.651,
+       "who": "NARRATOR",
+       "text": "The pipe leads into a long corridor. And at the end of it stand two Mouldy guards."
+      },
+      {
+       "at": 18.247,
+       "len": 6.232,
+       "who": "GRIBBO",
+       "text": "Leave this to me. I came prepared. Cosmo, should I wear my disguise?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-4",
+      "dur": 4.47,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.92,
+        "who": "NARRATOR",
+        "text": "Should Gribbo wear his disguise? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-5"
+     },
+     {
+      "no": true,
+      "go": "fr3-4n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-4n": {
+   "say": [
+    {
+     "play": "scenes/fr3-4n",
+     "dur": 4.911,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.711,
+       "who": "NARRATOR",
+       "text": "Gribbo is already wearing it. He's very proud of it."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-5"
+  },
+  "fr3-5": {
+   "say": [
+    {
+     "play": "scenes/fr3-5",
+     "dur": 30.516,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.544,
+       "who": "NARRATOR",
+       "text": "Gribbo, now in a fuzzy Mouldy costume, waddles right up to the guards."
+      },
+      {
+       "at": 5.144,
+       "len": 7.952,
+       "who": "GRIBBO",
+       "text": "Evening, fellow Mouldies. Just three more Mouldies here. Totally normal Mouldies."
+      },
+      {
+       "at": 13.447,
+       "len": 5.584,
+       "who": "NARRATOR",
+       "text": "The guards nod. It's working! And then, Gribbo's nose begins to twitch."
+      },
+      {
+       "at": 19.38,
+       "len": 3.52,
+       "who": "GRIBBO",
+       "text": "Ah... ah... ACHOO!"
+      },
+      {
+       "at": 23.25,
+       "len": 3.194,
+       "who": "NARRATOR",
+       "text": "That's not a Mouldy sneeze. Mouldies go pffft."
+      },
+      {
+       "at": 26.794,
+       "len": 2.772,
+       "who": "SPROCKLE",
+       "text": "They know! Cosmo, do we run?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-5",
+      "dur": 3.45,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 2.9,
+        "who": "NARRATOR",
+        "text": "Do we run? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-6"
+     },
+     {
+      "no": true,
+      "go": "fr3-5n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-5n": {
+   "say": [
+    {
+     "play": "scenes/fr3-5n",
+     "dur": 7.943,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.743,
+       "who": "NARRATOR",
+       "text": "Gribbo tries a Mouldy sneeze. Pffft. It's terrible. Okay, now you run!"
+      }
+     ]
+    }
+   ],
+   "go": "fr3-6"
+  },
+  "fr3-6": {
+   "say": [
+    {
+     "play": "scenes/fr3-6",
+     "dur": 33.263,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.476,
+       "who": "NARRATOR",
+       "text": "You run! Round corners, down ladders, and through a door marked: Absolutely No Entry."
+      },
+      {
+       "at": 7.076,
+       "len": 3.225,
+       "who": "SPROCKLE",
+       "text": "My Pingotron's picking up Pip's glow! In here!"
+      },
+      {
+       "at": 10.652,
+       "len": 7.538,
+       "who": "NARRATOR",
+       "text": "In the middle of the room is a huge, clunky machine. And in a glass jar on top is Pip! The machine is sucking out Pip's glow."
+      },
+      {
+       "at": 18.54,
+       "len": 4.433,
+       "who": "NARRATOR",
+       "text": "And through the window, one by one, the stars begin to flicker out."
+      },
+      {
+       "at": 23.323,
+       "len": 4.24,
+       "who": "PIP",
+       "text": "Pip..."
+      },
+      {
+       "at": 27.913,
+       "len": 4.4,
+       "who": "TULA",
+       "text": "We have to stop that machine. Cosmo, do you smash it?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-6",
+      "dur": 3.819,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.269,
+        "who": "NARRATOR",
+        "text": "Do you smash the machine? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-7"
+     },
+     {
+      "no": true,
+      "go": "fr3-6n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-6n": {
+   "say": [
+    {
+     "play": "scenes/fr3-6n",
+     "dur": 7.271,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.071,
+       "who": "NARRATOR",
+       "text": "You look for an off switch. There isn't one. Not even a tiny one. Smashing it is!"
+      }
+     ]
+    }
+   ],
+   "go": "fr3-7"
+  },
+  "fr3-7": {
+   "say": [
+    {
+     "play": "scenes/fr3-7",
+     "dur": 22.588,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.863,
+       "who": "NARRATOR",
+       "text": "You grab your biggest wrench, and give the machine a mighty whack! Bolts pop. Dials spin. The machine coughs, and sparks, and breaks!"
+      },
+      {
+       "at": 10.463,
+       "len": 3.883,
+       "who": "NARRATOR",
+       "text": "But before you can reach Pip's jar, there's a whoosh of a jetpack."
+      },
+      {
+       "at": 14.697,
+       "len": 1.872,
+       "who": "HUNTER",
+       "text": "Step away from the jar."
+      },
+      {
+       "at": 16.918,
+       "len": 4.72,
+       "who": "TULA",
+       "text": "You again. Cosmo, should I fight the stranger?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-7",
+      "dur": 4.383,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.833,
+        "who": "NARRATOR",
+        "text": "Should Tula fight the stranger? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-8"
+     },
+     {
+      "no": true,
+      "go": "fr3-7n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-7n": {
+   "say": [
+    {
+     "play": "scenes/fr3-7n",
+     "dur": 2.96,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 1.76,
+       "who": "NARRATOR",
+       "text": "Tula doesn't wait for permission."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-8"
+  },
+  "fr3-8": {
+   "say": [
+    {
+     "play": "scenes/fr3-8",
+     "dur": 29.017,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.329,
+       "who": "NARRATOR",
+       "text": "Clack! Tula's staff meets the stranger's glowing staff! Clack! Clack! Then, with one last spin, Tula knocks the helmet clean off!"
+      },
+      {
+       "at": 10.381,
+       "len": 3.52,
+       "who": "NARRATOR",
+       "text": "And underneath is... King Citrinus!"
+      },
+      {
+       "at": 14.251,
+       "len": 3.498,
+       "who": "CITRINUS",
+       "text": "Ah. Hello. Fancy seeing you here."
+      },
+      {
+       "at": 18.099,
+       "len": 3.458,
+       "who": "SPROCKLE",
+       "text": "King Citrinus! We thought you floated away for good!"
+      },
+      {
+       "at": 21.907,
+       "len": 6.16,
+       "who": "NARRATOR",
+       "text": "Citrinus slumps to the floor. He looks very small, and very tired. Do you give him a hand up?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-8",
+      "dur": 4.076,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.526,
+        "who": "NARRATOR",
+        "text": "Do you give Citrinus a hand up? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-9"
+     },
+     {
+      "no": true,
+      "go": "fr3-8n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-8n": {
+   "say": [
+    {
+     "play": "scenes/fr3-8n",
+     "dur": 10.746,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.629,
+       "who": "NARRATOR",
+       "text": "You don't. But from inside the jar, Pip squeaks at you."
+      },
+      {
+       "at": 4.229,
+       "len": 3.291,
+       "who": "PIP",
+       "text": "Pip!"
+      },
+      {
+       "at": 7.871,
+       "len": 1.926,
+       "who": "NARRATOR",
+       "text": "You sigh. And you help him up."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-9"
+  },
+  "fr3-9": {
+   "say": [
+    {
+     "play": "scenes/fr3-9",
+     "dur": 30.354,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.748,
+       "who": "NARRATOR",
+       "text": "Citrinus stares at your hand. Then he takes it."
+      },
+      {
+       "at": 3.348,
+       "len": 1.971,
+       "who": "CITRINUS",
+       "text": "Nobody's ever helped me up before."
+      },
+      {
+       "at": 5.669,
+       "len": 6.027,
+       "who": "CITRINUS",
+       "text": "Rot promised me a crown bigger than a planet, if I caught your little friend. I'm sorry."
+      },
+      {
+       "at": 12.045,
+       "len": 8.432,
+       "who": "NARRATOR",
+       "text": "He pulls out a little golden key, and opens Pip's jar. Pip flops out into your hands. Its glow is very, very dim."
+      },
+      {
+       "at": 20.828,
+       "len": 0.453,
+       "who": "PIP",
+       "text": "Pip."
+      },
+      {
+       "at": 21.631,
+       "len": 2.278,
+       "who": "CITRINUS",
+       "text": "Rot will be here any second. Go!"
+      },
+      {
+       "at": 24.259,
+       "len": 5.145,
+       "who": "SPROCKLE",
+       "text": "Cosmo, can we trust him? Do you trust Citrinus?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-9",
+      "dur": 3.758,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.208,
+        "who": "NARRATOR",
+        "text": "Do you trust Citrinus? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-10"
+     },
+     {
+      "no": true,
+      "go": "fr3-9n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-9n": {
+   "say": [
+    {
+     "play": "scenes/fr3-9n",
+     "dur": 7.84,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.64,
+       "who": "NARRATOR",
+       "text": "You're not sure. But Pip glows a tiny bit brighter when it looks at him. Pip trusts him. That's good enough."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-10"
+  },
+  "fr3-10": {
+   "say": [
+    {
+     "play": "scenes/fr3-10",
+     "dur": 17.615,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.137,
+       "who": "ROT",
+       "text": "Intruders! Every Mouldy to the machine room! Bring me that creature!"
+      },
+      {
+       "at": 6.737,
+       "len": 3.299,
+       "who": "CITRINUS",
+       "text": "I'll hold the door. Go back down the pipes. Quickly!"
+      },
+      {
+       "at": 10.386,
+       "len": 6.279,
+       "who": "NARRATOR",
+       "text": "For the first time in his whole life, King Citrinus is being brave. Do you say thank you to Citrinus?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-10",
+      "dur": 5.27,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.72,
+        "who": "NARRATOR",
+        "text": "Do you say thank you to Citrinus? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-10y"
+     },
+     {
+      "no": true,
+      "go": "fr3-10n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-10n": {
+   "say": [
+    {
+     "play": "scenes/fr3-10n",
+     "dur": 6.779,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 0.726,
+       "who": "PIP",
+       "text": "Pip pip."
+      },
+      {
+       "at": 1.326,
+       "len": 4.503,
+       "who": "NARRATOR",
+       "text": "Pip squeaks a tiny thank you instead. Citrinus smiles."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-11"
+  },
+  "fr3-11": {
+   "say": [
+    {
+     "play": "scenes/fr3-11",
+     "dur": 20.537,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.258,
+       "who": "NARRATOR",
+       "text": "You race back down into the pipes. Behind you, a hundred Mouldies are coming, sneezing all the way."
+      },
+      {
+       "at": 6.858,
+       "len": 2.814,
+       "who": "NARRATOR",
+       "text": "Then you spot the biggest valve you've ever seen."
+      },
+      {
+       "at": 10.022,
+       "len": 9.564,
+       "who": "SPROCKLE",
+       "text": "That's the master valve for every sludge tank on the Mould Moon! If it opens, nobody will be able to follow us! Cosmo, will you open it?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-11",
+      "dur": 4.117,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.567,
+        "who": "NARRATOR",
+        "text": "Should you open the master valve? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-12"
+     },
+     {
+      "no": true,
+      "go": "fr3-11n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-11n": {
+   "say": [
+    {
+     "play": "scenes/fr3-11n",
+     "dur": 7.032,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.832,
+       "who": "NARRATOR",
+       "text": "Gribbo trips over his costume and bumps right into the valve. It opens! Oops."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-12"
+  },
+  "fr3-12": {
+   "say": [
+    {
+     "play": "scenes/fr3-12",
+     "dur": 16.285,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.282,
+       "who": "NARRATOR",
+       "text": "The great wheel spins, and spins. Deep inside the Mould Moon, something starts to gurgle. And bubble. And rumble."
+      },
+      {
+       "at": 9.882,
+       "len": 5.453,
+       "who": "GRIBBO",
+       "text": "Time to go! The ship's at the end of this pipe! Is everybody ready to fly?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-12",
+      "dur": 3.784,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.234,
+        "who": "NARRATOR",
+        "text": "Are you ready to fly? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-13"
+     },
+     {
+      "no": true,
+      "go": "fr3-12n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-12n": {
+   "say": [
+    {
+     "play": "scenes/fr3-12n",
+     "dur": 5.013,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.813,
+       "who": "NARRATOR",
+       "text": "Ready or not, a wave of sludge is coming. Hold on tight!"
+      }
+     ]
+    }
+   ],
+   "go": "fr3-13"
+  },
+  "fr3-13": {
+   "say": [
+    {
+     "play": "scenes/fr3-13",
+     "dur": 27.677,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.88,
+       "who": "NARRATOR",
+       "text": "Gribbo's ship zooms down the biggest pipe on the Mould Moon, dodging bolts and fuzz and flying sludge."
+      },
+      {
+       "at": 7.48,
+       "len": 9.105,
+       "who": "NARRATOR",
+       "text": "You burst out into space just as... boom! Every sludge tank pops at once, and the Mould Moon spins away like a giant fuzzy top!"
+      },
+      {
+       "at": 16.935,
+       "len": 5.604,
+       "who": "ROT",
+       "text": "You fools! You don't even know what that creature is!"
+      },
+      {
+       "at": 22.888,
+       "len": 3.838,
+       "who": "SPROCKLE",
+       "text": "We did it! We got Pip back! Cosmo, do you cheer?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr3-13",
+      "dur": 3.651,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.101,
+        "who": "NARRATOR",
+        "text": "Do you cheer? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr3-13y"
+     },
+     {
+      "no": true,
+      "go": "fr3-13n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr3-13n": {
+   "say": [
+    {
+     "play": "scenes/fr3-13n",
+     "dur": 6.586,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 1.862,
+       "who": "NARRATOR",
+       "text": "Pip gives a tiny cheer for you."
+      },
+      {
+       "at": 2.462,
+       "len": 3.174,
+       "who": "PIP",
+       "text": "Pip!"
+      }
+     ]
+    }
+   ],
+   "go": "fr3-end"
+  },
+  "fr3-end": {
+   "say": [
+    {
+     "play": "scenes/fr3-end",
+     "dur": 24.386,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.823,
+       "who": "NARRATOR",
+       "text": "Back home, you tuck Pip into its little bed. But Pip doesn't bounce. Pip doesn't giggle."
+      },
+      {
+       "at": 6.423,
+       "len": 5.743,
+       "who": "NARRATOR",
+       "text": "Pip's glow fades. Then it flickers. And through the window, a star flickers too."
+      },
+      {
+       "at": 12.516,
+       "len": 5.63,
+       "who": "SPROCKLE",
+       "text": "Cosmo. My readings. Every time Pip flickers, a star goes out."
+      },
+      {
+       "at": 18.496,
+       "len": 2.56,
+       "who": "TULA",
+       "text": "Then we find a way. Together."
+      },
+      {
+       "at": 21.406,
+       "len": 1.115,
+       "who": "NARRATOR",
+       "text": "To be continued..."
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "chapter",
+    "title": "Story 3 complete!",
+    "next": "fr4-0"
+   }
+  },
+  "fr4-0": {
+   "say": [
+    {
+     "play": "scenes/fr4-0",
+     "dur": 14.195,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.685,
+       "who": "NARRATOR",
+       "text": "Previously, in Frootopia: Cosmo and his friends rescued Pip from the Mould Moon, with a little help from King Citrinus."
+      },
+      {
+       "at": 8.285,
+       "len": 4.96,
+       "who": "NARRATOR",
+       "text": "But Pip is fading. And every time Pip flickers, a star goes out."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-1"
+  },
+  "fr4-1": {
+   "say": [
+    {
+     "play": "scenes/fr4-1",
+     "dur": 32.406,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.237,
+       "who": "NARRATOR",
+       "text": "The Kingdom of Frootopia. Story four: The Edge of Everything."
+      },
+      {
+       "at": 7.037,
+       "len": 6.0,
+       "who": "NARRATOR",
+       "text": "The next morning, the sky over Frootopia is strangely grey. Pip hasn't moved from its little bed."
+      },
+      {
+       "at": 13.387,
+       "len": 6.397,
+       "who": "NARRATOR",
+       "text": "Then there's a knock at the door. It's Shaman Pawra, all the way from the forests of Zoomara!"
+      },
+      {
+       "at": 20.134,
+       "len": 8.72,
+       "who": "PAWRA",
+       "text": "The forest whispered to me, small one. The stars are going out. Have you seen something glowing?"
+      },
+      {
+       "at": 29.204,
+       "len": 2.251,
+       "who": "SPROCKLE",
+       "text": "Cosmo, do you show Pip to Pawra?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-1",
+      "dur": 4.287,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.737,
+        "who": "NARRATOR",
+        "text": "Do you show Pip to Shaman Pawra? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-2"
+     },
+     {
+      "no": true,
+      "go": "fr4-1n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-1n": {
+   "say": [
+    {
+     "play": "scenes/fr4-1n",
+     "dur": 6.079,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.879,
+       "who": "NARRATOR",
+       "text": "Pip peeks out of its little bed all by itself. Pawra gasps."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-2"
+  },
+  "fr4-2": {
+   "say": [
+    {
+     "play": "scenes/fr4-2",
+     "dur": 30.62,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 10.283,
+       "who": "PAWRA",
+       "text": "This is no ordinary creature. Come. The old tunnels under the Great Froot Tree. The carvings will know."
+      },
+      {
+       "at": 10.883,
+       "len": 2.971,
+       "who": "NARRATOR",
+       "text": "You hurry through the streets with Pip in your hands."
+      },
+      {
+       "at": 14.204,
+       "len": 3.359,
+       "who": "NARRATOR",
+       "text": "And who should roll up, but your old friend Robolade."
+      },
+      {
+       "at": 17.913,
+       "len": 7.525,
+       "who": "ROBOLADE",
+       "text": "Lemonade? Fresh lemonade? No? Then how about a secret tunnel? Again?"
+      },
+      {
+       "at": 25.788,
+       "len": 3.882,
+       "who": "SPROCKLE",
+       "text": "Robolade knows a secret tunnel! Do we take it?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-2",
+      "dur": 4.757,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.207,
+        "who": "NARRATOR",
+        "text": "Do we take Robolade's secret tunnel? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-3"
+     },
+     {
+      "no": true,
+      "go": "fr4-2n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-2n": {
+   "say": [
+    {
+     "play": "scenes/fr4-2n",
+     "dur": 5.975,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.775,
+       "who": "NARRATOR",
+       "text": "Robolade beeps sadly. Then it opens the secret tunnel for you, just in case."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-3"
+  },
+  "fr4-3": {
+   "say": [
+    {
+     "play": "scenes/fr4-3",
+     "dur": 21.728,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.803,
+       "who": "NARRATOR",
+       "text": "You lead the way through the twisting tunnels, all the way down to the ancient carvings."
+      },
+      {
+       "at": 5.403,
+       "len": 5.511,
+       "who": "SPROCKLE",
+       "text": "The carvings from Frootopia's forgotten past! We saw these on our very first adventure!"
+      },
+      {
+       "at": 11.264,
+       "len": 3.533,
+       "who": "NARRATOR",
+       "text": "And as you carry Pip closer, the carvings start to glow."
+      },
+      {
+       "at": 15.147,
+       "len": 5.631,
+       "who": "PAWRA",
+       "text": "Closer, small one. Will you hold Pip up to the carvings?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-3",
+      "dur": 4.79,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.24,
+        "who": "NARRATOR",
+        "text": "Do you hold Pip closer to the carvings? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-4"
+     },
+     {
+      "no": true,
+      "go": "fr4-3n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-3n": {
+   "say": [
+    {
+     "play": "scenes/fr4-3n",
+     "dur": 5.04,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.84,
+       "who": "NARRATOR",
+       "text": "Pip leans toward them all by itself, as if they're calling to it."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-4"
+  },
+  "fr4-4": {
+   "say": [
+    {
+     "play": "scenes/fr4-4",
+     "dur": 38.984,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.511,
+       "who": "NARRATOR",
+       "text": "The carvings light up into a map of the stars. In the middle is a tiny seed with a leaf on top, surrounded by friends."
+      },
+      {
+       "at": 8.111,
+       "len": 19.757,
+       "who": "PAWRA",
+       "text": "Every thousand years, the ruler of the universe becomes small again, and grows up again, with friends. When the little one fades, carry it to the Edge of Everything, before the last star goes out."
+      },
+      {
+       "at": 28.218,
+       "len": 6.746,
+       "who": "SPROCKLE",
+       "text": "A little seed, with a leaf on top? Wait a minute... No. That's silly."
+      },
+      {
+       "at": 35.314,
+       "len": 2.72,
+       "who": "TULA",
+       "text": "Cosmo, should we go to the Edge of Everything?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-4",
+      "dur": 4.299,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.749,
+        "who": "NARRATOR",
+        "text": "Should we go to the Edge of Everything? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-5"
+     },
+     {
+      "no": true,
+      "go": "fr4-4n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-4n": {
+   "say": [
+    {
+     "play": "scenes/fr4-4n",
+     "dur": 7.013,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.813,
+       "who": "NARRATOR",
+       "text": "Pip flickers. Somewhere far away, another star goes out. There's no time to lose."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-5"
+  },
+  "fr4-5": {
+   "say": [
+    {
+     "play": "scenes/fr4-5",
+     "dur": 24.206,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.72,
+       "who": "NARRATOR",
+       "text": "Pawra goes home to gather the Beastroos, and the rest of you blast off, following the star map to the edge of space."
+      },
+      {
+       "at": 7.32,
+       "len": 5.992,
+       "who": "NARRATOR",
+       "text": "The map leads to a giant stone gate floating in space. And it's guarded by someone you've met before."
+      },
+      {
+       "at": 13.662,
+       "len": 5.759,
+       "who": "ROBOT",
+       "text": "Solve the riddle, or leave. What gets bigger, the more you share it?"
+      },
+      {
+       "at": 19.771,
+       "len": 3.485,
+       "who": "SPROCKLE",
+       "text": "Ooh! Ooh! I know this one! Cosmo, should I answer?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-5",
+      "dur": 4.39,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.84,
+        "who": "NARRATOR",
+        "text": "Should Sprockle answer the riddle? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-6"
+     },
+     {
+      "no": true,
+      "go": "fr4-5n",
+      "rank": 1
+     },
+     {
+      "any": true,
+      "go": "fr4-6"
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-6": {
+   "say": [
+    {
+     "play": "scenes/fr4-6",
+     "dur": 24.788,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.226,
+       "who": "SPROCKLE",
+       "text": "A smile! A smile gets bigger, the more you share it!"
+      },
+      {
+       "at": 4.826,
+       "len": 0.573,
+       "who": "ROBOT",
+       "text": "Correct."
+      },
+      {
+       "at": 5.75,
+       "len": 7.246,
+       "who": "NARRATOR",
+       "text": "The old runes blaze with light, and the gate swings open. Beyond it is the deepest, darkest part of space."
+      },
+      {
+       "at": 13.345,
+       "len": 3.378,
+       "who": "ROBOT",
+       "text": "Go, small ones. Protect the little light."
+      },
+      {
+       "at": 17.074,
+       "len": 6.764,
+       "who": "GRIBBO",
+       "text": "The deepest, darkest part of space. Cosmo, do we fly through?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-6",
+      "dur": 3.876,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.326,
+        "who": "NARRATOR",
+        "text": "Do we fly through the gate? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-7"
+     },
+     {
+      "no": true,
+      "go": "fr4-6n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-6n": {
+   "say": [
+    {
+     "play": "scenes/fr4-6n",
+     "dur": 4.48,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.28,
+       "who": "NARRATOR",
+       "text": "Pip flickers in your hands. That settles it. Let's go."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-7"
+  },
+  "fr4-7": {
+   "say": [
+    {
+     "play": "scenes/fr4-7",
+     "dur": 22.241,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.48,
+       "who": "NARRATOR",
+       "text": "You fly through the gate. It's quiet. Too quiet."
+      },
+      {
+       "at": 5.08,
+       "len": 5.159,
+       "who": "NARRATOR",
+       "text": "Then, out of the dark, comes the whole Mould Fleet. They've been waiting for you."
+      },
+      {
+       "at": 10.589,
+       "len": 6.352,
+       "who": "ROT",
+       "text": "Did you really think I'd let you go, pipe-cleaner? The creature is mine."
+      },
+      {
+       "at": 17.291,
+       "len": 4.0,
+       "who": "TULA",
+       "text": "Not without a fight. Cosmo, do we fight back?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-7",
+      "dur": 4.396,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.846,
+        "who": "NARRATOR",
+        "text": "Do we fight back against the Mould Fleet? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-7y"
+     },
+     {
+      "no": true,
+      "go": "fr4-7n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-7n": {
+   "say": [
+    {
+     "play": "scenes/fr4-7n",
+     "dur": 6.64,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.44,
+       "who": "GRIBBO",
+       "text": "There are too many of them! We can't fight them all!"
+      }
+     ]
+    }
+   ],
+   "go": "fr4-8"
+  },
+  "fr4-8": {
+   "say": [
+    {
+     "play": "scenes/fr4-8",
+     "dur": 25.034,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.059,
+       "who": "NARRATOR",
+       "text": "Then a battered carrot-shaped ship swoops in beside you. It's the Veggonaut Commander!"
+      },
+      {
+       "at": 6.659,
+       "len": 1.827,
+       "who": "COMMANDER",
+       "text": "Need a lift, Cosmo?"
+      },
+      {
+       "at": 8.836,
+       "len": 7.69,
+       "who": "GRIBBO",
+       "text": "Everyone, into the carrot ship. I'll set my old girl on autopilot. She'll lead them away, like a decoy."
+      },
+      {
+       "at": 16.875,
+       "len": 5.241,
+       "who": "GRIBBO",
+       "text": "She's not pretty. But she flies. Mostly."
+      },
+      {
+       "at": 22.467,
+       "len": 1.618,
+       "who": "NARRATOR",
+       "text": "Do you say goodbye to Gribbo's ship?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-8",
+      "dur": 4.71,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.16,
+        "who": "NARRATOR",
+        "text": "Do you say goodbye to Gribbo's ship? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-8y"
+     },
+     {
+      "no": true,
+      "go": "fr4-8n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-8n": {
+   "say": [
+    {
+     "play": "scenes/fr4-8n",
+     "dur": 6.071,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.871,
+       "who": "NARRATOR",
+       "text": "Gribbo says goodbye for everyone. He's not crying. It's just space dust in his eye."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-9"
+  },
+  "fr4-9": {
+   "say": [
+    {
+     "play": "scenes/fr4-9",
+     "dur": 21.642,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.491,
+       "who": "NARRATOR",
+       "text": "Gribbo's little ship zooms off on its own, and the whole Mould Fleet follows it, far away into the dark."
+      },
+      {
+       "at": 7.091,
+       "len": 2.0,
+       "who": "NARRATOR",
+       "text": "And then, it's gone."
+      },
+      {
+       "at": 9.441,
+       "len": 4.231,
+       "who": "NARRATOR",
+       "text": "Gribbo pulls a stripy towel out of his pocket, and dabs his eyes."
+      },
+      {
+       "at": 14.022,
+       "len": 4.48,
+       "who": "GRIBBO",
+       "text": "I always pack a towel. You never know."
+      },
+      {
+       "at": 18.852,
+       "len": 1.84,
+       "who": "NARRATOR",
+       "text": "Do you give Gribbo a hug?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-9",
+      "dur": 4.07,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.52,
+        "who": "NARRATOR",
+        "text": "Do you give Gribbo a hug? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-9y"
+     },
+     {
+      "no": true,
+      "go": "fr4-9n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-9n": {
+   "say": [
+    {
+     "play": "scenes/fr4-9n",
+     "dur": 6.0,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.8,
+       "who": "NARRATOR",
+       "text": "Pip wobbles over and gives Gribbo the tiniest cuddle. Gribbo smiles."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-10"
+  },
+  "fr4-10": {
+   "say": [
+    {
+     "play": "scenes/fr4-10",
+     "dur": 17.253,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.504,
+       "who": "NARRATOR",
+       "text": "Suddenly, the carrot ship coughs. Then it splutters. Then something under the floor hisses."
+      },
+      {
+       "at": 6.104,
+       "len": 6.399,
+       "who": "COMMANDER",
+       "text": "A fuel pipe's cracked! If it breaks, we'll never reach the Edge. Can anybody here fix pipes?"
+      },
+      {
+       "at": 12.853,
+       "len": 3.45,
+       "who": "SPROCKLE",
+       "text": "Can anybody fix pipes? Cosmo, can you fix it?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-10",
+      "dur": 4.69,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.14,
+        "who": "NARRATOR",
+        "text": "Can you fix the cracked fuel pipe? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-11"
+     },
+     {
+      "no": true,
+      "go": "fr4-10n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-10n": {
+   "say": [
+    {
+     "play": "scenes/fr4-10n",
+     "dur": 7.44,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.24,
+       "who": "NARRATOR",
+       "text": "Everyone looks at you. You are the only pipe-cleaner for a billion miles. So you fix it."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-11"
+  },
+  "fr4-11": {
+   "say": [
+    {
+     "play": "scenes/fr4-11",
+     "dur": 22.512,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.015,
+       "who": "NARRATOR",
+       "text": "A twist of your wrench, a tap of your hammer, and the engine purrs again. Pipe-cleaning saves the day!"
+      },
+      {
+       "at": 6.615,
+       "len": 8.104,
+       "who": "NARRATOR",
+       "text": "But on the dashboard, Pip curls up tight. A soft golden cocoon wraps all the way around it, with Pip's little leaf poking out of the top."
+      },
+      {
+       "at": 15.069,
+       "len": 2.063,
+       "who": "SPROCKLE",
+       "text": "It's... changing!"
+      },
+      {
+       "at": 17.482,
+       "len": 4.08,
+       "who": "TULA",
+       "text": "Keep it safe, Cosmo. Do you hold the cocoon?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-11",
+      "dur": 4.916,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.366,
+        "who": "NARRATOR",
+        "text": "Do you hold the cocoon and keep it safe? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-11y"
+     },
+     {
+      "no": true,
+      "go": "fr4-11n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-11n": {
+   "say": [
+    {
+     "play": "scenes/fr4-11n",
+     "dur": 5.758,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.558,
+       "who": "NARRATOR",
+       "text": "The cocoon wobbles toward the edge of the dashboard. You catch it just in time!"
+      }
+     ]
+    }
+   ],
+   "go": "fr4-12"
+  },
+  "fr4-12": {
+   "say": [
+    {
+     "play": "scenes/fr4-12",
+     "dur": 34.51,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.27,
+       "who": "NARRATOR",
+       "text": "At last, you reach it. The Edge of Everything. Behind you, only one star is still shining: the very last star."
+      },
+      {
+       "at": 8.87,
+       "len": 7.563,
+       "who": "NARRATOR",
+       "text": "And in front of you, the stars just stop. There's nothing. Just a soft, shimmering, pearly nothing."
+      },
+      {
+       "at": 16.783,
+       "len": 5.155,
+       "who": "NARRATOR",
+       "text": "Except for one thing. An ancient stone door, covered in glowing stars."
+      },
+      {
+       "at": 22.289,
+       "len": 4.457,
+       "who": "SPROCKLE",
+       "text": "A door at the end of the universe. Cosmo, do you knock?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr4-12",
+      "dur": 3.851,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.301,
+        "who": "NARRATOR",
+        "text": "Do you knock on the door? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr4-12y"
+     },
+     {
+      "no": true,
+      "go": "fr4-12n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr4-12n": {
+   "say": [
+    {
+     "play": "scenes/fr4-12n",
+     "dur": 5.657,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.457,
+       "who": "NARRATOR",
+       "text": "You're a bit nervous. Who knocks on a door at the end of the universe?"
+      }
+     ]
+    }
+   ],
+   "go": "fr4-end"
+  },
+  "fr4-end": {
+   "say": [
+    {
+     "play": "scenes/fr4-end",
+     "dur": 23.251,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.089,
+       "who": "NARRATOR",
+       "text": "But before anyone can knock, a tall figure steps out of the shadows."
+      },
+      {
+       "at": 4.689,
+       "len": 4.08,
+       "who": "ROT",
+       "text": "A thousand years I have waited for this moment."
+      },
+      {
+       "at": 9.119,
+       "len": 5.326,
+       "who": "NARRATOR",
+       "text": "Admiral Rot snatches the cocoon right out of your hands. The door swings open, and he steps through."
+      },
+      {
+       "at": 14.795,
+       "len": 1.36,
+       "who": "NARRATOR",
+       "text": "Slam!"
+      },
+      {
+       "at": 16.505,
+       "len": 3.256,
+       "who": "GRIBBO",
+       "text": "Nobody slams a door on our little buddy."
+      },
+      {
+       "at": 20.111,
+       "len": 1.328,
+       "who": "NARRATOR",
+       "text": "To be continued..."
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "chapter",
+    "title": "Story 4 complete!",
+    "next": "fr5-0"
+   }
+  },
+  "fr5-0": {
+   "say": [
+    {
+     "play": "scenes/fr5-0",
+     "dur": 19.053,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.36,
+       "who": "NARRATOR",
+       "text": "Previously, in Frootopia: a tiny golden critter called Pip tumbled out of Gribbo's pocket, and Admiral Rot wanted Pip for himself."
+      },
+      {
+       "at": 9.96,
+       "len": 8.143,
+       "who": "NARRATOR",
+       "text": "Now Pip is fading, the stars are going out, and Rot has carried Pip's cocoon through a door at the very edge of the universe."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-1"
+  },
+  "fr5-1": {
+   "say": [
+    {
+     "play": "scenes/fr5-1",
+     "dur": 28.895,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.873,
+       "who": "NARRATOR",
+       "text": "The Kingdom of Frootopia. Story five: The Last Star."
+      },
+      {
+       "at": 6.673,
+       "len": 5.39,
+       "who": "NARRATOR",
+       "text": "You push the door. You pull the door. Gribbo even tries talking to the door."
+      },
+      {
+       "at": 12.413,
+       "len": 1.684,
+       "who": "GRIBBO",
+       "text": "Pretty please?"
+      },
+      {
+       "at": 14.447,
+       "len": 4.913,
+       "who": "NARRATOR",
+       "text": "It won't budge. And behind you, the very last star begins to flicker."
+      },
+      {
+       "at": 19.709,
+       "len": 1.81,
+       "who": "TULA",
+       "text": "We can't open it on our own."
+      },
+      {
+       "at": 21.87,
+       "len": 6.075,
+       "who": "SPROCKLE",
+       "text": "Then we don't do it on our own! Cosmo, do you call every friend you've ever made?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-1",
+      "dur": 5.304,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.754,
+        "who": "NARRATOR",
+        "text": "Do you call every friend you've ever made? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-2"
+     },
+     {
+      "no": true,
+      "go": "fr5-1n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-1n": {
+   "say": [
+    {
+     "play": "scenes/fr5-1n",
+     "dur": 8.644,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.0,
+       "who": "NARRATOR",
+       "text": "Sprockle is already pressing the big red button on his Pingotron."
+      },
+      {
+       "at": 4.6,
+       "len": 3.094,
+       "who": "SPROCKLE",
+       "text": "Calling everyone! Everyone everywhere!"
+      }
+     ]
+    }
+   ],
+   "go": "fr5-2"
+  },
+  "fr5-2": {
+   "say": [
+    {
+     "play": "scenes/fr5-2",
+     "dur": 26.466,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.513,
+       "who": "NARRATOR",
+       "text": "And they come! The Beastroos, with Shaman Pawra! The Veggonauts! The Frugglies of Frootopia!"
+      },
+      {
+       "at": 8.113,
+       "len": 8.653,
+       "who": "NARRATOR",
+       "text": "The junk dealer and his janitor robot. Robolade. The old riddle robot. Even the baby Mouldy from the pipes!"
+      },
+      {
+       "at": 17.116,
+       "len": 1.084,
+       "who": "NARRATOR",
+       "text": "And last of all..."
+      },
+      {
+       "at": 18.551,
+       "len": 2.905,
+       "who": "CITRINUS",
+       "text": "Wait for me! I brought Rot's spare key!"
+      },
+      {
+       "at": 21.805,
+       "len": 3.711,
+       "who": "SPROCKLE",
+       "text": "Cosmo, Citrinus wants to help. Do you let him?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-2",
+      "dur": 4.07,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.52,
+        "who": "NARRATOR",
+        "text": "Do you let Citrinus help? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-3"
+     },
+     {
+      "no": true,
+      "go": "fr5-2n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-2n": {
+   "say": [
+    {
+     "play": "scenes/fr5-2n",
+     "dur": 4.461,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.261,
+       "who": "NARRATOR",
+       "text": "You remember how Pip trusted him. So you do too."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-3"
+  },
+  "fr5-3": {
+   "say": [
+    {
+     "play": "scenes/fr5-3",
+     "dur": 16.225,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.659,
+       "who": "NARRATOR",
+       "text": "Citrinus turns the key. Everyone pushes, all together. And slowly, the door at the end of the universe swings open."
+      },
+      {
+       "at": 9.259,
+       "len": 2.226,
+       "who": "NARRATOR",
+       "text": "Warm, golden light pours out."
+      },
+      {
+       "at": 11.835,
+       "len": 3.44,
+       "who": "TULA",
+       "text": "Pip is in there. Cosmo, do we go in?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-3",
+      "dur": 3.939,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.389,
+        "who": "NARRATOR",
+        "text": "Do we go through the door? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-4"
+     },
+     {
+      "no": true,
+      "go": "fr5-3n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-3n": {
+   "say": [
+    {
+     "play": "scenes/fr5-3n",
+     "dur": 5.683,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.413,
+       "who": "NARRATOR",
+       "text": "Shaman Pawra gently takes your hand."
+      },
+      {
+       "at": 3.013,
+       "len": 1.72,
+       "who": "PAWRA",
+       "text": "Together, small one."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-4"
+  },
+  "fr5-4": {
+   "say": [
+    {
+     "play": "scenes/fr5-4",
+     "dur": 21.764,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.028,
+       "who": "NARRATOR",
+       "text": "Inside is a hall made of starlight. At the far end stands a great glowing throne. The Throne of Everything. And it's empty."
+      },
+      {
+       "at": 9.628,
+       "len": 5.064,
+       "who": "NARRATOR",
+       "text": "Beside it stands Admiral Rot, holding the cocoon, with a gang of Mouldies."
+      },
+      {
+       "at": 15.042,
+       "len": 5.771,
+       "who": "ROT",
+       "text": "Welcome to the end of everything, pipe-cleaner. Would you like to hear a secret?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-4",
+      "dur": 4.908,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.358,
+        "who": "NARRATOR",
+        "text": "Do you want to hear Admiral Rot's secret? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-5"
+     },
+     {
+      "no": true,
+      "go": "fr5-4n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-4n": {
+   "say": [
+    {
+     "play": "scenes/fr5-4n",
+     "dur": 4.72,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.52,
+       "who": "NARRATOR",
+       "text": "Rot tells you anyway. Villains love telling secrets."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-5"
+  },
+  "fr5-5": {
+   "say": [
+    {
+     "play": "scenes/fr5-5",
+     "dur": 35.903,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 18.132,
+       "who": "ROT",
+       "text": "I was the ruler's own guard. When the ruler became a tiny seed, I locked it inside the Sludge Core, so it could never grow up, and I could rule instead! Only the throne won't let me sit on it."
+      },
+      {
+       "at": 18.732,
+       "len": 9.088,
+       "who": "ROT",
+       "text": "The gloom that leaked out of it made your Mucklars. And your silly lemon king did everything I told him."
+      },
+      {
+       "at": 28.17,
+       "len": 0.558,
+       "who": "CITRINUS",
+       "text": "Hey!"
+      },
+      {
+       "at": 29.078,
+       "len": 5.874,
+       "who": "NARRATOR",
+       "text": "The cocoon in Rot's arms glows, very faintly. Do you tell Rot to give it back?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-5",
+      "dur": 4.932,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.382,
+        "who": "NARRATOR",
+        "text": "Do you tell Rot to give the cocoon back? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-5y"
+     },
+     {
+      "no": true,
+      "go": "fr5-5n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-5n": {
+   "say": [
+    {
+     "play": "scenes/fr5-5n",
+     "dur": 4.893,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.14,
+       "who": "NARRATOR",
+       "text": "You don't need to. Everyone else shouts it for you!"
+      }
+     ]
+    }
+   ],
+   "go": "fr5-6"
+  },
+  "fr5-6": {
+   "say": [
+    {
+     "play": "scenes/fr5-6",
+     "dur": 20.4,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.34,
+       "who": "ROT",
+       "text": "Never! Mouldies! Attack!"
+      },
+      {
+       "at": 3.94,
+       "len": 6.918,
+       "who": "NARRATOR",
+       "text": "The battle begins! Beastroos bounce! Veggonauts zap! Frugglies throw fruit!"
+      },
+      {
+       "at": 11.208,
+       "len": 5.013,
+       "who": "NARRATOR",
+       "text": "And far behind you, the very last star flickers. It's almost out."
+      },
+      {
+       "at": 16.57,
+       "len": 2.88,
+       "who": "SPROCKLE",
+       "text": "Cosmo! The cocoon! Do you go for it?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-6",
+      "dur": 4.27,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.72,
+        "who": "NARRATOR",
+        "text": "Do you go for the cocoon? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-7"
+     },
+     {
+      "no": true,
+      "go": "fr5-6n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-6n": {
+   "say": [
+    {
+     "play": "scenes/fr5-6n",
+     "dur": 5.837,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 1.931,
+       "who": "NARRATOR",
+       "text": "Gribbo gives you a friendly push."
+      },
+      {
+       "at": 2.531,
+       "len": 2.355,
+       "who": "GRIBBO",
+       "text": "Go on, buddy! We've got this!"
+      }
+     ]
+    }
+   ],
+   "go": "fr5-7"
+  },
+  "fr5-7": {
+   "say": [
+    {
+     "play": "scenes/fr5-7",
+     "dur": 14.446,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.863,
+       "who": "NARRATOR",
+       "text": "You run! Gribbo throws his trusty towel. It tangles around Rot's feet, and he trips!"
+      },
+      {
+       "at": 6.463,
+       "len": 2.793,
+       "who": "NARRATOR",
+       "text": "The cocoon flies up into the air, and you catch it!"
+      },
+      {
+       "at": 9.607,
+       "len": 3.89,
+       "who": "NARRATOR",
+       "text": "But it's cold. And dim. Do you tell Pip it's not alone?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-7",
+      "dur": 5.03,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.48,
+        "who": "NARRATOR",
+        "text": "Do you tell Pip that it's not alone? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-7y"
+     },
+     {
+      "no": true,
+      "go": "fr5-7n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-7n": {
+   "say": [
+    {
+     "play": "scenes/fr5-7n",
+     "dur": 4.009,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.809,
+       "who": "NARRATOR",
+       "text": "You can't find the words. But your friends can."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-8"
+  },
+  "fr5-8": {
+   "say": [
+    {
+     "play": "scenes/fr5-8",
+     "dur": 26.846,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 1.328,
+       "who": "SPROCKLE",
+       "text": "We're here, Pip!"
+      },
+      {
+       "at": 1.928,
+       "len": 1.65,
+       "who": "GRIBBO",
+       "text": "We're right here, little buddy!"
+      },
+      {
+       "at": 3.928,
+       "len": 1.767,
+       "who": "TULA",
+       "text": "We're with you."
+      },
+      {
+       "at": 6.045,
+       "len": 6.32,
+       "who": "NARRATOR",
+       "text": "Even the baby Mouldy squeaks. And the cocoon begins to glow. Then it begins to crack."
+      },
+      {
+       "at": 12.715,
+       "len": 8.88,
+       "who": "NARRATOR",
+       "text": "FLASH! Out of the cocoon blooms something enormous, and golden, and glowing. As big as a moon, crowned with stars."
+      },
+      {
+       "at": 21.945,
+       "len": 3.951,
+       "who": "SPROCKLE",
+       "text": "Cosmo... is that... Pip?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-8",
+      "dur": 3.456,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 2.906,
+        "who": "NARRATOR",
+        "text": "Is that Pip? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-8y"
+     },
+     {
+      "no": true,
+      "go": "fr5-8n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-8n": {
+   "say": [
+    {
+     "play": "scenes/fr5-8n",
+     "dur": 14.59,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.906,
+       "who": "NARRATOR",
+       "text": "It doesn't look like Pip. Until it winks at you, with Pip's sparkly eyes. And there, right on top, is Pip's little leaf."
+      },
+      {
+       "at": 9.506,
+       "len": 4.134,
+       "who": "SPROCKLE",
+       "text": "A little seed with a leaf... not silly at all!"
+      }
+     ]
+    }
+   ],
+   "go": "fr5-9"
+  },
+  "fr5-9": {
+   "say": [
+    {
+     "play": "scenes/fr5-9",
+     "dur": 41.938,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.32,
+       "who": "PIPRULER",
+       "text": "Hello, Cosmo. It's me."
+      },
+      {
+       "at": 2.92,
+       "len": 4.154,
+       "who": "PAWRA",
+       "text": "The little seed. The ruler of the universe."
+      },
+      {
+       "at": 7.425,
+       "len": 14.754,
+       "who": "PIPRULER",
+       "text": "Remember the signal, on the very first morning? The one nobody believed? That was me, calling for help from the dark. Sprockle believed. And you came."
+      },
+      {
+       "at": 22.529,
+       "len": 8.96,
+       "who": "PIPRULER",
+       "text": "And when the Sludge Core broke, I woke up and hid in Gribbo's pocket. I kept him safe, all the way home."
+      },
+      {
+       "at": 31.839,
+       "len": 2.88,
+       "who": "GRIBBO",
+       "text": "So that's why I came out glowing!"
+      },
+      {
+       "at": 35.069,
+       "len": 4.066,
+       "who": "SPROCKLE",
+       "text": "I knew it! I knew my readings were right!"
+      },
+      {
+       "at": 39.485,
+       "len": 1.503,
+       "who": "NARRATOR",
+       "text": "Do you say hello to Pip?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-9",
+      "dur": 4.14,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.59,
+        "who": "NARRATOR",
+        "text": "Do you say hello to Pip? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-9y"
+     },
+     {
+      "no": true,
+      "go": "fr5-9n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-9n": {
+   "say": [
+    {
+     "play": "scenes/fr5-9n",
+     "dur": 5.28,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.08,
+       "who": "NARRATOR",
+       "text": "You're far too amazed to speak. So Pip just beams at you."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-10"
+  },
+  "fr5-10": {
+   "say": [
+    {
+     "play": "scenes/fr5-10",
+     "dur": 17.187,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.33,
+       "who": "NARRATOR",
+       "text": "Pip glows, and sends out a wave of golden light. One by one, every star in the universe blazes back on. Even the very last one."
+      },
+      {
+       "at": 9.93,
+       "len": 1.72,
+       "who": "NARRATOR",
+       "text": "Admiral Rot is trembling."
+      },
+      {
+       "at": 12.0,
+       "len": 1.355,
+       "who": "ROT",
+       "text": "Your Majesty..."
+      },
+      {
+       "at": 13.705,
+       "len": 2.532,
+       "who": "NARRATOR",
+       "text": "Does Admiral Rot deserve a second chance?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-10",
+      "dur": 5.303,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.753,
+        "who": "NARRATOR",
+        "text": "Does Admiral Rot deserve a second chance? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-10y"
+     },
+     {
+      "no": true,
+      "go": "fr5-10n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-10n": {
+   "say": [
+    {
+     "play": "scenes/fr5-10n",
+     "dur": 5.95,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.75,
+       "who": "PIPRULER",
+       "text": "Everyone deserves a second chance, Cosmo. Even him."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-11"
+  },
+  "fr5-11": {
+   "say": [
+    {
+     "play": "scenes/fr5-11",
+     "dur": 22.184,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 10.24,
+       "who": "PIPRULER",
+       "text": "You were lonely, Rot. For a thousand years, all alone, guarding an empty chair. You don't have to be lonely any more."
+      },
+      {
+       "at": 10.84,
+       "len": 4.256,
+       "who": "ROT",
+       "text": "I'm sorry. I'm so very sorry."
+      },
+      {
+       "at": 15.446,
+       "len": 5.788,
+       "who": "NARRATOR",
+       "text": "And the Mouldies give a fuzzy little cheer. Do you shake hands with Admiral Rot?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-11",
+      "dur": 4.895,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.345,
+        "who": "NARRATOR",
+        "text": "Do you shake hands with Admiral Rot? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-11y"
+     },
+     {
+      "no": true,
+      "go": "fr5-11n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-11n": {
+   "say": [
+    {
+     "play": "scenes/fr5-11n",
+     "dur": 5.726,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.526,
+       "who": "NARRATOR",
+       "text": "The baby Mouldy gives Rot a hug instead. And Rot hugs it back."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-12"
+  },
+  "fr5-12": {
+   "say": [
+    {
+     "play": "scenes/fr5-12",
+     "dur": 29.145,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.383,
+       "who": "PIPRULER",
+       "text": "And now, some presents."
+      },
+      {
+       "at": 2.983,
+       "len": 7.48,
+       "who": "NARRATOR",
+       "text": "Far away, Tula's home planet, Vegonnia, grows back! Broccoli forests, carrot towers, every sprout."
+      },
+      {
+       "at": 10.814,
+       "len": 3.134,
+       "who": "NARRATOR",
+       "text": "And for the first time ever, Tula smiles."
+      },
+      {
+       "at": 14.297,
+       "len": 6.441,
+       "who": "NARRATOR",
+       "text": "And zooming through the door, with one happy little beep, comes Gribbo's old ship, good as new!"
+      },
+      {
+       "at": 21.089,
+       "len": 3.68,
+       "who": "GRIBBO",
+       "text": "She's still not pretty. But she's home!"
+      },
+      {
+       "at": 25.119,
+       "len": 3.076,
+       "who": "NARRATOR",
+       "text": "Pip has one last surprise. Do you want to see it?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-12",
+      "dur": 4.55,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.0,
+        "who": "NARRATOR",
+        "text": "Do you want to see Pip's last surprise? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-13"
+     },
+     {
+      "no": true,
+      "go": "fr5-12n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-12n": {
+   "say": [
+    {
+     "play": "scenes/fr5-12n",
+     "dur": 5.424,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.224,
+       "who": "NARRATOR",
+       "text": "Too late! Pip has never kept a surprise for more than one second."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-13"
+  },
+  "fr5-13": {
+   "say": [
+    {
+     "play": "scenes/fr5-13",
+     "dur": 24.985,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.888,
+       "who": "NARRATOR",
+       "text": "Pip shrinks, smaller and smaller, until it's tiny little Pip again, right in your hand."
+      },
+      {
+       "at": 6.488,
+       "len": 8.439,
+       "who": "PIPRULER",
+       "text": "Looking after the universe means looking after everyone. I can do that from right here. With my friends."
+      },
+      {
+       "at": 15.277,
+       "len": 5.846,
+       "who": "NARRATOR",
+       "text": "Shaman Pawra lifts Pip up high, for everyone to see. And the whole hall cheers."
+      },
+      {
+       "at": 21.474,
+       "len": 2.561,
+       "who": "GRIBBO",
+       "text": "Shall we all go home now?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fr5-13",
+      "dur": 4.193,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.643,
+        "who": "NARRATOR",
+        "text": "Shall we all go home? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fr5-end"
+     },
+     {
+      "no": true,
+      "go": "fr5-13n",
+      "rank": 1
+     }
+    ],
+    "else": {
+     "say": [
+      {
+       "play": "common/unhandled",
+       "dur": 4.454,
+       "lines": [
+        {
+         "at": 0.25,
+         "len": 3.254,
+         "who": "NARRATOR",
+         "text": "Sorry, I didn't catch that. Just say yes, or no."
+        }
+       ]
+      }
+     ]
+    },
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fr5-13n": {
+   "say": [
+    {
+     "play": "scenes/fr5-13n",
+     "dur": 7.105,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.905,
+       "who": "NARRATOR",
+       "text": "Gribbo's tummy rumbles. Loudly. Home it is. Breakfast time!"
+      }
+     ]
+    }
+   ],
+   "go": "fr5-end"
+  },
+  "fr5-end": {
+   "say": [
+    {
+     "play": "scenes/fr5-end",
+     "dur": 30.325,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.171,
+       "who": "NARRATOR",
+       "text": "And so, every morning, you and Sprockle meet at the café for breakfast with the ruler of the universe."
+      },
+      {
+       "at": 6.771,
+       "len": 3.775,
+       "who": "NARRATOR",
+       "text": "Admiral Rot washes the dishes. He's surprisingly good at it."
+      },
+      {
+       "at": 10.897,
+       "len": 7.119,
+       "who": "NARRATOR",
+       "text": "Citrinus and Robolade run the best lemonade stand in the galaxy. And the Great Froot Tree glows brighter than ever."
+      },
+      {
+       "at": 18.366,
+       "len": 4.96,
+       "who": "NARRATOR",
+       "text": "So remember: be kind to the little ones. You never know who they really are."
+      },
+      {
+       "at": 23.676,
+       "len": 0.687,
+       "who": "PIP",
+       "text": "Pip!"
+      },
+      {
+       "at": 27.695,
+       "len": 1.68,
+       "who": "NARRATOR",
+       "text": "The end."
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "The End"
+   }
+  },
+  "fr5-11y": {
+   "say": [
+    {
+     "play": "scenes/fr5-11y",
+     "dur": 3.836,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.636,
+       "who": "NARRATOR",
+       "text": "You shake Rot's hand. It's a little bit fuzzy."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-12"
+  },
+  "fr5-10y": {
+   "say": [
+    {
+     "play": "scenes/fr5-10y",
+     "dur": 5.089,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 0.93,
+       "who": "NARRATOR",
+       "text": "Pip smiles."
+      },
+      {
+       "at": 1.53,
+       "len": 2.609,
+       "who": "PIPRULER",
+       "text": "Everyone does."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-11"
+  },
+  "fr5-9y": {
+   "say": [
+    {
+     "play": "scenes/fr5-9y",
+     "dur": 6.768,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.568,
+       "who": "NARRATOR",
+       "text": "Hi, Pip! you say. And Pip laughs a laugh so big, it shakes the stars."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-10"
+  },
+  "fr5-8y": {
+   "say": [
+    {
+     "play": "scenes/fr5-8y",
+     "dur": 12.598,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.803,
+       "who": "NARRATOR",
+       "text": "It is! Those are Pip's sparkly eyes. And that's Pip's little leaf, right on top."
+      },
+      {
+       "at": 6.403,
+       "len": 5.246,
+       "who": "SPROCKLE",
+       "text": "A little seed with a leaf... not silly at all!"
+      }
+     ]
+    }
+   ],
+   "go": "fr5-9"
+  },
+  "fr5-7y": {
+   "say": [
+    {
+     "play": "scenes/fr5-7y",
+     "dur": 6.88,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.68,
+       "who": "NARRATOR",
+       "text": "You hold the cocoon close, and whisper. You're not alone, Pip. We're all here."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-8"
+  },
+  "fr5-5y": {
+   "say": [
+    {
+     "play": "scenes/fr5-5y",
+     "dur": 5.381,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.181,
+       "who": "NARRATOR",
+       "text": "Give it back, you shout! Your voice echoes all around the hall."
+      }
+     ]
+    }
+   ],
+   "go": "fr5-6"
+  },
+  "fr4-12y": {
+   "say": [
+    {
+     "play": "scenes/fr4-12y",
+     "dur": 4.033,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.833,
+       "who": "NARRATOR",
+       "text": "You walk up to the door, and raise your hand to knock."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-end"
+  },
+  "fr4-11y": {
+   "say": [
+    {
+     "play": "scenes/fr4-11y",
+     "dur": 5.71,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.871,
+       "who": "NARRATOR",
+       "text": "You lift the cocoon very gently. It's still a little bit warm."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-12"
+  },
+  "fr4-9y": {
+   "say": [
+    {
+     "play": "scenes/fr4-9y",
+     "dur": 9.844,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.443,
+       "who": "NARRATOR",
+       "text": "You give Gribbo a big hug. Then Sprockle joins in. Then Tula. It's a group hug."
+      },
+      {
+       "at": 7.043,
+       "len": 1.851,
+       "who": "GRIBBO",
+       "text": "Thanks, buddy."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-10"
+  },
+  "fr4-8y": {
+   "say": [
+    {
+     "play": "scenes/fr4-8y",
+     "dur": 6.261,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.061,
+       "who": "NARRATOR",
+       "text": "You pat the dashboard. Thank you, ship. And the ship gives one happy little beep."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-9"
+  },
+  "fr4-7y": {
+   "say": [
+    {
+     "play": "scenes/fr4-7y",
+     "dur": 9.214,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.014,
+       "who": "NARRATOR",
+       "text": "Tula fires the ship's fruit cannon. Splat! A watermelon knocks one Mould ship away. But there are just too many."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-8"
+  },
+  "fr4-5n": {
+   "say": [
+    {
+     "play": "scenes/fr4-5n",
+     "dur": 6.497,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 1.027,
+       "who": "GRIBBO",
+       "text": "A sandwich?"
+      },
+      {
+       "at": 1.627,
+       "len": 3.92,
+       "who": "NARRATOR",
+       "text": "Wrong. Very wrong. Sprockle had better answer."
+      }
+     ]
+    }
+   ],
+   "go": "fr4-6"
+  },
+  "fr3-13y": {
+   "say": [
+    {
+     "play": "scenes/fr3-13y",
+     "dur": 4.763,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.563,
+       "who": "NARRATOR",
+       "text": "Everyone cheers! Gribbo honks the horn three times."
+      }
+     ]
+    }
+   ],
+   "go": "fr3-end"
+  },
+  "fr3-10y": {
+   "say": [
+    {
+     "play": "scenes/fr3-10y",
+     "dur": 8.365,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.634,
+       "who": "NARRATOR",
+       "text": "You say thank you. Citrinus blinks. Nobody's ever thanked him before, either."
+      },
+      {
+       "at": 5.234,
+       "len": 2.181,
+       "who": "CITRINUS",
+       "text": "You're welcome. Now go!"
+      }
+     ]
+    }
+   ],
+   "go": "fr3-11"
+  },
+  "fr3-2y": {
+   "say": [
+    {
+     "play": "scenes/fr3-2y",
+     "dur": 12.625,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.105,
+       "who": "NARRATOR",
+       "text": "You kneel down beside it. Gribbo gives it a crumb of his snack. The baby Mouldy gobbles it up."
+      },
+      {
+       "at": 6.705,
+       "len": 4.749,
+       "who": "NARRATOR",
+       "text": "It sneezes a happy little sneeze, and points down the pipe. That way!"
+      }
+     ]
+    }
+   ],
+   "go": "fr3-3"
+  },
+  "fr2-16y": {
+   "say": [
+    {
+     "play": "scenes/fr2-16y",
+     "dur": 5.92,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.72,
+       "who": "NARRATOR",
+       "text": "Tula leaps forward with her staff! But the stranger is far too fast."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-end"
+  },
+  "fr2-15y": {
+   "say": [
+    {
+     "play": "scenes/fr2-15y",
+     "dur": 6.657,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.457,
+       "who": "NARRATOR",
+       "text": "You nod. Sprockle writes it down in his notebook. Very important science."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-16"
+  },
+  "fr2-14y": {
+   "say": [
+    {
+     "play": "scenes/fr2-14y",
+     "dur": 7.395,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.115,
+       "who": "NARRATOR",
+       "text": "You hold up your hand. Pip bounces up and high-fives it with its whole body!"
+      },
+      {
+       "at": 5.715,
+       "len": 0.73,
+       "who": "PIP",
+       "text": "Pip!"
+      }
+     ]
+    }
+   ],
+   "go": "fr2-15"
+  },
+  "fr2-12y": {
+   "say": [
+    {
+     "play": "scenes/fr2-12y",
+     "dur": 8.701,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.501,
+       "who": "NARRATOR",
+       "text": "Gribbo pulls back on the stick. Round and round you go! And two Mould ships crash right into each other!"
+      }
+     ]
+    }
+   ],
+   "go": "fr2-13"
+  },
+  "fr2-11y": {
+   "say": [
+    {
+     "play": "scenes/fr2-11y",
+     "dur": 5.747,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.547,
+       "who": "NARRATOR",
+       "text": "You dance like nobody's watching! Pip copies every single move."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-12"
+  },
+  "fr2-9y": {
+   "say": [
+    {
+     "play": "scenes/fr2-9y",
+     "dur": 9.278,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.023,
+       "who": "NARRATOR",
+       "text": "You jump in front of Pip, brave as anything!"
+      },
+      {
+       "at": 3.623,
+       "len": 4.705,
+       "who": "NARRATOR",
+       "text": "Gribbo grabs a frying pan. Sprockle grabs... a spoon."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-10"
+  },
+  "fr2-8y": {
+   "say": [
+    {
+     "play": "scenes/fr2-8y",
+     "dur": 7.787,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.023,
+       "who": "NARRATOR",
+       "text": "You tiptoe over and peek out of the window with Tula. Nothing moves... until something does."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-9"
+  },
+  "fr2-7y": {
+   "say": [
+    {
+     "play": "scenes/fr2-7y",
+     "dur": 7.387,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.0,
+       "who": "NARRATOR",
+       "text": "You make a bed out of a slipper and a sock. Pip snuggles right in."
+      },
+      {
+       "at": 4.6,
+       "len": 1.837,
+       "who": "PIP",
+       "text": "Pip."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-8"
+  },
+  "fr2-5y": {
+   "say": [
+    {
+     "play": "scenes/fr2-5y",
+     "dur": 10.624,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.444,
+       "who": "NARRATOR",
+       "text": "You hold Pip out toward the hologram. And Pip's little lip wobbles."
+      },
+      {
+       "at": 5.044,
+       "len": 0.771,
+       "who": "PIP",
+       "text": "Pip?"
+      },
+      {
+       "at": 6.165,
+       "len": 3.509,
+       "who": "NARRATOR",
+       "text": "You can't do it! You tuck Pip safely behind your back."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-6"
+  },
+  "fr2-3y": {
+   "say": [
+    {
+     "play": "scenes/fr2-3y",
+     "dur": 5.738,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.538,
+       "who": "NARRATOR",
+       "text": "Pip it is! Pip bounces so high it nearly hits the ceiling."
+      }
+     ]
+    }
+   ],
+   "go": "fr2-4"
+  },
+  "fr-54": {
+   "say": [
+    {
+     "play": "scenes/fr-54",
+     "dur": 30.913,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 14.764,
+       "who": "NARRATOR",
+       "text": "You go home to your family, a hero. Sprockle's inventions finally get the attention they deserve, and he becomes Chief Scientist! Tula leads the new defense force of the united planets. And Gribbo gets all the snacks he can eat!"
+      },
+      {
+       "at": 15.364,
+       "len": 7.359,
+       "who": "NARRATOR",
+       "text": "But best of all? You and Sprockle still meet at the café every morning. And the Great Froot Tree glows brighter than ever."
+      },
+      {
+       "at": 23.073,
+       "len": 2.753,
+       "who": "SPROCKLE",
+       "text": "That was amazing, Cosmo!"
+      },
+      {
+       "at": 29.158,
+       "len": 0.805,
+       "who": "NARRATOR",
+       "text": "The end!"
+      }
+     ]
+    },
+    {
+     "play": "scenes/fr-sting",
+     "dur": 22.644,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.161,
+       "who": "NARRATOR",
+       "text": "But that's not quite the end. That night, Gribbo hangs his jacket on a chair at the café, and heads home."
+      },
+      {
+       "at": 6.761,
+       "len": 9.381,
+       "who": "NARRATOR",
+       "text": "The café is dark, and quiet. And then, deep in the jacket pocket, something tiny and golden opens its eyes."
+      },
+      {
+       "at": 16.492,
+       "len": 2.782,
+       "who": "PIP",
+       "text": "Pip?"
+      },
+      {
+       "at": 19.624,
+       "len": 1.158,
+       "who": "NARRATOR",
+       "text": "To be continued..."
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "chapter",
+    "title": "Heroes Epilogue",
+    "next": "fr2-0"
+   }
+  }
+ }
+}

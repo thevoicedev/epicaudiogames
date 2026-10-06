@@ -43,7 +43,9 @@ node tools/capture.js "<launch>" yes ... # prints what the real skill plays on a
 ```
 
 **Packs** (more stories and levels, bought in the app): a builder run with `--build build/packs` and all the
-stories or levels (`aliencustoms.py --levels 15`, `werewolf.py --stories 50`) writes the whole game there; then
+stories or levels (`aliencustoms.py --levels 15`, `werewolf.py --stories 50`; for Frootopia,
+`build_maps.py --cached --frootopia-stories 5 --build build/packs` then `fetch_audio.py --game frootopia --build
+build/packs`) writes the whole game there; then
 `tools/make_pack.py` cuts the pack out of it: `games/<id>/packs/<pack>.json` (the nodes the free map doesn't have),
 `dist/packs/<pack>-<version>.zip` (that and its audio, for the pack server) and the pack's line in
 `games/catalog.json` (title, Play product id, size, checksum).
@@ -113,6 +115,7 @@ machine are full of other apps' builds.
 3. The ElevenLabs voice (Jessica), and Pirate Quest, Leaning Tower of Pizza, Alien Customs (levels 1 to 5) and
    The Werewolf (stories 1 to 5). **Done.**
 4. Packs and purchases (Google Play Billing; packs downloaded from our own storage). **Running:** the pack format,
-   the app's store and pack downloads, and the Alien Customs pack (levels 6 to 15) are done; The Werewolf (stories 6
-   to 50) and The Kingdom of Frootopia (stories 2 to 5) next. Needs the pack server and the Play Console products.
+   the app's store and pack downloads, and the three packs are made and tried on the emulator: Alien Customs levels
+   6 to 15 (26 MB), The Werewolf stories 6 to 50 (133 MB) and The Kingdom of Frootopia stories 2 to 5 (15 MB). Still
+   to come: the pack server, and the products in the Play Console.
 5. Nuclear War, a size pass, and the release build.

@@ -10740,7 +10740,7 @@
    "end": {
     "kind": "chapter",
     "title": "Quick Ending",
-    "next": "fr2-1",
+    "next": "fr2-0",
     "locked": "frootopia-stories"
    }
   },
@@ -10891,7 +10891,7 @@
    "end": {
     "kind": "chapter",
     "title": "Heroes Epilogue",
-    "next": "fr2-1",
+    "next": "fr2-0",
     "locked": "frootopia-stories"
    }
   },

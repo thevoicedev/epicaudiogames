@@ -11,6 +11,8 @@ to switch to) is left out: endings stop at the end of the story, where the app s
 
 Usage (from the repo root): python tools/build_maps.py [--cached]
   --cached   reuse tools/cache/timings/*.json instead of laying the games out again
+The whole of Frootopia (stories 1 to 5), for its pack (tools/make_pack.py):
+  python tools/build_maps.py --cached --frootopia-stories 5 --build build/packs
 """
 import argparse
 import json
@@ -181,9 +183,13 @@ def noodle_rush(cached):
     }
 
 
-# ----- The Kingdom of Frootopia (story 1) -----
+# ----- The Kingdom of Frootopia (story 1 free; 2 to 5 in the pack) -----
 
-def frootopia(cached):
+FROOTOPIA_PACK = "frootopia-stories"
+RECAP = "fr{}-0"            # "Previously...", played before stories 2 to 5 (the skill's RECAPS)
+
+
+def frootopia(cached, stories=1):
     g = Game("frootopia", "frootopia", cached)
     f = g.flow
     by_id = {n["id"]: n for n in f["flow"]}
@@ -203,15 +209,25 @@ def frootopia(cached):
             return {"say": say, "go": n["next"]}
         if kind == "exit":
             return {"say": say, "go": {"end": "quit"}}
+        if kind == "story":                     # stories 2 to 5 (FR_FLOWS' storyNode)
+            kind = {"passthrough": "pass", "scene": "scene", "ending": "ending"}[n["kind"]]
+            if kind == "pass":
+                return {"say": say, "go": n["next"]}
         if kind == "ending":
-            # finishStory: story 1's ending is followed by its sting (Gribbo's pocket starts to glow), a teaser
-            # for story 2, which is in the paid pack.
+            # finishStory: story 1's ending is followed by its sting (Gribbo's pocket starts to glow), a teaser for
+            # story 2. Each story's end leads to the next one's recap; those after the free stories are locked.
             story = n["story"]
-            return {"say": say + [g.step("scenes", "fr-sting")],
-                    "end": {"kind": "chapter", "title": n["description"], "next": f["stories"][str(story + 1)],
-                            "locked": "frootopia-stories"}}
+            if story == 1:
+                say = say + [g.step("scenes", "fr-sting")]
+            title = n.get("description") or f"Story {story} complete!"
+            if story == 5:
+                return {"say": say, "end": {"kind": "ending", "title": "The End"}}
+            end = {"kind": "chapter", "title": title, "next": RECAP.format(story + 1)}
+            if story >= stories:
+                end["locked"] = FROOTOPIA_PACK
+            return {"say": say, "end": end}
         if kind not in ("scene", "gameover"):
-            raise ValueError(f"{nid}: unexpected node type {kind!r} in story 1")
+            raise ValueError(f"{nid}: unexpected node type {kind!r}")
         yes, no = (("_restart", "fr-exit") if kind == "gameover" else (n.get("yes"), n.get("no")))
         # doFrootopiaAnswer: the node's own words first (fr-9: "fight" or "run"), then "no", then "yes".
         answers = []
@@ -236,9 +252,13 @@ def frootopia(cached):
             continue
         nodes[nid] = build(nid)
         todo += [t for t in targets_of(nodes[nid]) if t not in nodes]
+        end = nodes[nid].get("end")
+        if end and end.get("next") and "locked" not in end:
+            todo.append(end["next"])
     # startStory(replay): "Let's start the adventure again, from the very beginning!"
     nodes["_restart"] = {"say": [g.step("common", "restart")], "go": {"restart": start}}
-    left_out = sorted(i for i in by_id if i.startswith("fr-") and i not in nodes and i != "fr-sting")
+    left_out = sorted(i for i in by_id if i.split("-")[0] in [f"fr{k}" if k > 1 else "fr" for k in range(1, stories + 1)]
+                      and i not in nodes and i != "fr-sting")
     if left_out:
         g.warnings.append(f"story 1 nodes that can't be reached, left out: {', '.join(left_out)}")
     return g, {
@@ -372,7 +392,7 @@ def chapter_titles(g, chapters):
     return titles
 
 
-def write_map(g, data):
+def write_map(g, data, build=None):
     nodes = data["nodes"]
     lost = sorted(set(nodes) - reachable(nodes, data["start"]))
     if lost:
@@ -383,7 +403,7 @@ def write_map(g, data):
     if data.get("symbols"):
         out["symbols"] = data["symbols"]
     out["nodes"] = nodes
-    path = GAMES / data["id"] / "map.json"
+    path = (Path(build) / data["id"] if build else GAMES / data["id"]) / "map.json"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     asks = sum(1 for n in nodes.values() if "ask" in n)
@@ -391,7 +411,7 @@ def write_map(g, data):
     clips = {s["play"] for n in nodes.values() for steps in steps_of(n) for s in steps if "play" in s}
     secs = sum(g.timings[c.split("/")[0]][c.split("/", 1)[1]]["dur"] for c in clips)
     print(f"{data['id']}: {len(nodes)} nodes ({asks} questions, {ends} ends), {len(clips)} clips, "
-          f"{secs / 60:.1f} min of audio -> {path.relative_to(ROOT)}")
+          f"{secs / 60:.1f} min of audio -> {path}")
     for warning in g.warnings:
         print(f"  ! {warning}")
 
@@ -399,7 +419,12 @@ def write_map(g, data):
 def main():
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     ap.add_argument("--cached", action="store_true", help="reuse the cached timings")
+    ap.add_argument("--frootopia-stories", type=int, default=1, help="Frootopia stories to build (all of them: 5)")
+    ap.add_argument("--build", help="a folder for a pack build: only Frootopia, written to <build>/frootopia/")
     args = ap.parse_args()
+    if args.build:
+        write_map(*frootopia(args.cached, args.frootopia_stories), build=args.build)
+        return
     for build in (noodle_rush, frootopia, signal_decoders):
         write_map(*build(args.cached))
 

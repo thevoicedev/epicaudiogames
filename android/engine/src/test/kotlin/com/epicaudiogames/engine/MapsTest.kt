@@ -120,12 +120,18 @@ class MapsTest {
             }
         }
 
-        /** Plays [count] games from the start with random answers (and silences) and random draws. */
+        /**
+         * Plays [count] games from the start with random answers and random draws. Three answers in four are ones
+         * the question takes (the rest: silence, nonsense or "repeat"), so a game gets deep into a long story; and in
+         * every other game, half the time the bot says what it said last, as players do ("next" through all the
+         * villagers).
+         */
         fun walk(rng: Random, count: Int, turnsEach: Int = 80) {
-            repeat(count) {
+            repeat(count) { game ->
                 walks++
                 val s = Session(map) { n -> rng.nextInt(n) }
                 var t = s.start()
+                var last: String? = null
                 check(t)
                 for (i in 0 until turnsEach) {
                     if (t.quit) break
@@ -134,7 +140,13 @@ class MapsTest {
                         t = if (end.kind == "chapter" && end.next in map.nodes) s.nextChapter() else playAgain(s, end)
                     } else {
                         val options = inputs(t.ask!!)
-                        val said = options[rng.nextInt(options.size)]
+                        val taken = options.drop(3).ifEmpty { options }     // inputs() lists silence, nonsense, repeat first
+                        val said = when {
+                            game % 2 == 1 && last in options && rng.nextBoolean() -> last
+                            rng.nextInt(4) > 0 -> taken[rng.nextInt(taken.size)]
+                            else -> options[rng.nextInt(options.size)]
+                        }
+                        last = said
                         t = if (said == null) s.silence() else s.answer(said)
                     }
                     check(t)

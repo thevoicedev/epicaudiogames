@@ -5,7 +5,18 @@
       "id": "frootopia",
       "title": "The Kingdom of Frootopia",
       "blurb": "Join Cosmo and friends on a galaxy adventure, and save the Kingdom of Frootopia.",
-      "free": "Story 1 free"
+      "free": "Story 1 free",
+      "packs": [
+        {
+          "id": "frootopia-stories",
+          "title": "Stories 2 to 5",
+          "description": "The Stowaway, The Mould Moon, The Edge of Everything and The Last Star: the rest of Cosmo, Gribbo and Pip's adventure.",
+          "product": "frootopia_stories",
+          "version": 1,
+          "size": 14558828,
+          "sha256": "97027bacbde9760a87c14880cee79afcb772bdcc908a75a7a8c3c71321fb4060"
+        }
+      ]
     },
     {
       "id": "noodle-rush",
@@ -52,7 +63,18 @@
       "id": "the-werewolf",
       "title": "The Werewolf",
       "blurb": "Listen to the villagers and find out which of them is the werewolf, before it strikes again.",
-      "free": "5 stories free"
+      "free": "5 stories free",
+      "packs": [
+        {
+          "id": "the-werewolf-stories",
+          "title": "45 more mysteries",
+          "description": "Stories 6 to 50, from The Haunted Mill to The Cursed Well: 45 more villages, each with two werewolves hiding among the villagers.",
+          "product": "the_werewolf_stories",
+          "version": 1,
+          "size": 133444602,
+          "sha256": "1096029c3e810473bfd3b5fe036f44942d58615aade50c5f6450fea7194b7690"
+        }
+      ]
     }
   ]
 }

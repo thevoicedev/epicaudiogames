@@ -10,6 +10,8 @@ Masters become mono AAC (.m4a, 48 kbps) by default, or Ogg Opus (.opus) with --c
 all-minigames-sites is written. Clips that already exist in content/ are skipped unless --force.
 
 Usage (from the repo root): python tools/fetch_audio.py [--game noodle-rush] [--codec aac|opus] [--force]
+A pack build's audio (the map in <build>/<game>/, the audio to <build>/<game>/content/):
+  python tools/fetch_audio.py --game frootopia --build build/packs
 """
 import argparse
 import concurrent.futures as cf
@@ -69,10 +71,10 @@ def duration(path):
     return float(p.stdout.strip())
 
 
-def fetch(game, tools_dir, prefix, path, dur, codec, force):
-    """Returns (path, source, bytes, problem)."""
+def fetch(game, tools_dir, prefix, path, dur, codec, force, out):
+    """Fetches one clip into the folder out (content/<game>/). Returns (path, source, bytes, problem)."""
     ext, args = CODECS[codec]
-    existing = [CONTENT / game / f"{path}{e}" for e in EXTS if (CONTENT / game / f"{path}{e}").exists()]
+    existing = [out / f"{path}{e}" for e in EXTS if (out / f"{path}{e}").exists()]
     if existing and not force:
         return path, "kept", existing[0].stat().st_size, None
     for old in existing:
@@ -80,17 +82,17 @@ def fetch(game, tools_dir, prefix, path, dur, codec, force):
     cdn_bytes = download(f"{CDN}{prefix}{path}.mp3", CACHE / game / f"{path}.mp3")
     dist = tools_dir / "out" / "dist" / f"{path}.mp3"
     master = tools_dir / "out" / "mix" / f"{path}.wav"
-    out_dir = (CONTENT / game / path).parent
+    out_dir = (out / path).parent
     out_dir.mkdir(parents=True, exist_ok=True)
     problem = None
     if master.exists() and dist.exists() and dist.read_bytes() == cdn_bytes and abs(duration(master) - dur) < 0.02:
-        dest = CONTENT / game / f"{path}{ext}"
+        dest = out / f"{path}{ext}"
         tmp = dest.with_name(dest.stem + ".tmp" + ext)
         subprocess.run(["ffmpeg", "-v", "error", "-y", "-i", str(master), "-ac", "1", *args, str(tmp)], check=True)
         tmp.replace(dest)
         source = "master"
     else:
-        dest = CONTENT / game / f"{path}.mp3"
+        dest = out / f"{path}.mp3"
         shutil.copyfile(CACHE / game / f"{path}.mp3", dest)
         source = "cdn"
     got = duration(dest)
@@ -104,17 +106,22 @@ def main():
     ap.add_argument("--game", help="one game id (default: all)")
     ap.add_argument("--codec", choices=sorted(CODECS), default="aac")
     ap.add_argument("--force", action="store_true", help="fetch and encode again")
+    ap.add_argument("--build", help="a pack build folder: its <game>/map.json, its audio to <game>/content/")
     args = ap.parse_args()
     for game, tools_name in SOURCES.items():
         if args.game and game != args.game:
             continue
-        game_map = json.loads((ROOT / "games" / game / "map.json").read_text(encoding="utf-8"))
+        maps = Path(args.build) if args.build else ROOT / "games"
+        out = Path(args.build) / game / "content" if args.build else CONTENT / game
+        if not (maps / game / "map.json").exists():
+            continue
+        game_map = json.loads((maps / game / "map.json").read_text(encoding="utf-8"))
         tools_dir = MINI / "alexa" / "tools" / tools_name
         prefix = json.loads((tools_dir / "game.json").read_text(encoding="utf-8"))["cdn_prefix"]
         clips = plays(game_map)
         counts, size, problems = {}, 0, []
         with cf.ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:
-            jobs = [pool.submit(fetch, game, tools_dir, prefix, p, d, args.codec, args.force) for p, d in clips]
+            jobs = [pool.submit(fetch, game, tools_dir, prefix, p, d, args.codec, args.force, out) for p, d in clips]
             for job in cf.as_completed(jobs):
                 path, source, nbytes, problem = job.result()
                 counts[source] = counts.get(source, 0) + 1
@@ -122,7 +129,7 @@ def main():
                 if problem:
                     problems.append(problem)
         detail = ", ".join(f"{n} {k}" for k, n in sorted(counts.items()))
-        print(f"{game}: {len(clips)} clips ({detail}), {size / 1e6:.1f} MB -> {(CONTENT / game).relative_to(ROOT)}")
+        print(f"{game}: {len(clips)} clips ({detail}), {size / 1e6:.1f} MB -> {out}")
         for problem in sorted(problems):
             print(f"  ! {problem}")
 
