@@ -87,6 +87,9 @@ class GameController(
     private var clipLines: List<List<Line>> = emptyList()
     private var revealed: IntArray = IntArray(0)
     private var entryOfLine = mutableMapOf<Pair<Int, Int>, Int>()
+    /** Where each line starts in its feed entry: a line can carry on the one before it (see [reveal]). */
+    private var offsetOfLine = mutableMapOf<Pair<Int, Int>, Int>()
+    private var turnStart = 0
     private var ticker: Job? = null
     private var silences = 0
 
@@ -120,6 +123,8 @@ class GameController(
         clipLines = clips.map { it.lines }
         revealed = IntArray(clips.size)
         entryOfLine.clear()
+        offsetOfLine.clear()
+        turnStart = feed.size
         speaking = true
         audio.play(t.steps)          // calls finishTurn when the turn's audio has played (at once if it has none)
         ticker?.cancel()
@@ -147,15 +152,28 @@ class GameController(
         val line = lines[i]
         activeEntry = entryOfLine[clip to i] ?: -1
         val progress = if (line.len > 0) ((t - line.at) / line.len).coerceIn(0.0, 1.0) else 1.0
-        activeChars = (line.text.length * progress).toInt()
+        activeChars = (offsetOfLine[clip to i] ?: 0) + (line.text.length * progress).toInt()
     }
 
+    /**
+     * Shows the clip's lines whose time has come. A line that carries on a sentence (the same speaker's previous line
+     * in this turn ends with a comma, as in a list of names made of one clip per name) joins that entry.
+     */
     private fun reveal(clip: Int, t: Double) {
         val lines = clipLines.getOrNull(clip) ?: return
         while (revealed[clip] < lines.size && lines[revealed[clip]].at <= t) {
             val line = lines[revealed[clip]]
-            entryOfLine[clip to revealed[clip]] = feed.size
-            feed += FeedItem.Spoken(line.who, map.who[line.who] ?: line.who, line.text)
+            val key = clip to revealed[clip]
+            val last = feed.lastOrNull()
+            if (last is FeedItem.Spoken && feed.lastIndex >= turnStart && last.who == line.who && last.text.endsWith(",")) {
+                entryOfLine[key] = feed.lastIndex
+                offsetOfLine[key] = last.text.length + 1
+                feed[feed.lastIndex] = last.copy(text = "${last.text} ${line.text}")
+            } else {
+                entryOfLine[key] = feed.size
+                offsetOfLine[key] = 0
+                feed += FeedItem.Spoken(line.who, map.who[line.who] ?: line.who, line.text)
+            }
             revealed[clip]++
         }
     }

@@ -49,12 +49,17 @@ class Session(
         return play(Go.To(map.start))
     }
 
-    /** Back at a saved place: the end screen, or the node's say again and its question. */
+    /**
+     * Back at a saved place: the end screen, or the node's say again and its question. A question whose node says
+     * nothing itself (the turn before it did the talking) plays its reprompt.
+     */
     fun resume(saved: Saved): Turn {
         val n = map.nodes[saved.node]
         if (n == null || (n.ask == null && n.end == null)) return start()
         restore(saved)
-        return if (saved.ended) turn(emptyList(), emptyList()) else turn(resolve(n.say), listOf(n.id))
+        if (saved.ended) return turn(emptyList(), emptyList())
+        val again = resolve(n.say).ifEmpty { resolve(n.ask?.reprompt.orEmpty()) }
+        return turn(again, listOf(n.id))
     }
 
     /** Puts the game at a saved place without playing anything. */

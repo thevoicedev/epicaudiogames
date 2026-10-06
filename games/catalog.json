@@ -30,6 +30,12 @@
       "title": "Alien Customs",
       "blurb": "Convince a strict alien customs officer to let you into Jupiter with your suspicious luggage.",
       "free": "5 levels free"
+    },
+    {
+      "id": "the-werewolf",
+      "title": "The Werewolf",
+      "blurb": "Listen to the villagers and find out which of them is the werewolf, before it strikes again.",
+      "free": "5 stories free"
     }
   ]
 }

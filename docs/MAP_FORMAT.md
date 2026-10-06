@@ -239,6 +239,7 @@ when it's reached without it.
 
 ## Saving
 
-The app saves, per game: the current node, the variables, and the end the player reached. A game that starts again
-(from its end screen, or `go: { "restart" }`) starts with the starting variables, except those listed in `keep`. A
-chapter's `next` keeps all of them.
+The app saves, per game: the current node, the variables, and the end the player reached. A game picked up again
+plays its question's node again (or, when that node says nothing itself because the turn before it did the
+talking, its reprompt). A game that starts again (from its end screen, or `go: { "restart" }`) starts with the
+starting variables, except those listed in `keep`. A chapter's `next` keeps all of them.

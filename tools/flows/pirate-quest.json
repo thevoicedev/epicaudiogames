@@ -1,0 +1,4522 @@
+{
+ "game": "pirate-quest",
+ "cdn": "en/audio2/",
+ "start": {
+  "health": 80,
+  "coins": 50,
+  "crewMorale": 55,
+  "reputation": 10,
+  "journalQuest": [
+   "First sail"
+  ],
+  "firedNavigator": false,
+  "royalInfo": false
+ },
+ "utterances": {
+  "map": [
+   "map",
+   "matt",
+   "back",
+   "mum",
+   "mark"
+  ],
+  "supplies": [
+   "supplies",
+   "stock up",
+   "supply",
+   "surprise"
+  ],
+  "recruit": [
+   "recruit",
+   "hire",
+   "recruit him",
+   "repeat"
+  ],
+  "learn": [
+   "learn",
+   "study",
+   "gain knowledge",
+   "lamp"
+  ],
+  "fight": [
+   "fight",
+   "attack",
+   "engage"
+  ],
+  "duel": [
+   "duel",
+   "dual",
+   "challenge captain",
+   "jewel",
+   "joe",
+   "Joe",
+   "jill",
+   "Jill"
+  ],
+  "brutal": [
+   "brutal",
+   "overwhelm",
+   "all out attack"
+  ],
+  "flee": [
+   "flee",
+   "run",
+   "escape",
+   "flea",
+   "play",
+   "please"
+  ],
+  "talk": [
+   "talk",
+   "parley",
+   "negotiate",
+   "fork",
+   "torque"
+  ],
+  "board": [
+   "board",
+   "bored",
+   "storm the ship",
+   "what",
+   "ford",
+   "Ford",
+   "order",
+   "board ship",
+   "bored ship",
+   "pause",
+   "paws",
+   "pours",
+   "orchid",
+   "ode"
+  ],
+  "accept": [
+   "accept"
+  ],
+  "gold": [
+   "gold",
+   "treasure",
+   "loot"
+  ],
+  "crew": [
+   "crew",
+   "true"
+  ],
+  "continue": [
+   "continue",
+   "keep going",
+   "move on"
+  ],
+  "ignore": [
+   "ignore",
+   "forget it",
+   "leave it be"
+  ],
+  "shaman": [
+   "shaman",
+   "witch doctor",
+   "mystic"
+  ],
+  "split": [
+   "split",
+   "share",
+   "divide"
+  ],
+  "fire": [
+   "fire",
+   "dismiss",
+   "sack"
+  ],
+  "trust": [
+   "trust",
+   "believe",
+   "follow"
+  ],
+  "roll": [
+   "roll",
+   "gamble",
+   "rob",
+   "wrong"
+  ],
+  "leave": [
+   "leave",
+   "walk away"
+  ],
+  "rest": [
+   "rest",
+   "rust",
+   "west"
+  ],
+  "dice": [
+   "dice",
+   "the ice",
+   "ice",
+   "play dice",
+   "lights",
+   "bass"
+  ],
+  "sail": [
+   "sail",
+   "set sail",
+   "navigate",
+   "sale",
+   "Sam",
+   "sam"
+  ],
+  "trick": [
+   "trick",
+   "check"
+  ],
+  "lesson": [
+   "lesson",
+   "teach",
+   "learn wisdom"
+  ],
+  "pay": [
+   "pay",
+   "give money",
+   "compensate"
+  ],
+  "end": [
+   "end",
+   "finalize"
+  ],
+  "pledge": [
+   "pledge",
+   "oath",
+   "promise"
+  ],
+  "reflect": [
+   "reflect",
+   "think",
+   "ponder"
+  ],
+  "celebrate": [
+   "celebrate",
+   "cheers",
+   "party"
+  ],
+  "finish": [
+   "finish",
+   "end it",
+   "wrap up"
+  ],
+  "retry": [
+   "retry",
+   "try again",
+   "redo"
+  ],
+  "stealth": [
+   "stealth",
+   "sneak",
+   "silent attack"
+  ],
+  "confront": [
+   "confront"
+  ],
+  "rush": [
+   "rush",
+   "charge",
+   "go fast"
+  ],
+  "atmosphere": [
+   "atmosphere",
+   "feel the moment",
+   "experience"
+  ],
+  "victory": [
+   "victory",
+   "win",
+   "triumph"
+  ],
+  "cannons": [
+   "cannons",
+   "fire cannons",
+   "broadside"
+  ],
+  "crash": [
+   "crash",
+   "smash"
+  ],
+  "plan": [
+   "plan",
+   "strategize",
+   "make a plan"
+  ],
+  "threaten": [
+   "threaten",
+   "intimidate",
+   "scare"
+  ],
+  "ambush": [
+   "ambush",
+   "a bush",
+   "bush"
+  ],
+  "direct": [
+   "direct"
+  ],
+  "restart": [
+   "restart"
+  ]
+ },
+ "nodes": [
+  {
+   "id": "ac-1",
+   "description": "The Call of the Sea",
+   "reprompt": "Are you ready to begin your quest? ",
+   "options": {
+    "yes": [
+     "ac-1a"
+    ],
+    "no": [
+     "ac-diffGame"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-1"
+      },
+      {
+       "voice": "Welcome to Pirate Quest! Set sail, gather your crew, and battle rival captains. Every choice shapes your journey—will you rule the seas or be lost to the depths? Are you ready to begin your quest? "
+      }
+     ],
+     "reprompt": "Are you ready to begin your quest? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-diffGame",
+   "description": "Switch game",
+   "reprompt": null,
+   "options": {},
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-1"
+      },
+      {
+       "voice": "Begin your pirate adventure another time. "
+      }
+     ],
+     "reprompt": null,
+     "asked": null,
+     "error": "Cannot read properties of undefined (reading 'length')"
+    }
+   ]
+  },
+  {
+   "id": "ac-1a",
+   "description": "The Call of the Sea",
+   "reprompt": "You can say: Map, or, Supplies.",
+   "options": {
+    "map": [
+     "ac-3"
+    ],
+    "supplies": [
+     "ac-2"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-1a"
+      },
+      {
+       "audio": "pirate-quest/one-eyed-will-intro.mp3",
+       "trim": false
+      },
+      {
+       "voice": "What's the plan, Cap'n? Say: map, or supplies. "
+      }
+     ],
+     "reprompt": "What will you do? Say: MAP, or, Supplies.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-2",
+   "description": "Gathering Supplies",
+   "reprompt": "You can say: RECRUIT, or LEARN",
+   "options": {
+    "recruit": [
+     "ac-3"
+    ],
+    "learn": [
+     "ac-3"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-2"
+      },
+      {
+       "stat": "coins",
+       "value": 5,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": 5,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/supplies-sailor.mp3",
+       "trim": false
+      },
+      {
+       "voice": "He sounds experienced. Should we: Recruit, or learn?"
+      }
+     ],
+     "reprompt": "RECRUIT, or LEARN.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-3",
+   "description": "Tutorial Fight",
+   "reprompt": "You can say FIGHT, FLEE, or TALK",
+   "options": {
+    "fight": [
+     "ac-3a"
+    ],
+    "flee": [
+     "ac-3b"
+    ],
+    "talk": [
+     "ac-3c"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-3"
+      },
+      {
+       "voice": "You use your map, and get sailing instantly. "
+      },
+      {
+       "audio": "pirate-quest/fight-scene-james.mp3",
+       "trim": false
+      },
+      {
+       "voice": "What's the call, Cap'n? Fight, Flee, or Talk?"
+      }
+     ],
+     "reprompt": "Fight, flee or talk.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-3a",
+   "description": "Tutorial Fight - Option A - Fight",
+   "reprompt": "You can say: BOARD, or FLEE",
+   "options": {
+    "board": [
+     "ac-3a1"
+    ],
+    "flee": [
+     "ac-3b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-3a"
+      },
+      {
+       "audio": "pirate-quest/pirate-battle-sound.mp3",
+       "trim": false
+      },
+      {
+       "voice": "What's your choice. board, or flee?"
+      },
+      {
+       "stat": "journalQuest",
+       "value": "Taste of the fight",
+       "once": true
+      }
+     ],
+     "reprompt": "Say: BOARD, or FLEE!",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-3a1",
+   "description": "Tutorial fight - Option A (board) - 1",
+   "reprompt": "You can say: DUEL, or BRUTAL",
+   "options": {
+    "duel": [
+     "ac-3a2"
+    ],
+    "brutal": [
+     "ac-3a3"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-3a1"
+      },
+      {
+       "stat": "reputation",
+       "value": 15,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/pirate-boarding2.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Say: DUEL, or BRUTAL."
+      }
+     ],
+     "reprompt": "Say: DUEL, or BRUTAL.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-3a2",
+   "description": "Tutorial fight - Duel the Captain",
+   "reprompt": "Want to sail to treasure island? ",
+   "options": {
+    "yes": [
+     "ac-4"
+    ],
+    "no": [
+     "ac-exit"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-3a2"
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "stat": "health",
+       "value": -10,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": 30,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/battle-duel2.mp3",
+       "trim": false
+      },
+      {
+       "voice": "No honour in that. You decide to spare him, and take his ship. "
+      },
+      {
+       "audio": "pirate-quest/tut-complete.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Good job captain. Now, are you ready to sail onto treasure island? "
+      }
+     ],
+     "reprompt": "Are you ready to sail onto treasure island? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-3a3",
+   "description": "Tutorial fight - Brutal Crew Assault",
+   "reprompt": "Want to sail to treasure island? ",
+   "options": {
+    "yes": [
+     "ac-4"
+    ],
+    "no": [
+     "ac-exit"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-3a3"
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": -10,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": 30,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/pirate-brutal2.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/tut-complete.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Good job captain. Now, are you ready to sail onto treasure island? "
+      }
+     ],
+     "reprompt": "Are you ready to sail onto treasure island? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-3b",
+   "description": "Tutorial fight - Option B (flee)",
+   "reprompt": "Want to sail to treasure island? ",
+   "options": {
+    "yes": [
+     "ac-4"
+    ],
+    "no": [
+     "ac-exit"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-3b"
+      },
+      {
+       "stat": "reputation",
+       "value": -5,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": -10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/pirate-flee.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/tut-complete.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Good job captain. Now, are you ready to sail onto treasure island? "
+      }
+     ],
+     "reprompt": "Are you ready to sail onto treasure island? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-3c",
+   "description": "Tutorial fight - Option C - Negotiate",
+   "reprompt": "Want to accept his offer? ",
+   "options": {
+    "yes": [
+     "ac-3c1"
+    ],
+    "no": [
+     "ac-3a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-3c"
+      },
+      {
+       "audio": "pirate-quest/pirates-negotiate2.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to accept his offer? "
+      }
+     ],
+     "reprompt": "Want to accept his offer?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-3c1",
+   "description": "Tutorial fight - Option C - Negotiation Accepted - Outcome",
+   "reprompt": "Want to continue your journey? ",
+   "options": {
+    "yes": [
+     "ac-4"
+    ],
+    "no": [
+     "ac-exit"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-3c1"
+      },
+      {
+       "stat": "reputation",
+       "value": -5,
+       "once": true
+      },
+      {
+       "stat": "health",
+       "value": -5,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": 20,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/pirates-negotiate3.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/tut-complete.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Good job captain. Now, are you ready to sail onto treasure island? "
+      }
+     ],
+     "reprompt": "Are you ready to sail onto treasure island? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-4",
+   "description": "Sailing to Treasure Island",
+   "reprompt": "Want to drop the anchor? ",
+   "options": {
+    "yes": [
+     "ac-5"
+    ],
+    "no": [
+     "reprompt-anchor"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-4"
+      },
+      {
+       "audio": "pirate-quest/discover-island.mp3",
+       "trim": true
+      },
+      {
+       "audio": "pirate-quest/one-eyed-will-ac-4.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to drop the anchor?  "
+      }
+     ],
+     "reprompt": "Say Yes, to drop the anchor and go ashore. ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "reprompt-anchor",
+   "description": "Reprompting anchor drop with shanty",
+   "reprompt": "Want to drop the anchor? ",
+   "options": {
+    "yes": [
+     "ac-5"
+    ],
+    "no": [
+     "reprompt-anchor"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "audio": "pirate-quest/repeat-shanty.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to drop the anchor? "
+      }
+     ],
+     "reprompt": "Are you ready to drop the anchor? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-exit",
+   "description": "Handle subscription success",
+   "reprompt": null,
+   "options": {},
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "voice": "Thanks for playing. "
+      },
+      {
+       "audio": "puzzle-games-ad.mp3",
+       "trim": false
+      }
+     ],
+     "reprompt": null,
+     "asked": null,
+     "error": "ad.Response.Tell is not a function"
+    }
+   ]
+  },
+  {
+   "id": "ac-5",
+   "description": "Landing on an Island",
+   "reprompt": "Would you like to follow the navigator? ",
+   "options": {
+    "no": [
+     "ac-5a"
+    ],
+    "yes": [
+     "ac-5b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-5"
+      },
+      {
+       "stat": "journalQuest",
+       "value": "Treasure Island",
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/pirate-land.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Would you like to follow the navigator? "
+      }
+     ],
+     "reprompt": "Would you like to follow the navigator?",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-5a",
+   "description": "Taking the Map from the Navigator",
+   "reprompt": "You can say SPLIT, or FIGHT.",
+   "options": {
+    "split": [
+     "ac-5a1"
+    ],
+    "fight": [
+     "ac-5a2"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-5a"
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/snatch-map.mp3",
+       "trim": false
+      },
+      {
+       "voice": "After hours of trekking, the trees thin out. You spot something through the leaves — a wrecked ship, half-buried in the sand. "
+      },
+      {
+       "voice": "You see a familiar face. "
+      },
+      {
+       "audio": "pirate-quest/bj.mp3",
+       "trim": false
+      },
+      {
+       "silence": 500
+      },
+      {
+       "voice": "What will ye do, Cap'n? Say: SPLIT, or FIGHT."
+      }
+     ],
+     "reprompt": "Say: SPLIT, or FIGHT.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-5a3",
+   "description": "Exploring jungle",
+   "reprompt": "Are you ready to go back to the ship? ",
+   "options": {
+    "yes": [
+     "ac-6"
+    ],
+    "no": [
+     "ac-5a3"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-5a1"
+      },
+      {
+       "audio": "pirate-quest/explore-jungle.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to go back to the ship? "
+      }
+     ],
+     "reprompt": "Are you ready to go back to the ship? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-5a1",
+   "description": "Splitting the Treasure",
+   "reprompt": "Want to go back to your ship? ",
+   "options": {
+    "yes": [
+     "ac-6"
+    ],
+    "no": [
+     "ac-5a3"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-5a1"
+      },
+      {
+       "stat": "coins",
+       "value": 100,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": -5,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": -5,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/share-treasure.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to go back to your ship? "
+      }
+     ],
+     "reprompt": "Want to go back to your ship? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-5a2",
+   "description": "Fighting Barnacle Joe's Crew",
+   "reprompt": "Are you ready to return to the ship? ",
+   "options": {
+    "yes": [
+     "ac-6"
+    ],
+    "no": [
+     "ac-5a3"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-5a2"
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "stat": "health",
+       "value": -10,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": 200,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/battle-bj.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to return to the ship? "
+      }
+     ],
+     "reprompt": "Are you ready to return to the ship? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-5b",
+   "description": "Trusting the Navigator",
+   "reprompt": "Are you ready to set sail?  ",
+   "options": {
+    "yes": [
+     "ac-6"
+    ],
+    "no": [
+     "ac-5a3"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-5b"
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": 200,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/find-treasure.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You take the coins and head back to the ship. Time to continue your adventure. "
+      },
+      {
+       "voice": "Are you ready to set sail? "
+      }
+     ],
+     "reprompt": "Are you ready to set sail? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-6",
+   "description": "Cursed Treasure & The Ghost Captain",
+   "reprompt": "Want to seek a shaman to help lift the curse? ",
+   "options": {
+    "no": [
+     "ac-6a"
+    ],
+    "yes": [
+     "ac-6b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-6"
+      },
+      {
+       "stat": "journalQuest",
+       "value": "Cursed Treasure",
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/cursed-treasure.mp3",
+       "trim": false
+      },
+      {
+       "voice": "What's yer call, Cap'n? Want to seek a shaman to help with the curse? "
+      }
+     ],
+     "reprompt": "Want to seek a shaman to help lift the curse? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-6a",
+   "description": "Ignoring the Curse",
+   "reprompt": "You can say: FIGHT or FLEE.",
+   "options": {
+    "fight": [
+     "ac-6a1"
+    ],
+    "flee": [
+     "ac-6a2"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-6a"
+      },
+      {
+       "stat": "reputation",
+       "value": 10,
+       "once": true
+      },
+      {
+       "stat": "health",
+       "value": -10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/ghost-captain-intro.mp3",
+       "trim": false
+      },
+      {
+       "voice": "This isn't good. Let's hear what the ghost captain has to say. "
+      },
+      {
+       "audio": "pirate-quest/meet-gc3.mp3",
+       "trim": false
+      },
+      {
+       "silence": 375
+      },
+      {
+       "voice": "Well, someone got out of the wrong side of bed this morning. "
+      },
+      {
+       "voice": "Captain. What will you do. Fight, or flee? "
+      }
+     ],
+     "reprompt": "What will you do. Fight, or flee?",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-6a1",
+   "description": "Battle with the Ghost Ship",
+   "reprompt": "Are you ready to set sail?",
+   "options": {
+    "yes": [
+     "ac-7"
+    ],
+    "no": [
+     "ac-7joke"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-6a1"
+      },
+      {
+       "stat": "reputation",
+       "value": 10,
+       "once": true
+      },
+      {
+       "stat": "health",
+       "value": -15,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": -50,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/reclaim-treasure.mp3",
+       "trim": false
+      },
+      {
+       "voice": "The ghosts took the treasure. Atleast you live to tell the tale. "
+      },
+      {
+       "silence": 375
+      },
+      {
+       "voice": "Are you ready to set sail? "
+      }
+     ],
+     "reprompt": "Are you ready to set sail? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-7joke",
+   "description": "Battle with the Ghost Ship",
+   "reprompt": "Are you ready to set sail? ",
+   "options": {
+    "yes": [
+     "ac-7"
+    ],
+    "no": [
+     "ac-7joke"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-7joke"
+      },
+      {
+       "audio": "pirate-quest/warm-cockles.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/pirate-joke-3.mp3",
+       "trim": false
+      },
+      {
+       "voice": "That was hilarious. "
+      },
+      {
+       "silence": 375
+      },
+      {
+       "voice": "Are you ready to set sail? "
+      }
+     ],
+     "reprompt": "Are you ready to set sail? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-6a2",
+   "description": "Escaping the Ghost Ship",
+   "reprompt": "Are you ready to sail on? ",
+   "options": {
+    "yes": [
+     "ac-7"
+    ],
+    "no": [
+     "ac-7joke"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-6a2"
+      },
+      {
+       "stat": "reputation",
+       "value": -5,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": -10,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": -50,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/escape-ghost.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You escape the ghosts, but your treasure mysteriously vanishes. "
+      },
+      {
+       "voice": "Are you ready to sail on?"
+      }
+     ],
+     "reprompt": "Are you ready to sail on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-6b",
+   "description": "Seeking the Shaman",
+   "reprompt": "Want to give a member of your crew? ",
+   "options": {
+    "yes": [
+     "ac-6b1"
+    ],
+    "no": [
+     "ac-6b2"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-6b"
+      },
+      {
+       "audio": "pirate-quest/meet-skull-island.mp3",
+       "trim": false
+      },
+      {
+       "voice": "A shrouded figure appears from the mist, a wooden staff in one hand, bones clinking from her belt. "
+      },
+      {
+       "audio": "pirate-quest/sacrifice-prompt.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to give the shaman a member of your crew? "
+      }
+     ],
+     "reprompt": " Say Yes or no. ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-6b1",
+   "description": "Sacrificing a Crew Member",
+   "reprompt": "Are you ready to move on? ",
+   "options": {
+    "yes": [
+     "ac-7"
+    ],
+    "no": [
+     "ac-7joke"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-6b1"
+      },
+      {
+       "stat": "crewMorale",
+       "value": -20,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/curse-lifted.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to move on? "
+      }
+     ],
+     "reprompt": "Are you ready to move on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-6b2",
+   "description": "Sacrificing Gold to Lift the Curse",
+   "reprompt": "Are you ready to move on? ",
+   "options": {
+    "yes": [
+     "ac-7"
+    ],
+    "no": [
+     "ac-7joke"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-6b2"
+      },
+      {
+       "stat": "coins",
+       "value": -100,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": -5,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": -10,
+       "once": true
+      },
+      {
+       "voice": "You don't sacrifice one of your men, and offer the shaman coins instead. "
+      },
+      {
+       "audio": "pirate-quest/decline-sacrifice.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to move on? "
+      }
+     ],
+     "reprompt": "Are you ready to move on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-7",
+   "description": "Sailing After the Curse",
+   "reprompt": "Want to sail to the pirate haven? ",
+   "options": {
+    "yes": [
+     "ac-8"
+    ],
+    "no": [
+     "ac-8shanty"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-7"
+      },
+      {
+       "voice": "The cursed mist fades, and the open sea stretches before ye once more. "
+      },
+      {
+       "audio": "pirate-quest/hungry-boat.mp3",
+       "trim": false
+      },
+      {
+       "voice": "What do you say captain. Want to sail to the pirate haven? "
+      }
+     ],
+     "reprompt": "Want to sail to the pirate haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-8shanty",
+   "description": "Sailing After the Curse",
+   "reprompt": "You can say REST, or DICE.",
+   "options": {
+    "rest": [
+     "ac-8a"
+    ],
+    "dice": [
+     "ac-8b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-8shanty"
+      },
+      {
+       "audio": "pirate-quest/shanty-haven.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You pull in close to the haven. "
+      },
+      {
+       "audio": "pirate-quest/enter-haven.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Now, you are in the haven. There are two things to do. "
+      },
+      {
+       "voice": "Would you like to rest, or play dice? "
+      }
+     ],
+     "reprompt": "Rest, or play dice? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-8",
+   "description": "Arriving at the Pirate Haven",
+   "reprompt": "You can say REST, or DICE.",
+   "options": {
+    "rest": [
+     "ac-8a"
+    ],
+    "dice": [
+     "ac-8b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-8"
+      },
+      {
+       "audio": "pirate-quest/enter-haven.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Now, you are in the haven. There are two things to do. "
+      },
+      {
+       "voice": "Would you like to rest, or play dice? "
+      }
+     ],
+     "reprompt": "Rest, or play dice? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-8a",
+   "description": "Resting at the Inn",
+   "reprompt": "Are you ready to rejoin the crew? ",
+   "options": {
+    "yes": [
+     "ac-9"
+    ],
+    "no": [
+     "ac-8a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-8a"
+      },
+      {
+       "stat": "health",
+       "value": 20,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": -10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/resting-fx.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You awake, well rested. You gain 20 health, but spend 10 coins in the process. "
+      },
+      {
+       "audio": "pirate-quest/spend-coin.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to rejoin the crew? "
+      }
+     ],
+     "reprompt": "Are you ready to rejoin the crew? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-8b",
+   "description": "Rolling the Dice",
+   "reprompt": "Say: Roll, or leave. ",
+   "options": {
+    "roll": [
+     "ac-8b"
+    ],
+    "leave": [
+     "ac-9"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-8b"
+      },
+      {
+       "read": "coins"
+      },
+      {
+       "voice": "You have 50 coins. "
+      },
+      {
+       "voice": "You wager 10 coins. "
+      },
+      {
+       "audio": "pirate-quest/spend-coin.mp3",
+       "trim": false
+      },
+      {
+       "voice": "And roll three dice. "
+      },
+      {
+       "audio": "pirate-quest/roll-dice.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You rolled 5, 4, 3 for a total of 12!"
+      },
+      {
+       "voice": "Now its your opponents go. "
+      },
+      {
+       "audio": "pirate-quest/enemy-roll.mp3",
+       "trim": false
+      },
+      {
+       "voice": "They rolled 1, 2, 3 for a total of 6."
+      },
+      {
+       "audio": "pirate-quest/dice-win.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/pirate-win-1.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You won 10 coins. "
+      },
+      {
+       "audio": "pirate-quest/spend-coin.mp3",
+       "trim": false
+      },
+      {
+       "stat": "coins",
+       "value": 10,
+       "once": false
+      },
+      {
+       "read": "coins"
+      },
+      {
+       "voice": "You have 50 coins. "
+      },
+      {
+       "silence": 1000
+      },
+      {
+       "voice": "Say roll, or leave. "
+      }
+     ],
+     "reprompt": "Say roll, or leave. ",
+     "asked": true,
+     "error": null
+    },
+    {
+     "stats": {
+      "coins": 0
+     },
+     "items": [
+      {
+       "node": "ac-8b"
+      },
+      {
+       "read": "coins"
+      },
+      {
+       "audio": "pirate-quest/pouch-empty.mp3",
+       "trim": false
+      },
+      {
+       "node": "ac-9"
+      },
+      {
+       "node": "ac-9"
+      },
+      {
+       "voice": "You make your way back to the inn, where the crew has gathered. "
+      },
+      {
+       "audio": "pirate-quest/pirate-shh.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to hear the message? "
+      }
+     ],
+     "reprompt": "Want to hear the message? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-9",
+   "description": "Leaving the Dice Game & Gathering in the Inn",
+   "reprompt": "Want to hear the message? ",
+   "options": {
+    "yes": [
+     "ac-10"
+    ],
+    "no": [
+     "ac-11z"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-9"
+      },
+      {
+       "voice": "You make your way back to the inn, where the crew has gathered. "
+      },
+      {
+       "audio": "pirate-quest/pirate-shh.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to hear the message? "
+      }
+     ],
+     "reprompt": "Want to hear the message? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-11z",
+   "description": "One-Eyed Will Brings News of the Spanish Merchant Ship",
+   "reprompt": "Would you like to get supplies? ",
+   "options": {
+    "yes": [
+     "ac-11a"
+    ],
+    "no": [
+     "ac-11b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-11z"
+      },
+      {
+       "voice": "You try not to listen, but One Eyed Wills enthusiasam is too large to ignore. "
+      },
+      {
+       "audio": "pirate-quest/spanish-ship.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Would you like to get supplies? "
+      }
+     ],
+     "reprompt": "Would you like to get supplies?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-10",
+   "description": "One-Eyed Will Brings News of the Spanish Merchant Ship",
+   "reprompt": "Would you like to get supplies? ",
+   "options": {
+    "yes": [
+     "ac-11a"
+    ],
+    "no": [
+     "ac-11b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-10"
+      },
+      {
+       "audio": "pirate-quest/spanish-ship.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Would you like to get supplies? "
+      }
+     ],
+     "reprompt": "Would you like to get supplies?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-11a",
+   "description": "Stocking Up Before the Attack",
+   "reprompt": "Are you ready to set sail?  ",
+   "options": {
+    "yes": [
+     "ac-12c"
+    ],
+    "no": [
+     "ac-11a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-11a"
+      },
+      {
+       "stat": "coins",
+       "value": -50,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": 10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/spanish-supplies.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to set sail? "
+      }
+     ],
+     "reprompt": "Are you ready to set sail? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-11b",
+   "description": "Rushing to Attack Without Preparation",
+   "reprompt": "Are you ready to approach the spanish?  ",
+   "options": {
+    "yes": [
+     "ac-12c"
+    ],
+    "no": [
+     "ac-12c"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-11b"
+      },
+      {
+       "stat": "crewMorale",
+       "value": -10,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": 10,
+       "once": true
+      },
+      {
+       "voice": "You don't stock up on supplies. And leave instantly. "
+      },
+      {
+       "audio": "pirate-quest/hungry-crew.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to approach the spanish? "
+      }
+     ],
+     "reprompt": "Are you ready to approach the spanish?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-12c",
+   "description": "The Crew Grows Restless Over the Lack of Rum",
+   "reprompt": "Say: LESSON, PAY, or IGNORE.",
+   "options": {
+    "lesson": [
+     "ac-12d"
+    ],
+    "pay": [
+     "ac-12e"
+    ],
+    "ignore": [
+     "ac-12f"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-12c"
+      },
+      {
+       "voice": "A few days into the voyage, the ship sails smooth—but below deck, Mad jack is complaining. "
+      },
+      {
+       "audio": "pirate-quest/weary-crew.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Say LESSON, PAY, or IGNORE. "
+      }
+     ],
+     "reprompt": "Say: LESSON, PAY, or IGNORE.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-12shanty",
+   "description": "Spending 60 Gold to Boost Morale with Rum",
+   "reprompt": "Are you ready to sail on? ",
+   "options": {
+    "yes": [
+     "ac-14"
+    ],
+    "no": [
+     "ac-12shanty"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-12e"
+      },
+      {
+       "audio": "pirate-quest/another-shanty.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail on? "
+      }
+     ],
+     "reprompt": "Are you ready to sail on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-12e",
+   "description": "Spending 60 Gold to Boost Morale with Rum",
+   "reprompt": "Are you ready to sail on? ",
+   "options": {
+    "yes": [
+     "ac-14"
+    ],
+    "no": [
+     "ac-12shanty"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-12e"
+      },
+      {
+       "stat": "coins",
+       "value": -60,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": 10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/jack-punch.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail on? "
+      }
+     ],
+     "reprompt": "Are you ready to sail on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-12f",
+   "description": "Ignoring the Crew's Complaints About Rum",
+   "reprompt": "Are you ready to sail on? ",
+   "options": {
+    "yes": [
+     "ac-14"
+    ],
+    "no": [
+     "ac-12shanty"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-12f"
+      },
+      {
+       "stat": "crewMorale",
+       "value": -10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/decline-punch.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail on? "
+      }
+     ],
+     "reprompt": "Are you ready to sail on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-12d",
+   "description": "Turning Mad Jack's Wooden Leg Into a Flute",
+   "reprompt": "Are you ready to move on? ",
+   "options": {
+    "yes": [
+     "ac-14"
+    ],
+    "no": [
+     "ac-14z"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-12d"
+      },
+      {
+       "stat": "crewMorale",
+       "value": 10,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/jack-flute.mp3",
+       "trim": false
+      },
+      {
+       "voice": "The crew is entertained, nice job. "
+      },
+      {
+       "voice": "Are you ready to move on? "
+      }
+     ],
+     "reprompt": "Are you ready to move on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-14z",
+   "description": "Approaching the Spanish Merchant Ship",
+   "reprompt": "Are you ready to move on, say yes or no. ",
+   "options": {
+    "yes": [
+     "ac-14"
+    ],
+    "no": [
+     "ac-14z"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-14z"
+      },
+      {
+       "voice": "Here is Jack's Wooden leg flute shanty again. "
+      },
+      {
+       "audio": "pirate-quest/plain-flute.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to move on? "
+      }
+     ],
+     "reprompt": "Are you ready to move on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-14",
+   "description": "Approaching the Spanish Merchant Ship",
+   "reprompt": "Say TRICK, to use deception or FIGHT, to open fire.",
+   "options": {
+    "trick": [
+     "ac-15"
+    ],
+    "fight": [
+     "ac-16"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-14"
+      },
+      {
+       "stat": "journalQuest",
+       "value": "Spaniard Chase",
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/spot-spanish.mp3",
+       "trim": false
+      },
+      {
+       "silence": 375
+      },
+      {
+       "voice": "Say: TRICK, or FIGHT."
+      }
+     ],
+     "reprompt": "Say: TRICK, or FIGHT.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-15",
+   "description": "Disguising the Ship to Trick the Spaniards",
+   "reprompt": "Say BOARD, or FIGHT. ",
+   "options": {
+    "board": [
+     "ac-16a"
+    ],
+    "fight": [
+     "ac-16"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-15"
+      },
+      {
+       "audio": "pirate-quest/meet-spanish.mp3",
+       "trim": false
+      },
+      {
+       "voice": "A Spanish officer leans over the railing, his ridiculously oversized wig wobblin' in the wind. "
+      },
+      {
+       "audio": "pirate-quest/spanish-prompt.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Say BOARD, or FIGHT."
+      }
+     ],
+     "reprompt": "Say BOARD, or FIGHT.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-16",
+   "description": "Attacking the Spanish Ship – Battle Begins!",
+   "reprompt": "Say DUEL, or say: CREW.",
+   "options": {
+    "duel": [
+     "ac-16e"
+    ],
+    "crew": [
+     "ac-16f"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-16"
+      },
+      {
+       "audio": "pirate-quest/meet-elcapitan.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Say DUEL, or say: CREW. "
+      }
+     ],
+     "reprompt": "Say DUEL, or say: CREW.",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-16e",
+   "description": "Dueling the Spanish Captain",
+   "reprompt": "Want to hear what he has to say? ",
+   "options": {
+    "yes": [
+     "ac-18"
+    ],
+    "no": [
+     "ac-19"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-16e"
+      },
+      {
+       "read": "reputation"
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": 5,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/fight-elcapitan.mp3",
+       "trim": false
+      },
+      {
+       "silence": 750
+      },
+      {
+       "voice": "Want to hear what he has to say? "
+      }
+     ],
+     "reprompt": "Want to hear what he has to say?",
+     "asked": true,
+     "error": null
+    },
+    {
+     "stats": {
+      "reputation": 50
+     },
+     "items": [
+      {
+       "node": "ac-16e"
+      },
+      {
+       "read": "reputation"
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": 5,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/fight-elcapitan.mp3",
+       "trim": false
+      },
+      {
+       "silence": 750
+      },
+      {
+       "voice": "Want to hear what he has to say? "
+      }
+     ],
+     "reprompt": "Want to hear what he has to say?",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-18shanty",
+   "description": "Leaving the Fight to the Crew",
+   "reprompt": "Are you ready to sail on? ",
+   "options": {
+    "yes": [
+     "ac-18"
+    ],
+    "no": [
+     "ac-18shanty"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-16f"
+      },
+      {
+       "audio": "pirate-quest/another-shanty.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail on? "
+      }
+     ],
+     "reprompt": "Are you ready to sail on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-16f",
+   "description": "Leaving the Fight to the Crew",
+   "reprompt": "Are you ready to move on?  ",
+   "options": {
+    "yes": [
+     "ac-18"
+    ],
+    "no": [
+     "ac-18shanty"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-16f"
+      },
+      {
+       "stat": "crewMorale",
+       "value": -15,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/crew-elcapitan.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to move on? "
+      }
+     ],
+     "reprompt": "Are you ready to move on? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-16a",
+   "description": "Boarding the Spanish Merchant Ship - TRICKING",
+   "reprompt": "Would you like to fight the spanish crew member?  ",
+   "options": {
+    "no": [
+     "ac-16b"
+    ],
+    "yes": [
+     "ac-16"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-16a"
+      },
+      {
+       "audio": "pirate-quest/sneak-p1.mp3",
+       "trim": false
+      },
+      {
+       "voice": "The spanish crew member, still adjusting his enormous, ridiculous wig, greets you with suspicion. "
+      },
+      {
+       "audio": "pirate-quest/spanish-intro.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Would you like to fight the spanish crew member? "
+      }
+     ],
+     "reprompt": "Would you like to fight the spanish crew member?",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-16b",
+   "description": "Attempting to Deceive the Spanish Crew",
+   "reprompt": "Want to try and trick him again? ",
+   "options": {
+    "no": [
+     "ac-16"
+    ],
+    "yes": [
+     "ac-16c"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-16b"
+      },
+      {
+       "voice": "Instead of fighting the spaniard, the crew attempts to trick him instead. "
+      },
+      {
+       "audio": "pirate-quest/goat-spanish.mp3",
+       "trim": false
+      },
+      {
+       "voice": "If you keep up the act, the spanish crew might fall for it. But if they get suspicious, things may turn ugly. "
+      },
+      {
+       "silence": 375
+      },
+      {
+       "voice": "Want to try and trick him again? "
+      }
+     ],
+     "reprompt": "Want to try and trick him again? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-16c",
+   "description": "Successfully Trick the Spanish Captain (or Not...)",
+   "reprompt": "Are you ready to sail back to the haven? ",
+   "options": {
+    "yes": [
+     "ac-19"
+    ],
+    "no": [
+     "ac-19song"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-16c"
+      },
+      {
+       "stat": "crewMorale",
+       "value": 10,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": 200,
+       "once": true
+      },
+      {
+       "read": "reputation"
+      },
+      {
+       "voice": "You keep a straight face. "
+      },
+      {
+       "audio": "pirate-quest/suspicious-spaniard.mp3",
+       "trim": false
+      },
+      {
+       "voice": "One of your crew slaps him with a fish, knocking him out. "
+      },
+      {
+       "audio": "pirate-quest/cartoon-knockout.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail back to the haven? "
+      }
+     ],
+     "reprompt": "Are you ready to sail back to the haven? ",
+     "asked": true,
+     "error": null
+    },
+    {
+     "stats": {
+      "reputation": 50
+     },
+     "items": [
+      {
+       "node": "ac-16c"
+      },
+      {
+       "stat": "crewMorale",
+       "value": 10,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": 200,
+       "once": true
+      },
+      {
+       "read": "reputation"
+      },
+      {
+       "voice": "You keep a straight face. "
+      },
+      {
+       "audio": "pirate-quest/convinced-spanish.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Yer crew 'inspects' the cargo hold, makin' sure to secure all the gold."
+      },
+      {
+       "audio": "pirate-quest/convinced-spanish2.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail back to the haven? "
+      }
+     ],
+     "reprompt": "Are you ready to sail back to the haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-18",
+   "description": "Victory Over the Spanish Ship & Intel on the English Navy",
+   "reprompt": "Are you ready to sail back to the haven? ",
+   "options": {
+    "yes": [
+     "ac-19"
+    ],
+    "no": [
+     "ac-19song"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-18"
+      },
+      {
+       "read": "reputation"
+      },
+      {
+       "stat": "coins",
+       "value": 200,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": 20,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": 20,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/english-fortune.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail back to the haven? "
+      }
+     ],
+     "reprompt": "Are you ready to sail back to the haven? ",
+     "asked": true,
+     "error": null
+    },
+    {
+     "stats": {
+      "reputation": 50
+     },
+     "items": [
+      {
+       "node": "ac-18"
+      },
+      {
+       "read": "reputation"
+      },
+      {
+       "stat": "coins",
+       "value": 200,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": 20,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": 20,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/english-fortune.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail back to the haven? "
+      }
+     ],
+     "reprompt": "Are you ready to sail back to the haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-19song",
+   "description": "Setting Sail for the Pirate Haven",
+   "reprompt": "Want to go to the pirate haven? ",
+   "options": {
+    "yes": [
+     "ac-19"
+    ],
+    "no": [
+     "ac-19song"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-19song"
+      },
+      {
+       "voice": "Instead of going to the haven, you take inspiration from the Spanish vessel. and pour your soul into some Flamenco music. "
+      },
+      {
+       "audio": "pirate-quest/flamenco-cut.mp3",
+       "trim": false
+      },
+      {
+       "voice": "That was beautiful. Now, do you want to go back to the haven? "
+      }
+     ],
+     "reprompt": "Want to go to the pirate haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-19",
+   "description": "Setting Sail for the Pirate Haven",
+   "reprompt": "Want to go to the pirate haven? ",
+   "options": {
+    "yes": [
+     "ac-22"
+    ],
+    "no": [
+     "ac-20z"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-19"
+      },
+      {
+       "audio": "pirate-quest/return-haven.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to go to the pirate haven? "
+      }
+     ],
+     "reprompt": "Want to go to the pirate haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-20z",
+   "description": "Mad Jack's Tug-of-War with the Kraken",
+   "reprompt": "Want to pull the rope harder? ",
+   "options": {
+    "yes": [
+     "ac-21"
+    ],
+    "no": [
+     "ac-20"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-20z"
+      },
+      {
+       "voice": "You veer off the beaten track, into unknown waters... "
+      },
+      {
+       "audio": "pirate-quest/meet-kraken.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to pull the rope harder? "
+      }
+     ],
+     "reprompt": "Want to pull the rope harder? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-20",
+   "description": "Mad Jack's Tug-of-War with the Kraken",
+   "reprompt": "Want to sail back to the pirate haven? ",
+   "options": {
+    "yes": [
+     "ac-22"
+    ],
+    "no": [
+     "ac-21storm"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-20"
+      },
+      {
+       "voice": "You let go of the rope. "
+      },
+      {
+       "audio": "pirate-quest/happy-kraken.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You lost your anchor rope. But atleast the kraken is happy. "
+      },
+      {
+       "silence": 1000
+      },
+      {
+       "voice": "Are you ready to go back to the pirate haven? "
+      }
+     ],
+     "reprompt": "Want to sail back to the pirate haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-21",
+   "description": "The Kraken Gives Up & The Crew Moves On",
+   "reprompt": "Want to sail back to the pirate haven? ",
+   "options": {
+    "yes": [
+     "ac-22"
+    ],
+    "no": [
+     "ac-21storm"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-21"
+      },
+      {
+       "stat": "journalQuest",
+       "value": "Tug of War",
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/kraken-let-go.mp3",
+       "trim": false
+      },
+      {
+       "voice": "The kraken gave up and let go of the rope. "
+      },
+      {
+       "audio": "pirate-quest/tug-of-war-win.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to sail back to the pirate haven? "
+      }
+     ],
+     "reprompt": "Want to sail back to the pirate haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-21storm",
+   "description": "There is a storm. ",
+   "reprompt": "Want to rejoin the crew? ",
+   "options": {
+    "yes": [
+     "ac-23"
+    ],
+    "no": [
+     "ac-22a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-21storm"
+      },
+      {
+       "stat": "health",
+       "value": 20,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": -10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/pirate-storm.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Suddenly, you feel comfortable and safe. "
+      },
+      {
+       "audio": "pirate-quest/resting-fx.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Somehow you have awoken comfortably at the pirate haven. "
+      },
+      {
+       "voice": "Want to rejoin the crew? "
+      }
+     ],
+     "reprompt": "Want to rejoin the crew? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-22",
+   "description": "Returning to the Pirate Haven",
+   "reprompt": "You can say REST, or DICE.",
+   "options": {
+    "rest": [
+     "ac-22a"
+    ],
+    "dice": [
+     "ac-22b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-22"
+      },
+      {
+       "audio": "pirate-quest/return-refuge.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Say: REST, or DICE."
+      }
+     ],
+     "reprompt": "Say: REST or Dice. ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-22a",
+   "description": "Resting at the Inn",
+   "reprompt": "Want to rejoin the crew? ",
+   "options": {
+    "yes": [
+     "ac-23"
+    ],
+    "no": [
+     "ac-22a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-22a"
+      },
+      {
+       "stat": "health",
+       "value": 20,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": -10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/resting-fx.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You awake, well rested. You gain 20 health, but spend 10 coins in the process. "
+      },
+      {
+       "audio": "pirate-quest/spend-coin.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to rejoin the crew? "
+      }
+     ],
+     "reprompt": "Want to rejoin the crew? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-22b",
+   "description": "Rolling the Dice",
+   "reprompt": "Say roll, or leave. ",
+   "options": {
+    "yes": [
+     "ac-22b"
+    ],
+    "no": [
+     "ac-23"
+    ],
+    "leave": [
+     "ac-23"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-22b"
+      },
+      {
+       "read": "coins"
+      },
+      {
+       "voice": "You wager 10 coins. "
+      },
+      {
+       "audio": "pirate-quest/spend-coin.mp3",
+       "trim": false
+      },
+      {
+       "voice": "And roll three dice. "
+      },
+      {
+       "audio": "pirate-quest/roll-dice.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You rolled 5, 4, 3 for a total of 12!"
+      },
+      {
+       "voice": "Now it's your opponents go. "
+      },
+      {
+       "audio": "pirate-quest/enemy-roll.mp3",
+       "trim": false
+      },
+      {
+       "voice": "They rolled 1, 2, 3 for a total of 6."
+      },
+      {
+       "audio": "pirate-quest/dice-win.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/pirate-win-1.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You won 10 coins. "
+      },
+      {
+       "audio": "pirate-quest/spend-coin.mp3",
+       "trim": false
+      },
+      {
+       "stat": "coins",
+       "value": 10,
+       "once": false
+      },
+      {
+       "read": "coins"
+      },
+      {
+       "voice": "You have 50 coins. "
+      },
+      {
+       "voice": "Want to try again? "
+      }
+     ],
+     "reprompt": "Want to try again? ",
+     "asked": true,
+     "error": null
+    },
+    {
+     "stats": {
+      "coins": 0
+     },
+     "items": [
+      {
+       "node": "ac-22b"
+      },
+      {
+       "read": "coins"
+      },
+      {
+       "audio": "pirate-quest/pouch-empty.mp3",
+       "trim": false
+      },
+      {
+       "node": "ac-9"
+      },
+      {
+       "node": "ac-9"
+      },
+      {
+       "voice": "You make your way back to the inn, where the crew has gathered. "
+      },
+      {
+       "audio": "pirate-quest/pirate-shh.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to hear the message? "
+      }
+     ],
+     "reprompt": "Want to hear the message? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-23",
+   "description": "Gathering the Crew – Next Move",
+   "reprompt": "Would you like to plan your strategy? ",
+   "options": {
+    "yes": [
+     "ac-24"
+    ],
+    "no": [
+     "ac-27a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-25"
+      },
+      {
+       "node": "ac-25"
+      },
+      {
+       "audio": "pirate-quest/meet-blacktooth-2.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Would you like to fight captain blacktooth? "
+      }
+     ],
+     "reprompt": "Want to fight captain blacktooth? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-24",
+   "description": "Strategizing for the English Heist",
+   "reprompt": "Do you want to try and ambush the english?",
+   "options": {
+    "yes": [
+     "ac-26"
+    ],
+    "no": [
+     "ac-27a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-24"
+      },
+      {
+       "stat": "journalQuest",
+       "value": "King's precious boy",
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/strategizing-heist.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Do you want to try and ambush the english? "
+      }
+     ],
+     "reprompt": "Do you want to try and ambush the english? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-25",
+   "description": "Facing Captain Blacktooth",
+   "reprompt": "Want to fight captain blacktooth? ",
+   "options": {
+    "no": [
+     "ac-25a"
+    ],
+    "yes": [
+     "ac-25b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-25"
+      },
+      {
+       "audio": "pirate-quest/meet-blacktooth-2.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Would you like to fight captain blacktooth? "
+      }
+     ],
+     "reprompt": "Want to fight captain blacktooth? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-25a",
+   "description": "Scaring Blacktooth Off",
+   "reprompt": "Do you want to plan the heist? ",
+   "options": {
+    "yes": [
+     "ac-24"
+    ],
+    "no": [
+     "ac-27a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-25a"
+      },
+      {
+       "stat": "reputation",
+       "value": 10,
+       "once": true
+      },
+      {
+       "voice": "One Eyed Will steps up, and draws his cutlass. "
+      },
+      {
+       "audio": "pirate-quest/blacktooth-explain.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Interesting news. "
+      },
+      {
+       "audio": "pirate-quest/perhaps-planning.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Do you want to plan the heist on the English? "
+      }
+     ],
+     "reprompt": "Do you want to plan the heist? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-25b",
+   "description": "Dueling Captain Blacktooth",
+   "reprompt": "Do you want to plan the heist? ",
+   "options": {
+    "yes": [
+     "ac-24"
+    ],
+    "no": [
+     "ac-27a"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-25b"
+      },
+      {
+       "stat": "health",
+       "value": -10,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": 10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/fight-blacktooth.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You take down blacktooth. "
+      },
+      {
+       "audio": "pirate-quest/question-blacktooth.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Do you want to plan the heist? "
+      }
+     ],
+     "reprompt": "Do you want to plan the heist? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-27a",
+   "description": "Sailing Towards Battle",
+   "reprompt": "Are you ready to approach the english? ",
+   "options": {
+    "yes": [
+     "ac-27b"
+    ],
+    "no": [
+     "ac-27zz"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-27a"
+      },
+      {
+       "voice": "You go for a direct approach, and set sail to find the english instantly. "
+      },
+      {
+       "audio": "pirate-quest/splash-fx.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/prepare-english.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to approach the english? "
+      }
+     ],
+     "reprompt": "Are you ready to approach the english?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-27zz",
+   "description": "Sailing Towards Battle",
+   "reprompt": "Are you ready to approach the english? ",
+   "options": {
+    "yes": [
+     "ac-27b"
+    ],
+    "no": [
+     "ac-27zz"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-27zz"
+      },
+      {
+       "voice": "You do some more preparations. "
+      },
+      {
+       "audio": "pirate-quest/splash-fx.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/prepare-english.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to approach the english? "
+      }
+     ],
+     "reprompt": "Are you ready to approach the english?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-27b",
+   "description": "The English Spot the Attack!",
+   "reprompt": "Want to use your cannons? ",
+   "options": {
+    "yes": [
+     "ac-27c"
+    ],
+    "no": [
+     "ac-27d"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-27b"
+      },
+      {
+       "audio": "pirate-quest/spotted-english.mp3",
+       "trim": false
+      },
+      {
+       "silence": 375
+      },
+      {
+       "voice": "Time to make a strategic decision on how to attack the english. "
+      },
+      {
+       "silence": 375
+      },
+      {
+       "voice": "Would you like to use your cannons? "
+      }
+     ],
+     "reprompt": "Want to use your cannons? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-27c",
+   "description": "Firing the Cannons First",
+   "reprompt": "Want to board the enemy ship? ",
+   "options": {
+    "yes": [
+     "ac-27e"
+    ],
+    "no": [
+     "ac-27d"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-27c"
+      },
+      {
+       "audio": "pirate-quest/fire-at-english.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to board the enemy ship? "
+      }
+     ],
+     "reprompt": "Want to board the enemy ship? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-27d",
+   "description": "Crashing Into the Enemy!",
+   "reprompt": "Would you like to duel the english captain?",
+   "options": {
+    "yes": [
+     "ac-27f"
+    ],
+    "no": [
+     "ac-26h"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-27d"
+      },
+      {
+       "voice": "You go for a more direct approach. "
+      },
+      {
+       "audio": "pirate-quest/hit-english-ship.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You crash into their ship and leap into attack. "
+      },
+      {
+       "silence": 500
+      },
+      {
+       "audio": "pirate-quest/board-english-ship.mp3",
+       "trim": false
+      },
+      {
+       "silence": 500
+      },
+      {
+       "voice": "You see the english captain ahead. "
+      },
+      {
+       "voice": "Would you like to duel him? "
+      }
+     ],
+     "reprompt": "Would you like to duel him?",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-27e",
+   "description": "Leaping Into Combat",
+   "reprompt": "Would you like to duel the english captain?",
+   "options": {
+    "yes": [
+     "ac-27f"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-27e"
+      },
+      {
+       "audio": "pirate-quest/board-english-ship.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You see the english captain ahead. "
+      },
+      {
+       "voice": "Would you like to duel him? "
+      }
+     ],
+     "reprompt": "Would you like to duel him?",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-27f",
+   "description": "Dueling the English Captain",
+   "reprompt": "Are you ready to sail back to the haven? ",
+   "options": {
+    "yes": [
+     "ac-28a"
+    ],
+    "no": [
+     "ac-26i"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-27f"
+      },
+      {
+       "voice": "You see the captain sitting in a throne. Stroking a cat. "
+      },
+      {
+       "audio": "pirate-quest/fight-english-captain.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You defeated the english captain. "
+      },
+      {
+       "audio": "pirate-quest/win-english-coins.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail back to the haven? "
+      }
+     ],
+     "reprompt": "Are you ready to sail back to the haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26",
+   "description": "Sailing to the English Ship Under Cover of Night",
+   "reprompt": "Are you ready to approach the english ship?  ",
+   "options": {
+    "yes": [
+     "ac-26a"
+    ],
+    "no": [
+     "ac-26b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26"
+      },
+      {
+       "voice": "You sail under the cover of night. "
+      },
+      {
+       "audio": "pirate-quest/hunt-english.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to approach the english ship? "
+      }
+     ],
+     "reprompt": "Are you ready to approach the english ship?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26b",
+   "description": "Embracing the Night Before the Heist",
+   "reprompt": "Are you ready to approach the english? ",
+   "options": {
+    "yes": [
+     "ac-26a"
+    ],
+    "no": [
+     "ac-26b"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26b"
+      },
+      {
+       "voice": "You ponder a bit more. "
+      },
+      {
+       "audio": "pirate-quest/atmosphere.mp3",
+       "trim": false
+      },
+      {
+       "voice": "The wind carries the sound of a distant bell from the English ship—a change in the watch. Perfect timing."
+      },
+      {
+       "audio": "pirate-quest/wake-english.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to approach the english? "
+      }
+     ],
+     "reprompt": "Are you ready to approach the english?",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26a",
+   "description": "The Night Raid on the English Ship Begins",
+   "reprompt": "Would you like to fight him?  ",
+   "options": {
+    "no": [
+     "ac-26ff"
+    ],
+    "yes": [
+     "ac-26e"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26a"
+      },
+      {
+       "voice": "You approach the ship and are ready to quietly board. "
+      },
+      {
+       "audio": "pirate-quest/sneeze-pirate.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You land on the english ship, and accidentally wake an englishman. "
+      },
+      {
+       "voice": "Would you like to fight him? "
+      }
+     ],
+     "reprompt": "Would you like to fight him? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26d",
+   "description": "A Silent Takedown (or Not...)",
+   "reprompt": "Are you ready to fight? ",
+   "options": {
+    "yes": [
+     "ac-26f"
+    ],
+    "no": [
+     "ac-26ff"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26d"
+      },
+      {
+       "audio": "pirate-quest/awoken-crew.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to fight? "
+      }
+     ],
+     "reprompt": "Are you ready to fight? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26e",
+   "description": "All-Out Attack on the English Ship",
+   "reprompt": "Would you like to duel the english captain?",
+   "options": {
+    "yes": [
+     "ac-27f"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26e"
+      },
+      {
+       "audio": "pirate-quest/awoken-crew.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Well, no going back now. "
+      },
+      {
+       "audio": "pirate-quest/board-english-ship.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You see the english captain ahead. "
+      },
+      {
+       "voice": "Would you like to duel him? "
+      }
+     ],
+     "reprompt": "Would you like to duel him?",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26ff",
+   "description": "The Battle Rages On",
+   "reprompt": "Want to duel the captain?  ",
+   "options": {
+    "yes": [
+     "ac-26g"
+    ],
+    "no": [
+     "ac-26h"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26ff"
+      },
+      {
+       "audio": "pirate-quest/decline-english-fight.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/fight-english-3.mp3",
+       "trim": false
+      },
+      {
+       "voice": "The enemy captain finally appears, dressed in full uniform—even his mustache looks offended by the chaos."
+      },
+      {
+       "audio": "pirate-quest/cat-dragged.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to duel the captain? "
+      }
+     ],
+     "reprompt": "Want to duel the captain?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26f",
+   "description": "The Battle Rages On",
+   "reprompt": "Want to duel the captain?  ",
+   "options": {
+    "yes": [
+     "ac-26g"
+    ],
+    "no": [
+     "ac-26h"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26f"
+      },
+      {
+       "audio": "pirate-quest/fight-english-3.mp3",
+       "trim": false
+      },
+      {
+       "voice": "The enemy captain finally appears, dressed in full uniform—even his mustache looks offended by the chaos."
+      },
+      {
+       "audio": "pirate-quest/cat-dragged.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to duel the captain? "
+      }
+     ],
+     "reprompt": "Want to duel the captain?  ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26h",
+   "description": "Leaving the Battle to the Crew",
+   "reprompt": "Are you ready to sail back to the pirate haven?  ",
+   "options": {
+    "yes": [
+     "ac-28a"
+    ],
+    "no": [
+     "ac-26i"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26h"
+      },
+      {
+       "stat": "crewMorale",
+       "value": -20,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": 5,
+       "once": true
+      },
+      {
+       "voice": "Instead of dueling, Mad Jack pulls a cheeky move. "
+      },
+      {
+       "audio": "pirate-quest/conquer-english.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You were victorious over the english and take their gold. "
+      },
+      {
+       "audio": "pirate-quest/splash-fx.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Are you ready to sail back to the pirate haven? "
+      }
+     ],
+     "reprompt": "Are you ready to sail back to the pirate haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26g",
+   "description": "Dueling the English Captain",
+   "reprompt": "Are you ready to sail back to the pirate haven? ",
+   "options": {
+    "yes": [
+     "ac-28a"
+    ],
+    "no": [
+     "ac-26i"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26g"
+      },
+      {
+       "read": "health"
+      },
+      {
+       "stat": "crewMorale",
+       "value": 10,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": 10,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/trip-over-pirate.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You were victorious over the english and take their gold. "
+      },
+      {
+       "audio": "pirate-quest/splash-fx.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Want to sail to the pirate haven? "
+      }
+     ],
+     "reprompt": "Are you ready to sail back to the pirate haven? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-26i",
+   "description": "The Heist is Complete! A Fortune Secured!",
+   "reprompt": "Would you like to hear the shanty? ",
+   "options": {
+    "yes": [
+     "ac-shanty"
+    ],
+    "no": [
+     "complete-game"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-26i"
+      },
+      {
+       "stat": "coins",
+       "value": 10000,
+       "once": true
+      },
+      {
+       "stat": "reputation",
+       "value": 30,
+       "once": true
+      },
+      {
+       "stat": "crewMorale",
+       "value": 50,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/robbed-richest.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You continue sailing. "
+      },
+      {
+       "audio": "pirate-quest/splash-fx.mp3",
+       "trim": false
+      },
+      {
+       "voice": "And pull slowly into the pirate haven. "
+      },
+      {
+       "audio": "pirate-quest/final-tavern.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Tankards slam together, gold spills over tables, and stories of the battle grow taller with each round o' drinks."
+      },
+      {
+       "audio": "pirate-quest/pirate-quest-end.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You completed pirate quest, and unlocked a shanty! Would you like to hear it? "
+      }
+     ],
+     "reprompt": "Would you like to hear the shanty? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-28a",
+   "description": "A Feast of Legends",
+   "reprompt": "Would you like to hear the shanty? ",
+   "options": {
+    "yes": [
+     "ac-shanty"
+    ],
+    "no": [
+     "complete-game"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-28a"
+      },
+      {
+       "stat": "crewMorale",
+       "value": 50,
+       "once": true
+      },
+      {
+       "stat": "coins",
+       "value": -500,
+       "once": true
+      },
+      {
+       "audio": "pirate-quest/splash-fx.mp3",
+       "trim": false
+      },
+      {
+       "audio": "pirate-quest/final-tavern.mp3",
+       "trim": false
+      },
+      {
+       "voice": "Tankards slam together, gold spills over tables, and stories of the battle grow taller with each round of tropical punch."
+      },
+      {
+       "audio": "pirate-quest/pirate-quest-end.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You completed pirate quest, and unlocked a shanty! Want to hear it? "
+      }
+     ],
+     "reprompt": "Would you like to hear the shanty? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "ac-shanty",
+   "description": "Game Over - Mutiny Succeeds",
+   "reprompt": "Want to hear the shanty again? ",
+   "options": {
+    "yes": [
+     "ac-shanty"
+    ],
+    "no": [
+     "complete-game"
+    ]
+   },
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "ac-shanty"
+      },
+      {
+       "audio": "pirate-quest/winner-shanty.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You can listen to this shanty at any point in minigames by saying: Shanty. "
+      },
+      {
+       "voice": "Want to hear the shanty again? "
+      }
+     ],
+     "reprompt": "Want to hear the shanty again? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  },
+  {
+   "id": "complete-game",
+   "description": "Game Over",
+   "reprompt": null,
+   "options": {},
+   "runs": [
+    {
+     "stats": {},
+     "items": [
+      {
+       "node": "complete-game"
+      },
+      {
+       "audio": "pirate-quest/pq-game-over.mp3",
+       "trim": false
+      },
+      {
+       "audio": "win-20.mp3",
+       "trim": false
+      },
+      {
+       "voice": "You completed the pirate quest and earned 100 coins. "
+      },
+      {
+       "voice": "Would you like to play again, or play a different game? "
+      }
+     ],
+     "reprompt": "Would you like to play again, or play a different game? ",
+     "asked": true,
+     "error": null
+    }
+   ]
+  }
+ ],
+ "audio": {
+  "intro": "aye-captain-intro.mp3",
+  "wakeUp": "one-eyed-will-intro",
+  "OEWAc3": "one-eyed-will-ac-3",
+  "OEWAc3a1": "one-eyed-will-ac-3a-1",
+  "OEWAc3a2": "one-eyed-will-ac-3a-2",
+  "atmosphere": "atmosphere",
+  "suppliesOEW": "supplies-one-eyed-will",
+  "happyKraken": "happy-kraken",
+  "suppliesSailor": "supplies-sailor",
+  "wakeEnglish": "wake-english",
+  "OEWAc3a3re": "one-eyed-will-ac-3a-3re",
+  "pirateStorm": "pirate-storm",
+  "blacktoothExplain": "blacktooth-explain",
+  "fightSceneJames": "fight-scene-james",
+  "meetSpanish": "meet-spanish",
+  "spotSpanish": "spot-spanish",
+  "flamencoCut": "flamenco-cut",
+  "finalTavern": "final-tavern",
+  "fightSceneStefan": "fight-scene-stefan",
+  "piratesBattleSound": "pirate-battle-sound",
+  "OEWAc3a21": "one-eyed-will-ac-3a2-1",
+  "OEWAc3a22": "one-eyed-will-ac-3a2-2",
+  "OneEyedWill": {},
+  "pirateBattleDueling": "battle-duel2",
+  "OEWAc3a3brutal": "one-eyed-will-ac-3a3-brutal",
+  "pirateBrutal": "pirate-brutal2",
+  "OEWAc3c": "one-eyed-will-ac-3c",
+  "OEWAc3c1": "one-eyed-will-ac-3c1",
+  "OEWAc4": "one-eyed-will-ac-4",
+  "statInfo": "heresWhereWeStand",
+  "welcomeBack": "welcome-back-2",
+  "upsell1": "upsell1",
+  "upsell2": "upsell2",
+  "upsell3": "upsell3",
+  "map1": "map1",
+  "map2": "map2",
+  "upsellBacker": "pirate-upsell-backer",
+  "map3": "map3",
+  "supplies1": "supplies1",
+  "supplies2": "supplies2",
+  "supplies3": "supplies3",
+  "recruit1": "recruit1",
+  "recruit2": "recruit2",
+  "recruit3": "recruit3",
+  "learn1": "learn1",
+  "learn2": "learn2",
+  "learn3": "learn3",
+  "fight1": "fight1",
+  "fight2": "fight2",
+  "fight3": "fight3",
+  "duel1": "duel1",
+  "duel2": "duel2",
+  "duel3": "duel3",
+  "brutal1": "brutal1",
+  "brutal2": "brutal2",
+  "brutal3": "brutal3",
+  "snatchMap": "snatch-map",
+  "meetBj": "bj",
+  "flee1": "flee1",
+  "flee2": "flee2",
+  "flee3": "flee3",
+  "talk1": "talk1",
+  "talk2": "talk2",
+  "talk3": "talk3",
+  "board1": "board1",
+  "board2": "board2",
+  "board3": "board3",
+  "accept1": "accept1",
+  "pirateBoarding2": "pirate-boarding2",
+  "enemyCaptain1": "enemyCaptain-ac-3a2-1",
+  "enemyCaptain2": "enemyCaptain-ac-3a2-2",
+  "enemyCaptain3": "enemyCaptain-ac-3c-1",
+  "enemyCaptain4": "enemyCaptain-ac-3c-2",
+  "ghostCaptainIntro": "ghost-captain-intro",
+  "meetGhostCaptain": "meet-gc",
+  "reclaimTreasure": "reclaim-treasure",
+  "meetGhostCaptain2": "meet-gc3",
+  "restingFx": "resting-fx",
+  "awokenCrew": "awoken-crew",
+  "escapeGhost": "escape-ghost",
+  "rollDice": "roll-dice",
+  "runningPirate": "running-pirates",
+  "enemyRoll": "enemy-roll",
+  "repeatShanty": "repeat-shanty",
+  "fightEnglish3": "fight-english-3",
+  "fightEnglish4": "cat-dragged",
+  "robbedRichest": "robbed-richest",
+  "exploreJungle": "explore-jungle",
+  "warmCockles": "warm-cockles",
+  "conquerEnglish": "conquer-english",
+  "diceWin": "dice-win",
+  "tripOverPirate": "trip-over-pirate",
+  "sneezePirate": "sneeze-pirate",
+  "spendCoin": "spend-coin",
+  "fightEnglishCaptain": "fight-english-captain",
+  "winEnglishCoins": "win-english-coins",
+  "introduceEnglish": "introduce-english",
+  "fightElCapitan": "fight-elcapitan",
+  "hitEnglish": "hit-english-ship",
+  "pouchEmpty": "pouch-empty",
+  "boardEnglish": "board-english-ship",
+  "shiverMeTimbers": "shiver-me-timbers",
+  "prepareEnglish": "prepare-english",
+  "spottedEnglish": "spotted-english",
+  "fireAtEnglish": "fire-at-english",
+  "pirateTavernAmbience": "pirate-tavern-ambience2",
+  "shareTreasure": "share-treasure",
+  "battleBJ": "battle-bj",
+  "shantyHaven": "shanty-haven",
+  "perhapsPlanning": "perhaps-planning",
+  "pirateJoke": [
+   "pirate-joke-1",
+   "pirate-joke-2",
+   "pirate-joke-3"
+  ],
+  "fightBlacktooth": "fight-blacktooth",
+  "questionBlacktooth": "question-blacktooth",
+  "meetBlackTooth": "meet-blacktooth-2",
+  "pirateHaven": "enter-haven",
+  "declineSacrifice": "decline-sacrifice",
+  "convincedSpanish": "convinced-spanish",
+  "hungryBoat": "hungry-boat",
+  "townMarketAmbience": "town-market-ambience2",
+  "firstSail": "first-sail",
+  "curseLifted": "curse-lifted",
+  "pirateBattleAmbience": "pirate-battle-ambience",
+  "wearyCrew": "weary-crew",
+  "hungryCrew": "hungry-crew",
+  "spanishPrompt": "spanish-prompt",
+  "declinePunch": "decline-punch",
+  "jackPunch": "jack-punch",
+  "sailShanty": "another-shanty",
+  "jackFlute": "jack-flute",
+  "pirateBoardingAmbience": "pirate-boarding",
+  "pirateBrutalAmbience": "pirate-brutal-ambience",
+  "sailing": "sailing",
+  "cursedTreasure": "cursed-treasure",
+  "spanishSupplies": "spanish-supplies",
+  "meetSkull": "meet-skull-island",
+  "sacrificePrompt": "sacrifice-prompt",
+  "meetElcapitan": "meet-elcapitan",
+  "plainFlute": "plain-flute",
+  "sailing2": "sailing2",
+  "pirateQuestEnd": "pirate-quest-end",
+  "pirateLandOnIsland": "pirate-land",
+  "fightElCapitan2": "fight-elcapitan2",
+  "huntEnglish": "hunt-english",
+  "discoverIsland": "discover-island",
+  "pirateFlee": "pirate-flee",
+  "piratesNegotiate2": "pirates-negotiate2",
+  "piratesNegotiate3": "pirates-negotiate3",
+  "pirateFleeAmbience": "pirate-flee-ambience",
+  "pirateBattleDuel": "pirate-battle-duel",
+  "convincedSpanish2": "convinced-spanish2",
+  "declineEnglishFight": "decline-english-fight",
+  "piratesNegotiate": "pirates-negotiate",
+  "pqGameOver": "pq-game-over",
+  "pirateIntro": "pirate-quest-intro",
+  "pirateLogo": "pirate-logo",
+  "winnerShanty": "winner-shanty",
+  "runningPirates": "running-pirates",
+  "suspiciousSpaniard": "suspicious-spaniard",
+  "cartoonKnockout": "cartoon-knockout",
+  "tutComplete": "tut-complete",
+  "findTreasure": "find-treasure",
+  "diceDraw": "tie-message",
+  "splash": "splash-fx",
+  "tugOfWar": "tug-of-war-win",
+  "krakenLetGo": "kraken-let-go",
+  "returnRefuge": "return-refuge",
+  "strategizingHeist": "strategizing-heist",
+  "spanishShip": "spanish-ship",
+  "meetKraken": "meet-kraken",
+  "crewElcapitan": "crew-elcapitan",
+  "englishFortune": "english-fortune",
+  "returnHaven": "return-haven",
+  "pirateShh": "pirate-shh",
+  "sneakp1": "sneak-p1",
+  "diceLose": "dice-lose",
+  "goatSpanish": "goat-spanish",
+  "spanishIntro": "spanish-intro",
+  "pirateWin": [
+   "pirate-win-1",
+   "pirate-win-2",
+   "pirate-win-3"
+  ],
+  "nodeAudio": {
+   "ac-1": "ac-1",
+   "ac-1a": "ac-1a",
+   "ac-2": "ac-2",
+   "ac-3": "ac-3",
+   "ac-3a": "ac-3a",
+   "ac-3a1": "ac-3a1",
+   "ac-3a2": "ac-3a2",
+   "ac-3a3": "ac-3a3",
+   "ac-3b": "ac-3b",
+   "ac-3c": "ac-3c",
+   "ac-3c1": "ac-3c1",
+   "ac-4": "ac-4",
+   "reprompt-anchor": "reprompt-anchor",
+   "ac-5": "ac-5",
+   "ac-5a": "ac-5a",
+   "ac-5a1": "ac-5a1",
+   "ac-5a2": "ac-5a2",
+   "ac-5a3": "ac-5a3",
+   "ac-5b": "ac-5b",
+   "ac-6": "ac-6",
+   "ac-6a": "ac-6a",
+   "ac-6a1": "ac-6a1",
+   "ac-6a2": "ac-6a2",
+   "ac-6b": "ac-6b",
+   "ac-6b1": "ac-6b1",
+   "ac-6b2": "ac-6b2",
+   "ac-7": "ac-7",
+   "ac-7joke": "ac-7joke",
+   "ac-8": "ac-8",
+   "ac-8a": "ac-8a",
+   "ac-8b": "ac-8b",
+   "ac-8shanty": "ac-8shanty",
+   "ac-9": "ac-9",
+   "ac-10": "ac-10",
+   "ac-11a": "ac-11a",
+   "ac-11b": "ac-11b",
+   "ac-11z": "ac-11z",
+   "ac-12c": "ac-12c",
+   "ac-12d": "ac-12d",
+   "ac-12e": "ac-12e",
+   "ac-12f": "ac-12f",
+   "ac-12shanty": "ac-12shanty",
+   "ac-14": "ac-14",
+   "ac-14z": "ac-14z",
+   "ac-15": "ac-15",
+   "ac-16": "ac-16",
+   "ac-16a": "ac-16a",
+   "ac-16b": "ac-16b",
+   "ac-16c": "ac-16c",
+   "ac-16e": "ac-16e",
+   "ac-16f": "ac-16f",
+   "ac-18": "ac-18",
+   "ac-18shanty": "ac-18shanty",
+   "ac-19": "ac-19",
+   "ac-19song": "ac-19song",
+   "ac-20": "ac-20",
+   "ac-20z": "ac-20z",
+   "ac-21": "ac-21",
+   "ac-21storm": "ac-21storm",
+   "ac-22": "ac-22",
+   "ac-22a": "ac-22a",
+   "ac-22b": "ac-22b",
+   "ac-23": "ac-23",
+   "ac-24": "ac-24",
+   "ac-25": "ac-25",
+   "ac-25a": "ac-25a",
+   "ac-25b": "ac-25b",
+   "ac-26": "ac-26",
+   "ac-26a": "ac-26a",
+   "ac-26b": "ac-26b",
+   "ac-26d": "ac-26d",
+   "ac-26e": "ac-26e",
+   "ac-26f": "ac-26f",
+   "ac-26ff": "ac-26ff",
+   "ac-26g": "ac-26g",
+   "ac-26h": "ac-26h",
+   "ac-26i": "ac-26i",
+   "ac-27a": "ac-27a",
+   "ac-27b": "ac-27b",
+   "ac-27c": "ac-27c",
+   "ac-27d": "ac-27d",
+   "ac-27e": "ac-27e",
+   "ac-27f": "ac-27f",
+   "ac-27zz": "ac-27zz",
+   "ac-28a": "ac-28a",
+   "ac-shanty": "ac-shanty",
+   "complete-game": "complete-game"
+  }
+ },
+ "intro": "pirate-quest/pirate-quest-intro.mp3"
+}

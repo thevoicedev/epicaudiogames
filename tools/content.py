@@ -10,6 +10,7 @@ Everything is cached (tools/cache/), so a rebuild only renders what changed. The
 ELEVENLABS_API_KEY, from the environment or all-minigames-sites/alexa/.env; it is never printed.
 """
 import base64
+import difflib
 import hashlib
 import json
 import re
@@ -93,6 +94,13 @@ def post(path, body=None, files=None, data=None):
         time.sleep(4 * (attempt + 1))
 
 
+def similar(a, b, at_least=0.8):
+    """Whether two transcripts are the same words, give or take a few."""
+    def norm(t):
+        return re.sub(r"[^a-z0-9' ]+", " ", t.lower()).split()
+    return difflib.SequenceMatcher(None, norm(a), norm(b)).ratio() >= at_least
+
+
 def word_starts(text, alignment):
     """The start time of each word of text (split on spaces), from ElevenLabs' character timings."""
     chars, starts = alignment["characters"], alignment["character_start_times_seconds"]
@@ -112,9 +120,33 @@ class Content:
         self.prefix = cdn_prefix                    # "en/audio2/leaning-tower-of-pizza/"
         self.dir = ROOT / "content" / game
         self.voices = voices or {}                  # recorded clip folder -> speaker key, for transcripts
-        self.fixes = fixes or {}                    # speech-to-text slips -> what the clip really says
+        self.fixes = fixes or {}                    # speech-to-text slips -> what the clip says ("=x": all of it)
         self.used = set()                           # every content path the map plays
+        self.differs = []                           # (clip, the code's words, what speech-to-text heard)
+        self.planning = None                        # while prepare() looks at what a build needs
         self.pool = ThreadPoolExecutor(max_workers=6)
+
+    def prepare(self, build):
+        """Runs build() once only to see the lines and clips it uses, renders and fetches those in parallel, then
+        runs it for real and returns what it returns."""
+        self.planning = {"tts": set(), "clips": set()}
+        build()
+        plan, self.planning = self.planning, None
+        print(f"{len(plan['tts'])} lines in Jessica's voice and {len(plan['clips'])} recorded clips "
+              f"(cached ones are skipped)...")
+        self.tts_many(plan["tts"])
+        list(self.pool.map(lambda c: self._fetch(*c), sorted(plan["clips"])))
+        self.used.clear()
+        return build()
+
+    def _fetch(self, rel, heard):
+        rel, local = self._cdn(rel)
+        if heard:
+            self.transcribe(local)
+
+    def _placeholder(self, kind, who=None, text=None):
+        lines = [{"at": 0.0, "len": 1.0, "who": who, "text": text}] if text else []
+        return {"play": f"{kind}/planning", "dur": 1.0, "lines": lines}
 
     # ----- Alexa's lines, in the app's voice -----
 
@@ -137,6 +169,9 @@ class Content:
     def tts(self, text, who=HOST):
         """A line in the app's voice: content/<game>/tts/<slug>.m4a."""
         text = clean(text)
+        if self.planning is not None:
+            self.planning["tts"].add(text)
+            return self._placeholder("tts", who, text)
         key, mp3, info = self._tts_raw(text)
         rel = f"tts/{slug(text)}-{key[:6]}"
         out = self.dir / f"{rel}.m4a"
@@ -168,9 +203,14 @@ class Content:
             local.write_bytes(data)
         return rel, local
 
-    def clip(self, rel, text=None, who=None, sfx=None):
+    def clip(self, rel, text=None, who=None, sfx=None, check=False):
         """A recorded clip as it is: content/<game>/audio/<rel>. Speech is transcribed unless text is given;
-        sfx=True marks music and sound effects (no transcript)."""
+        sfx=True marks music and sound effects (no transcript). With check=True, the given text is shown with the
+        times speech-to-text heard, unless it heard other words: then those are shown, and the clip is listed in
+        self.differs (a line recorded from other words, or one file shared by two lines)."""
+        if self.planning is not None:
+            self.planning["clips"].add((rel.split("?")[0], not sfx and (text is None or check)))
+            return self._placeholder("audio", who or "VOICE", None if sfx else (text or "planning"))
         rel, local = self._cdn(rel)
         stem = rel.rsplit(".", 1)[0]
         out = self.dir / "audio" / rel
@@ -191,6 +231,19 @@ class Content:
                     "text": heard["text"]}
             if heard["w"]:
                 line["w"] = heard["w"]
+        elif check:
+            heard = self.transcribe(local)
+            shown = clean(text)
+            if heard["text"] and not similar(heard["text"], shown):
+                self.differs.append((path, shown, heard["text"]))
+                shown = heard["text"]
+            if heard["text"]:
+                line = {"at": heard["start"], "len": round(max(0.1, heard["end"] - heard["start"]), 3), "who": who,
+                        "text": shown}
+                if len(heard["starts"]) == len(shown.split()):
+                    line["w"] = heard["starts"]
+            else:
+                line = {"at": 0.0, "len": round(dur, 3), "who": who, "text": shown}
         else:
             line = {"at": 0.0, "len": round(dur, 3), "who": who, "text": clean(text)}
         return {"play": path, "dur": round(dur, 3), "lines": [line]}
@@ -215,17 +268,25 @@ class Content:
         r = json.loads(cache.read_text(encoding="utf-8"))
         words = [w for w in r.get("words", []) if w.get("type") == "word"]
         if not words:
-            return {"text": "", "start": 0.0, "end": 0.0, "w": None}
+            return {"text": "", "start": 0.0, "end": 0.0, "w": None, "starts": []}
         text = clean(r.get("text") or " ".join(w["text"] for w in words))
         for wrong, right in self.fixes.items():
-            text = text.replace(wrong, right)
+            if wrong.startswith("="):           # "=Father": only when that is all it heard
+                text = right if text == wrong[1:] else text
+            else:
+                text = text.replace(wrong, right)
         start = round(words[0]["start"], 3)
-        w = [round(x["start"] - start, 3) for x in words] if len(words) == len(text.split()) else None
-        return {"text": text, "start": start, "end": words[-1]["end"], "w": w}
+        starts = [round(x["start"] - start, 3) for x in words]
+        w = starts if len(words) == len(text.split()) else None
+        return {"text": text, "start": start, "end": words[-1]["end"], "w": w, "starts": starts}
 
     def bed(self, rel, volume):
         """A recorded clip under the rest of the turn, at this volume (0 to 1)."""
         step = self.clip(rel, sfx=True)
+        return {"bed": step["play"], "volume": volume, "dur": step["dur"]}
+
+    def bed_of(self, step, volume):
+        """A clip made here (a mix) under the rest of the turn."""
         return {"bed": step["play"], "volume": volume, "dur": step["dur"]}
 
     # ----- Overlapping clips, pre-mixed -----
@@ -236,6 +297,8 @@ class Content:
         layers: [{"step": a play step, "at": seconds, "volume": 1.0, "fade_in": seconds, "trim": False}]. A layer
         with "trim" (the skill's trimToParent) is cut where the longest other layer ends.
         """
+        if self.planning is not None:
+            return self._placeholder("mix")
         spec = [{"play": l["step"]["play"], "at": round(l.get("at", 0.0), 3), "volume": l.get("volume", 1.0),
                  "fade_in": l.get("fade_in", 0.0), "trim": bool(l.get("trim"))} for l in layers]
         key = hashlib.sha1(json.dumps(spec, sort_keys=True).encode()).hexdigest()[:8]

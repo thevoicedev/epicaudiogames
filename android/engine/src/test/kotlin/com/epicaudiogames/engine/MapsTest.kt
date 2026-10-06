@@ -71,12 +71,20 @@ class MapsTest {
             if (!t.quit && t.end == null && t.ask == null) fail("${map.id}: a turn at ${t.node} neither asks, ends nor quits")
         }
 
-        fun explore(limit: Int = 60_000) {
-            val seen = HashSet<Saved>()
+        fun explore(limit: Int = minOf(60_000, 2_000_000 / maxOf(1, map.vars.size))) {
+            // States are kept as a 64-bit hash of the node and variables (decks aside), and queued only when new, so
+            // a big map's frontier fits in memory; a hash collision only skips a state.
+            val seen = HashSet<Long>()
             val queue = ArrayDeque<Saved>()
             fun record(s: Session, t: Turn) {
                 check(t)
-                if (!t.quit) queue += s.save()
+                if (t.quit) return
+                val state = s.save()
+                if (seen.size >= limit) {
+                    capped = true
+                    return
+                }
+                if (seen.add(hash(state))) queue += state
             }
             for (k in 0 until BRANCHES) {
                 val s = Session(map) { n -> k % n }
@@ -84,11 +92,6 @@ class MapsTest {
             }
             while (queue.isNotEmpty()) {
                 val state = queue.removeFirst()
-                if (!seen.add(state.copy(vars = state.vars.filterKeys { !it.startsWith("deck_") }))) continue
-                if (seen.size > limit) {
-                    capped = true
-                    break
-                }
                 states++
                 if (state.ended) {
                     val end = map.node(state.node).end!!
@@ -126,6 +129,18 @@ class MapsTest {
                     check(t)
                 }
             }
+        }
+
+        /** A 64-bit FNV-1a hash of a state: its node, whether it has ended, and its variables (decks aside). */
+        private fun hash(s: Saved): Long {
+            var h = -3750763034362895579L                      // 0xcbf29ce484222325
+            fun mix(text: String) {
+                for (ch in text) h = (h xor ch.code.toLong()) * 1099511628211L
+            }
+            mix(s.node)
+            mix(if (s.ended) "|ended|" else "|")
+            for ((k, v) in s.vars.toSortedMap()) if (!k.startsWith("deck_")) mix("$k=$v;")
+            return h
         }
 
         /** The end screen's "play again" (or "try again" at a game over with a retry point). */

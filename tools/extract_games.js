@@ -15,9 +15,10 @@ const LAMBDA = path.join(MINI, "alexa", "lambda");
 const OUT = path.join(__dirname, "flows");
 const say = (s) => process.stdout.write(s + "\n");
 
-// Loads a module with `module.exports.__eag = { names }` appended, so its module-level constants can be read.
-function internals(file, names) {
-    const src = fs.readFileSync(file, "utf8") + `\nmodule.exports.__eag = { ${names.join(", ")} };\n`;
+// Loads a module with `module.exports.__eag = { names }` appended, so its module-level constants can be read
+// (and `extra` code before that, which can wrap the module's own functions).
+function internals(file, names, extra = "") {
+    const src = fs.readFileSync(file, "utf8") + `\n${extra}\nmodule.exports.__eag = { ${names.join(", ")} };\n`;
     const m = new Module(file, module);
     m.filename = file;
     m.paths = Module._nodeModulePaths(path.dirname(file));
@@ -89,14 +90,257 @@ function alienCustoms() {
     };
 }
 
-const GAMES = { "leaning-tower-of-pizza": ltop, "alien-customs": alienCustoms };
+// What a Werewolf villager says at one point of a story: each recording it can pick, with the condition (on the map's
+// variables) under which the skill picks it. The story's speech functions read the jail, the dead and the found
+// werewolves (prison.includes, dead.includes, werewolves.includes, werewolves.length, prison[0]); they are run on
+// every combination of what they read, and the results are split into a decision tree. Map variables: st_<villager>
+// (0 in play, 1 eaten, 2 in jail, 3 a werewolf found and jailed), found (werewolves found), first_jail (the first
+// villager jailed, or "").
+function werewolfVariants(fn, keyOf, allIds) {
+    const domains = new Map();   // atom -> its possible values, in the order the functions read them
+    const run = (assign) => {
+        const read = (atom, domain) => {
+            if (!domains.has(atom)) domains.set(atom, domain);
+            return atom in assign ? assign[atom] : domain[0];
+        };
+        const list = (kind) => new Proxy([], {
+            get(_, prop) {
+                if (prop === "includes") return (x) => read(`${kind}:${keyOf(x)}`, [false, true]);
+                if (prop === "length") {
+                    if (kind !== "w") throw new Error(`${kind}.length isn't mapped`);
+                    return read("w#", [0, 1, 2]);
+                }
+                if (prop === "0") {
+                    if (kind !== "p") throw new Error(`${kind}[0] isn't mapped`);
+                    return read("p0", [undefined, ...allIds]);
+                }
+                throw new Error(`werewolf state .${String(prop)} isn't mapped`);
+            },
+        });
+        const ad = { Session: { werewolf: { werewolves: list("w"), dead: list("d"), prison: list("p") } } };
+        const r = fn(ad);
+        return { id: r.id, text: r.speech };
+    };
+    // Every combination of the atoms read, until running them reads nothing new.
+    let combos;
+    for (let size = -1; size !== domains.size;) {
+        size = domains.size;
+        combos = [{}];
+        for (const [atom, dom] of domains) combos = combos.flatMap((c) => dom.map((v) => ({ ...c, [atom]: v })));
+        combos.forEach(run);
+    }
+    const results = combos.map((c) => ({ assign: c, out: run(c) }));
+    const sameOut = (rs) => rs.every((r) => r.out.id === rs[0].out.id && r.out.text === rs[0].out.text);
 
-fs.mkdirSync(OUT, { recursive: true });
-const wanted = process.argv.slice(2);
-for (const [name, make] of Object.entries(GAMES)) {
-    if (wanted.length && !wanted.includes(name)) continue;
-    const data = make();
-    const file = path.join(OUT, `${name}.json`);
-    fs.writeFileSync(file, JSON.stringify(data, null, 1) + "\n");
-    say(`${name} -> ${path.relative(ROOT, file)}`);
+    // A branch as the values each map variable may have (st_<villager> 0-3, found 0-2, first_jail "" or a villager).
+    const ALL = { st: [0, 1, 2, 3], found: [0, 1, 2], first_jail: ["", ...allIds.map(keyOf)] };
+    const allowed = (atom, v) => {
+        if (atom === "w#") return ["found", [v]];
+        if (atom === "p0") return ["first_jail", [v === undefined ? "" : keyOf(v)]];
+        const [kind, who] = atom.split(":");
+        const yes = { w: [3], d: [1], p: [2, 3] }[kind];
+        return [`st_${who}`, v ? yes : ALL.st.filter((x) => !yes.includes(x))];
+    };
+    // Split on the atoms in the order they were read, until each branch always says the same.
+    const leaves = [];
+    const split = (rs, cons, atoms) => {
+        if (sameOut(rs)) {
+            leaves.push({ out: rs[0].out, cons });
+            return;
+        }
+        const [atom, ...rest] = atoms;
+        for (const v of domains.get(atom)) {
+            const sub = rs.filter((r) => r.assign[atom] === v);
+            const [name, vals] = allowed(atom, v);
+            const now = (cons[name] || vals).filter((x) => vals.includes(x));
+            if (sub.length && now.length) split(sub, { ...cons, [name]: now }, rest);
+        }
+    };
+    split(results, {}, [...domains.keys()]);
+
+    // Branches that say the same and differ in one variable become one.
+    const full = (name) => name.startsWith("st_") ? ALL.st : ALL[name];
+    const get = (l, name) => l.cons[name] || full(name);
+    for (let merged = true; merged;) {
+        merged = false;
+        outer: for (let i = 0; i < leaves.length; i++) {
+            for (let j = i + 1; j < leaves.length; j++) {
+                const a = leaves[i], b = leaves[j];
+                if (a.out.id !== b.out.id || a.out.text !== b.out.text) continue;
+                const names = [...new Set([...Object.keys(a.cons), ...Object.keys(b.cons)])];
+                const diff = names.filter((n) => JSON.stringify(get(a, n)) !== JSON.stringify(get(b, n)));
+                if (diff.length > 1) continue;
+                const cons = { ...a.cons };
+                for (const n of diff) {
+                    const u = full(n).filter((x) => get(a, n).includes(x) || get(b, n).includes(x));
+                    if (u.length === full(n).length) delete cons[n]; else cons[n] = u;
+                }
+                leaves.splice(j, 1);
+                leaves[i] = { out: a.out, cons };
+                merged = true;
+                break outer;
+            }
+        }
+    }
+
+    // The tests as map conditions, as short as they can be.
+    const test = (name, vals) => {
+        const all = full(name);
+        const q = (x) => typeof x === "string" ? `"${x}"` : x;
+        if (vals.length === 1) return `${name} == ${q(vals[0])}`;
+        const not = all.filter((x) => !vals.includes(x));
+        if (not.length === 1) return `${name} != ${q(not[0])}`;
+        if (typeof vals[0] === "number" && vals.every((x, i) => i === 0 || x === vals[i - 1] + 1)) {
+            if (vals[vals.length - 1] === all[all.length - 1]) return `${name} >= ${vals[0]}`;
+            if (vals[0] === all[0]) return `${name} <= ${vals[vals.length - 1]}`;
+        }
+        return `(${vals.map((x) => `${name} == ${q(x)}`).join(" || ")})`;
+    };
+    return leaves.map((l) => {
+        const parts = Object.entries(l.cons).map(([n, v]) => test(n, v));
+        return { id: l.out.id, text: l.out.text, when: parts.length ? parts.join(" && ") : null };
+    });
 }
+
+function werewolf() {
+    const dir = path.join(LAMBDA, "Games", "the-werewolf");
+    const { WEREWOLF_STORY_META, WEREWOLF_STORIES } = require(path.join(dir, "stories.js"));
+    const { WERE_CHARACTER_MAP } = require(path.join(LAMBDA, "Constants", "Constants.js"));
+    const w = internals(path.join(dir, "index.js"), ["WEREWOLF_EXACT_ALIASES"]);
+    const { audio, speech } = tables();
+    const keyOf = (id) => WERE_CHARACTER_MAP[id].key;
+    const allIds = Object.keys(WERE_CHARACTER_MAP);
+    return {
+        game: "the-werewolf",
+        cdn: "en/audio2/the-werewolf/",
+        characters: Object.fromEntries(Object.values(WERE_CHARACTER_MAP).map((c) => [c.key,
+            { name: c.name, voice: c.voice, display: c.display, pronoun: c.pronoun, wereName: c.wereName, synonyms: c.synonyms }])),
+        exactAliases: w.WEREWOLF_EXACT_ALIASES,
+        meta: WEREWOLF_STORY_META,
+        stories: WEREWOLF_STORIES.map((s) => ({
+            id: s.id,
+            werewolves: s.werewolves.map(keyOf),
+            order: Object.keys(s.stories).map(keyOf),
+            lines: Object.fromEntries(Object.entries(s.stories).map(([cid, c]) =>
+                [keyOf(cid), c.story.map((line) => werewolfVariants(line.speech, keyOf, allIds))])),
+        })),
+        speech: { ...speech.werewolf, caughtWerewolf: undefined, hereComes: speech.hereComesWereChar("{v}") },
+        audio: audio.theWerewolf,
+        getters: { ...getters("getWerewolf", "theWerewolf"), ...getters("getWere", "theWerewolf"),
+            ...getters("getWolf", "theWerewolf"), ...getters("getLongFound", "theWerewolf"),
+            ...getters("getLittleFound", "theWerewolf"), ...getters("getRandomWerewolf", "theWerewolf"),
+            ...getters("getCharacterDenial", "theWerewolf") },
+    };
+}
+
+// Stands in for the skill's response builder (Libraries/ResponseUtil.js): records what a node says and plays, in
+// order, with its mixers, and the node changes and stat updates the hooks mark in the same stream.
+class Recorder {
+    constructor() {
+        this.items = [];
+        this.stack = [this.items];
+        this.reprompt = null;
+        this.asked = null;
+    }
+    get cur() { return this.stack[this.stack.length - 1]; }
+    get last() { return this.cur[this.cur.length - 1]; }
+    mark(x) { this.cur.push(x); return this; }
+    addVoice(text) { return this.mark({ voice: text }); }
+    addAudio(url, trim) { return this.mark({ audio: String(url).replace(/^https:\/\/[^/]+\/en\/audio2\//, "").replace(/\?.*$/, ""), trim: !!trim }); }
+    addSilence(ms) { return this.mark({ silence: ms }); }
+    beginMixer() { const m = { mixer: [] }; this.cur.push(m); this.stack.push(m.mixer); return this; }
+    endMixer() { this.stack.pop(); return this; }
+    beginSequencer() { const s = { seq: [] }; this.cur.push(s); this.stack.push(s.seq); return this; }
+    endSequencer() { this.stack.pop(); return this; }
+    changeVolume(v) { this.last.volume = v; return this; }
+    addFadeIn(ms) { this.last.fadeIn = ms; return this; }
+    addReprompt(text) { this.reprompt = text; return this; }
+    addHTMLMessage() { return this; }
+    addHTML() { return this; }
+    Ask() { this.asked = true; return {}; }
+    DontAsk() { this.asked = false; return {}; }
+}
+
+// Pirate Quest: each node of PIRATE_GAME_FLOW run on its own, with the module's stat updates, dice, stat reads and
+// node changes marked in what it says. A node that reads a stat runs again with other values (a full purse, an
+// empty one, a good reputation, the royal information), so its builder sees each branch.
+async function pirateQuest() {
+    const dir = path.join(LAMBDA, "Games", "pirate-quest");
+    const hooks = `
+        updatePirateStat = function (ad, stat, value, saveNode = true) { ad.Response.mark({ stat, value, once: saveNode }); };
+        setCurrentNode = function (ad, node) { ad.Response.mark({ node }); ad.Session[SessionVars.Settings].pirateQuest.currentNode = node; };
+        getPirateStat = function (ad, stat) { ad.Response.mark({ read: stat }); return ad.Session[SessionVars.Settings].pirateQuest[stat]; };
+        getDiceOutcome = function () { return globalThis.__eagDice; };
+    `;
+    const w = internals(path.join(dir, "index.js"), ["PIRATE_GAME_FLOW", "PIRATE_UTTERANCE_MAP", "PIRATE_STATS"], hooks);
+    const { SessionVars, SkillStates } = require(path.join(LAMBDA, "Constants", "Constants.js"));
+    const { audio } = tables();
+    const START = { health: 80, coins: 50, crewMorale: 55, reputation: 10, journalQuest: ["First sail"],
+        firedNavigator: false, royalInfo: false };
+    const SCENARIOS = { coins: [0, 50], reputation: [10, 50], royalInfo: [false, true], firedNavigator: [false, true],
+        health: [80] };
+    globalThis.__eagDice = { captainRolls: [5, 4, 3], willRolls: [1, 2, 3], captainTotal: 12, willTotal: 6, outcome: "win" };
+
+    async function run(node, stats) {
+        const ad = {
+            Session: {
+                [SessionVars.Settings]: { pirateQuest: { ...START, ...stats, currentNode: node.id, processedNodes: {} },
+                    isSubscriber: true, coins: 0 },
+                [SessionVars.SkillState]: SkillStates.PIRATE_QUEST,
+            },
+            Response: new Recorder(),
+            Audio: audio,
+            Util: { supportsHTML: () => false, supportsAPL: () => false, isSubscriber: () => true, getLocale: () => "en-US" },
+            Save: () => {},
+            displayAPL: false,
+        };
+        let error = null;
+        try {
+            await node.prompt(ad);
+        } catch (e) {
+            error = String(e && e.message || e);
+        }
+        const r = ad.Response;
+        return { stats, items: r.items, reprompt: r.reprompt, asked: r.asked, error };
+    }
+
+    const nodes = [];
+    for (const node of w.PIRATE_GAME_FLOW) {
+        const first = await run(node, {});
+        const reads = new Set(JSON.stringify(first.items).match(/"read":"\w+"/g) || []);
+        const runs = [first];
+        for (const r of reads) {
+            const stat = r.slice(8, -1);
+            for (const v of SCENARIOS[stat] || []) {
+                if (v !== START[stat]) runs.push(await run(node, { [stat]: v }));
+            }
+        }
+        const options = Object.fromEntries(Object.entries(node)
+            .filter(([k]) => !["id", "description", "prompt", "reprompt"].includes(k)));
+        nodes.push({ id: node.id, description: node.description, reprompt: node.reprompt || null, options, runs });
+    }
+    return {
+        game: "pirate-quest",
+        cdn: "en/audio2/",
+        start: START,
+        utterances: w.PIRATE_UTTERANCE_MAP,
+        nodes,
+        audio: audio.pirateGame,
+        intro: audio.getPirateVoice(audio.pirateGame.pirateIntro).replace(/^https:\/\/[^/]+\/en\/audio2\//, "").replace(/\?.*$/, ""),
+    };
+}
+
+const GAMES = { "leaning-tower-of-pizza": ltop, "alien-customs": alienCustoms, "the-werewolf": werewolf,
+    "pirate-quest": pirateQuest };
+
+(async () => {
+    fs.mkdirSync(OUT, { recursive: true });
+    const wanted = process.argv.slice(2);
+    for (const [name, make] of Object.entries(GAMES)) {
+        if (wanted.length && !wanted.includes(name)) continue;
+        const data = await make();
+        const file = path.join(OUT, `${name}.json`);
+        fs.writeFileSync(file, JSON.stringify(data, null, 1) + "\n");
+        say(`${name} -> ${path.relative(ROOT, file)}`);
+    }
+})();
