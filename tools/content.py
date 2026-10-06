@@ -1,6 +1,7 @@
 """The audio of the coded games, made into map steps (docs/MAP_FORMAT.md) for their builders in tools/games/.
 
-- tts(text): one of Alexa's lines in the app's voice (Jessica), with the time of every word;
+- tts(text): one of Alexa's lines in the app's voice (Jessica, or a game's own: Nuclear War has Don), with the time
+  of every word;
 - clip(path): one of the skill's recorded clips, from the Mini Games CDN, as it is (speech is transcribed);
 - bed(path, volume): a recorded clip to play under the rest of a turn (the skill's music beds);
 - mix(name, layers): clips overlapping at given times (the skill's nested mixers), pre-mixed into one file.
@@ -18,6 +19,7 @@ import subprocess
 import threading
 import time
 import urllib.error
+import urllib.parse
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
@@ -32,11 +34,16 @@ API = "https://api.elevenlabs.io"
 # The app's voice for every line Alexa used to say (the user's pick, 6 Oct 2026).
 VOICE = {"id": "cgSgspJ2msm6clMCkdW9", "name": "jessica", "model": "eleven_multilingual_v2",
          "settings": {"stability": 0.5, "similarity_boost": 0.75, "style": 0.15, "use_speaker_boost": True}}
+# Nuclear War's announcer instead (the user's pick, 6 Oct 2026): "Don - Movie Trailer Narrator", ElevenLabs library.
+DON = {"id": "JJCR1UICgHnHljtvu5uF", "name": "don", "model": "eleven_multilingual_v2",
+       "settings": {"stability": 0.5, "similarity_boost": 0.75, "style": 0.15, "use_speaker_boost": True}}
 HOST = "HOST"
 SPEECH_LUFS = -16.0
 ENCODE = ["-ac", "1", "-c:a", "aac", "-b:a", "48k", "-ar", "32000", "-movflags", "+faststart"]
 # Jessica's lines are speech alone: 32 kbps at 24 kHz is plenty (music and mixes keep ENCODE).
 ENCODE_SPEECH = ["-ac", "1", "-c:a", "aac", "-b:a", "32k", "-ar", "24000", "-movflags", "+faststart"]
+# Or Ogg Opus, smaller for the same sound, and with much less overhead per file (Nuclear War's thousands of lines).
+ENCODE_OPUS = ["-ac", "1", "-c:a", "libopus", "-b:a", "24k", "-application", "audio", "-ar", "48000"]
 
 _lock = threading.Lock()
 
@@ -94,6 +101,27 @@ def post(path, body=None, files=None, data=None):
         time.sleep(4 * (attempt + 1))
 
 
+def samples(path, rate=16000):
+    """A file's sound as mono 16-bit samples."""
+    import array
+    raw = subprocess.run(["ffmpeg", "-v", "error", "-i", str(path), "-f", "s16le", "-ac", "1", "-ar", str(rate), "-"],
+                         capture_output=True, check=True).stdout
+    return array.array("h", raw)
+
+
+def quietest(pcm, lo, hi, rate=16000):
+    """The middle of the quietest 10 ms between lo and hi seconds: where to cut between two words."""
+    win, hop = int(rate * 0.010), int(rate * 0.005)
+    best, at = None, (lo + hi) / 2
+    i, end = max(0, int(lo * rate)), min(len(pcm), int(hi * rate))
+    while i + win <= end:
+        e = sum(x * x for x in pcm[i:i + win])
+        if best is None or e < best:
+            best, at = e, (i + win / 2) / rate
+        i += hop
+    return at
+
+
 def similar(a, b, at_least=0.8):
     """Whether two transcripts are the same words, give or take a few."""
     def norm(t):
@@ -115,8 +143,11 @@ def word_starts(text, alignment):
 class Content:
     """The content of one game: content/<game>/ and the CDN folder its recorded clips come from."""
 
-    def __init__(self, game, cdn_prefix, voices=None, fixes=None, out=None):
+    def __init__(self, game, cdn_prefix, voices=None, fixes=None, out=None, voice=VOICE, trim=False, opus=False):
         self.game = game
+        self.voice = voice                          # who reads Alexa's lines
+        self.trim = trim                            # cut the silence around them (lines said in pieces)
+        self.speech = (".opus", ENCODE_OPUS) if opus else (".m4a", ENCODE_SPEECH)     # how they're encoded
         self.prefix = cdn_prefix                    # "en/audio2/leaning-tower-of-pizza/"
         self.dir = Path(out) if out else ROOT / "content" / game     # a pack build writes elsewhere
         self.voices = voices or {}                  # recorded clip folder -> speaker key, for transcripts
@@ -132,8 +163,8 @@ class Content:
         self.planning = {"tts": set(), "clips": set()}
         build()
         plan, self.planning = self.planning, None
-        print(f"{len(plan['tts'])} lines in Jessica's voice and {len(plan['clips'])} recorded clips "
-              f"(cached ones are skipped)...")
+        print(f"{len(plan['tts'])} lines in {self.voice['name'].title()}'s voice and {len(plan['clips'])} recorded "
+              f"clips (cached ones are skipped)...")
         self.tts_many(plan["tts"])
         list(self.pool.map(lambda c: self._fetch(*c), sorted(plan["clips"], key=str)))
         self.used.clear()
@@ -151,42 +182,105 @@ class Content:
     # ----- Alexa's lines, in the app's voice -----
 
     def tts_many(self, texts):
-        """Renders and encodes many lines at once (in parallel); tts() then finds them ready."""
-        list(self.pool.map(self.tts, sorted({clean(t) for t in texts if clean(t)})))
+        """Renders and encodes many lines at once (in parallel); tts() then finds them ready. A line is a text, or
+        the arguments of tts() as a tuple (text, speak, before, after, piece)."""
+        lines = {(t if isinstance(t, tuple) else (clean(t), None, "", "", False)) for t in texts}
+        list(self.pool.map(lambda a: self.tts(*a), sorted((l for l in lines if l[0]), key=str)))
 
     def _tts_raw(self, text):
-        key = hashlib.sha1(json.dumps([VOICE["id"], VOICE["model"], VOICE["settings"], text]).encode()).hexdigest()[:16]
-        folder = CACHE / "tts" / VOICE["name"]
+        v = self.voice
+        key = hashlib.sha1(json.dumps([v["id"], v["model"], v["settings"], text]).encode()).hexdigest()[:16]
+        folder = CACHE / "tts" / v["name"]
         mp3, info = folder / f"{key}.mp3", folder / f"{key}.json"
         if not mp3.exists():
-            r = post(f"/v1/text-to-speech/{VOICE['id']}/with-timestamps?output_format=mp3_44100_128",
-                     {"text": text, "model_id": VOICE["model"], "voice_settings": VOICE["settings"]})
+            r = post(f"/v1/text-to-speech/{v['id']}/with-timestamps?output_format=mp3_44100_128",
+                     {"text": text, "model_id": v["model"], "voice_settings": v["settings"]})
             folder.mkdir(parents=True, exist_ok=True)
             info.write_text(json.dumps({"text": text, "alignment": r.get("alignment")}), encoding="utf-8")
             mp3.write_bytes(base64.b64decode(r["audio_base64"]))
         return key, mp3, json.loads(info.read_text(encoding="utf-8"))
 
-    def tts(self, text, who=HOST):
-        """A line in the app's voice: content/<game>/tts/<slug>.m4a."""
+    def tts(self, text, speak=None, before="", after="", piece=False, who=HOST):
+        """A line in the game's voice: content/<game>/tts/<slug>.m4a (or .opus). speak: what's read, when it differs
+        from the text shown ("one hundred nine" for "109", "Saint Petersburg" for "St Petersburg").
+
+        A piece of a sentence (before/after: the words around it) is rendered inside that whole sentence and cut
+        out of it between words: at the quietest moment between the middle of the gap the character times give and
+        the edge of the piece's own word (the times can be 50 ms out, but never so far that the cut should go into
+        the word next to it), with a short fade. It's said as part of a sentence, and nothing of the words around it is left. With trim, a line's silence is cut too: from the
+        start, and from the end down to 0.35 s (0.08 s for a piece that the rest of its sentence follows)."""
         text = clean(text)
+        speak = clean(speak) if speak else text
         if self.planning is not None:
-            self.planning["tts"].add(text)
+            self.planning["tts"].add((text, speak if speak != text else None, before, after, piece))
             return self._placeholder("tts", who, text)
-        key, mp3, info = self._tts_raw(text)
-        rel = f"tts/{slug(text)}-{key[:6]}"
-        out = self.dir / f"{rel}.m4a"
+        full = " ".join(x for x in (before, speak, after) if x)
+        key, mp3, info = self._tts_raw(full)
+        alignment = info.get("alignment") or {}
+        starts = alignment.get("character_start_times_seconds") or []
+        ends = alignment.get("character_end_times_seconds") or []
+        chars = alignment.get("characters") or []
+        i0 = len(before) + 1 if before else 0
+        i1 = i0 + len(speak)
+        timed = len(chars) == len(full) and len(starts) == len(full)
+        if (before or after) and not timed:
+            raise RuntimeError(f"no character times for {full!r}: can't cut {speak!r} out of it")
+
+        def sound(i, step):
+            """The nearest character at or from i (forwards or backwards) that isn't a space."""
+            while 0 <= i < len(full) and full[i].isspace():
+                i += step
+            return i
+
+        fade_in = fade_out = False
+        if not self.trim or not timed:
+            cut_in, cut_out = 0.0, None
+        else:
+            pcm = samples(mp3) if before or after else None
+            if before:
+                gap_from, gap_to = ends[sound(i0 - 1, -1)], starts[sound(i0, 1)]
+                cut_in = quietest(pcm, min(gap_to - 0.01, (gap_from + gap_to) / 2), gap_to + 0.01)
+                fade_in = True
+            else:
+                cut_in = max(0.0, starts[sound(0, 1)] - 0.04)
+            last = sound(i1 - 1, -1)
+            if after:
+                gap_from, gap_to = ends[last], starts[sound(i1, 1)]
+                cut_out = quietest(pcm, gap_from + 0.01, max(gap_from + 0.02, (gap_from + gap_to) / 2))
+                fade_out = True
+            else:
+                cut_out = ends[last] + (0.08 if piece and not speak.endswith((".", "!", "?")) else 0.35)
+        # (pieces are named apart: "k", cut at the quiet point)
+        rel = f"tts/{slug(text)}-{key[:6]}" + ("k" if self.trim and timed and (before or after) else "")
+        ext, encode = self.speech
+        out = self.dir / f"{rel}{ext}"
         if not out.exists():
             out.parent.mkdir(parents=True, exist_ok=True)
             lufs = loudness(mp3)
             gain = (SPEECH_LUFS - lufs) if lufs is not None else 0.0
-            run("-i", mp3, "-af", f"volume={gain:.2f}dB,alimiter=limit=0.89:level=false", *ENCODE_SPEECH, out)
+            chain = ""
+            if self.trim and timed:
+                length = (cut_out - cut_in) if cut_out else None
+                chain = f"atrim=start={cut_in:.3f}" + (f":end={cut_out:.3f}" if cut_out else "") + ",asetpts=PTS-STARTPTS,"
+                if fade_in:
+                    chain += "afade=t=in:d=0.008,"
+                if fade_out and length:
+                    chain += f"afade=t=out:st={max(0.0, length - 0.012):.3f}:d=0.012,"
+            run("-i", mp3, "-af", f"{chain}volume={gain:.2f}dB,alimiter=limit=0.89:level=false", *encode, out)
         dur = duration(out)
-        alignment = info.get("alignment") or {}
-        ends = alignment.get("character_end_times_seconds") or [dur]
-        line = {"at": 0.0, "len": round(min(dur, max(ends)), 3), "who": who, "text": text}
-        w = word_starts(text, alignment) if alignment else None
-        if w:
-            line["w"] = w
+        if timed and ends:
+            said = ends[sound(i1 - 1, -1)] - cut_in
+        else:
+            said = max(ends) - cut_in if ends else dur
+        line = {"at": 0.0, "len": round(min(dur, said), 3), "who": who, "text": text}
+        if timed:
+            w, prev = [], " "
+            for i in range(i0, i1):
+                if not full[i].isspace() and prev.isspace():
+                    w.append(round(max(0.0, starts[i] - cut_in), 3))
+                prev = full[i]
+            if len(w) == len(text.split()):
+                line["w"] = w
         self.used.add(rel)
         return {"play": rel, "dur": round(dur, 3), "lines": [line]}
 
@@ -196,7 +290,8 @@ class Content:
         rel = rel.split("?")[0]
         local = CACHE / "cdn" / self.game / rel
         if not local.exists():
-            req = urllib.request.Request(CDN + self.prefix + rel, headers={"User-Agent": "epicaudiogames-tools/1"})
+            url = CDN + self.prefix + (urllib.parse.quote(rel) if " " in rel else rel)
+            req = urllib.request.Request(url, headers={"User-Agent": "epicaudiogames-tools/1"})
             with urllib.request.urlopen(req, timeout=60) as r:
                 data = r.read()
             local.parent.mkdir(parents=True, exist_ok=True)
@@ -213,8 +308,8 @@ class Content:
             self.planning["clips"].add((rel.split("?")[0], not sfx and (text is None or check), turns))
             return self._placeholder("audio", who or "VOICE", None if sfx else (text or "planning"))
         rel, local = self._cdn(rel)
-        stem = rel.rsplit(".", 1)[0]
-        out = self.dir / "audio" / rel
+        stem = rel.rsplit(".", 1)[0].replace(" ", "_")      # no spaces in the app's file names
+        out = self.dir / "audio" / rel.replace(" ", "_")
         if not out.exists():
             out.parent.mkdir(parents=True, exist_ok=True)
             out.write_bytes(local.read_bytes())

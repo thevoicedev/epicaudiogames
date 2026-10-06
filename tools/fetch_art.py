@@ -21,6 +21,7 @@ COVERS = {
     "alien-customs": "alien-custom.jpg",
     "the-werewolf": "the-werewolf.jpg",
     "pirate-quest": "pirate-quest.jpg",
+    "nuclear-war": "nuclear-war.jpg",
 }
 
 

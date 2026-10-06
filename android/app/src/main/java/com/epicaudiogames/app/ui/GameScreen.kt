@@ -253,14 +253,19 @@ private fun Answers(game: GameController) {
             .padding(10.dp),
         verticalArrangement = Arrangement.spacedBy(8.dp),
     ) {
-        val buttons = game.ask?.buttons.orEmpty().take(4)
+        val buttons = game.ask?.buttons.orEmpty().take(6)
         if (buttons.isNotEmpty()) {
-            val stacked = buttons.any { it.label.length > 10 }
+            // Long labels one under another; short ones side by side, three to a row when there are more than four.
+            val stacked = buttons.size <= 4 && buttons.any { it.label.length > 10 }
             if (stacked) {
                 buttons.forEach { b -> AnswerButton(b.label, Modifier.fillMaxWidth()) { game.answer(b.value) } }
             } else {
-                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                    buttons.forEach { b -> AnswerButton(b.label, Modifier.weight(1f)) { game.answer(b.value) } }
+                val perRow = if (buttons.size > 4) 3 else buttons.size
+                buttons.chunked(perRow).forEach { row ->
+                    Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                        row.forEach { b -> AnswerButton(b.label, Modifier.weight(1f)) { game.answer(b.value) } }
+                        repeat(perRow - row.size) { Spacer(Modifier.weight(1f)) }
+                    }
                 }
             }
         }

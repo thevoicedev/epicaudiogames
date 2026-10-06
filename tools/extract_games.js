@@ -343,8 +343,27 @@ async function pirateQuest() {
     };
 }
 
+// Nuclear War is ported to Kotlin (android/engine/.../nuclear); what it needs from the skill is the audio table its
+// getters choose from, with every path made relative to en/audio2/ (most are under nuclear-war/, a few aren't).
+function nuclearWar() {
+    const { audio } = tables();
+    const strip = (url) => String(url).replace(/^https:\/\/[^/]+\/en\/audio2\//, "").replace(/\?.*$/, "")
+        .replace(/%20/g, " ");
+    const t = audio.nuclear;
+    const under = (v) => (typeof v === "string" ? `nuclear-war/${v.replace(/\?.*$/, "")}`
+        : Array.isArray(v) ? v.map(under) : Object.fromEntries(Object.entries(v).map(([k, x]) => [k, under(x)])));
+    const countries = {};
+    for (const ref of ["France", "USA", "UK", "China", "Russia"]) countries[ref] = under(t[ref]);
+    const sfx = {};
+    for (const [k, v] of Object.entries(t)) if (!countries[k] && (typeof v === "string" || Array.isArray(v))) sfx[k] = under(v);
+    // Not under nuclear-war/: the getters' own folders (Audio.js getNuclearKaching, getHalo).
+    sfx.kaching = strip(audio.getNuclearKaching());
+    sfx.halo = strip(audio.getHalo());
+    return { game: "nuclear-war", cdn: "en/audio2/", table: { ...countries, sfx } };
+}
+
 const GAMES = { "leaning-tower-of-pizza": ltop, "alien-customs": alienCustoms, "the-werewolf": werewolf,
-    "pirate-quest": pirateQuest };
+    "pirate-quest": pirateQuest, "nuclear-war": nuclearWar };
 
 (async () => {
     fs.mkdirSync(OUT, { recursive: true });

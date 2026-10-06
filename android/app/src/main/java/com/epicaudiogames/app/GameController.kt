@@ -12,10 +12,8 @@ import androidx.compose.runtime.setValue
 import com.epicaudiogames.engine.Ask
 import com.epicaudiogames.engine.Commands
 import com.epicaudiogames.engine.End
-import com.epicaudiogames.engine.GameMap
 import com.epicaudiogames.engine.Line
-import com.epicaudiogames.engine.Matcher
-import com.epicaudiogames.engine.Session
+import com.epicaudiogames.engine.Play
 import com.epicaudiogames.engine.Step
 import com.epicaudiogames.engine.Turn
 import kotlinx.coroutines.Job
@@ -38,20 +36,19 @@ sealed interface FeedItem {
 }
 
 /**
- * One game being played: the engine's session, the audio, the listening, and what the screen shows. A turn plays
- * its clips while their lines appear in the feed; then the game waits for an answer (listening by itself, as
- * Alexa does), shows its end, or leaves.
+ * One game being played: the engine's game (a map's session, or Nuclear War), the audio, the listening, and what the
+ * screen shows. A turn plays its clips while their lines appear in the feed; then the game waits for an answer
+ * (listening by itself, as Alexa does), shows its end, or leaves.
  */
 class GameController(
     context: Context,
     val info: GameInfo,
-    val map: GameMap,
+    private val game: Play,
     private val saves: Saves,
     packs: List<File>,
     private val onLeave: () -> Unit,
 ) {
     private val scope = MainScope()
-    private val session = Session(map)
     private val audio = AudioPlayer(context, info.id, packs) { finishTurn() }
     private val listener = Listener(
         context,
@@ -92,18 +89,15 @@ class GameController(
     /** Where each line starts in its feed entry: a line can carry on the one before it (see [reveal]). */
     private var offsetOfLine = mutableMapOf<Pair<Int, Int>, Int>()
     private var turnStart = 0
+    /** The last line shown carries on into the next one (a list said a name at a time). */
+    private var carryOn = false
     private var ticker: Job? = null
     private var silences = 0
 
     fun open() {
         val saved = saves.load(info.id)
-        val turn = if (saved != null && !saved.ended && map.nodes[saved.node]?.ask != null) {
-            feed += FeedItem.Note("Welcome back!")
-            session.resume(saved)
-        } else {
-            session.start()
-        }
-        play(turn)
+        if (saved != null && game.canResume(saved)) feed += FeedItem.Note("Welcome back!")
+        play(game.open(saved))
     }
 
     fun close() {
@@ -127,6 +121,7 @@ class GameController(
         entryOfLine.clear()
         offsetOfLine.clear()
         turnStart = feed.size
+        carryOn = false
         speaking = true
         audio.play(t.steps)          // calls finishTurn when the turn's audio has played (at once if it has none)
         ticker?.cancel()
@@ -159,7 +154,8 @@ class GameController(
 
     /**
      * Shows the clip's lines whose time has come. A line that carries on a sentence (the same speaker's previous line
-     * in this turn ends with a comma, as in a list of names made of one clip per name) joins that entry.
+     * in this turn ends with a comma, or is marked to carry on, as in a list of names made of one clip per name)
+     * joins that entry.
      */
     private fun reveal(clip: Int, t: Double) {
         val lines = clipLines.getOrNull(clip) ?: return
@@ -167,15 +163,17 @@ class GameController(
             val line = lines[revealed[clip]]
             val key = clip to revealed[clip]
             val last = feed.lastOrNull()
-            if (last is FeedItem.Spoken && feed.lastIndex >= turnStart && last.who == line.who && last.text.endsWith(",")) {
+            if (last is FeedItem.Spoken && feed.lastIndex >= turnStart && last.who == line.who &&
+                (last.text.endsWith(",") || carryOn)) {
                 entryOfLine[key] = feed.lastIndex
                 offsetOfLine[key] = last.text.length + 1
                 feed[feed.lastIndex] = last.copy(text = "${last.text} ${line.text}")
             } else {
                 entryOfLine[key] = feed.size
                 offsetOfLine[key] = 0
-                feed += FeedItem.Spoken(line.who, map.who[line.who] ?: line.who, line.text)
+                feed += FeedItem.Spoken(line.who, game.who[line.who] ?: line.who, line.text)
             }
+            carryOn = line.more
             revealed[clip]++
         }
     }
@@ -189,16 +187,16 @@ class GameController(
         when {
             t.quit -> {
                 // "Leave" keeps the player's place (the question they answered), as an ended Alexa session did.
-                if (t.keep) saves.store(info.id, session.save()) else saves.clear(info.id)
+                if (t.keep) saves.store(info.id, game.save()) else saves.clear(info.id)
                 leave()
             }
             t.end != null -> {
                 end = t.end
-                saves.store(info.id, session.save())
+                saves.store(info.id, game.save())
             }
             t.ask != null -> {
                 ask = t.ask
-                saves.store(info.id, session.save())
+                saves.store(info.id, game.save())
                 if (!paused) listen()
             }
         }
@@ -223,23 +221,21 @@ class GameController(
         }
         feed += FeedItem.Reply(text.trim())
         silences = 0
-        play(session.answer(text))
+        play(game.answer(text))
     }
 
     /** The recogniser's guesses, best first: the first that the question takes, else the best. */
     private fun heard(guesses: List<String>) {
         listening = false
         partial = ""
-        val a = ask ?: return
+        if (ask == null) return
         if (guesses.isEmpty()) {
             // Speech it couldn't make out: "sorry?" (the game's else); twice running, the game waits for a tap.
             feed += FeedItem.Reply("…")
-            if (++silences >= 2) pause() else play(session.answer(""))
+            if (++silences >= 2) pause() else play(game.answer(""))
             return
         }
-        val best = guesses.firstOrNull { g ->
-            Commands.isPause(g) || Matcher.match(map, a, session.vars, g).let { it.index != null || it.repeat }
-        } ?: guesses.first()
+        val best = guesses.firstOrNull { g -> Commands.isPause(g) || game.understands(g) } ?: guesses.first()
         answer(best)
     }
 
@@ -249,7 +245,7 @@ class GameController(
         partial = ""
         if (ask == null) return
         silences++
-        if (silences >= 2) pause() else play(session.silence())
+        if (silences >= 2) pause() else play(game.silence())
     }
 
     // ----- Listening -----
@@ -302,7 +298,7 @@ class GameController(
     fun carryOn() {
         paused = false
         silences = 0
-        if (ask != null) play(session.silence())
+        if (ask != null) play(game.silence())
     }
 
     // ----- Ends -----
@@ -312,7 +308,7 @@ class GameController(
         feed += FeedItem.Note("Starting again!")
         paused = false
         val e = end
-        play(if (e?.kind == "gameover" && e.retry != null) session.restart(e.retry) else session.restart())
+        play(if (e?.kind == "gameover" && e.retry != null) game.restart(e.retry) else game.restart())
     }
 
     /** The menu's "Start again": the game from its very beginning. */
@@ -322,15 +318,15 @@ class GameController(
         feed += FeedItem.Note("Starting again!")
         paused = false
         silences = 0
-        play(session.restart())
+        play(game.restart())
     }
 
     val canGoOn: Boolean
-        get() = end?.let { it.kind == "chapter" && it.next != null && it.next in map.nodes } ?: false
+        get() = end?.let { e -> e.kind == "chapter" && e.next?.let { game.hasChapter(it) } == true } ?: false
 
     fun nextChapter() {
         feed += FeedItem.Note("Next chapter")
-        play(session.nextChapter())
+        play(game.nextChapter())
     }
 
     /** Back to the game list (posted, as it closes this game's player from inside its own callbacks). */

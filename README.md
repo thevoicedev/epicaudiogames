@@ -8,10 +8,10 @@ Every word is shown on screen as it's spoken. Everything plays offline. Website:
 | Folder | What's in it |
 |---|---|
 | `docs/MAP_FORMAT.md` | the game map format: every game is a JSON graph of turns |
-| `games/<id>/` | each game's map (`map.json`) and, from phase 4, its packs (`pack.json`) |
+| `games/<id>/` | each game's map (`map.json`) and, from phase 4, its packs (`pack.json`); Nuclear War, written in Kotlin, has its clips (`clips.json`) and lines (`lines.json`) instead |
 | `content/<id>/` | each game's audio, built by the tools and kept out of git |
 | `tools/` | build tools: turn the Mini Games radio plays into maps, fetch the audio, check everything |
-| `android/` | the app: `engine` (pure Kotlin: maps, answers, saves; tested on the JVM) and, from phase 2, `app` |
+| `android/` | the app: `engine` (pure Kotlin: maps, answers, saves, and Nuclear War; tested on the JVM) and, from phase 2, `app` |
 
 The games come from Mini Games (the `all-minigames-sites` repo next to this one, or `MINIGAMES_DIR`), which the
 tools read at build time only. Nothing from it runs in the app, and the tools never write to it.
@@ -42,6 +42,21 @@ node tools/capture.js "<launch>" yes ... # prints what the real skill plays on a
                                          #   to check a builder against
 ```
 
+**Nuclear War** is too much game for a map (five countries' money, cities, sanctions and bombs, and what the
+computer countries decide each round), so it's written in Kotlin: `android/engine/.../nuclear/NuclearWar.kt` is the
+skill's code ported function by function, speaker path only. Its announcer is Don (ElevenLabs "Don - Movie Trailer
+Narrator", the user's pick): `Lines.kt` holds everything he says, and every line is one clip found by its words.
+Lines with a city, a country or a small number have a clip per value; lists of cities, money and points are said in
+pieces, each rendered inside a whole sentence and cut out of it between words, then joined in the transcript.
+Numbers are read as words (the clips are cut by ElevenLabs' character times, which aren't reliable for digits).
+
+```
+node tools/extract_games.js nuclear-war                      # the skill's audio table -> tools/flows/nuclear-war.json
+cd android && gradlew :engine:run --args="--nuclear-lines"   # Don's lines -> games/nuclear-war/lines.json
+python tools/games/nuclearwar.py                             # -> games/nuclear-war/clips.json, content/nuclear-war/
+python tools/games/nuclearwar_check.py                       # speech-to-text on every Don clip: what to listen to
+```
+
 **Packs** (more stories and levels, bought in the app): a builder run with `--build build/packs` and all the
 stories or levels (`aliencustoms.py --levels 15`, `werewolf.py --stories 50`; for Frootopia,
 `build_maps.py --cached --frootopia-stories 5 --build build/packs` then `fetch_audio.py --game frootopia --build
@@ -50,10 +65,10 @@ build/packs`) writes the whole game there; then
 `dist/packs/<pack>-<version>.zip` (that and its audio, for the pack server) and the pack's line in
 `games/catalog.json` (title, Play product id, size, checksum).
 
-`tools/content.py` makes every clip a builder uses: Alexa's lines in the app's voice (ElevenLabs, Jessica, with
-the time of every word), the skill's recordings from the Mini Games CDN (speech-to-text gives their words and
-times; `check=True` compares them with the words in the code, and `turns=True` splits a scene into a line per
-speaker turn), beds, and pre-mixed overlaps. Everything is cached
+`tools/content.py` makes every clip a builder uses: Alexa's lines in the app's voice (ElevenLabs, Jessica, or Don
+for Nuclear War, with the time of every word), the skill's recordings from the Mini Games CDN (speech-to-text gives
+their words and times; `check=True` compares them with the words in the code, and `turns=True` splits a scene into
+a line per speaker turn), beds, and pre-mixed overlaps. Everything is cached
 in `tools/cache/`, so a rebuild only renders what changed. The ElevenLabs key comes from `ELEVENLABS_API_KEY` or
 `all-minigames-sites/alexa/.env` and is never printed.
 
@@ -62,7 +77,7 @@ in `tools/cache/`, so a rebuild only renders what changed. The ElevenLabs key co
 ```
 cd android
 gradlew :engine:test                                       # the tests below
-gradlew :engine:run --args="noodle-rush" --console=plain   # play a game by typing
+gradlew :engine:run --args="noodle-rush" --console=plain   # play a game by typing (nuclear-war too)
 ```
 
 The tests:
@@ -73,13 +88,16 @@ The tests:
   from the skills' code and the responses `capture.js` recorded.
 - **AlexaReplayTest:** replays the walks `parity.js` recorded in the real skill. Every turn must play the same clips
   as Alexa did, apart from a short list of deliberate differences, each with its reason.
+- **NuclearWarTest:** 3,000 bot games of Nuclear War with random answers. Every game must end, Don must say
+  only lines from `Lines.kt` (and, with the audio made, every one has its clip), every question must have its
+  reprompt, and a save must pick up again.
 - **TextTest:** the number, letter and negation readers ported from the skills.
 
 ## The app
 
 ```
 cd android
-gradlew :app:assembleDebug        # app/build/outputs/apk/debug/app-debug.apk (about 150 MB with seven games)
+gradlew :app:assembleDebug        # app/build/outputs/apk/debug/app-debug.apk (about 190 MB with eight games)
 gradlew :app:assembleRelease      # app/build/outputs/apk/release/app-release.apk (about 52 MB, shrunk; signed with
                                   #   the debug key for now, so for testing only)
 adb install -r app/build/outputs/apk/release/app-release.apk
@@ -91,9 +109,9 @@ assets, so run the content tools first. The app needs Android 7 (API 24) or late
 - **Game list:** each game's cover, description and what's free, with CONTINUE on games left part-way.
 - **Game screen:** the talking circle (the game's picture: it pulses while the game speaks, rings while it
   listens, and a tap skips). The transcript appears line by line as it is spoken, with the words still to come
-  paler; a line that carries on a sentence (the speaker's line before it ends with a comma, as in a list of names
-  read one clip per name) joins that bubble. The answers: buttons, typing or the mic. Answers work while the voice
-  is still talking, and stop it.
+  paler; a line that carries on a sentence (the speaker's line before it ends with a comma or is marked to carry
+  on, as in a list of names read one clip per name) joins that bubble. The answers: buttons, typing or the mic.
+  Answers work while the voice is still talking, and stop it.
 - **Listening:** after each question the mic opens by itself, as on Alexa. Silence plays the question again; a
   second silence, or "stop", pauses the game until a tap.
 - **Saves:** each game's place is saved at every question, and "Welcome back!" picks it up.
@@ -118,4 +136,5 @@ machine are full of other apps' builds.
    the app's store and pack downloads, and the three packs are made and tried on the emulator: Alien Customs levels
    6 to 15 (26 MB), The Werewolf stories 6 to 50 (133 MB) and The Kingdom of Frootopia stories 2 to 5 (15 MB). Still
    to come: the pack server, and the products in the Play Console.
-5. Nuclear War, a size pass, and the release build.
+5. Nuclear War, a size pass, and the release build. **Running:** Nuclear War is done (the whole game, in Don's
+   voice; see above). Still to come: the size pass and the release build (it needs the upload signing key).

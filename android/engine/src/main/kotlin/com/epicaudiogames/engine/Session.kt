@@ -31,7 +31,9 @@ data class Saved(val node: String, val vars: Map<String, Any>, val ended: Boolea
 class Session(
     val map: GameMap,
     private val choose: (Int) -> Int = { n -> Random.nextInt(n) },
-) {
+) : Play {
+    override val who: Map<String, String> get() = map.who
+
     var node: String = map.start
         private set
     val vars: MutableMap<String, Any> = map.vars.toMutableMap()
@@ -45,9 +47,9 @@ class Session(
     private var asked: String? = null
 
     /** The question waiting for an answer, if there is one. */
-    val ask: Ask? get() = if (end == null && !quit) map.nodes[node]?.ask else null
+    override val ask: Ask? get() = if (end == null && !quit) map.nodes[node]?.ask else null
 
-    fun start(): Turn {
+    override fun start(): Turn {
         end = null
         quit = false
         keep = false
@@ -60,7 +62,9 @@ class Session(
      * Back at a saved place: the end screen, or the node's say again and its question. A question whose node says
      * nothing itself (the turn before it did the talking) plays its reprompt.
      */
-    fun resume(saved: Saved): Turn {
+    override fun canResume(saved: Saved): Boolean = !saved.ended && map.nodes[saved.node]?.ask != null
+
+    override fun resume(saved: Saved): Turn {
         val n = map.nodes[saved.node]
         if (n == null || (n.ask == null && n.end == null)) return start()
         restore(saved)
@@ -81,9 +85,9 @@ class Session(
         keep = false
     }
 
-    fun save() = Saved(node, vars.toMap(), end != null)
+    override fun save() = Saved(node, vars.toMap(), end != null)
 
-    fun answer(said: String): Turn {
+    override fun answer(said: String): Turn {
         val ask = this.ask ?: throw IllegalStateException("the game isn't waiting for an answer (at $node)")
         asked = node
         val result = Matcher.match(map, ask, vars, said)
@@ -103,16 +107,23 @@ class Session(
     }
 
     /** The player said nothing: the reprompt, and the same question again. */
-    fun silence(): Turn {
+    override fun silence(): Turn {
         val ask = this.ask ?: throw IllegalStateException("the game isn't waiting for an answer (at $node)")
         return turn(resolve(ask.reprompt), emptyList())
     }
 
     /** Starts again, at [at] (or the start), with the starting variables except the map's "keep". */
-    fun restart(at: String? = null): Turn = play(Go.Restart(at ?: map.start))
+    override fun restart(at: String?): Turn = play(Go.Restart(at ?: map.start))
 
     /** After a chapter's end: its next chapter, with the variables kept. */
-    fun nextChapter(): Turn {
+    override fun hasChapter(next: String): Boolean = next in map.nodes
+
+    override fun understands(said: String): Boolean {
+        val a = ask ?: return false
+        return Matcher.match(map, a, vars, said).let { it.index != null || it.repeat }
+    }
+
+    override fun nextChapter(): Turn {
         val e = end ?: throw IllegalStateException("not at an end")
         val next = e.next ?: throw IllegalStateException("${e.title}: no next chapter")
         if (next !in map.nodes) throw IllegalStateException("$next isn't in this map (pack ${e.locked})")

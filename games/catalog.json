@@ -75,6 +75,12 @@
           "sha256": "1096029c3e810473bfd3b5fe036f44942d58615aade50c5f6450fea7194b7690"
         }
       ]
+    },
+    {
+      "id": "nuclear-war",
+      "title": "Nuclear War",
+      "blurb": "Lead your country through five rounds of nuclear war. Shield your cities, sanction your rivals and choose when to strike.",
+      "free": "The whole war"
     }
   ]
 }

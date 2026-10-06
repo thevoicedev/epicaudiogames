@@ -103,7 +103,8 @@ out as the turn plays, with the variables as they are then.
   - `text`: the words.
 
   A line may also carry `w`, the start time of each of its words (relative to `at`). Without it, the app spreads
-  the words over `len`.
+  the words over `len`. A line with `"more": true` carries on in the next clip (a sentence said in pieces, as in a
+  list read a name at a time): the transcript shows the two as one line.
 
 ### `ask`: waiting for an answer
 

@@ -48,8 +48,9 @@ android {
     sourceSets["main"].assets.srcDirs(File(repoRoot, "games"), File(repoRoot, "content"))
     androidResources {
         noCompress += listOf("m4a", "mp3", "opus")
-        // A game's packs (games/<id>/packs/) come in their own downloads, not in the app.
-        ignoreAssetsPatterns += listOf("<dir>packs")
+        // A game's packs (games/<id>/packs/) come in their own downloads, not in the app; Nuclear War's lines.json
+        // is what its clips were made from (the app reads clips.json).
+        ignoreAssetsPatterns += listOf("<dir>packs", "<file>lines.json")
     }
     packaging {
         resources {

@@ -1,0 +1,458 @@
+{
+ "game": "nuclear-war",
+ "cdn": "en/audio2/",
+ "table": {
+  "France": {
+   "Representative": "nuclear-war/France/Hello.mp3",
+   "PhoneHello": "nuclear-war/France/Phone.mp3",
+   "RemoveSanction": "nuclear-war/France/Sanctioned.mp3",
+   "DefenseSpending": [
+    "nuclear-war/France/Defense-Spending-1.mp3",
+    "nuclear-war/France/Defense-Spending-2.mp3",
+    "nuclear-war/France/Defense-Spending-3.mp3",
+    "nuclear-war/France/Defense-Spending-4.mp3"
+   ],
+   "Friendly": [
+    "nuclear-war/France/Friends-1.mp3",
+    "nuclear-war/France/Friends-2.mp3",
+    "nuclear-war/France/Friends-3.mp3",
+    "nuclear-war/France/Friends-4.mp3"
+   ],
+   "EnvironmentGood": "nuclear-war/France/Environment-4.mp3",
+   "EnvironmentNeutral": "nuclear-war/France/Environment-3.mp3",
+   "EnvironmentBad": [
+    "nuclear-war/France/Environment-1.mp3",
+    "nuclear-war/France/Environment-2.mp3"
+   ],
+   "Motivators": {
+    "DEFENSE": "nuclear-war/France/Hello-Comment-4.mp3",
+    "ENVIRONMENT": "nuclear-war/France/Hello-Comment-3.mp3",
+    "FRIENDLY": "nuclear-war/France/Hello-Comment-1.mp3",
+    "NUCLEAR": "nuclear-war/France/Hello-Comment-2.mp3"
+   },
+   "Theme": "nuclear-war/France/France Theme V3.mp3",
+   "SanctionsRemoved": "nuclear-war/France/Sanctions-Removed-Thanks.mp3",
+   "BombCountry": {
+    "China": "nuclear-war/France/Sanctions-Removed-China.mp3",
+    "USA": "nuclear-war/France/Sanctions-Removed-USA.mp3",
+    "UK": "nuclear-war/France/Sanctions-Removed-UK.mp3",
+    "Russia": "nuclear-war/France/Sanctions-Removed-Russia.mp3"
+   },
+   "GeneralChat": [
+    "nuclear-war/France/Chat-1.mp3",
+    "nuclear-war/France/Chat-2.mp3",
+    "nuclear-war/France/Chat-3.mp3",
+    "nuclear-war/France/Chat-4.mp3",
+    "nuclear-war/France/Chat-5.mp3"
+   ],
+   "NuclearBuilding": [
+    "nuclear-war/France/Nuclear-Building-1.mp3",
+    "nuclear-war/France/Nuclear-Building-2.mp3",
+    "nuclear-war/France/Nuclear-Building-3.mp3",
+    "nuclear-war/France/Nuclear-Building-4.mp3",
+    "nuclear-war/France/Nuclear-Building-5.mp3",
+    "nuclear-war/France/Nuclear-Building-6.mp3",
+    "nuclear-war/France/Nuclear-Building-7.mp3",
+    "nuclear-war/France/Nuclear-Building-8.mp3"
+   ],
+   "GotBombed": "nuclear-war/France/Bombed.mp3",
+   "Worried": {
+    "China": "nuclear-war/France/Worried-China-001.mp3",
+    "UK": "nuclear-war/France/Worried-UK-001.mp3",
+    "USA": "nuclear-war/France/Worried-USA-001.mp3",
+    "Russia": "nuclear-war/France/Worried-Russia-001.mp3"
+   },
+   "Victory": "nuclear-war/France/Victory.mp3",
+   "Enemy": {
+    "China": "nuclear-war/France/Worried-China-001.mp3",
+    "UK": "nuclear-war/France/Worried-UK-001.mp3",
+    "USA": "nuclear-war/France/Worried-USA-001.mp3",
+    "Russia": "nuclear-war/France/Worried-Russia-001.mp3"
+   },
+   "Attack": {
+    "Edinburgh": "nuclear-war/France/Attack0-Edinburgh.mp3",
+    "Beijing": "nuclear-war/France/Attack-Beijing.mp3",
+    "Cardiff": "nuclear-war/France/Attack-Cardiff.mp3",
+    "Houston": "nuclear-war/France/Attack-Houston.mp3",
+    "LosAngeles": "nuclear-war/France/Attack-LA.mp3",
+    "London": "nuclear-war/France/Attack-London.mp3",
+    "Moscow": "nuclear-war/France/Attack-Moscow.mp3",
+    "NewYork": "nuclear-war/France/Attack-NY.mp3",
+    "Shanghai": "nuclear-war/France/Attack-Shanghai.mp3",
+    "Sochi": "nuclear-war/France/Attack-Sochi.mp3",
+    "StPetersburg": "nuclear-war/France/Attack-Stpetersburg.mp3",
+    "Wuhan": "nuclear-war/France/Attack-Wuhan.mp3"
+   }
+  },
+  "USA": {
+   "Representative": "nuclear-war/US/Iona Butt.mp3",
+   "RemoveSanction": "nuclear-war/US/Angry Sanctioned.mp3",
+   "PhoneHello": "nuclear-war/US/Answering the Phone.mp3",
+   "DefenseSpending": [
+    "nuclear-war/US/Defense Spending 1.mp3",
+    "nuclear-war/US/Defense Spending 2.mp3",
+    "nuclear-war/US/Defense Spending 3.mp3",
+    "nuclear-war/US/Defense Spending 4.mp3"
+   ],
+   "EnvironmentGood": "nuclear-war/US/Environment 4.mp3",
+   "EnvironmentNeutral": "nuclear-war/US/Environment 3.mp3",
+   "EnvironmentBad": [
+    "nuclear-war/US/Environment 1.mp3",
+    "nuclear-war/US/Environment 2.mp3"
+   ],
+   "Friendly": [
+    "nuclear-war/US/Trying to be friends 1.mp3",
+    "nuclear-war/US/Trying to be friends 2.mp3",
+    "nuclear-war/US/Trying to be friends 3.mp3",
+    "nuclear-war/US/Trying to be friends 4.mp3"
+   ],
+   "Motivators": {
+    "DEFENSE": [
+     "nuclear-war/US/HELLO COMMENTS 4.mp3",
+     "nuclear-war/US/HELLO COMMENTS 3.mp3"
+    ],
+    "ENVIRONMENT": "nuclear-war/US/HELLO COMMENTS 5.mp3",
+    "FRIENDLY": "nuclear-war/US/HELLO COMMENTS 2.mp3",
+    "NUCLEAR": "nuclear-war/US/HELLO COMMENTS 1.mp3"
+   },
+   "Theme": "nuclear-war/US/Nuclear War - USA Theme.mp3",
+   "SanctionsRemoved": "nuclear-war/US/Sanctions Removed 1.mp3",
+   "BombCountry": {
+    "China": "nuclear-war/US/Sanctions Removed 3.mp3",
+    "France": "nuclear-war/US/Sanctions Removed 4.mp3",
+    "UK": "nuclear-war/US/Sanctions Removed 2.mp3",
+    "Russia": "nuclear-war/US/Sanctions Removed 5.mp3"
+   },
+   "GeneralChat": [
+    "nuclear-war/US/General chat 1.mp3",
+    "nuclear-war/US/General chat 2.mp3",
+    "nuclear-war/US/General chat 3.mp3",
+    "nuclear-war/US/General chat 4.mp3",
+    "nuclear-war/US/General chat 5.mp3"
+   ],
+   "NuclearBuilding": [
+    "nuclear-war/US/Nuclear Building 1.mp3",
+    "nuclear-war/US/Nuclear Building 2.mp3",
+    "nuclear-war/US/Nuclear Building 3.mp3",
+    "nuclear-war/US/Nuclear Building 4.mp3",
+    "nuclear-war/US/Nuclear Building 5.mp3",
+    "nuclear-war/US/Nuclear Building 6.mp3"
+   ],
+   "GotBombed": "nuclear-war/US/Bombed.mp3",
+   "Worried": {
+    "China": "nuclear-war/US/Worried about 1.mp3",
+    "UK": "nuclear-war/US/Worried about 3.mp3",
+    "France": "nuclear-war/US/Worried about 4.mp3",
+    "Russia": "nuclear-war/US/Worried about 2.mp3"
+   },
+   "Victory": "nuclear-war/US/Victory.mp3",
+   "Enemy": {
+    "Russia": "nuclear-war/US/Become our enemy 4.mp3",
+    "France": "nuclear-war/US/Become our enemy 3.mp3",
+    "UK": "nuclear-war/US/Become our enemy 2.mp3",
+    "China": "nuclear-war/US/Become our enemy 1.mp3"
+   },
+   "Attack": {
+    "Shanghai": "nuclear-war/US/Who to attack 1.mp3",
+    "Beijing": "nuclear-war/US/Who to attack 2.mp3",
+    "Wuhan": "nuclear-war/US/Who to attack 3.mp3",
+    "Moscow": "nuclear-war/US/Who to attack 4.mp3",
+    "StPetersburg": "nuclear-war/US/Who to attack 5.mp3",
+    "Sochi": "nuclear-war/US/Who to attack 6.mp3",
+    "London": "nuclear-war/US/Who to attack 7.mp3",
+    "Edinburgh": "nuclear-war/US/Who to attack 8.mp3",
+    "Cardiff": "nuclear-war/US/Who to attack 9.mp3",
+    "Paris": "nuclear-war/US/Who to attack 10.mp3",
+    "Marseille": "nuclear-war/US/Who to attack 11.mp3",
+    "Lyon": "nuclear-war/US/Who to attack 12.mp3"
+   }
+  },
+  "UK": {
+   "Representative": "nuclear-war/UK/Hello.mp3",
+   "RemoveSanction": "nuclear-war/UK/Sanctioned.mp3",
+   "PhoneHello": "nuclear-war/UK/Phone.mp3",
+   "DefenseSpending": [
+    "nuclear-war/UK/Defense-Spending-1.mp3",
+    "nuclear-war/UK/Defense-Spending-2.mp3",
+    "nuclear-war/UK/Defense-Spending-3.mp3",
+    "nuclear-war/UK/Defense-Spending-4.mp3"
+   ],
+   "Friendly": [
+    "nuclear-war/UK/Friends-1.mp3",
+    "nuclear-war/UK/Friends-2.mp3",
+    "nuclear-war/UK/Friends-3.mp3",
+    "nuclear-war/UK/Friends-4.mp3"
+   ],
+   "EnvironmentGood": "nuclear-war/UK/Environment-4.mp3",
+   "EnvironmentNeutral": "nuclear-war/UK/Environment-3.mp3",
+   "EnvironmentBad": [
+    "nuclear-war/UK/Environment-1.mp3",
+    "nuclear-war/UK/Environment-2.mp3"
+   ],
+   "Motivators": {
+    "DEFENSE": "nuclear-war/UK/Hello-Comment-1.mp3",
+    "ENVIRONMENT": "nuclear-war/UK/Hello-Comment-2.mp3",
+    "FRIENDLY": "nuclear-war/UK/Hello-Comment-3.mp3",
+    "NUCLEAR": "nuclear-war/UK/Hello-Comment-4.mp3"
+   },
+   "Theme": "nuclear-war/UK/Nuclear War - UK Theme V03.mp3",
+   "SanctionsRemoved": "nuclear-war/UK/Sanctions-Removed-Thanks.mp3",
+   "BombCountry": {
+    "China": "nuclear-war/UK/Sanctions-Removed-China.mp3",
+    "France": "nuclear-war/UK/Sanctions-Removed-France.mp3",
+    "USA": "nuclear-war/UK/Sanctions-Removed-USA.mp3",
+    "Russia": "nuclear-war/UK/Sanctions-Removed-Russia.mp3"
+   },
+   "GeneralChat": [
+    "nuclear-war/UK/Chat-1.mp3",
+    "nuclear-war/UK/Chat-2.mp3",
+    "nuclear-war/UK/Chat-3.mp3",
+    "nuclear-war/UK/Chat-4.mp3",
+    "nuclear-war/UK/Chat-5.mp3"
+   ],
+   "NuclearBuilding": [
+    "nuclear-war/UK/Nuclear-Building-1.mp3",
+    "nuclear-war/UK/Nuclear-Building-2.mp3",
+    "nuclear-war/UK/Nuclear-Building-3.mp3",
+    "nuclear-war/UK/Nuclear-Building-4.mp3",
+    "nuclear-war/UK/Nuclear-Building-5.mp3",
+    "nuclear-war/UK/Nuclear-Building-6.mp3",
+    "nuclear-war/UK/Nuclear-Building-7.mp3"
+   ],
+   "GotBombed": "nuclear-war/UK/Bombed.mp3",
+   "Worried": {
+    "China": "nuclear-war/UK/Worried-China.mp3",
+    "USA": "nuclear-war/UK/Worried-USA.mp3",
+    "France": "nuclear-war/UK/Worried-France.mp3",
+    "Russia": "nuclear-war/UK/Worried-Russia.mp3"
+   },
+   "Enemy": {
+    "Russia": "nuclear-war/UK/Enemy-Russia.mp3",
+    "France": "nuclear-war/UK/Enemy-France.mp3",
+    "UK": "nuclear-war/UK/Enemy-China.mp3",
+    "USA": "nuclear-war/UK/Enemy-USA.mp3"
+   },
+   "Victory": "nuclear-war/UK/Victory.mp3",
+   "Attack": {
+    "Beijing": "nuclear-war/UK/Attack-Beijing.mp3",
+    "Houston": "nuclear-war/UK/Attack-Houston.mp3",
+    "LosAngeles": "nuclear-war/UK/Attack-LA.mp3",
+    "Lyon": "nuclear-war/UK/Attack-Lyon.mp3",
+    "Marseille": "nuclear-war/UK/Attack-Marseille.mp3",
+    "Moscow": "nuclear-war/UK/Attack-Moscow.mp3",
+    "NewYork": "nuclear-war/UK/Attack-NY.mp3",
+    "Paris": "nuclear-war/UK/Attack-Paris.mp3",
+    "Shanghai": "nuclear-war/UK/Attack-Shanghai.mp3",
+    "Sochi": "nuclear-war/UK/Attack-Sochi.mp3",
+    "StPetersburg": "nuclear-war/UK/Attack-Stpetersburg.mp3",
+    "Wuhan": "nuclear-war/UK/Attack-Wuhan.mp3"
+   }
+  },
+  "China": {
+   "Representative": "nuclear-war/China/Hello.mp3",
+   "RemoveSanction": "nuclear-war/China/Sanctioned.mp3",
+   "PhoneHello": "nuclear-war/China/Answering the Phone.mp3",
+   "DefenseSpending": [
+    "nuclear-war/China/Defense Spending 1.mp3",
+    "nuclear-war/China/Defense Spending 2.mp3",
+    "nuclear-war/China/Defense Spending 3.mp3",
+    "nuclear-war/China/Defense Spending 4.mp3"
+   ],
+   "EnvironmentGood": "nuclear-war/China/Environment 4.mp3",
+   "EnvironmentNeutral": "nuclear-war/China/Environment 3.mp3",
+   "EnvironmentBad": [
+    "nuclear-war/China/Environment 1.mp3",
+    "nuclear-war/China/Environment 2.mp3"
+   ],
+   "Friendly": [
+    "nuclear-war/China/Trying to be friends 1.mp3",
+    "nuclear-war/China/Trying to be friends 2.mp3",
+    "nuclear-war/China/Trying to be friends 3.mp3",
+    "nuclear-war/China/Trying to be friends 4.mp3"
+   ],
+   "Motivators": {
+    "DEFENSE": "nuclear-war/China/Hello comments 4.mp3",
+    "ENVIRONMENT": "nuclear-war/China/Hello comments 1.mp3",
+    "FRIENDLY": "nuclear-war/China/Hello comments 3.mp3",
+    "NUCLEAR": "nuclear-war/China/Hello comments 2.mp3"
+   },
+   "Theme": "nuclear-war/China/Nuclear War - China Theme.mp3",
+   "SanctionsRemoved": "nuclear-war/China/Sanctions Removed 1.mp3",
+   "BombCountry": {
+    "UK": "nuclear-war/China/Sanctions Removed 2.mp3",
+    "France": "nuclear-war/China/Sanctions Removed 6.mp3",
+    "USA": "nuclear-war/China/Sanctions Removed 4.mp3",
+    "Russia": "nuclear-war/China/Sanctions Removed 5.mp3"
+   },
+   "GeneralChat": [
+    "nuclear-war/China/General chat 1.mp3",
+    "nuclear-war/China/General chat 2.mp3",
+    "nuclear-war/China/General chat 3.mp3",
+    "nuclear-war/China/General chat 4.mp3",
+    "nuclear-war/China/General chat 5.mp3"
+   ],
+   "NuclearBuilding": [
+    "nuclear-war/China/Nuclear Building 1.mp3",
+    "nuclear-war/China/Nuclear Building 2.mp3",
+    "nuclear-war/China/Nuclear Building 3.mp3",
+    "nuclear-war/China/Nuclear Building 4.mp3",
+    "nuclear-war/China/Nuclear Building 5.mp3",
+    "nuclear-war/China/Nuclear Building 6.mp3",
+    "nuclear-war/China/Nuclear Building 7.mp3"
+   ],
+   "GotBombed": "nuclear-war/China/Bombed.mp3",
+   "Worried": {
+    "UK": "nuclear-war/China/Worried about 3.mp3",
+    "USA": "nuclear-war/China/Worried about 4.mp3",
+    "France": "nuclear-war/China/Worried about 1.mp3",
+    "Russia": "nuclear-war/China/Worried about 2.mp3"
+   },
+   "Victory": "nuclear-war/China/Victory.mp3",
+   "Enemy": {
+    "Russia": "nuclear-war/China/Become our enemy 4.mp3",
+    "France": "nuclear-war/China/Become our enemy 1.mp3",
+    "UK": "nuclear-war/China/Become our enemy 2.mp3",
+    "USA": "nuclear-war/China/Become our enemy 3.mp3"
+   },
+   "Attack": {
+    "Paris": "nuclear-war/China/Who to attack 1.mp3",
+    "Marseille": "nuclear-war/China/Who to attack 2.mp3",
+    "Lyon": "nuclear-war/China/Who to attack 3.mp3",
+    "Moscow": "nuclear-war/China/Who to attack 4.mp3",
+    "StPetersburg": "nuclear-war/China/Who to attack 5.mp3",
+    "Sochi": "nuclear-war/China/Who to attack 6.mp3",
+    "London": "nuclear-war/China/Who to attack 7.mp3",
+    "Edinburgh": "nuclear-war/China/Who to attack 8.mp3",
+    "NewYork": "nuclear-war/China/Who to attack 10.mp3",
+    "LosAngeles": "nuclear-war/China/Who to attack 11.mp3",
+    "Houston": "nuclear-war/China/Who to attack 12.mp3"
+   }
+  },
+  "Russia": {
+   "Representative": "nuclear-war/Russia/Hello.mp3",
+   "RemoveSanction": "nuclear-war/Russia/Sanctioned.mp3",
+   "PhoneHello": "nuclear-war/Russia/Phone.mp3",
+   "Friendly": [
+    "nuclear-war/Russia/Friends-1.mp3",
+    "nuclear-war/Russia/Friends-2.mp3",
+    "nuclear-war/Russia/Friends-3.mp3"
+   ],
+   "DefenseSpending": [
+    "nuclear-war/Russia/Defense-Spending-1.mp3",
+    "nuclear-war/Russia/Defense-Spending-2.mp3",
+    "nuclear-war/Russia/Defense-Spending-3.mp3"
+   ],
+   "EnvironmentGood": "nuclear-war/Russia/Enviroment-4.mp3",
+   "EnvironmentNeutral": "nuclear-war/Russia/Enviroment-3.mp3",
+   "EnvironmentBad": [
+    "nuclear-war/Russia/Enviroment-1.mp3",
+    "nuclear-war/Russia/Enviroment-2.mp3"
+   ],
+   "Motivators": {
+    "DEFENSE": "nuclear-war/Russia/Hello-Comment-4.mp3",
+    "ENVIRONMENT": "nuclear-war/Russia/Hello-Comment-3.mp3",
+    "FRIENDLY": "nuclear-war/Russia/Hello-Comment-1.mp3",
+    "NUCLEAR": "nuclear-war/Russia/Hello-Comment-2.mp3"
+   },
+   "Theme": "nuclear-war/Russia/RUSSIAN THEME V03.mp3",
+   "SanctionsRemoved": "nuclear-war/Russia/Sanctions-Removed-1.mp3",
+   "BombCountry": {
+    "China": "nuclear-war/Russia/Sanctions-Removed-3.mp3",
+    "USA": "nuclear-war/Russia/Sanctions-Removed-4.mp3",
+    "UK": "nuclear-war/Russia/Sanctions-Removed-2.mp3",
+    "France": "nuclear-war/Russia/Sanctions-Removed-5.mp3"
+   },
+   "GeneralChat": [
+    "nuclear-war/Russia/Chat-1.mp3",
+    "nuclear-war/Russia/Chat-2.mp3",
+    "nuclear-war/Russia/Chat-3.mp3",
+    "nuclear-war/Russia/Chat-4.mp3",
+    "nuclear-war/Russia/Chat-5.mp3"
+   ],
+   "NuclearBuilding": [
+    "nuclear-war/Russia/Nuclear-Building-1.mp3",
+    "nuclear-war/Russia/Nuclear-Building-2.mp3",
+    "nuclear-war/Russia/Nuclear-Building-3.mp3",
+    "nuclear-war/Russia/Nuclear-Building-4.mp3",
+    "nuclear-war/Russia/Nuclear-Building-5.mp3",
+    "nuclear-war/Russia/Nuclear-Building-6.mp3",
+    "nuclear-war/Russia/Nuclear-Building-7.mp3",
+    "nuclear-war/Russia/Nuclear-Building-8.mp3"
+   ],
+   "GotBombed": "nuclear-war/Russia/Bombed.mp3",
+   "Worried": {
+    "China": "nuclear-war/Russia/Worried-China.mp3",
+    "UK": "nuclear-war/Russia/Worried-UK.mp3",
+    "USA": "nuclear-war/Russia/Worried-US.mp3",
+    "France": "nuclear-war/Russia/Worried-France.mp3"
+   },
+   "Victory": "nuclear-war/Russia/Victory.mp3",
+   "Enemy": {
+    "China": "nuclear-war/Russia/Enemy-China.mp3",
+    "France": "nuclear-war/Russia/Enemy-France.mp3",
+    "UK": "nuclear-war/Russia/Enemy-UK.mp3",
+    "USA": "nuclear-war/Russia/Enemy-USA.mp3"
+   },
+   "Attack": {
+    "Beijing": "nuclear-war/Russia/Attack-Beijing.mp3",
+    "Cardiff": "nuclear-war/Russia/Attack-Cardiff.mp3",
+    "Edinburgh": "nuclear-war/Russia/Attack-Edinburgh.mp3",
+    "Houston": "nuclear-war/Russia/Attack-Houston.mp3",
+    "LosAngeles": "nuclear-war/Russia/Attack-LA.mp3",
+    "London": "nuclear-war/Russia/Attack-London.mp3",
+    "Lyon": "nuclear-war/Russia/Attack-Lyon.mp3",
+    "Marseille": "nuclear-war/Russia/Attack-Marseille.mp3",
+    "NewYork": "nuclear-war/Russia/Attack-NY.mp3",
+    "Paris": "nuclear-war/Russia/Attack-Paris.mp3",
+    "Shanghai": "nuclear-war/Russia/Attack-Shanghai.mp3",
+    "Wuhan": "nuclear-war/Russia/Attack-Wuhan.mp3"
+   }
+  },
+  "sfx": {
+   "roundSuspense": "nuclear-war/nuclear-round-suspense.mp3",
+   "shortRing": "nuclear-war/short-ring.mp3",
+   "kaching": "kaching.mp3",
+   "shield": "nuclear-war/shield-fx.mp3",
+   "research": "nuclear-war/environment-fx.mp3",
+   "phoneRing": "nuclear-war/phone-ring.mp3",
+   "pickupPhone": "nuclear-war/pickup-phone.mp3",
+   "stampFx": "nuclear-war/stamp-fx.mp3",
+   "eraser": "nuclear-war/eraser.mp3",
+   "pressButton": "nuclear-war/press-button.mp3",
+   "launchExplosion": "nuclear-war/launch-explosion-v2.mp3",
+   "alarm": "nuclear-war/alarm.mp3",
+   "dropExplode": "nuclear-war/drop-explode.mp3",
+   "hangUp": "nuclear-war/hang-up.mp3",
+   "onHold": "nuclear-war/on-hold-fx.mp3",
+   "longOrchestral": "nuclear-war/war-orchestral.mp3",
+   "triplePop": "nuclear-war/triple-pop.mp3",
+   "bombShort": "nuclear-war/bomb-short.mp3",
+   "upgradeEnvironment": "nuclear-war/upgrade-environment.mp3",
+   "nuclearReactor": "nuclear-war/nuclear-reactor.mp3",
+   "makeBomb": "nuclear-war/make-bomb.mp3",
+   "deplete": "nuclear-war/power-drained.mp3",
+   "crickets": "nuclear-war/crickets.mp3",
+   "trumpet": "nuclear-war/nuclear-trumpet.mp3",
+   "woosh": "nuclear-war/woosh.mp3",
+   "marching": "nuclear-war/marching.mp3",
+   "triumph": "nuclear-war/triumph.mp3",
+   "upsell": "nuclear-war/upsell-nw.mp3",
+   "orchestralShort": "nuclear-war/short-orchestral-quiet.mp3",
+   "orchestralLong": "nuclear-war/war-orchestral-long-v2.mp3",
+   "dramaticFx": [
+    "nuclear-war/dramatic-1.mp3",
+    "nuclear-war/dramatic-2.mp3",
+    "nuclear-war/dramatic-3.mp3",
+    "nuclear-war/dramatic-4.mp3",
+    "nuclear-war/dramatic-5.mp3",
+    "nuclear-war/dramatic-6.mp3",
+    "nuclear-war/dramatic-7.mp3",
+    "nuclear-war/dramatic-8.mp3"
+   ],
+   "thunderbolt": "nuclear-war/thunder-bolt-v1.mp3",
+   "reactorShort": "nuclear-war/nuclear-reactor-short.mp3",
+   "singleBeep": "nuclear-war/single-beep.mp3",
+   "halo": "halo.mp3"
+  }
+ }
+}

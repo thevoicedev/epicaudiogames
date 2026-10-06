@@ -16,8 +16,18 @@ import java.io.File
 
 class MapException(message: String) : Exception(message)
 
-/** One spoken line of a clip's transcript: when it starts, how long it takes, who says it and what. */
-data class Line(val at: Double, val len: Double, val who: String, val text: String, val words: List<Double>? = null)
+/**
+ * One spoken line of a clip's transcript: when it starts, how long it takes, who says it and what. [more]: the
+ * sentence carries on in the next clip (a list said a name at a time), so the transcript shows them as one line.
+ */
+data class Line(
+    val at: Double,
+    val len: Double,
+    val who: String,
+    val text: String,
+    val words: List<Double>? = null,
+    val more: Boolean = false,
+)
 
 sealed interface Step {
     /**
@@ -296,6 +306,7 @@ class GameMap(
                             at = lo.num("at"), len = (lo["len"] as? JsonPrimitive)?.doubleOrNull ?: 0.0,
                             who = lo.str("who"), text = lo.str("text"),
                             words = (lo["w"] as? JsonArray)?.map { it.jsonPrimitive.content.toDouble() },
+                            more = (lo["more"] as? JsonPrimitive)?.booleanOrNull == true,
                         )
                     } ?: emptyList(),
                     sfx = (o["sfx"] as? JsonPrimitive)?.booleanOrNull == true,

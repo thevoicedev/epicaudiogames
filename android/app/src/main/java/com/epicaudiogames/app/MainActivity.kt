@@ -32,6 +32,10 @@ import com.epicaudiogames.app.ui.GameScreen
 import com.epicaudiogames.app.ui.HomeScreen
 import com.epicaudiogames.app.ui.StoreSheet
 import com.epicaudiogames.engine.GameMap
+import com.epicaudiogames.engine.Play
+import com.epicaudiogames.engine.Session
+import com.epicaudiogames.engine.nuclear.NuclearAudio
+import com.epicaudiogames.engine.nuclear.NuclearWar
 import java.io.File
 
 class MainActivity : ComponentActivity() {
@@ -60,8 +64,8 @@ class AppModel(app: Application) : AndroidViewModel(app) {
     /** The game whose map is loading (a big map takes a moment: it loads away from the screen's thread). */
     var opening by mutableStateOf<GameInfo?>(null)
         private set
-    /** Each game's map, with the packs installed when it was loaded (the key names them). */
-    private val maps = mutableMapOf<String, GameMap>()
+    /** Each game's map (or Nuclear War's clips), with the packs installed when it was loaded (the key names them). */
+    private val maps = mutableMapOf<String, Any>()
 
     fun open(info: GameInfo) {
         if (opening != null) return
@@ -71,14 +75,20 @@ class AppModel(app: Application) : AndroidViewModel(app) {
             val app = getApplication<Application>()
             val installed = packs.installed(info)
             val key = info.id + installed.joinToString("") { (p, _) -> "+${p.id}@${p.version}" }
-            val map = maps[key] ?: withContext(Dispatchers.Default) {
-                GameMap.parse(
-                    app.assets.open("${info.id}/map.json").bufferedReader().use { it.readText() },
-                    installed.map { (_, dir) -> File(dir, "pack.json").readText() },
-                )
+            val loaded = maps[key] ?: withContext(Dispatchers.Default) {
+                if (info.id == NuclearWar.ID) {
+                    NuclearAudio.parse(app.assets.open("${info.id}/clips.json").bufferedReader().use { it.readText() })
+                } else {
+                    GameMap.parse(
+                        app.assets.open("${info.id}/map.json").bufferedReader().use { it.readText() },
+                        installed.map { (_, dir) -> File(dir, "pack.json").readText() },
+                    )
+                }
             }.also { maps[key] = it }
+            // Nuclear War is written in code, its clips loaded like a map; the other games are maps.
+            val play: Play = if (loaded is NuclearAudio) NuclearWar(loaded) else Session(loaded as GameMap)
             opening = null
-            game = GameController(app, info, map, saves, installed.map { it.second }, onLeave = ::home).also { it.open() }
+            game = GameController(app, info, play, saves, installed.map { it.second }, onLeave = ::home).also { it.open() }
         }
     }
 
