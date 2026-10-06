@@ -1,0 +1,12 @@
+{
+  "name": "epicaudiogames-web",
+  "version": "1.0.0",
+  "private": true,
+  "description": "The epicaudiogames.com website: a static page served by server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

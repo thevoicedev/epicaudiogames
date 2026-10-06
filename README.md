@@ -12,6 +12,7 @@ Every word is shown on screen as it's spoken. Everything plays offline. Website:
 | `content/<id>/` | each game's audio, built by the tools and kept out of git |
 | `tools/` | build tools: turn the Mini Games radio plays into maps, fetch the audio, check everything |
 | `android/` | the app: `engine` (pure Kotlin: maps, answers, saves, and Nuclear War; tested on the JVM) and, from phase 2, `app` |
+| `web/` | the website, epicaudiogames.com: one page, served by a dependency-free Node server on Railway (see below) |
 
 The games come from Mini Games (the `all-minigames-sites` repo next to this one, or `MINIGAMES_DIR`), which the
 tools read at build time only. Nothing from it runs in the app, and the tools never write to it.
@@ -123,6 +124,19 @@ assets, so run the content tools first. The app needs Android 7 (API 24) or late
 
 Emulator: the `EpicAudioGames_Pixel` AVD (Android 15, 6 GB of storage) was made for this app. The other AVDs on this
 machine are full of other apps' builds.
+
+## The website
+
+`web/` is epicaudiogames.com: one page (`public/index.html`, with the covers, the social preview image and the
+Hugo FM footer) served by `server.js`, a Node server with no dependencies. It lives in the `epicaudiogames.com`
+project on Railway, as the `web` service.
+
+```
+node web/server.js                               # http://localhost:3000 (PORT to change it)
+railway up web --path-as-root --service web      # deploy; `railway link` first on a new machine
+```
+
+`CANONICAL_HOST=epicaudiogames.com` on the service makes `www.` redirect to the bare domain.
 
 ## Phases
 
