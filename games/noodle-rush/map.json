@@ -1,0 +1,5128 @@
+{
+ "format": 1,
+ "id": "noodle-rush",
+ "title": "Noodle Rush",
+ "start": "Page1",
+ "vars": {
+  "nana": false
+ },
+ "repeat": "reprompt",
+ "who": {
+  "AUNT": "Aunt",
+  "CASHIER": "Cashier",
+  "CHEF": "Chef",
+  "COURIER": "Courier",
+  "DOGLADY": "Dog Lady",
+  "FISHMONGER": "Fishmonger",
+  "KID": "Kid",
+  "MAGICIAN": "Magician",
+  "NARRATOR": "Narrator",
+  "RETIREE": "Retiree"
+ },
+ "words": {
+  "yes": [
+   "=yes",
+   "=yeah",
+   "=yep",
+   "=yup",
+   "=sure",
+   "=of course",
+   "=definitely",
+   "=yes please",
+   "=yes i am",
+   "=i'm ready to play",
+   "=yes i'm ready to play",
+   "=yes i did"
+  ],
+  "no": [
+   "=no",
+   "=nope",
+   "=nah",
+   "=no thanks",
+   "=not really"
+  ],
+  "repeat": [
+   "repeat",
+   "repeat that",
+   "say that again",
+   "say it again",
+   "what did you say",
+   "come again",
+   "pardon",
+   "one more time"
+  ],
+  "mixed": {
+   "yes": [
+    "yes",
+    "yeah",
+    "yep",
+    "yup",
+    "ya",
+    "yah",
+    "sure",
+    "why not"
+   ],
+   "no": [
+    "no",
+    "nope",
+    "nah"
+   ],
+   "filler": [
+    "alexa",
+    "sir",
+    "please",
+    "ok",
+    "okay",
+    "thank",
+    "thanks",
+    "you",
+    "hell",
+    "i",
+    "said"
+   ]
+  }
+ },
+ "nodes": {
+  "Page1": {
+   "say": [
+    {
+     "play": "scenes/title",
+     "dur": 28.849,
+     "lines": [
+      {
+       "at": 9.381,
+       "len": 1.129,
+       "who": "NARRATOR",
+       "text": "Noodle Rush!"
+      },
+      {
+       "at": 11.01,
+       "len": 9.583,
+       "who": "NARRATOR",
+       "text": "You are broke. You are starving. And across the street, Slurpy's Noodle Bar is serving the most delicious bowl of ramen in the whole city."
+      },
+      {
+       "at": 20.943,
+       "len": 6.956,
+       "who": "NARRATOR",
+       "text": "Your mission: get inside, and walk out with a steaming bowl of noodles. Are you ready to play?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/title",
+      "dur": 3.768,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.218,
+        "who": "NARRATOR",
+        "text": "Are you ready to play Noodle Rush? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "Page2"
+     },
+     {
+      "no": true,
+      "go": "_no-problem"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "Page2": {
+   "say": [
+    {
+     "play": "scenes/outside",
+     "dur": 16.6,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.201,
+       "who": "NARRATOR",
+       "text": "Slurpy's Noodle Bar hums under a flickering neon chopstick sign."
+      },
+      {
+       "at": 4.801,
+       "len": 8.96,
+       "who": "NARRATOR",
+       "text": "Steam curls out of the door and dances right under your nose. Spicy miso. Your tummy does a little backflip."
+      },
+      {
+       "at": 14.111,
+       "len": 1.54,
+       "who": "NARRATOR",
+       "text": "Do you want to go inside?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/outside",
+      "dur": 4.79,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.24,
+        "who": "NARRATOR",
+        "text": "Do you want to go inside Slurpy's? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "go"
+     },
+     {
+      "no": true,
+      "go": "walkaway"
+     },
+     {
+      "words": [
+       "inside",
+       "go inside",
+       "enter",
+       "go in",
+       "head in"
+      ],
+      "go": "go"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "walkaway": {
+   "say": [
+    {
+     "play": "scenes/walkaway",
+     "dur": 26.991,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.433,
+       "who": "NARRATOR",
+       "text": "You decide ramen can wait, and you stroll off down the block."
+      },
+      {
+       "at": 4.033,
+       "len": 10.32,
+       "who": "NARRATOR",
+       "text": "But the wind carries that broth smell after you, like a tiny, delicious ghost. Your stomach growls so loudly that a passing dog barks back."
+      },
+      {
+       "at": 16.033,
+       "len": 4.16,
+       "who": "NARRATOR",
+       "text": "Who walks away from noodles? Not a hero, that's who."
+      },
+      {
+       "at": 23.393,
+       "len": 2.648,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/walkaway",
+      "dur": 3.647,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.097,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "Page2"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "Page2"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "go": {
+   "say": [
+    {
+     "play": "scenes/queue",
+     "dur": 28.498,
+     "lines": [
+      {
+       "at": 2.1,
+       "len": 11.008,
+       "who": "NARRATOR",
+       "text": "You step inside. Warm air, clattering bowls, happy slurping. And a line of hungry people that coils around the room like a sleeping dragon."
+      },
+      {
+       "at": 14.788,
+       "len": 6.137,
+       "who": "NARRATOR",
+       "text": "Every time someone gets their bowl, a tiny bell dings. Ding! It's torture."
+      },
+      {
+       "at": 21.275,
+       "len": 6.273,
+       "who": "NARRATOR",
+       "text": "You could wait your turn like a sensible person, or try to sneak ahead. Will you wait your turn?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/queue",
+      "dur": 4.435,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.885,
+        "who": "NARRATOR",
+        "text": "Will you wait your turn in the line? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "wait"
+     },
+     {
+      "no": true,
+      "go": "cut"
+     },
+     {
+      "words": [
+       "wait",
+       "wait patiently",
+       "patient",
+       "patience",
+       "queue"
+      ],
+      "go": "wait"
+     },
+     {
+      "words": [
+       "cut",
+       "cut through",
+       "cut the line",
+       "skip",
+       "skip the line"
+      ],
+      "go": "cut"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "cut": {
+   "say": [
+    {
+     "play": "scenes/cut",
+     "dur": 28.226,
+     "lines": [
+      {
+       "at": 2.58,
+       "len": 5.64,
+       "who": "NARRATOR",
+       "text": "You duck under the rope and skip eleven people at once. The whole room goes quiet."
+      },
+      {
+       "at": 9.421,
+       "len": 3.377,
+       "who": "CHEF",
+       "text": "Hey! HEY! Nobody skips the line at Slurpy's!"
+      },
+      {
+       "at": 13.148,
+       "len": 8.133,
+       "who": "NARRATOR",
+       "text": "The chef points his ladle at you like a wizard's staff. Two waiters march you out, and your photo goes up on the Banned From Slurpy's board."
+      },
+      {
+       "at": 24.48,
+       "len": 2.795,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/cut",
+      "dur": 4.35,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.8,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "go"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "go"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "wait": {
+   "say": [
+    {
+     "play": "scenes/wait",
+     "dur": 19.171,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.651,
+       "who": "NARRATOR",
+       "text": "Patience! You can definitely fake patience for ten minutes."
+      },
+      {
+       "at": 4.251,
+       "len": 8.909,
+       "who": "NARRATOR",
+       "text": "You shuffle forward an inch. Then another inch. A baby three spots ahead of you learns to walk before you reach the counter."
+      },
+      {
+       "at": 13.511,
+       "len": 4.711,
+       "who": "NARRATOR",
+       "text": "The front of the line is so close you can smell the noodles. Do you want to keep waiting?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/wait",
+      "dur": 4.036,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.486,
+        "who": "NARRATOR",
+        "text": "Do you want to keep waiting in line? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": {
+       "random": [
+        "oranges",
+        "pigeon"
+       ]
+      }
+     },
+     {
+      "no": true,
+      "go": "cut"
+     },
+     {
+      "words": [
+       "more",
+       "wait more",
+       "keep waiting",
+       "more waiting",
+       "wait some more"
+      ],
+      "go": {
+       "random": [
+        "oranges",
+        "pigeon"
+       ]
+      }
+     },
+     {
+      "words": [
+       "cut",
+       "cut through",
+       "cut the line",
+       "skip",
+       "skip the line"
+      ],
+      "go": "cut"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "oranges": {
+   "say": [
+    {
+     "play": "scenes/oranges",
+     "dur": 29.008,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.586,
+       "who": "NARRATOR",
+       "text": "Just then, the little old lady in front of you wrinkles her nose."
+      },
+      {
+       "at": 4.186,
+       "len": 5.387,
+       "who": "RETIREE",
+       "text": "Ah... ah... ACHOO!"
+      },
+      {
+       "at": 10.774,
+       "len": 8.303,
+       "who": "NARRATOR",
+       "text": "Her shopping bag splits, and oranges bounce everywhere. Under the tables. Into a man's hood. One even plops into the fish tank."
+      },
+      {
+       "at": 19.427,
+       "len": 3.291,
+       "who": "RETIREE",
+       "text": "Oh, my oranges! Oh dear, oh dear."
+      },
+      {
+       "at": 23.068,
+       "len": 4.99,
+       "who": "NARRATOR",
+       "text": "If you help her, you might lose your place in the line. Do you want to help her pick them up?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/oranges",
+      "dur": 4.926,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.376,
+        "who": "NARRATOR",
+        "text": "Do you want to help the old lady pick up her oranges? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "oranges-help"
+     },
+     {
+      "no": true,
+      "go": "oranges-skip"
+     },
+     {
+      "words": [
+       "help",
+       "help her",
+       "help him",
+       "pick them up",
+       "offer to help",
+       "cook"
+      ],
+      "go": "oranges-help"
+     },
+     {
+      "words": [
+       "ignore",
+       "ignore her",
+       "keep my place",
+       "stay put"
+      ],
+      "go": "oranges-skip"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "oranges-help": {
+   "set": {
+    "nana": true
+   },
+   "say": [
+    {
+     "play": "scenes/oranges-help",
+     "dur": 30.23,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.833,
+       "who": "NARRATOR",
+       "text": "You dive into action! You crawl under the tables. You pull one out of a man's hood. And you fish one out of the actual fish tank."
+      },
+      {
+       "at": 10.283,
+       "len": 5.691,
+       "who": "NARRATOR",
+       "text": "The goldfish looks very offended. At last, you hand back every single orange."
+      },
+      {
+       "at": 16.324,
+       "len": 5.094,
+       "who": "RETIREE",
+       "text": "What a kind young thing you are. I won't forget this, dearie."
+      },
+      {
+       "at": 21.768,
+       "len": 7.512,
+       "who": "NARRATOR",
+       "text": "And somehow, you didn't even lose your place. Do you want to keep waiting? I know. I keep asking."
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/oranges-help",
+      "dur": 3.91,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.36,
+        "who": "NARRATOR",
+        "text": "Do you want to keep waiting in line? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "waitmore"
+     },
+     {
+      "no": true,
+      "go": "cut"
+     },
+     {
+      "words": [
+       "more",
+       "wait more",
+       "keep waiting",
+       "more waiting",
+       "wait some more"
+      ],
+      "go": "waitmore"
+     },
+     {
+      "words": [
+       "cut",
+       "cut through",
+       "cut the line",
+       "skip",
+       "skip the line"
+      ],
+      "go": "cut"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "oranges-skip": {
+   "say": [
+    {
+     "play": "scenes/oranges-skip",
+     "dur": 24.426,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.32,
+       "who": "NARRATOR",
+       "text": "You stare very hard at the ceiling, and pretend you didn't see a thing. Then an orange rolls right under your foot."
+      },
+      {
+       "at": 10.25,
+       "len": 5.566,
+       "who": "NARRATOR",
+       "text": "Whoosh! You skid across the floor like a surfer, and crash-land right at the front of the line."
+      },
+      {
+       "at": 16.594,
+       "len": 2.556,
+       "who": "CHEF",
+       "text": "Hey. Did you just skip my line?"
+      },
+      {
+       "at": 19.5,
+       "len": 3.976,
+       "who": "NARRATOR",
+       "text": "Uh-oh. Do you want to say sorry, and go back to your place?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/oranges-skip",
+      "dur": 5.519,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.969,
+        "who": "NARRATOR",
+        "text": "Do you want to say sorry and go back to your place in the line? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "waitmore"
+     },
+     {
+      "no": true,
+      "go": "skidout"
+     },
+     {
+      "words": [
+       "sorry",
+       "say sorry",
+       "apologise",
+       "apologize",
+       "go back"
+      ],
+      "go": "waitmore"
+     },
+     {
+      "words": [
+       "stay",
+       "stay here",
+       "stay at the front"
+      ],
+      "go": "skidout"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "skidout": {
+   "say": [
+    {
+     "play": "scenes/skidout",
+     "dur": 22.278,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.619,
+       "who": "NARRATOR",
+       "text": "You stay right where you are, and give the chef your very best innocent smile."
+      },
+      {
+       "at": 5.219,
+       "len": 3.099,
+       "who": "CHEF",
+       "text": "Out! Out of my noodle bar!"
+      },
+      {
+       "at": 9.997,
+       "len": 4.829,
+       "who": "NARRATOR",
+       "text": "Your photo goes up on the Banned From Slurpy's board, right next to a photo of a raccoon."
+      },
+      {
+       "at": 18.026,
+       "len": 3.302,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/skidout",
+      "dur": 4.032,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.482,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "oranges-skip"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "oranges-skip"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "pigeon": {
+   "say": [
+    {
+     "play": "scenes/pigeon",
+     "dur": 19.326,
+     "lines": [
+      {
+       "at": 1.967,
+       "len": 9.43,
+       "who": "NARRATOR",
+       "text": "Suddenly, a pigeon struts in through the door like it owns the place. It hops onto a table, snatches a boiled egg right out of a man's ramen, and takes off!"
+      },
+      {
+       "at": 12.697,
+       "len": 5.679,
+       "who": "NARRATOR",
+       "text": "Now it's flapping straight towards you, with the egg in its beak. Do you want to try and catch the egg?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/pigeon",
+      "dur": 4.899,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.349,
+        "who": "NARRATOR",
+        "text": "Do you want to try and catch the egg? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "pigeon-catch"
+     },
+     {
+      "no": true,
+      "go": "pigeon-duck"
+     },
+     {
+      "words": [
+       "catch",
+       "catch it",
+       "catch the egg",
+       "grab it",
+       "jump"
+      ],
+      "go": "pigeon-catch"
+     },
+     {
+      "words": [
+       "duck",
+       "dodge",
+       "hide",
+       "get down"
+      ],
+      "go": "pigeon-duck"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "pigeon-catch": {
+   "say": [
+    {
+     "play": "scenes/pigeon-catch",
+     "dur": 25.808,
+     "lines": [
+      {
+       "at": 0.662,
+       "len": 7.419,
+       "who": "NARRATOR",
+       "text": "You leap into the air like a goalkeeper. The pigeon gets such a fright that it drops the egg. Got it! A perfect catch!"
+      },
+      {
+       "at": 11.194,
+       "len": 2.175,
+       "who": "CHEF",
+       "text": "Ha! Nice catch, kid!"
+      },
+      {
+       "at": 13.718,
+       "len": 11.14,
+       "who": "NARRATOR",
+       "text": "You hand the egg back to its owner. He says he's not hungry anymore. The pigeon gives you a very dirty look, and waddles back outside. Do you want to keep waiting?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/pigeon-catch",
+      "dur": 4.226,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.676,
+        "who": "NARRATOR",
+        "text": "Do you want to keep waiting in line? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "waitmore"
+     },
+     {
+      "no": true,
+      "go": "cut"
+     },
+     {
+      "words": [
+       "more",
+       "wait more",
+       "keep waiting",
+       "more waiting",
+       "wait some more"
+      ],
+      "go": "waitmore"
+     },
+     {
+      "words": [
+       "cut",
+       "cut through",
+       "cut the line",
+       "skip",
+       "skip the line"
+      ],
+      "go": "cut"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "pigeon-duck": {
+   "say": [
+    {
+     "play": "scenes/pigeon-duck",
+     "dur": 18.473,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.38,
+       "who": "NARRATOR",
+       "text": "You duck! The pigeon zooms over your head, and drops the egg right on top of Chef Slurpy's hat."
+      },
+      {
+       "at": 6.98,
+       "len": 1.703,
+       "who": "CHEF",
+       "text": "Who threw an egg at me?!"
+      },
+      {
+       "at": 9.033,
+       "len": 5.2,
+       "who": "NARRATOR",
+       "text": "Everybody points at the pigeon. Chef Slurpy chases it out of the door, waving his ladle."
+      },
+      {
+       "at": 16.3,
+       "len": 1.224,
+       "who": "NARRATOR",
+       "text": "Do you want to keep waiting?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/pigeon-duck",
+      "dur": 4.116,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.566,
+        "who": "NARRATOR",
+        "text": "Do you want to keep waiting in line? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "waitmore"
+     },
+     {
+      "no": true,
+      "go": "cut"
+     },
+     {
+      "words": [
+       "more",
+       "wait more",
+       "keep waiting",
+       "more waiting",
+       "wait some more"
+      ],
+      "go": "waitmore"
+     },
+     {
+      "words": [
+       "cut",
+       "cut through",
+       "cut the line",
+       "skip",
+       "skip the line"
+      ],
+      "go": "cut"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "waitmore": {
+   "say": [
+    {
+     "play": "scenes/counter",
+     "dur": 31.152,
+     "lines": [
+      {
+       "at": 1.58,
+       "len": 1.917,
+       "who": "NARRATOR",
+       "text": "At last, the counter!"
+      },
+      {
+       "at": 3.847,
+       "len": 1.787,
+       "who": "CASHIER",
+       "text": "Hi there! What can I get you?"
+      },
+      {
+       "at": 5.984,
+       "len": 4.31,
+       "who": "NARRATOR",
+       "text": "One spicy miso ramen, extra egg, you say, heroically."
+      },
+      {
+       "at": 10.644,
+       "len": 4.88,
+       "who": "CASHIER",
+       "text": "Great choice! That's seven dollars and seventy-seven cents, please!"
+      },
+      {
+       "at": 17.444,
+       "len": 12.758,
+       "who": "NARRATOR",
+       "text": "You dig in your pocket and find a button, some fluff, and absolutely no money. You could go and find some cash, or try to pay with something else. Do you want to go and find some money?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/counter",
+      "dur": 4.205,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.655,
+        "who": "NARRATOR",
+        "text": "Do you want to go and find some money? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "out"
+     },
+     {
+      "no": true,
+      "go": "fake"
+     },
+     {
+      "words": [
+       "bluff",
+       "fake",
+       "lie",
+       "bluff your way",
+       "trick them"
+      ],
+      "go": "fake"
+     },
+     {
+      "words": [
+       "leave",
+       "step out",
+       "go out",
+       "find cash",
+       "hunt for cash",
+       "get money"
+      ],
+      "go": "out"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fake": {
+   "say": [
+    {
+     "play": "scenes/napkin",
+     "dur": 19.768,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.6,
+       "who": "NARRATOR",
+       "text": "Quick thinking! You grab a napkin, and with a squirt of ketchup you scribble out a gift certificate. You slide it across the counter."
+      },
+      {
+       "at": 8.955,
+       "len": 4.16,
+       "who": "CASHIER",
+       "text": "Nice try, Picasso. We only take real money."
+      },
+      {
+       "at": 13.465,
+       "len": 5.353,
+       "who": "NARRATOR",
+       "text": "Looks like you'll need to earn some. Do you want to head out and earn some real money?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/napkin",
+      "dur": 4.464,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.914,
+        "who": "NARRATOR",
+        "text": "Do you want to head out and earn some money? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "out"
+     },
+     {
+      "no": true,
+      "go": "sulk"
+     },
+     {
+      "words": [
+       "okay",
+       "ok",
+       "fine",
+       "okay fine",
+       "alright"
+      ],
+      "go": "out"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "sulk": {
+   "say": [
+    {
+     "play": "scenes/sulk",
+     "dur": 22.127,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.891,
+       "who": "NARRATOR",
+       "text": "You flop onto the counter and refuse to budge, hoping the cashier will crack."
+      },
+      {
+       "at": 5.491,
+       "len": 1.52,
+       "who": "CASHIER",
+       "text": "Next, please!"
+      },
+      {
+       "at": 7.362,
+       "len": 6.401,
+       "who": "NARRATOR",
+       "text": "She does not crack. Your grumbling stomach gets politely walked back out onto the sidewalk."
+      },
+      {
+       "at": 18.293,
+       "len": 2.884,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/sulk",
+      "dur": 3.571,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.021,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "out"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "out"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "out": {
+   "say": [
+    {
+     "play": "scenes/sidewalk",
+     "dur": 17.541,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.4,
+       "who": "NARRATOR",
+       "text": "Back on the sidewalk. Broke. Hungry. Seven dollars and seventy-seven cents stands between you and noodle heaven."
+      },
+      {
+       "at": 9.0,
+       "len": 7.591,
+       "who": "NARRATOR",
+       "text": "You could find a quick job. Or, you could play for tips on your trusty emergency kazoo. Do you want to find a job?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/sidewalk",
+      "dur": 3.83,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.28,
+        "who": "NARRATOR",
+        "text": "Do you want to find a job? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": {
+       "random": [
+        "quest",
+        "poster"
+       ]
+      }
+     },
+     {
+      "no": true,
+      "go": "car"
+     },
+     {
+      "words": [
+       "kazoo",
+       "busk",
+       "busking",
+       "play music",
+       "tips",
+       "perform"
+      ],
+      "go": "car"
+     },
+     {
+      "words": [
+       "gig",
+       "quick gig",
+       "find a gig",
+       "find a job",
+       "job hunt",
+       "find work"
+      ],
+      "go": {
+       "random": [
+        "quest",
+        "poster"
+       ]
+      }
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "car": {
+   "say": [
+    {
+     "play": "scenes/kazoo",
+     "dur": 34.558,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.3,
+       "who": "NARRATOR",
+       "text": "You whip out your kazoo and play Happy Birthday. Over. And over. And over."
+      },
+      {
+       "at": 10.652,
+       "len": 9.168,
+       "who": "NARRATOR",
+       "text": "A dog starts to howl. Then every dog on the block joins in. People don't give you money. They give you earmuffs."
+      },
+      {
+       "at": 20.17,
+       "len": 5.161,
+       "who": "NARRATOR",
+       "text": "But one lady, holding eight fluffy dogs on leads, is staring at you in amazement."
+      },
+      {
+       "at": 25.681,
+       "len": 6.16,
+       "who": "DOGLADY",
+       "text": "My babies are singing! Honey, you've got a gift. I'll pay you ten dollars to walk them!"
+      },
+      {
+       "at": 32.191,
+       "len": 1.417,
+       "who": "NARRATOR",
+       "text": "Do you want to walk the dogs?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/kazoo",
+      "dur": 4.23,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.68,
+        "who": "NARRATOR",
+        "text": "Do you want to walk the eight dogs? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "dogs"
+     },
+     {
+      "no": true,
+      "go": "kazoo-more"
+     },
+     {
+      "words": [
+       "walk",
+       "walk the dogs",
+       "walk them",
+       "dog walking",
+       "take the job"
+      ],
+      "go": "dogs"
+     },
+     {
+      "words": [
+       "kazoo",
+       "busk",
+       "busking",
+       "play music",
+       "tips",
+       "perform"
+      ],
+      "go": "kazoo-more"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "kazoo-more": {
+   "say": [
+    {
+     "play": "scenes/kazoo-more",
+     "dur": 29.412,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.737,
+       "who": "NARRATOR",
+       "text": "No thanks, you say. You're an artist. And you play Happy Birthday again, even louder."
+      },
+      {
+       "at": 10.089,
+       "len": 7.282,
+       "who": "NARRATOR",
+       "text": "The dogs howl. The pigeons flee. A man shuts his window so hard, it falls off."
+      },
+      {
+       "at": 17.721,
+       "len": 4.741,
+       "who": "NARRATOR",
+       "text": "By sunset, you've earned zero dollars, and nine pairs of earmuffs."
+      },
+      {
+       "at": 25.662,
+       "len": 2.8,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/kazoo-more",
+      "dur": 4.283,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.733,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "car"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "car"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "dogs": {
+   "say": [
+    {
+     "play": "scenes/dogs",
+     "dur": 26.312,
+     "lines": [
+      {
+       "at": 3.007,
+       "len": 7.855,
+       "who": "NARRATOR",
+       "text": "Eight dogs. Eight leads. One of you. In ten seconds flat, the leads are tangled into one giant knot."
+      },
+      {
+       "at": 11.212,
+       "len": 4.24,
+       "who": "NARRATOR",
+       "text": "Somehow, you make it to the park. And then, the dogs spot a squirrel."
+      },
+      {
+       "at": 17.111,
+       "len": 7.099,
+       "who": "NARRATOR",
+       "text": "Every ear goes up. Every tail goes stiff. Uh-oh. Do you want to hold on tight?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/dogs",
+      "dur": 4.481,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.931,
+        "who": "NARRATOR",
+        "text": "Do you want to hold on tight to the leads? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "dogs-pulled"
+     },
+     {
+      "no": true,
+      "go": "dogs-loose"
+     },
+     {
+      "words": [
+       "hold",
+       "hold on",
+       "hold tight",
+       "hang on"
+      ],
+      "go": "dogs-pulled"
+     },
+     {
+      "words": [
+       "let go",
+       "let them go",
+       "drop",
+       "release"
+      ],
+      "go": "dogs-loose"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "dogs-loose": {
+   "say": [
+    {
+     "play": "scenes/dogs-loose",
+     "dur": 24.818,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.64,
+       "who": "NARRATOR",
+       "text": "You let go of the leads. Big mistake."
+      },
+      {
+       "at": 5.997,
+       "len": 6.92,
+       "who": "NARRATOR",
+       "text": "Eight dogs zoom off in eight different directions. One up the slide. One into the pond. One into an ice-cream van."
+      },
+      {
+       "at": 13.268,
+       "len": 4.537,
+       "who": "NARRATOR",
+       "text": "It takes you until midnight to find them all. And you get paid in dog slobber."
+      },
+      {
+       "at": 21.005,
+       "len": 2.863,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/dogs-loose",
+      "dur": 3.968,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.418,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "dogs"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "dogs"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "dogs-pulled": {
+   "say": [
+    {
+     "play": "scenes/dogs-pulled",
+     "dur": 21.573,
+     "lines": [
+      {
+       "at": 2.757,
+       "len": 7.328,
+       "who": "NARRATOR",
+       "text": "You hold on tight! The dogs take off after the squirrel, and you fly along behind them like a water-skier with no water."
+      },
+      {
+       "at": 10.436,
+       "len": 5.12,
+       "who": "NARRATOR",
+       "text": "Through a picnic. Through a flower bed. And now they're heading straight for the fountain!"
+      },
+      {
+       "at": 15.906,
+       "len": 4.718,
+       "who": "NARRATOR",
+       "text": "You could shout sit, and hope they listen. Do you want to shout sit?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/dogs-pulled",
+      "dur": 3.573,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.023,
+        "who": "NARRATOR",
+        "text": "Do you want to shout sit? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "dogs-sit"
+     },
+     {
+      "no": true,
+      "go": "dogs-splash"
+     },
+     {
+      "words": [
+       "sit",
+       "shout sit",
+       "sit down"
+      ],
+      "go": "dogs-sit"
+     },
+     {
+      "words": [
+       "splash",
+       "fountain",
+       "keep going"
+      ],
+      "go": "dogs-splash"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "dogs-sit": {
+   "say": [
+    {
+     "play": "scenes/dogs-sit",
+     "dur": 33.665,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.894,
+       "who": "NARRATOR",
+       "text": "You yell at the top of your lungs. SIT!"
+      },
+      {
+       "at": 4.824,
+       "len": 6.363,
+       "who": "NARRATOR",
+       "text": "All eight dogs sit at once, and you slide along on your tummy, stopping one inch from the fountain."
+      },
+      {
+       "at": 11.537,
+       "len": 4.193,
+       "who": "DOGLADY",
+       "text": "Well, I never! Here's your ten dollars, honey."
+      },
+      {
+       "at": 16.08,
+       "len": 10.584,
+       "who": "NARRATOR",
+       "text": "Then you count the dogs. Seven, eight... nine? A scruffy little stray is gazing up at you with big, hopeful eyes."
+      },
+      {
+       "at": 27.014,
+       "len": 4.0,
+       "who": "DOGLADY",
+       "text": "He's not one of mine. I'll find him a home, unless you want him?"
+      },
+      {
+       "at": 31.364,
+       "len": 1.351,
+       "who": "NARRATOR",
+       "text": "Do you want to adopt him?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/dogs-sit",
+      "dur": 4.532,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.982,
+        "who": "NARRATOR",
+        "text": "Do you want to adopt the little stray dog? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "bestfriend"
+     },
+     {
+      "no": true,
+      "go": "YAY"
+     },
+     {
+      "words": [
+       "adopt",
+       "adopt him",
+       "keep him",
+       "take him home",
+       "chopstick"
+      ],
+      "go": "bestfriend"
+     },
+     {
+      "words": [
+       "goodbye",
+       "bye",
+       "say goodbye"
+      ],
+      "go": "YAY"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "dogs-splash": {
+   "say": [
+    {
+     "play": "scenes/dogs-splash",
+     "dur": 36.662,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.0,
+       "who": "NARRATOR",
+       "text": "Too late! The dogs drag you straight through the fountain."
+      },
+      {
+       "at": 5.788,
+       "len": 6.687,
+       "who": "NARRATOR",
+       "text": "When they finally flop down, panting and happy, you squelch back to their owner, dripping wet."
+      },
+      {
+       "at": 12.825,
+       "len": 6.0,
+       "who": "DOGLADY",
+       "text": "Look at my babies, all tuckered out! Here's your ten dollars, honey."
+      },
+      {
+       "at": 19.175,
+       "len": 10.753,
+       "who": "NARRATOR",
+       "text": "Then you count the dogs. Seven, eight... nine? A scruffy little stray is gazing up at you with big, hopeful eyes."
+      },
+      {
+       "at": 30.278,
+       "len": 3.803,
+       "who": "DOGLADY",
+       "text": "He's not one of mine. I'll find him a home, unless you want him?"
+      },
+      {
+       "at": 34.432,
+       "len": 1.28,
+       "who": "NARRATOR",
+       "text": "Do you want to adopt him?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/dogs-splash",
+      "dur": 4.308,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.758,
+        "who": "NARRATOR",
+        "text": "Do you want to adopt the little stray dog? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "bestfriend"
+     },
+     {
+      "no": true,
+      "go": "YAY"
+     },
+     {
+      "words": [
+       "adopt",
+       "adopt him",
+       "keep him",
+       "take him home",
+       "chopstick"
+      ],
+      "go": "bestfriend"
+     },
+     {
+      "words": [
+       "goodbye",
+       "bye",
+       "say goodbye"
+      ],
+      "go": "YAY"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "bestfriend": {
+   "say": [
+    {
+     "play": "scenes/ending-bestfriend",
+     "dur": 27.257,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.88,
+       "who": "NARRATOR",
+       "text": "You scoop him up, and he licks your whole face. You name him Chopstick."
+      },
+      {
+       "at": 6.81,
+       "len": 6.4,
+       "who": "NARRATOR",
+       "text": "You spend your ten dollars on a collar, a squeaky toy, and the biggest bag of dog biscuits in the shop."
+      },
+      {
+       "at": 13.56,
+       "len": 6.928,
+       "who": "NARRATOR",
+       "text": "You never did get your noodles. But you got something even better: a best friend, who thinks you're amazing."
+      },
+      {
+       "at": 24.688,
+       "len": 1.619,
+       "who": "NARRATOR",
+       "text": "That's the best friend ending!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Best Friend Ending"
+   }
+  },
+  "quest": {
+   "say": [
+    {
+     "play": "scenes/flyer",
+     "dur": 20.406,
+     "lines": [
+      {
+       "at": 1.425,
+       "len": 3.545,
+       "who": "NARRATOR",
+       "text": "A flyer flutters down the street and slaps you right in the face."
+      },
+      {
+       "at": 5.32,
+       "len": 8.913,
+       "who": "NARRATOR",
+       "text": "It says: Wanted! Magician's assistant. Start today! Previous assistant vanished, and never came back."
+      },
+      {
+       "at": 14.583,
+       "len": 4.873,
+       "who": "NARRATOR",
+       "text": "Hmm. A job is a job. Do you want to be the magician's assistant?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/flyer",
+      "dur": 4.681,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.131,
+        "who": "NARRATOR",
+        "text": "Do you want to be the magician's assistant? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "apply"
+     },
+     {
+      "no": true,
+      "go": "Forget"
+     },
+     {
+      "words": [
+       "assist",
+       "take the gig",
+       "take gig",
+       "accept the gig",
+       "take it",
+       "do the gig"
+      ],
+      "go": "apply"
+     },
+     {
+      "words": [
+       "pass",
+       "hard pass",
+       "scam",
+       "refuse",
+       "magic is a scam"
+      ],
+      "go": "Forget"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "Forget": {
+   "say": [
+    {
+     "play": "scenes/forget",
+     "dur": 19.335,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.2,
+       "who": "NARRATOR",
+       "text": "You toss the flyer away. No rabbits, no top hats, no thank you."
+      },
+      {
+       "at": 5.8,
+       "len": 6.058,
+       "who": "NARRATOR",
+       "text": "And, as it turns out, no money either. Your stomach makes a noise like a sad trombone."
+      },
+      {
+       "at": 15.058,
+       "len": 3.327,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/forget",
+      "dur": 4.216,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.666,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "out"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "out"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "poster": {
+   "say": [
+    {
+     "play": "scenes/poster",
+     "dur": 26.572,
+     "lines": [
+      {
+       "at": 1.425,
+       "len": 11.459,
+       "who": "NARRATOR",
+       "text": "A poster flaps on a lamp post. LOST CAT. His name is Sir Pounce. Orange. Fluffy. Extremely round. Loves fish."
+      },
+      {
+       "at": 13.233,
+       "len": 8.197,
+       "who": "NARRATOR",
+       "text": "In the drawing, he looks like an orange beach ball with whiskers. And at the bottom, in big letters: Reward, ten dollars!"
+      },
+      {
+       "at": 21.781,
+       "len": 3.841,
+       "who": "NARRATOR",
+       "text": "That's noodle money! Do you want to find Sir Pounce?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/poster",
+      "dur": 4.983,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.433,
+        "who": "NARRATOR",
+        "text": "Do you want to look for the lost cat, Sir Pounce? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fishmarket"
+     },
+     {
+      "no": true,
+      "go": "quest"
+     },
+     {
+      "words": [
+       "find",
+       "find him",
+       "find the cat",
+       "look for",
+       "search",
+       "reward"
+      ],
+      "go": "fishmarket"
+     },
+     {
+      "words": [
+       "pass",
+       "hard pass",
+       "scam",
+       "refuse",
+       "magic is a scam"
+      ],
+      "go": "quest"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "fishmarket": {
+   "say": [
+    {
+     "play": "scenes/fishmarket",
+     "dur": 25.21,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.191,
+       "who": "NARRATOR",
+       "text": "Where would a round cat who loves fish go? The fish market, of course!"
+      },
+      {
+       "at": 5.791,
+       "len": 2.64,
+       "who": "FISHMONGER",
+       "text": "Fresh fish! Get your fresh fish here!"
+      },
+      {
+       "at": 8.781,
+       "len": 2.96,
+       "who": "NARRATOR",
+       "text": "You ask the fishmonger if he's seen Sir Pounce."
+      },
+      {
+       "at": 12.091,
+       "len": 5.899,
+       "who": "FISHMONGER",
+       "text": "Big orange fella? Round as a pumpkin? He pinched twelve sardines, and scrambled up that ladder onto the roof!"
+      },
+      {
+       "at": 18.34,
+       "len": 5.92,
+       "who": "NARRATOR",
+       "text": "You could climb up after him, or wait down here with a sardine. Do you want to climb the ladder?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fishmarket",
+      "dur": 7.03,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 6.48,
+        "who": "NARRATOR",
+        "text": "Do you want to climb the ladder to the roof? Say yes to climb, or no to wait with a sardine."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "rooftop"
+     },
+     {
+      "no": true,
+      "go": "catbait"
+     },
+     {
+      "words": [
+       "climb",
+       "ladder",
+       "go up",
+       "roof"
+      ],
+      "go": "rooftop"
+     },
+     {
+      "words": [
+       "sardine",
+       "wiggle",
+       "fish",
+       "wait"
+      ],
+      "go": "catbait"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "catbait": {
+   "say": [
+    {
+     "play": "scenes/catbait",
+     "dur": 30.24,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.146,
+       "who": "NARRATOR",
+       "text": "You stay on the ground, and wave a sardine in the air. Here, kitty kitty!"
+      },
+      {
+       "at": 7.607,
+       "len": 10.16,
+       "who": "NARRATOR",
+       "text": "A cat appears. Then another. Then twenty more. Every cat in the city surrounds you. Every cat, except Sir Pounce."
+      },
+      {
+       "at": 18.117,
+       "len": 5.264,
+       "who": "NARRATOR",
+       "text": "They gobble up every sardine in the market, and the fishmonger chases you out with a mop."
+      },
+      {
+       "at": 26.581,
+       "len": 2.709,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/catbait",
+      "dur": 3.981,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.431,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "fishmarket"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "fishmarket"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "rooftop": {
+   "say": [
+    {
+     "play": "scenes/rooftop",
+     "dur": 26.298,
+     "lines": [
+      {
+       "at": 1.917,
+       "len": 9.873,
+       "who": "NARRATOR",
+       "text": "You climb all the way up. And there, snoozing in a sunny gutter, is the roundest cat you have ever seen. Sir Pounce!"
+      },
+      {
+       "at": 14.99,
+       "len": 10.358,
+       "who": "NARRATOR",
+       "text": "He's far too heavy to carry down the ladder, so he'll have to follow you. You could call his name, or wiggle a sardine. Do you want to call his name?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/rooftop",
+      "dur": 7.75,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 7.2,
+        "who": "NARRATOR",
+        "text": "Do you want to call Sir Pounce's name? Say yes to call him, or no to wiggle a sardine."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "catcall"
+     },
+     {
+      "no": true,
+      "go": "cathome"
+     },
+     {
+      "words": [
+       "call",
+       "call him",
+       "call his name",
+       "shout"
+      ],
+      "go": "catcall"
+     },
+     {
+      "words": [
+       "sardine",
+       "wiggle",
+       "fish",
+       "wait"
+      ],
+      "go": "cathome"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "catcall": {
+   "say": [
+    {
+     "play": "scenes/catcall",
+     "dur": 28.203,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.787,
+       "who": "NARRATOR",
+       "text": "Here, Sir Pounce, you call, in your sweetest voice. Here, kitty kitty!"
+      },
+      {
+       "at": 5.387,
+       "len": 7.315,
+       "who": "NARRATOR",
+       "text": "Sir Pounce opens one eye. Yawns. And rolls over, knocking the ladder clean off the roof."
+      },
+      {
+       "at": 13.052,
+       "len": 5.298,
+       "who": "NARRATOR",
+       "text": "Cats never come when they're called. Now you're stuck up here until the fire engine arrives."
+      },
+      {
+       "at": 24.4,
+       "len": 2.853,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/catcall",
+      "dur": 4.31,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.76,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "rooftop"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "rooftop"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "cathome": {
+   "say": [
+    {
+     "play": "scenes/cathome",
+     "dur": 34.211,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.467,
+       "who": "NARRATOR",
+       "text": "You wiggle a sardine, and Sir Pounce follows you down the ladder, step by wobbly step, all the way to the address on the poster."
+      },
+      {
+       "at": 10.397,
+       "len": 4.96,
+       "who": "NARRATOR",
+       "text": "The door swings open, and out steps a very big lady in a wrestling belt."
+      },
+      {
+       "at": 15.707,
+       "len": 7.734,
+       "who": "AUNT",
+       "text": "Sir Pounce! My little baby! Oh, sweetheart, thank you!"
+      },
+      {
+       "at": 23.791,
+       "len": 9.47,
+       "who": "NARRATOR",
+       "text": "She hands you the ten-dollar reward, then offers a swap: one of her niece's famous smoothies instead. Do you want to keep the ten dollars?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/cathome",
+      "dur": 3.597,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.047,
+        "who": "NARRATOR",
+        "text": "Do you want to keep the ten dollars? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "YAY"
+     },
+     {
+      "no": true,
+      "go": "catswap"
+     },
+     {
+      "words": [
+       "keep",
+       "pocket it",
+       "pocket",
+       "keep it",
+       "hoard"
+      ],
+      "go": "YAY"
+     },
+     {
+      "words": [
+       "smoothie",
+       "swap",
+       "drink"
+      ],
+      "go": "catswap"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "catswap": {
+   "say": [
+    {
+     "play": "scenes/catswap",
+     "dur": 22.657,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.32,
+       "who": "NARRATOR",
+       "text": "Smoothie, please! you say. It's mango and banana, with a free sticker."
+      },
+      {
+       "at": 6.693,
+       "len": 4.192,
+       "who": "NARRATOR",
+       "text": "It's delicious. It's gone in ten seconds. And so is your noodle money."
+      },
+      {
+       "at": 11.235,
+       "len": 4.738,
+       "who": "NARRATOR",
+       "text": "Your tummy growls at you. It sounds very disappointed in your choices."
+      },
+      {
+       "at": 19.173,
+       "len": 2.534,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/catswap",
+      "dur": 3.84,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.29,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "cathome"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "cathome"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "apply": {
+   "say": [
+    {
+     "play": "scenes/magician",
+     "dur": 20.33,
+     "lines": [
+      {
+       "at": 2.1,
+       "len": 4.829,
+       "who": "MAGICIAN",
+       "text": "An assistant! Marvelous! I am the Magnificent Marvello!"
+      },
+      {
+       "at": 7.279,
+       "len": 1.644,
+       "who": "NARRATOR",
+       "text": "How much does it pay, you ask."
+      },
+      {
+       "at": 9.274,
+       "len": 10.107,
+       "who": "MAGICIAN",
+       "text": "Ten dollars, paid at the end of the show! My tremendous trick is the Vanishing Assistant, and the show starts in five minutes. Shall we rehearse first?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/magician",
+      "dur": 5.03,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.48,
+        "who": "NARRATOR",
+        "text": "Do you want to rehearse the magic trick first? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "rehearse"
+     },
+     {
+      "no": true,
+      "go": "start"
+     },
+     {
+      "words": [
+       "rehearse",
+       "rehearsal",
+       "practice",
+       "start rehearsing"
+      ],
+      "go": "rehearse"
+     },
+     {
+      "words": [
+       "show",
+       "showtime",
+       "straight to the show",
+       "skip",
+       "no rehearsal"
+      ],
+      "go": "start"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "rehearse": {
+   "say": [
+    {
+     "play": "scenes/rehearse",
+     "dur": 35.862,
+     "lines": [
+      {
+       "at": 2.1,
+       "len": 7.337,
+       "who": "NARRATOR",
+       "text": "Marvello shows you the secret. Inside the magic box are two levers. A green one, and a red one."
+      },
+      {
+       "at": 9.787,
+       "len": 9.022,
+       "who": "MAGICIAN",
+       "text": "When I say the magic word, pull the green lever, and you'll drop through a trapdoor. But never, ever pull the red lever."
+      },
+      {
+       "at": 19.159,
+       "len": 2.016,
+       "who": "NARRATOR",
+       "text": "What does the red one do, you ask?"
+      },
+      {
+       "at": 21.524,
+       "len": 2.221,
+       "who": "MAGICIAN",
+       "text": "Nobody knows."
+      },
+      {
+       "at": 26.238,
+       "len": 4.389,
+       "who": "NARRATOR",
+       "text": "Showtime! A crowd gathers, and you step into the box."
+      },
+      {
+       "at": 30.978,
+       "len": 1.504,
+       "who": "MAGICIAN",
+       "text": "Abracadabra!"
+      },
+      {
+       "at": 32.832,
+       "len": 2.08,
+       "who": "NARRATOR",
+       "text": "Quick! Do you pull the green lever?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/rehearse",
+      "dur": 5.022,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.472,
+        "who": "NARRATOR",
+        "text": "Do you pull the green lever? Say yes for green, or no for red."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "show"
+     },
+     {
+      "no": true,
+      "go": "redlever"
+     },
+     {
+      "words": [
+       "green",
+       "green lever"
+      ],
+      "go": "show"
+     },
+     {
+      "words": [
+       "red",
+       "red lever"
+      ],
+      "go": "redlever"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "show": {
+   "say": [
+    {
+     "play": "scenes/show",
+     "dur": 24.592,
+     "lines": [
+      {
+       "at": 1.325,
+       "len": 6.179,
+       "who": "NARRATOR",
+       "text": "Clunk! You drop through the trapdoor, crawl under the stage, and pop out of a barrel at the back of the crowd."
+      },
+      {
+       "at": 11.466,
+       "len": 4.304,
+       "who": "MAGICIAN",
+       "text": "Magnificent! Here are your ten dollars, my marvelous assistant!"
+      },
+      {
+       "at": 16.12,
+       "len": 7.522,
+       "who": "NARRATOR",
+       "text": "But the crowd won't stop cheering. Encore! Encore! Do you want to do the trick one more time?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/show",
+      "dur": 4.799,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.249,
+        "who": "NARRATOR",
+        "text": "Do you want to do the magic trick one more time? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "showbiz"
+     },
+     {
+      "no": true,
+      "go": "YAY"
+     },
+     {
+      "words": [
+       "encore",
+       "again",
+       "one more",
+       "one more time",
+       "do it again"
+      ],
+      "go": "showbiz"
+     },
+     {
+      "words": [
+       "bow",
+       "take a bow",
+       "take the money",
+       "stop"
+      ],
+      "go": "YAY"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "redlever": {
+   "say": [
+    {
+     "play": "scenes/redlever",
+     "dur": 32.736,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 1.68,
+       "who": "NARRATOR",
+       "text": "You pull the red lever."
+      },
+      {
+       "at": 3.18,
+       "len": 4.137,
+       "who": "NARRATOR",
+       "text": "Nothing happens. Then the whole box starts to shake."
+      },
+      {
+       "at": 10.62,
+       "len": 5.819,
+       "who": "NARRATOR",
+       "text": "Boom! A hidden cannon fires you, three rabbits and a cloud of confetti high over the rooftops."
+      },
+      {
+       "at": 21.131,
+       "len": 4.67,
+       "who": "NARRATOR",
+       "text": "You land in the duck pond. Well. Now we know what the red lever does."
+      },
+      {
+       "at": 29.001,
+       "len": 2.785,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/redlever",
+      "dur": 3.871,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.321,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "rehearse"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "rehearse"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "showbiz": {
+   "say": [
+    {
+     "play": "scenes/ending-superstar",
+     "dur": 33.077,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.89,
+       "who": "NARRATOR",
+       "text": "You do the trick again. And again. And again! By sunset, the whole city is talking about the Amazing Vanishing Kid."
+      },
+      {
+       "at": 13.252,
+       "len": 2.628,
+       "who": "MAGICIAN",
+       "text": "You're a star, my friend! A star!"
+      },
+      {
+       "at": 16.23,
+       "len": 9.777,
+       "who": "NARRATOR",
+       "text": "When the last show ends, you race to Slurpy's. But the sign says closed. So Marvello buys you a hot dog, and honestly? It's pretty great."
+      },
+      {
+       "at": 30.207,
+       "len": 1.92,
+       "who": "NARRATOR",
+       "text": "That's the superstar ending!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Superstar Ending"
+   }
+  },
+  "start": {
+   "say": [
+    {
+     "play": "scenes/fired",
+     "dur": 36.963,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 11.773,
+       "who": "NARRATOR",
+       "text": "Rehearse? Pfft. A crowd gathers, you step into the magic box, Marvello waves his wand, and you vanish. Straight into the prop cupboard, knocking over every wand on the shelf."
+      },
+      {
+       "at": 16.404,
+       "len": 3.804,
+       "who": "MAGICIAN",
+       "text": "You're fired. Magically."
+      },
+      {
+       "at": 20.558,
+       "len": 5.6,
+       "who": "NARRATOR",
+       "text": "Across the street, a kid is selling smoothies from a cart, and she's making a fortune."
+      },
+      {
+       "at": 26.508,
+       "len": 2.355,
+       "who": "KID",
+       "text": "Smoothies! Ice-cold smoothies!"
+      },
+      {
+       "at": 29.213,
+       "len": 6.8,
+       "who": "NARRATOR",
+       "text": "Those smoothies look VERY grabbable. But you could start a cart of your own. Do you want to start your own smoothie cart?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/fired",
+      "dur": 4.615,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.065,
+        "who": "NARRATOR",
+        "text": "Do you want to start your own smoothie cart? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "make"
+     },
+     {
+      "no": true,
+      "go": "steal"
+     },
+     {
+      "words": [
+       "swipe",
+       "swipe a smoothie",
+       "take the smoothie",
+       "grab a smoothie"
+      ],
+      "go": "steal"
+     },
+     {
+      "words": [
+       "cart",
+       "start your own cart",
+       "own cart",
+       "make a cart",
+       "start a cart"
+      ],
+      "go": "make"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "steal": {
+   "say": [
+    {
+     "play": "scenes/swipe",
+     "dur": 27.94,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 2.31,
+       "who": "NARRATOR",
+       "text": "You grab a mango smoothie and run!"
+      },
+      {
+       "at": 3.96,
+       "len": 1.32,
+       "who": "KID",
+       "text": "AUNTIE!"
+      },
+      {
+       "at": 5.631,
+       "len": 4.972,
+       "who": "NARRATOR",
+       "text": "Out of a van steps her auntie, a retired wrestler known as The Blender."
+      },
+      {
+       "at": 10.953,
+       "len": 2.616,
+       "who": "AUNT",
+       "text": "Somebody touched my niece's smoothies?"
+      },
+      {
+       "at": 13.919,
+       "len": 6.4,
+       "who": "NARRATOR",
+       "text": "She spins you around like a helicopter and plops you, very gently, into a mountain of empty cups."
+      },
+      {
+       "at": 23.519,
+       "len": 3.471,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/swipe",
+      "dur": 3.954,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.404,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "start"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "start"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "make": {
+   "say": [
+    {
+     "play": "scenes/cart",
+     "dur": 25.563,
+     "lines": [
+      {
+       "at": 2.58,
+       "len": 9.641,
+       "who": "NARRATOR",
+       "text": "You borrow a blender and set up shop. Smoothies: seven dollars and seventy-seven cents. It's a sizzling hot day. Perfect smoothie weather!"
+      },
+      {
+       "at": 12.571,
+       "len": 3.489,
+       "who": "KID",
+       "text": "Mine are seven dollars flat. And you get a free sticker!"
+      },
+      {
+       "at": 16.41,
+       "len": 8.204,
+       "who": "NARRATOR",
+       "text": "Everyone goes to her cart. You need something new, something nobody else is selling. Do you want to try selling something brand new?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/cart",
+      "dur": 5.024,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.474,
+        "who": "NARRATOR",
+        "text": "Do you want to try selling something brand new? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "sellmore"
+     },
+     {
+      "no": true,
+      "go": "low"
+     },
+     {
+      "words": [
+       "price",
+       "drop your price",
+       "drop price",
+       "lower price",
+       "cheaper"
+      ],
+      "go": "low"
+     },
+     {
+      "words": [
+       "branch",
+       "brunch",
+       "branche",
+       "branch out",
+       "sell more",
+       "other goods",
+       "expand"
+      ],
+      "go": "sellmore"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "low": {
+   "say": [
+    {
+     "play": "scenes/pricedrop",
+     "dur": 22.696,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.8,
+       "who": "NARRATOR",
+       "text": "Bold move! You slash your price to seven dollars and seventy-six cents. One whole cent cheaper!"
+      },
+      {
+       "at": 9.818,
+       "len": 7.058,
+       "who": "NARRATOR",
+       "text": "A tumbleweed of old receipts rolls past your empty cart. Nobody comes. Not even a pigeon."
+      },
+      {
+       "at": 20.076,
+       "len": 1.67,
+       "who": "NARRATOR",
+       "text": "Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/pricedrop",
+      "dur": 4.412,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.862,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "make"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "make"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "sellmore": {
+   "say": [
+    {
+     "play": "scenes/stickers",
+     "dur": 25.858,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 11.139,
+       "who": "NARRATOR",
+       "text": "You turn your cart into a pop-up art stall. Tiny problem: you have nothing to sell. But a crowd gathers anyway. You just look so confident."
+      },
+      {
+       "at": 11.739,
+       "len": 7.008,
+       "who": "NARRATOR",
+       "text": "A man asks you to draw a sticker for his phone. You doodle a noodle with sunglasses. It's weirdly amazing."
+      },
+      {
+       "at": 20.427,
+       "len": 4.481,
+       "who": "NARRATOR",
+       "text": "He pays you ten whole dollars! Ready to go and get your noodles?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/stickers",
+      "dur": 3.404,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 2.854,
+        "who": "NARRATOR",
+        "text": "Ready to go and get your noodles? Say yes."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "YAY"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "noodles",
+       "here i come",
+       "noodles here i come",
+       "get noodles"
+      ],
+      "go": "YAY"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "YAY": {
+   "say": [
+    {
+     "play": "scenes/tendollars",
+     "dur": 17.842,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.154,
+       "who": "NARRATOR",
+       "text": "Ten dollars in your hand. Honest work. Honest noodles."
+      },
+      {
+       "at": 7.084,
+       "len": 9.809,
+       "who": "NARRATOR",
+       "text": "You march back to Slurpy's and press your nose against the window. Inside, the broth is bubbling. It's waiting for you. Do you want to go inside?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/tendollars",
+      "dur": 3.619,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.069,
+        "who": "NARRATOR",
+        "text": "Do you want to go inside Slurpy's? Say yes."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "icecream"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "inside",
+       "go inside",
+       "enter",
+       "go in",
+       "head in"
+      ],
+      "go": "icecream"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "icecream": {
+   "say": [
+    {
+     "play": "scenes/icecream",
+     "dur": 23.928,
+     "lines": [
+      {
+       "at": 4.1,
+       "len": 6.208,
+       "who": "NARRATOR",
+       "text": "You reach for the door. And then you hear it. An ice-cream van pulls up right behind you."
+      },
+      {
+       "at": 10.658,
+       "len": 8.64,
+       "who": "NARRATOR",
+       "text": "Triple chocolate swirl. Rainbow sprinkles. A wafer shaped like a unicorn. And it costs exactly ten dollars."
+      },
+      {
+       "at": 19.648,
+       "len": 3.33,
+       "who": "NARRATOR",
+       "text": "It's calling to you. Do you want to buy an ice cream?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/icecream",
+      "dur": 5.035,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.485,
+        "who": "NARRATOR",
+        "text": "Do you want to spend your money on an ice cream? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "icecream-go"
+     },
+     {
+      "no": true,
+      "go": "goin"
+     },
+     {
+      "words": [
+       "ice cream",
+       "icecream",
+       "buy",
+       "buy one",
+       "buy it"
+      ],
+      "go": "icecream-go"
+     },
+     {
+      "words": [
+       "noodles",
+       "here i come",
+       "noodles here i come",
+       "get noodles"
+      ],
+      "go": "goin"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "icecream-go": {
+   "say": [
+    {
+     "play": "scenes/icecream-go",
+     "dur": 22.746,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 7.442,
+       "who": "NARRATOR",
+       "text": "You hand over all ten dollars, and the ice cream is magnificent. For about one minute."
+      },
+      {
+       "at": 8.042,
+       "len": 7.331,
+       "who": "NARRATOR",
+       "text": "Then it melts down your arm, a seagull steals your unicorn wafer, and you remember: you came here for noodles."
+      },
+      {
+       "at": 18.573,
+       "len": 3.223,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/icecream-go",
+      "dur": 4.273,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.723,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "icecream"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "icecream"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "goin": {
+   "say": [
+    {
+     "play": "scenes/doorway",
+     "dur": 25.037,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.352,
+       "who": "NARRATOR",
+       "text": "You reach for the handle, and the door swings open, straight into your nose."
+      },
+      {
+       "at": 7.282,
+       "len": 7.847,
+       "who": "NARRATOR",
+       "text": "A delivery courier in a hurry. Your ten dollars flies up into the air, and flutters down into the back of a passing recycling truck."
+      },
+      {
+       "at": 15.48,
+       "len": 6.445,
+       "who": "COURIER",
+       "text": "Oh no, oh no, oh no! I'm SO sorry! Here, please, have some of my takeout!"
+      },
+      {
+       "at": 22.275,
+       "len": 1.811,
+       "who": "NARRATOR",
+       "text": "Do you want to share his takeout?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/doorway",
+      "dur": 4.47,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.92,
+        "who": "NARRATOR",
+        "text": "Do you want to share the courier's takeout? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "take"
+     },
+     {
+      "no": true,
+      "go": "no"
+     },
+     {
+      "words": [
+       "accept",
+       "take the food",
+       "take food",
+       "share his food",
+       "yes please"
+      ],
+      "go": "take"
+     },
+     {
+      "words": [
+       "decline",
+       "politely decline",
+       "no thanks",
+       "decline politely"
+      ],
+      "go": "no"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "take": {
+   "say": [
+    {
+     "play": "scenes/ending-bittersweet",
+     "dur": 21.63,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 3.024,
+       "who": "NARRATOR",
+       "text": "You sit on the curb with the courier and share his takeout."
+      },
+      {
+       "at": 3.624,
+       "len": 2.295,
+       "who": "COURIER",
+       "text": "It's, um, cold fries."
+      },
+      {
+       "at": 6.27,
+       "len": 8.501,
+       "who": "NARRATOR",
+       "text": "They're tasty. Honestly! But part of you keeps staring at Slurpy's glowing sign, and that bowl of ramen you never got."
+      },
+      {
+       "at": 18.97,
+       "len": 1.71,
+       "who": "NARRATOR",
+       "text": "That's the bittersweet ending!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Bittersweet Ending"
+   }
+  },
+  "no": {
+   "say": [
+    {
+     "play": "scenes/decline",
+     "dur": 19.044,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 6.48,
+       "who": "NARRATOR",
+       "text": "Thanks, but no thanks, you say, rubbing your nose. You came here for ramen, and you're getting ramen."
+      },
+      {
+       "at": 7.08,
+       "len": 8.701,
+       "who": "NARRATOR",
+       "text": "The recycling truck is rumbling off down the street with your money. Then you notice the kitchen's back door is propped open. Hmm."
+      },
+      {
+       "at": 16.132,
+       "len": 1.962,
+       "who": "NARRATOR",
+       "text": "Do you want to chase after the truck?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/decline",
+      "dur": 4.945,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.395,
+        "who": "NARRATOR",
+        "text": "Do you want to chase after the recycling truck? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "chase"
+     },
+     {
+      "no": true,
+      "go": "backdoor"
+     },
+     {
+      "words": [
+       "chase",
+       "chase the money",
+       "chase down",
+       "run after",
+       "get the money"
+      ],
+      "go": "chase"
+     },
+     {
+      "words": [
+       "sneak",
+       "sneak in",
+       "back door",
+       "sneak in the back",
+       "creep in"
+      ],
+      "go": "backdoor"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "chase": {
+   "say": [
+    {
+     "play": "scenes/chase",
+     "dur": 15.631,
+     "lines": [
+      {
+       "at": 2.287,
+       "len": 4.894,
+       "who": "NARRATOR",
+       "text": "You sprint after the truck! It rumbles around the corner, and off down the main road."
+      },
+      {
+       "at": 7.531,
+       "len": 6.258,
+       "who": "NARRATOR",
+       "text": "You could keep chasing it down the road, or take a shortcut through the market. Do you want to take the shortcut?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/chase",
+      "dur": 4.729,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.179,
+        "who": "NARRATOR",
+        "text": "Do you want to take the shortcut through the market? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "search"
+     },
+     {
+      "no": true,
+      "go": "chasemiss"
+     },
+     {
+      "words": [
+       "shortcut",
+       "short cut",
+       "market",
+       "through the market"
+      ],
+      "go": "search"
+     },
+     {
+      "words": [
+       "road",
+       "keep running",
+       "keep chasing",
+       "street"
+      ],
+      "go": "chasemiss"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "chasemiss": {
+   "say": [
+    {
+     "play": "scenes/chasemiss",
+     "dur": 24.615,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.002,
+       "who": "NARRATOR",
+       "text": "You stick to the road, and run, and run. The truck turns left. You turn left. The truck turns right. You turn right."
+      },
+      {
+       "at": 9.602,
+       "len": 4.267,
+       "who": "NARRATOR",
+       "text": "Then the truck turns onto the highway, and you, very sensibly, do not."
+      },
+      {
+       "at": 14.219,
+       "len": 3.12,
+       "who": "NARRATOR",
+       "text": "Your ten dollars waves goodbye from the back of the truck."
+      },
+      {
+       "at": 20.54,
+       "len": 3.125,
+       "who": "NARRATOR",
+       "text": "Game over! Want to go back and try again?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/chasemiss",
+      "dur": 4.064,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.514,
+        "who": "NARRATOR",
+        "text": "Want to go back and try again? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "chase"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "back",
+       "go back",
+       "return",
+       "previous"
+      ],
+      "go": "chase"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "search": {
+   "redirect": [
+    {
+     "when": "nana",
+     "go": "search-nana"
+    }
+   ],
+   "say": [
+    {
+     "play": "scenes/retiree",
+     "dur": 31.565,
+     "lines": [
+      {
+       "at": 2.287,
+       "len": 10.607,
+       "who": "NARRATOR",
+       "text": "You zoom through the market, leap over a crate of cabbages, and catch the truck at a red light. But a sharp-eyed old lady has already fished your ten dollars out of the back."
+      },
+      {
+       "at": 13.244,
+       "len": 5.981,
+       "who": "RETIREE",
+       "text": "Finders keepers, dearie. But I'm not a monster. I'll just keep a little finder's fee."
+      },
+      {
+       "at": 19.575,
+       "len": 11.04,
+       "who": "NARRATOR",
+       "text": "She keeps two dollars and twenty-two cents, and hands you the rest. Seven dollars and seventy-eight cents. Just enough! Ready to get your bowl?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/retiree",
+      "dur": 3.702,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.152,
+        "who": "NARRATOR",
+        "text": "Ready to go and get your bowl of ramen? Say yes."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "order"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "bowl",
+       "get a bowl",
+       "bowl of ramen",
+       "go get a bowl",
+       "eat"
+      ],
+      "go": "order"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "search-nana": {
+   "say": [
+    {
+     "play": "scenes/search-nana",
+     "dur": 31.142,
+     "lines": [
+      {
+       "at": 2.287,
+       "len": 10.56,
+       "who": "NARRATOR",
+       "text": "You zoom through the market, leap over a crate of cabbages, and catch the truck at a red light. A sharp-eyed old lady has already fished your ten dollars out of the back."
+      },
+      {
+       "at": 13.197,
+       "len": 2.832,
+       "who": "NARRATOR",
+       "text": "Wait a second. It's the orange lady from the queue!"
+      },
+      {
+       "at": 16.379,
+       "len": 9.623,
+       "who": "RETIREE",
+       "text": "Well, if it isn't my kind young helper! I'd normally keep a finder's fee. But not from you, dearie. Here. All ten dollars."
+      },
+      {
+       "at": 26.352,
+       "len": 3.84,
+       "who": "NARRATOR",
+       "text": "Being kind really does pay! Ready to go and get your bowl?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/search-nana",
+      "dur": 4.059,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.509,
+        "who": "NARRATOR",
+        "text": "Ready to go and get your bowl of ramen? Say yes."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "order"
+     },
+     {
+      "no": true,
+      "go": "_give-up"
+     },
+     {
+      "words": [
+       "bowl",
+       "get a bowl",
+       "bowl of ramen",
+       "go get a bowl",
+       "eat"
+      ],
+      "go": "order"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "order": {
+   "say": [
+    {
+     "play": "scenes/order",
+     "dur": 29.127,
+     "lines": [
+      {
+       "at": 2.1,
+       "len": 8.231,
+       "who": "NARRATOR",
+       "text": "Back inside Slurpy's. And this time, there's no line at all! You march up to the counter, and slap down your money."
+      },
+      {
+       "at": 10.681,
+       "len": 10.464,
+       "who": "CASHIER",
+       "text": "One spicy miso ramen, extra egg, coming up! Oh, and today only, you can make it Dragon Fire. It's so spicy, nobody has ever finished a bowl."
+      },
+      {
+       "at": 21.496,
+       "len": 6.682,
+       "who": "NARRATOR",
+       "text": "On the wall are photos of everybody who tried. They're all crying. Do you want to try the Dragon Fire?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/order",
+      "dur": 5.776,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 5.226,
+        "who": "NARRATOR",
+        "text": "Do you want to try the super spicy Dragon Fire ramen? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "dragonfire"
+     },
+     {
+      "no": true,
+      "go": "burg"
+     },
+     {
+      "words": [
+       "normal",
+       "regular",
+       "not spicy",
+       "mild"
+      ],
+      "go": "burg"
+     },
+     {
+      "words": [
+       "spicy",
+       "dragon",
+       "dragon fire",
+       "fire",
+       "try it"
+      ],
+      "go": "dragonfire"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "dragonfire": {
+   "say": [
+    {
+     "play": "scenes/ending-dragonfire",
+     "dur": 38.993,
+     "lines": [
+      {
+       "at": 1.332,
+       "len": 4.844,
+       "who": "NARRATOR",
+       "text": "The bowl arrives, glowing red. Tiny flames dance across the top."
+      },
+      {
+       "at": 6.526,
+       "len": 1.912,
+       "who": "CHEF",
+       "text": "Good luck, kid."
+      },
+      {
+       "at": 10.439,
+       "len": 9.12,
+       "who": "NARRATOR",
+       "text": "First slurp. Your face turns pink. Then red. Then purple. Steam whistles out of your ears, like a kettle."
+      },
+      {
+       "at": 21.715,
+       "len": 9.888,
+       "who": "NARRATOR",
+       "text": "Twelve glasses of water later, the bowl is empty. Your photo goes up on the wall, under a big gold sign: Dragon Fire Champion!"
+      },
+      {
+       "at": 35.803,
+       "len": 2.24,
+       "who": "NARRATOR",
+       "text": "That's the dragon fire ending!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Dragon Fire Ending"
+   }
+  },
+  "burg": {
+   "redirect": [
+    {
+     "when": "nana",
+     "go": "burg-rich"
+    }
+   ],
+   "say": [
+    {
+     "play": "scenes/ramen",
+     "dur": 25.197,
+     "lines": [
+      {
+       "at": 0.501,
+       "len": 4.64,
+       "who": "CHEF",
+       "text": "One spicy miso ramen, extra egg! Order up!"
+      },
+      {
+       "at": 7.142,
+       "len": 6.32,
+       "who": "NARRATOR",
+       "text": "First slurp. Your whole face relaxes for the first time all day."
+      },
+      {
+       "at": 13.812,
+       "len": 10.435,
+       "who": "NARRATOR",
+       "text": "And in your hand, your change: one single, shiny penny. The staff worked very hard today. Do you want to drop your penny in the tip jar?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/ramen",
+      "dur": 5.014,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.464,
+        "who": "NARRATOR",
+        "text": "Do you want to drop your penny in the tip jar? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "give"
+     },
+     {
+      "no": true,
+      "go": "keep"
+     },
+     {
+      "words": [
+       "tip",
+       "tip jar",
+       "drop it in the tip jar",
+       "leave a tip"
+      ],
+      "go": "give"
+     },
+     {
+      "words": [
+       "keep",
+       "pocket it",
+       "pocket",
+       "keep it",
+       "hoard"
+      ],
+      "go": "keep"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "burg-rich": {
+   "say": [
+    {
+     "play": "scenes/ramen-rich",
+     "dur": 26.044,
+     "lines": [
+      {
+       "at": 0.501,
+       "len": 4.043,
+       "who": "CHEF",
+       "text": "One spicy miso ramen, extra egg! Order up!"
+      },
+      {
+       "at": 6.545,
+       "len": 8.8,
+       "who": "NARRATOR",
+       "text": "First slurp. Pure happiness. And this time, you've got two dollars and twenty-three cents in change."
+      },
+      {
+       "at": 15.695,
+       "len": 9.399,
+       "who": "NARRATOR",
+       "text": "Through the window, you spot the delivery courier, sitting on the curb, still looking very sorry. Do you want to invite him in to share your noodles?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/ramen-rich",
+      "dur": 4.801,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 4.251,
+        "who": "NARRATOR",
+        "text": "Do you want to share your noodles with the courier? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "friends"
+     },
+     {
+      "no": true,
+      "go": "dessert"
+     },
+     {
+      "words": [
+       "invite",
+       "invite him",
+       "share",
+       "share them"
+      ],
+      "go": "friends"
+     },
+     {
+      "words": [
+       "mine",
+       "all mine",
+       "eat it all",
+       "myself",
+       "by myself"
+      ],
+      "go": "dessert"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "friends": {
+   "say": [
+    {
+     "play": "scenes/ending-friendship",
+     "dur": 34.981,
+     "lines": [
+      {
+       "at": 2.1,
+       "len": 3.258,
+       "who": "NARRATOR",
+       "text": "You wave him inside, and push your bowl into the middle of the table."
+      },
+      {
+       "at": 5.708,
+       "len": 5.179,
+       "who": "COURIER",
+       "text": "For me? Even after I bonked your nose with a door?"
+      },
+      {
+       "at": 11.237,
+       "len": 5.947,
+       "who": "NARRATOR",
+       "text": "You spend your change on a plate of dumplings to share, and Chef Slurpy sends over a second bowl of ramen."
+      },
+      {
+       "at": 17.534,
+       "len": 2.367,
+       "who": "CHEF",
+       "text": "Friends eat free at Slurpy's!"
+      },
+      {
+       "at": 20.251,
+       "len": 5.755,
+       "who": "NARRATOR",
+       "text": "Two full tummies. One brand new friend. And the best noodles in the whole city."
+      },
+      {
+       "at": 30.206,
+       "len": 3.825,
+       "who": "NARRATOR",
+       "text": "That's the friendship ending! The rarest ending of all!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Friendship Ending"
+   }
+  },
+  "dessert": {
+   "say": [
+    {
+     "play": "scenes/ending-fulltummy",
+     "dur": 26.883,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 4.478,
+       "who": "NARRATOR",
+       "text": "Nope. This bowl is all yours. Every. Last. Noodle."
+      },
+      {
+       "at": 6.729,
+       "len": 5.323,
+       "who": "NARRATOR",
+       "text": "Then you spend your change on a pink mochi for dessert, and eat it in one squishy bite."
+      },
+      {
+       "at": 12.402,
+       "len": 7.287,
+       "who": "NARRATOR",
+       "text": "You lean back with a tummy as round as a beach ball. It's been a long day. But it was worth it."
+      },
+      {
+       "at": 23.89,
+       "len": 2.044,
+       "who": "NARRATOR",
+       "text": "That's the full tummy ending!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Full Tummy Ending"
+   }
+  },
+  "keep": {
+   "say": [
+    {
+     "play": "scenes/ending-hoarder",
+     "dur": 18.003,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 5.373,
+       "who": "NARRATOR",
+       "text": "You slip the penny into your pocket. Every great fortune starts with one penny, right?"
+      },
+      {
+       "at": 5.973,
+       "len": 5.52,
+       "who": "NARRATOR",
+       "text": "You slurp the rest of your noodles, very pleased with yourself, and very, very full."
+      },
+      {
+       "at": 15.693,
+       "len": 1.36,
+       "who": "NARRATOR",
+       "text": "That's the hoarder ending!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Hoarder Ending"
+   }
+  },
+  "give": {
+   "say": [
+    {
+     "play": "scenes/ending-grateful",
+     "dur": 21.464,
+     "lines": [
+      {
+       "at": 0.862,
+       "len": 2.584,
+       "who": "NARRATOR",
+       "text": "Clink! Your penny drops into the tip jar."
+      },
+      {
+       "at": 3.796,
+       "len": 3.545,
+       "who": "CHEF",
+       "text": "A tip! For us? Somebody get me a tissue."
+      },
+      {
+       "at": 7.691,
+       "len": 5.134,
+       "who": "NARRATOR",
+       "text": "The whole kitchen gives you a little bow, and Chef Slurpy slips an extra egg into your bowl."
+      },
+      {
+       "at": 17.025,
+       "len": 3.489,
+       "who": "NARRATOR",
+       "text": "That's the grateful ending! The best ending of all!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Grateful Ending"
+   }
+  },
+  "backdoor": {
+   "say": [
+    {
+     "play": "scenes/backdoor",
+     "dur": 22.661,
+     "lines": [
+      {
+       "at": 1.51,
+       "len": 9.717,
+       "who": "NARRATOR",
+       "text": "You tiptoe through the back door, into the kitchen. Steam everywhere. Pots bubbling. And Chef Slurpy, cooking five orders at once, with his back to you."
+      },
+      {
+       "at": 11.576,
+       "len": 3.465,
+       "who": "CHEF",
+       "text": "Two misos! Three dumplings! Where's my egg?!"
+      },
+      {
+       "at": 15.391,
+       "len": 6.32,
+       "who": "NARRATOR",
+       "text": "A pot of ramen is bubbling right next to you, and nobody is looking. Do you want to sneak yourself a bowl?"
+      }
+     ]
+    }
+   ],
+   "ask": {
+    "reprompt": [
+     {
+      "play": "prompts/backdoor",
+      "dur": 4.299,
+      "lines": [
+       {
+        "at": 0.25,
+        "len": 3.749,
+        "who": "NARRATOR",
+        "text": "Do you want to sneak a bowl of ramen? Say yes, or no."
+       }
+      ]
+     }
+    ],
+    "answers": [
+     {
+      "yes": true,
+      "go": "sneak"
+     },
+     {
+      "no": true,
+      "go": "apprentice"
+     },
+     {
+      "words": [
+       "sneak",
+       "sneak in",
+       "back door",
+       "sneak in the back",
+       "creep in"
+      ],
+      "go": "sneak"
+     },
+     {
+      "words": [
+       "help",
+       "help her",
+       "help him",
+       "pick them up",
+       "offer to help",
+       "cook"
+      ],
+      "go": "apprentice"
+     }
+    ],
+    "buttons": [
+     {
+      "label": "Yes",
+      "value": "yes"
+     },
+     {
+      "label": "No",
+      "value": "no"
+     }
+    ]
+   }
+  },
+  "sneak": {
+   "say": [
+    {
+     "play": "scenes/ending-busted",
+     "dur": 27.097,
+     "lines": [
+      {
+       "at": 2.58,
+       "len": 4.423,
+       "who": "NARRATOR",
+       "text": "While Chef Slurpy's back is turned, you ladle yourself a secret bowl."
+      },
+      {
+       "at": 9.004,
+       "len": 3.268,
+       "who": "NARRATOR",
+       "text": "Mid-slurp, a big hand lands on your shoulder."
+      },
+      {
+       "at": 12.622,
+       "len": 3.12,
+       "who": "CHEF",
+       "text": "If you eat in my kitchen, you wash in my kitchen!"
+      },
+      {
+       "at": 16.092,
+       "len": 4.136,
+       "who": "NARRATOR",
+       "text": "Five hundred dirty bowls later, your fingers are as wrinkly as noodles."
+      },
+      {
+       "at": 24.428,
+       "len": 1.719,
+       "who": "NARRATOR",
+       "text": "That's the busted ending!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Busted Ending"
+   }
+  },
+  "apprentice": {
+   "say": [
+    {
+     "play": "scenes/ending-apprentice",
+     "dur": 30.67,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 9.309,
+       "who": "NARRATOR",
+       "text": "No sneaking. Instead, you grab an apron, roll up your sleeves, and start helping. You stir. You chop. You catch a flying egg."
+      },
+      {
+       "at": 9.909,
+       "len": 3.643,
+       "who": "CHEF",
+       "text": "Who are you? Never mind. You're hired!"
+      },
+      {
+       "at": 13.902,
+       "len": 6.48,
+       "who": "NARRATOR",
+       "text": "When the rush is over, Chef Slurpy cooks you a bowl himself, and whispers his secret recipe in your ear."
+      },
+      {
+       "at": 20.732,
+       "len": 3.2,
+       "who": "CHEF",
+       "text": "Extra love. And a pinch of pepper."
+      },
+      {
+       "at": 28.132,
+       "len": 1.588,
+       "who": "NARRATOR",
+       "text": "That's the apprentice ending!"
+      }
+     ]
+    }
+   ],
+   "end": {
+    "kind": "ending",
+    "title": "Apprentice Ending"
+   }
+  },
+  "_no-problem": {
+   "say": [
+    {
+     "play": "common/no-problem",
+     "dur": 2.004,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 0.804,
+       "who": "NARRATOR",
+       "text": "No problem!"
+      }
+     ]
+    }
+   ],
+   "go": {
+    "end": "quit"
+   }
+  },
+  "_give-up": {
+   "say": [
+    {
+     "play": "common/give-up",
+     "dur": 9.204,
+     "lines": [
+      {
+       "at": 0.25,
+       "len": 8.004,
+       "who": "NARRATOR",
+       "text": "You give up on the noodle dream, at least for today. Your tummy is furious. But there's always tomorrow!"
+      }
+     ]
+    }
+   ],
+   "go": {
+    "end": "quit"
+   }
+  }
+ }
+}

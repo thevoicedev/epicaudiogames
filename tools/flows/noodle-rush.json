@@ -1,0 +1,1486 @@
+{
+ "game": "noodle-rush",
+ "flow": [
+  {
+   "type": "scene",
+   "id": "Page1",
+   "slug": "title",
+   "description": "Start screen",
+   "choices": {
+    "yes": [
+     "Page2"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "Page2",
+   "slug": "outside",
+   "description": "Outside",
+   "choices": {
+    "inside": [
+     "go"
+    ],
+    "no": [
+     "walkaway"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "walkaway",
+   "slug": "walkaway",
+   "description": "Walking away from the bar - Game Over",
+   "choices": {
+    "yes": [
+     "Page2"
+    ],
+    "back": [
+     "Page2"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "go",
+   "slug": "queue",
+   "description": "The queue",
+   "choices": {
+    "yes": [
+     "wait"
+    ],
+    "no": [
+     "cut"
+    ],
+    "wait": [
+     "wait"
+    ],
+    "cut": [
+     "cut"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "cut",
+   "slug": "cut",
+   "description": "Cutting the line - Game Over",
+   "choices": {
+    "yes": [
+     "go"
+    ],
+    "back": [
+     "go"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "wait",
+   "slug": "wait",
+   "description": "Waiting patiently",
+   "choices": {
+    "yes": [
+     "oranges",
+     "pigeon"
+    ],
+    "no": [
+     "cut"
+    ],
+    "more": [
+     "oranges",
+     "pigeon"
+    ],
+    "cut": [
+     "cut"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "oranges",
+   "slug": "oranges",
+   "description": "The old lady drops her oranges",
+   "choices": {
+    "yes": [
+     "oranges-help"
+    ],
+    "no": [
+     "oranges-skip"
+    ],
+    "help": [
+     "oranges-help"
+    ],
+    "ignore": [
+     "oranges-skip"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "oranges-help",
+   "slug": "oranges-help",
+   "description": "Helping with the oranges",
+   "choices": {
+    "yes": [
+     "waitmore"
+    ],
+    "no": [
+     "cut"
+    ],
+    "more": [
+     "waitmore"
+    ],
+    "cut": [
+     "cut"
+    ]
+   },
+   "setFlag": "nana"
+  },
+  {
+   "type": "scene",
+   "id": "oranges-skip",
+   "slug": "oranges-skip",
+   "description": "Skidding to the front on an orange",
+   "choices": {
+    "yes": [
+     "waitmore"
+    ],
+    "no": [
+     "skidout"
+    ],
+    "sorry": [
+     "waitmore"
+    ],
+    "stay": [
+     "skidout"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "skidout",
+   "slug": "skidout",
+   "description": "Staying at the front - Game Over",
+   "choices": {
+    "yes": [
+     "oranges-skip"
+    ],
+    "back": [
+     "oranges-skip"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "pigeon",
+   "slug": "pigeon",
+   "description": "A pigeon steals an egg",
+   "choices": {
+    "yes": [
+     "pigeon-catch"
+    ],
+    "no": [
+     "pigeon-duck"
+    ],
+    "catch": [
+     "pigeon-catch"
+    ],
+    "duck": [
+     "pigeon-duck"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "pigeon-catch",
+   "slug": "pigeon-catch",
+   "description": "Catching the egg",
+   "choices": {
+    "yes": [
+     "waitmore"
+    ],
+    "no": [
+     "cut"
+    ],
+    "more": [
+     "waitmore"
+    ],
+    "cut": [
+     "cut"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "pigeon-duck",
+   "slug": "pigeon-duck",
+   "description": "Ducking the egg",
+   "choices": {
+    "yes": [
+     "waitmore"
+    ],
+    "no": [
+     "cut"
+    ],
+    "more": [
+     "waitmore"
+    ],
+    "cut": [
+     "cut"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "waitmore",
+   "slug": "counter",
+   "description": "At the counter with no money",
+   "choices": {
+    "yes": [
+     "out"
+    ],
+    "no": [
+     "fake"
+    ],
+    "bluff": [
+     "fake"
+    ],
+    "leave": [
+     "out"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fake",
+   "slug": "napkin",
+   "description": "Napkin gift certificate",
+   "choices": {
+    "yes": [
+     "out"
+    ],
+    "no": [
+     "sulk"
+    ],
+    "okay": [
+     "out"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "sulk",
+   "slug": "sulk",
+   "description": "Sulking at the counter - Game Over",
+   "choices": {
+    "yes": [
+     "out"
+    ],
+    "back": [
+     "out"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "out",
+   "slug": "sidewalk",
+   "description": "Back on the sidewalk",
+   "choices": {
+    "yes": [
+     "quest",
+     "poster"
+    ],
+    "no": [
+     "car"
+    ],
+    "kazoo": [
+     "car"
+    ],
+    "gig": [
+     "quest",
+     "poster"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "car",
+   "slug": "kazoo",
+   "description": "Kazoo busking; the dog lady",
+   "choices": {
+    "yes": [
+     "dogs"
+    ],
+    "no": [
+     "kazoo-more"
+    ],
+    "walk": [
+     "dogs"
+    ],
+    "kazoo": [
+     "kazoo-more"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "kazoo-more",
+   "slug": "kazoo-more",
+   "description": "More kazoo - Game Over",
+   "choices": {
+    "yes": [
+     "car"
+    ],
+    "back": [
+     "car"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "dogs",
+   "slug": "dogs",
+   "description": "Walking eight dogs; a squirrel",
+   "choices": {
+    "yes": [
+     "dogs-pulled"
+    ],
+    "no": [
+     "dogs-loose"
+    ],
+    "hold": [
+     "dogs-pulled"
+    ],
+    "letgo": [
+     "dogs-loose"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "dogs-loose",
+   "slug": "dogs-loose",
+   "description": "Letting go of the dogs - Game Over",
+   "choices": {
+    "yes": [
+     "dogs"
+    ],
+    "back": [
+     "dogs"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "dogs-pulled",
+   "slug": "dogs-pulled",
+   "description": "Dragged towards the fountain",
+   "choices": {
+    "yes": [
+     "dogs-sit"
+    ],
+    "no": [
+     "dogs-splash"
+    ],
+    "sit": [
+     "dogs-sit"
+    ],
+    "splash": [
+     "dogs-splash"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "dogs-sit",
+   "slug": "dogs-sit",
+   "description": "The dogs sit; a stray",
+   "choices": {
+    "yes": [
+     "bestfriend"
+    ],
+    "no": [
+     "YAY"
+    ],
+    "adopt": [
+     "bestfriend"
+    ],
+    "goodbye": [
+     "YAY"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "dogs-splash",
+   "slug": "dogs-splash",
+   "description": "Through the fountain; a stray",
+   "choices": {
+    "yes": [
+     "bestfriend"
+    ],
+    "no": [
+     "YAY"
+    ],
+    "adopt": [
+     "bestfriend"
+    ],
+    "goodbye": [
+     "YAY"
+    ]
+   }
+  },
+  {
+   "type": "ending",
+   "id": "bestfriend",
+   "slug": "ending-bestfriend",
+   "description": "Adopting the stray - Best Friend Ending"
+  },
+  {
+   "type": "scene",
+   "id": "quest",
+   "slug": "flyer",
+   "description": "The magician's flyer",
+   "choices": {
+    "yes": [
+     "apply"
+    ],
+    "no": [
+     "Forget"
+    ],
+    "takegig": [
+     "apply"
+    ],
+    "pass": [
+     "Forget"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "Forget",
+   "slug": "forget",
+   "description": "Passing on the gig - Game Over",
+   "choices": {
+    "yes": [
+     "out"
+    ],
+    "back": [
+     "out"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "poster",
+   "slug": "poster",
+   "description": "The lost cat poster",
+   "choices": {
+    "yes": [
+     "fishmarket"
+    ],
+    "no": [
+     "quest"
+    ],
+    "find": [
+     "fishmarket"
+    ],
+    "pass": [
+     "quest"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fishmarket",
+   "slug": "fishmarket",
+   "description": "The fish market",
+   "choices": {
+    "yes": [
+     "rooftop"
+    ],
+    "no": [
+     "catbait"
+    ],
+    "climb": [
+     "rooftop"
+    ],
+    "sardine": [
+     "catbait"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "catbait",
+   "slug": "catbait",
+   "description": "Every cat but Sir Pounce - Game Over",
+   "choices": {
+    "yes": [
+     "fishmarket"
+    ],
+    "back": [
+     "fishmarket"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "rooftop",
+   "slug": "rooftop",
+   "description": "Sir Pounce on the roof",
+   "choices": {
+    "yes": [
+     "catcall"
+    ],
+    "no": [
+     "cathome"
+    ],
+    "call": [
+     "catcall"
+    ],
+    "sardine": [
+     "cathome"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "catcall",
+   "slug": "catcall",
+   "description": "Stuck on the roof - Game Over",
+   "choices": {
+    "yes": [
+     "rooftop"
+    ],
+    "back": [
+     "rooftop"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "cathome",
+   "slug": "cathome",
+   "description": "The reward",
+   "choices": {
+    "yes": [
+     "YAY"
+    ],
+    "no": [
+     "catswap"
+    ],
+    "keep": [
+     "YAY"
+    ],
+    "smoothie": [
+     "catswap"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "catswap",
+   "slug": "catswap",
+   "description": "Swapping the reward for a smoothie - Game Over",
+   "choices": {
+    "yes": [
+     "cathome"
+    ],
+    "back": [
+     "cathome"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "apply",
+   "slug": "magician",
+   "description": "Hired by the magician",
+   "choices": {
+    "yes": [
+     "rehearse"
+    ],
+    "no": [
+     "start"
+    ],
+    "rehearse": [
+     "rehearse"
+    ],
+    "show": [
+     "start"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "rehearse",
+   "slug": "rehearse",
+   "description": "The two levers",
+   "choices": {
+    "yes": [
+     "show"
+    ],
+    "no": [
+     "redlever"
+    ],
+    "green": [
+     "show"
+    ],
+    "red": [
+     "redlever"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "show",
+   "slug": "show",
+   "description": "The trick works; ten dollars",
+   "choices": {
+    "yes": [
+     "showbiz"
+    ],
+    "no": [
+     "YAY"
+    ],
+    "encore": [
+     "showbiz"
+    ],
+    "bow": [
+     "YAY"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "redlever",
+   "slug": "redlever",
+   "description": "The red lever - Game Over",
+   "choices": {
+    "yes": [
+     "rehearse"
+    ],
+    "back": [
+     "rehearse"
+    ]
+   }
+  },
+  {
+   "type": "ending",
+   "id": "showbiz",
+   "slug": "ending-superstar",
+   "description": "Encore after encore - Superstar Ending"
+  },
+  {
+   "type": "scene",
+   "id": "start",
+   "slug": "fired",
+   "description": "Fired; the smoothie cart",
+   "choices": {
+    "yes": [
+     "make"
+    ],
+    "no": [
+     "steal"
+    ],
+    "swipe": [
+     "steal"
+    ],
+    "cart": [
+     "make"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "steal",
+   "slug": "swipe",
+   "description": "Swiping a smoothie - Game Over",
+   "choices": {
+    "yes": [
+     "start"
+    ],
+    "back": [
+     "start"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "make",
+   "slug": "cart",
+   "description": "Running a smoothie cart",
+   "choices": {
+    "yes": [
+     "sellmore"
+    ],
+    "no": [
+     "low"
+    ],
+    "price": [
+     "low"
+    ],
+    "branch": [
+     "sellmore"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "low",
+   "slug": "pricedrop",
+   "description": "Price war - try again",
+   "choices": {
+    "yes": [
+     "make"
+    ],
+    "back": [
+     "make"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "sellmore",
+   "slug": "stickers",
+   "description": "Selling a sticker design",
+   "choices": {
+    "noodles": [
+     "YAY"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "YAY",
+   "slug": "tendollars",
+   "description": "Ten dollars earned",
+   "choices": {
+    "inside": [
+     "icecream"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "icecream",
+   "slug": "icecream",
+   "description": "The ice-cream van",
+   "choices": {
+    "yes": [
+     "icecream-go"
+    ],
+    "no": [
+     "goin"
+    ],
+    "icecream": [
+     "icecream-go"
+    ],
+    "noodles": [
+     "goin"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "icecream-go",
+   "slug": "icecream-go",
+   "description": "Buying the ice cream - Game Over",
+   "choices": {
+    "yes": [
+     "icecream"
+    ],
+    "back": [
+     "icecream"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "goin",
+   "slug": "doorway",
+   "description": "The doorway disaster",
+   "choices": {
+    "yes": [
+     "take"
+    ],
+    "no": [
+     "no"
+    ],
+    "accept": [
+     "take"
+    ],
+    "decline": [
+     "no"
+    ]
+   },
+   "subscribersOnly": true
+  },
+  {
+   "type": "ending",
+   "id": "take",
+   "slug": "ending-bittersweet",
+   "description": "Sharing the courier's takeout - Bittersweet Ending"
+  },
+  {
+   "type": "scene",
+   "id": "no",
+   "slug": "decline",
+   "description": "Refusing the food",
+   "choices": {
+    "yes": [
+     "chase"
+    ],
+    "no": [
+     "backdoor"
+    ],
+    "chase": [
+     "chase"
+    ],
+    "sneak": [
+     "backdoor"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "chase",
+   "slug": "chase",
+   "description": "Chasing the truck",
+   "choices": {
+    "yes": [
+     "search"
+    ],
+    "no": [
+     "chasemiss"
+    ],
+    "shortcut": [
+     "search"
+    ],
+    "road": [
+     "chasemiss"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "chasemiss",
+   "slug": "chasemiss",
+   "description": "The truck gets away - Game Over",
+   "choices": {
+    "yes": [
+     "chase"
+    ],
+    "back": [
+     "chase"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "search",
+   "slug": "retiree",
+   "description": "The finder's fee",
+   "choices": {
+    "bowl": [
+     "order"
+    ]
+   },
+   "redirect": {
+    "flag": "nana",
+    "to": "search-nana"
+   }
+  },
+  {
+   "type": "scene",
+   "id": "search-nana",
+   "slug": "search-nana",
+   "description": "The orange lady returns the favour",
+   "choices": {
+    "bowl": [
+     "order"
+    ]
+   }
+  },
+  {
+   "type": "scene",
+   "id": "order",
+   "slug": "order",
+   "description": "Ordering; the Dragon Fire",
+   "choices": {
+    "yes": [
+     "dragonfire"
+    ],
+    "no": [
+     "burg"
+    ],
+    "normal": [
+     "burg"
+    ],
+    "spicy": [
+     "dragonfire"
+    ]
+   }
+  },
+  {
+   "type": "ending",
+   "id": "dragonfire",
+   "slug": "ending-dragonfire",
+   "description": "Finishing the Dragon Fire - Dragon Fire Ending"
+  },
+  {
+   "type": "scene",
+   "id": "burg",
+   "slug": "ramen",
+   "description": "Slurping ramen; one cent left",
+   "choices": {
+    "yes": [
+     "give"
+    ],
+    "no": [
+     "keep"
+    ],
+    "tip": [
+     "give"
+    ],
+    "keep": [
+     "keep"
+    ]
+   },
+   "redirect": {
+    "flag": "nana",
+    "to": "burg-rich"
+   }
+  },
+  {
+   "type": "scene",
+   "id": "burg-rich",
+   "slug": "ramen-rich",
+   "description": "Slurping ramen; change to spare",
+   "choices": {
+    "yes": [
+     "friends"
+    ],
+    "no": [
+     "dessert"
+    ],
+    "invite": [
+     "friends"
+    ],
+    "mine": [
+     "dessert"
+    ]
+   }
+  },
+  {
+   "type": "ending",
+   "id": "friends",
+   "slug": "ending-friendship",
+   "description": "Sharing with the courier - Friendship Ending"
+  },
+  {
+   "type": "ending",
+   "id": "dessert",
+   "slug": "ending-fulltummy",
+   "description": "Mochi for dessert - Full Tummy Ending"
+  },
+  {
+   "type": "ending",
+   "id": "keep",
+   "slug": "ending-hoarder",
+   "description": "Keeping the penny - Hoarder Ending"
+  },
+  {
+   "type": "ending",
+   "id": "give",
+   "slug": "ending-grateful",
+   "description": "Penny in the tip jar - Grateful Ending"
+  },
+  {
+   "type": "scene",
+   "id": "backdoor",
+   "slug": "backdoor",
+   "description": "The busy kitchen",
+   "choices": {
+    "yes": [
+     "sneak"
+    ],
+    "no": [
+     "apprentice"
+    ],
+    "sneak": [
+     "sneak"
+    ],
+    "help": [
+     "apprentice"
+    ]
+   }
+  },
+  {
+   "type": "ending",
+   "id": "sneak",
+   "slug": "ending-busted",
+   "description": "Sneaking a bowl - Busted Ending"
+  },
+  {
+   "type": "ending",
+   "id": "apprentice",
+   "slug": "ending-apprentice",
+   "description": "Helping the chef - Apprentice Ending"
+  }
+ ],
+ "choiceWords": {
+  "start": [
+   "start",
+   "get started",
+   "begin",
+   "lets go",
+   "let's go"
+  ],
+  "inside": [
+   "inside",
+   "go inside",
+   "enter",
+   "go in",
+   "head in"
+  ],
+  "wait": [
+   "wait",
+   "wait patiently",
+   "patient",
+   "patience",
+   "queue"
+  ],
+  "cut": [
+   "cut",
+   "cut through",
+   "cut the line",
+   "skip",
+   "skip the line"
+  ],
+  "back": [
+   "back",
+   "go back",
+   "return",
+   "previous"
+  ],
+  "more": [
+   "more",
+   "wait more",
+   "keep waiting",
+   "more waiting",
+   "wait some more"
+  ],
+  "bluff": [
+   "bluff",
+   "fake",
+   "lie",
+   "bluff your way",
+   "trick them"
+  ],
+  "leave": [
+   "leave",
+   "step out",
+   "go out",
+   "find cash",
+   "hunt for cash",
+   "get money"
+  ],
+  "okay": [
+   "okay",
+   "ok",
+   "fine",
+   "okay fine",
+   "alright"
+  ],
+  "kazoo": [
+   "kazoo",
+   "busk",
+   "busking",
+   "play music",
+   "tips",
+   "perform"
+  ],
+  "gig": [
+   "gig",
+   "quick gig",
+   "find a gig",
+   "find a job",
+   "job hunt",
+   "find work"
+  ],
+  "takegig": [
+   "assist",
+   "take the gig",
+   "take gig",
+   "accept the gig",
+   "take it",
+   "do the gig"
+  ],
+  "pass": [
+   "pass",
+   "hard pass",
+   "scam",
+   "refuse",
+   "magic is a scam"
+  ],
+  "rehearse": [
+   "rehearse",
+   "rehearsal",
+   "practice",
+   "start rehearsing"
+  ],
+  "swipe": [
+   "swipe",
+   "swipe a smoothie",
+   "take the smoothie",
+   "grab a smoothie"
+  ],
+  "cart": [
+   "cart",
+   "start your own cart",
+   "own cart",
+   "make a cart",
+   "start a cart"
+  ],
+  "price": [
+   "price",
+   "drop your price",
+   "drop price",
+   "lower price",
+   "cheaper"
+  ],
+  "branch": [
+   "branch",
+   "brunch",
+   "branche",
+   "branch out",
+   "sell more",
+   "other goods",
+   "expand"
+  ],
+  "noodles": [
+   "noodles",
+   "here i come",
+   "noodles here i come",
+   "get noodles"
+  ],
+  "accept": [
+   "accept",
+   "take the food",
+   "take food",
+   "share his food",
+   "yes please"
+  ],
+  "decline": [
+   "decline",
+   "politely decline",
+   "no thanks",
+   "decline politely"
+  ],
+  "chase": [
+   "chase",
+   "chase the money",
+   "chase down",
+   "run after",
+   "get the money"
+  ],
+  "sneak": [
+   "sneak",
+   "sneak in",
+   "back door",
+   "sneak in the back",
+   "creep in"
+  ],
+  "bowl": [
+   "bowl",
+   "get a bowl",
+   "bowl of ramen",
+   "go get a bowl",
+   "eat"
+  ],
+  "keep": [
+   "keep",
+   "pocket it",
+   "pocket",
+   "keep it",
+   "hoard"
+  ],
+  "tip": [
+   "tip",
+   "tip jar",
+   "drop it in the tip jar",
+   "leave a tip"
+  ],
+  "help": [
+   "help",
+   "help her",
+   "help him",
+   "pick them up",
+   "offer to help",
+   "cook"
+  ],
+  "ignore": [
+   "ignore",
+   "ignore her",
+   "keep my place",
+   "stay put"
+  ],
+  "sorry": [
+   "sorry",
+   "say sorry",
+   "apologise",
+   "apologize",
+   "go back"
+  ],
+  "stay": [
+   "stay",
+   "stay here",
+   "stay at the front"
+  ],
+  "catch": [
+   "catch",
+   "catch it",
+   "catch the egg",
+   "grab it",
+   "jump"
+  ],
+  "duck": [
+   "duck",
+   "dodge",
+   "hide",
+   "get down"
+  ],
+  "walk": [
+   "walk",
+   "walk the dogs",
+   "walk them",
+   "dog walking",
+   "take the job"
+  ],
+  "hold": [
+   "hold",
+   "hold on",
+   "hold tight",
+   "hang on"
+  ],
+  "letgo": [
+   "let go",
+   "let them go",
+   "drop",
+   "release"
+  ],
+  "sit": [
+   "sit",
+   "shout sit",
+   "sit down"
+  ],
+  "splash": [
+   "splash",
+   "fountain",
+   "keep going"
+  ],
+  "adopt": [
+   "adopt",
+   "adopt him",
+   "keep him",
+   "take him home",
+   "chopstick"
+  ],
+  "goodbye": [
+   "goodbye",
+   "bye",
+   "say goodbye"
+  ],
+  "find": [
+   "find",
+   "find him",
+   "find the cat",
+   "look for",
+   "search",
+   "reward"
+  ],
+  "climb": [
+   "climb",
+   "ladder",
+   "go up",
+   "roof"
+  ],
+  "sardine": [
+   "sardine",
+   "wiggle",
+   "fish",
+   "wait"
+  ],
+  "call": [
+   "call",
+   "call him",
+   "call his name",
+   "shout"
+  ],
+  "smoothie": [
+   "smoothie",
+   "swap",
+   "drink"
+  ],
+  "show": [
+   "show",
+   "showtime",
+   "straight to the show",
+   "skip",
+   "no rehearsal"
+  ],
+  "green": [
+   "green",
+   "green lever"
+  ],
+  "red": [
+   "red",
+   "red lever"
+  ],
+  "encore": [
+   "encore",
+   "again",
+   "one more",
+   "one more time",
+   "do it again"
+  ],
+  "bow": [
+   "bow",
+   "take a bow",
+   "take the money",
+   "stop"
+  ],
+  "icecream": [
+   "ice cream",
+   "icecream",
+   "buy",
+   "buy one",
+   "buy it"
+  ],
+  "shortcut": [
+   "shortcut",
+   "short cut",
+   "market",
+   "through the market"
+  ],
+  "road": [
+   "road",
+   "keep running",
+   "keep chasing",
+   "street"
+  ],
+  "normal": [
+   "normal",
+   "regular",
+   "not spicy",
+   "mild"
+  ],
+  "spicy": [
+   "spicy",
+   "dragon",
+   "dragon fire",
+   "fire",
+   "try it"
+  ],
+  "invite": [
+   "invite",
+   "invite him",
+   "share",
+   "share them"
+  ],
+  "mine": [
+   "mine",
+   "all mine",
+   "eat it all",
+   "myself",
+   "by myself"
+  ]
+ },
+ "words": {
+  "yes": [
+   "yes",
+   "yeah",
+   "yep",
+   "yup",
+   "sure",
+   "of course",
+   "definitely",
+   "yes please"
+  ],
+  "no": [
+   "no",
+   "nope",
+   "nah",
+   "no thanks",
+   "not really"
+  ]
+ },
+ "reprompts": {
+  "nodes": {
+   "Page1": "Are you ready to play Noodle Rush? Say yes, or no.",
+   "Page2": "Do you want to go inside Slurpy's? Say yes, or no.",
+   "walkaway": "Want to go back and try again? Say yes, or no.",
+   "go": "Will you wait your turn in the line? Say yes, or no.",
+   "cut": "Want to go back and try again? Say yes, or no.",
+   "wait": "Do you want to keep waiting in line? Say yes, or no.",
+   "oranges": "Do you want to help the old lady pick up her oranges? Say yes, or no.",
+   "oranges-help": "Do you want to keep waiting in line? Say yes, or no.",
+   "oranges-skip": "Do you want to say sorry and go back to your place in the line? Say yes, or no.",
+   "skidout": "Want to go back and try again? Say yes, or no.",
+   "pigeon": "Do you want to try and catch the egg? Say yes, or no.",
+   "pigeon-catch": "Do you want to keep waiting in line? Say yes, or no.",
+   "pigeon-duck": "Do you want to keep waiting in line? Say yes, or no.",
+   "waitmore": "Do you want to go and find some money? Say yes, or no.",
+   "fake": "Do you want to head out and earn some money? Say yes, or no.",
+   "sulk": "Want to go back and try again? Say yes, or no.",
+   "out": "Do you want to find a job? Say yes, or no.",
+   "car": "Do you want to walk the eight dogs? Say yes, or no.",
+   "kazoo-more": "Want to go back and try again? Say yes, or no.",
+   "dogs": "Do you want to hold on tight to the leads? Say yes, or no.",
+   "dogs-loose": "Want to go back and try again? Say yes, or no.",
+   "dogs-pulled": "Do you want to shout sit? Say yes, or no.",
+   "dogs-sit": "Do you want to adopt the little stray dog? Say yes, or no.",
+   "dogs-splash": "Do you want to adopt the little stray dog? Say yes, or no.",
+   "quest": "Do you want to be the magician's assistant? Say yes, or no.",
+   "Forget": "Want to go back and try again? Say yes, or no.",
+   "poster": "Do you want to look for the lost cat, Sir Pounce? Say yes, or no.",
+   "fishmarket": "Do you want to climb the ladder to the roof? Say yes to climb, or no to wait with a sardine.",
+   "catbait": "Want to go back and try again? Say yes, or no.",
+   "rooftop": "Do you want to call Sir Pounce's name? Say yes to call him, or no to wiggle a sardine.",
+   "catcall": "Want to go back and try again? Say yes, or no.",
+   "cathome": "Do you want to keep the ten dollars? Say yes, or no.",
+   "catswap": "Want to go back and try again? Say yes, or no.",
+   "apply": "Do you want to rehearse the magic trick first? Say yes, or no.",
+   "rehearse": "Do you pull the green lever? Say yes for green, or no for red.",
+   "show": "Do you want to do the magic trick one more time? Say yes, or no.",
+   "redlever": "Want to go back and try again? Say yes, or no.",
+   "start": "Do you want to start your own smoothie cart? Say yes, or no.",
+   "steal": "Want to go back and try again? Say yes, or no.",
+   "make": "Do you want to try selling something brand new? Say yes, or no.",
+   "low": "Want to go back and try again? Say yes, or no.",
+   "sellmore": "Ready to go and get your noodles? Say yes.",
+   "YAY": "Do you want to go inside Slurpy's? Say yes.",
+   "icecream": "Do you want to spend your money on an ice cream? Say yes, or no.",
+   "icecream-go": "Want to go back and try again? Say yes, or no.",
+   "goin": "Do you want to share the courier's takeout? Say yes, or no.",
+   "no": "Do you want to chase after the recycling truck? Say yes, or no.",
+   "chase": "Do you want to take the shortcut through the market? Say yes, or no.",
+   "chasemiss": "Want to go back and try again? Say yes, or no.",
+   "search": "Ready to go and get your bowl of ramen? Say yes.",
+   "search-nana": "Ready to go and get your bowl of ramen? Say yes.",
+   "order": "Do you want to try the super spicy Dragon Fire ramen? Say yes, or no.",
+   "burg": "Do you want to drop your penny in the tip jar? Say yes, or no.",
+   "burg-rich": "Do you want to share your noodles with the courier? Say yes, or no.",
+   "backdoor": "Do you want to sneak a bowl of ramen? Say yes, or no."
+  },
+  "common": {
+   "outro-reprompt": "Would you like to play again, or play a different game?",
+   "upsell-reprompt": "Do you want to unlock Unlimited Mini Games?",
+   "repeat": "Sorry, can you say that again?"
+  }
+ }
+}

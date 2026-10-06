@@ -1,0 +1,1060 @@
+{
+ "game": "signal-decoders",
+ "flow": [
+  {
+   "type": "pass",
+   "id": "ai-title",
+   "next": "ai-open-1"
+  },
+  {
+   "type": "pass",
+   "id": "ai-open-1",
+   "next": "ai-open-2"
+  },
+  {
+   "type": "question",
+   "id": "ai-open-2",
+   "yes": "ai-s1a",
+   "no": "ai-open-no"
+  },
+  {
+   "type": "question",
+   "id": "ai-open-no",
+   "yes": "ai-s1a",
+   "no": "ai-exit"
+  },
+  {
+   "type": "exit",
+   "id": "ai-exit"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s1a",
+   "next": "ai-s1b"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s1b",
+   "next": "ai-s1c"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s1c",
+   "next": "ai-s2"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s2",
+   "next": "ai-p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai-p1",
+   "puzzle": "p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai-p1-hint",
+   "puzzle": "p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai-p1-again",
+   "puzzle": "p1"
+  },
+  {
+   "type": "pass",
+   "id": "ai-p1-reveal",
+   "next": "ai-p1-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai-p1-yes",
+   "next": "ai-s3a"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s3a",
+   "next": "ai-s3b"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s3b",
+   "next": "ai-s3c"
+  },
+  {
+   "type": "question",
+   "id": "ai-s3c",
+   "yes": "ai-warn-1",
+   "no": "ai-s3-off"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s3-off",
+   "next": "ai-warn-1"
+  },
+  {
+   "type": "pass",
+   "id": "ai-warn-1",
+   "next": "ai-warn-2"
+  },
+  {
+   "type": "pass",
+   "id": "ai-warn-2",
+   "next": "ai-warn-3"
+  },
+  {
+   "type": "question",
+   "id": "ai-warn-3",
+   "yes": "ai-think-yes",
+   "no": "ai-think-no"
+  },
+  {
+   "type": "pass",
+   "id": "ai-think-yes",
+   "next": "ai-s5"
+  },
+  {
+   "type": "pass",
+   "id": "ai-think-no",
+   "next": "ai-s5"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s5",
+   "next": "ai-s5b"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s5b",
+   "next": "ai-p2-intro"
+  },
+  {
+   "type": "pass",
+   "id": "ai-p2-intro",
+   "next": "ai-p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai-p2",
+   "puzzle": "p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai-p2-hint",
+   "puzzle": "p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai-p2-again",
+   "puzzle": "p2"
+  },
+  {
+   "type": "pass",
+   "id": "ai-p2-reveal",
+   "next": "ai-p2-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai-p2-yes",
+   "next": "ai-s6a"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s6a",
+   "next": "ai-s6b"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s6b",
+   "next": "ai-s6c"
+  },
+  {
+   "type": "pass",
+   "id": "ai-s6c",
+   "next": "ai-choice"
+  },
+  {
+   "type": "choice",
+   "id": "ai-choice"
+  },
+  {
+   "type": "pass",
+   "id": "ai-end",
+   "next": {
+    "fn": "(ad) => (aiState(ad).choice === \"hide\" ? \"ai-fin-hide\" : \"ai-fin-follow\")"
+   }
+  },
+  {
+   "type": "ending",
+   "id": "ai-fin-follow",
+   "chapter": 1
+  },
+  {
+   "type": "ending",
+   "id": "ai-fin-hide",
+   "chapter": 1
+  },
+  {
+   "type": "pass",
+   "id": "ai2-title",
+   "next": {
+    "fn": "(ad) => (aiState(ad).episode1Choice === \"hide\" ? \"ai2-s1h\" : \"ai2-s1f\")"
+   }
+  },
+  {
+   "type": "pass",
+   "id": "ai2-s1f",
+   "next": "ai2-s1b"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-s1h",
+   "next": "ai2-s1b"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-s1b",
+   "next": "ai2-s2"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-s2",
+   "next": "ai2-p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai2-p1",
+   "puzzle": "c2p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai2-p1-hint",
+   "puzzle": "c2p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai2-p1-again",
+   "puzzle": "c2p1"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-p1-reveal",
+   "next": "ai2-p1-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-p1-yes",
+   "next": "ai2-s3"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-s3",
+   "next": "ai2-p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai2-p2",
+   "puzzle": "c2p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai2-p2-hint",
+   "puzzle": "c2p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai2-p2-again",
+   "puzzle": "c2p2"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-p2-reveal",
+   "next": "ai2-p2-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-p2-yes",
+   "next": "ai2-s4"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-s4",
+   "next": "ai2-q1"
+  },
+  {
+   "type": "question",
+   "id": "ai2-q1",
+   "yes": "ai2-trust-yes",
+   "no": "ai2-trust-no"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-trust-yes",
+   "next": "ai2-s5"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-trust-no",
+   "next": "ai2-s5"
+  },
+  {
+   "type": "pass",
+   "id": "ai2-s5",
+   "next": "ai2-fin"
+  },
+  {
+   "type": "ending",
+   "id": "ai2-fin",
+   "chapter": 2
+  },
+  {
+   "type": "pass",
+   "id": "ai3-title",
+   "next": "ai3-s1"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-s1",
+   "next": "ai3-s2"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-s2",
+   "next": "ai3-p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai3-p1",
+   "puzzle": "c3p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai3-p1-hint",
+   "puzzle": "c3p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai3-p1-again",
+   "puzzle": "c3p1"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-p1-reveal",
+   "next": "ai3-p1-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-p1-yes",
+   "next": "ai3-s3"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-s3",
+   "next": "ai3-q1"
+  },
+  {
+   "type": "question",
+   "id": "ai3-q1",
+   "yes": "ai3-hide",
+   "no": "ai3-freeze"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-hide",
+   "next": "ai3-s4"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-freeze",
+   "next": "ai3-s4"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-s4",
+   "next": "ai3-p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai3-p2",
+   "puzzle": "c3p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai3-p2-hint",
+   "puzzle": "c3p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai3-p2-again",
+   "puzzle": "c3p2"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-p2-reveal",
+   "next": "ai3-p2-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-p2-yes",
+   "next": "ai3-s5"
+  },
+  {
+   "type": "pass",
+   "id": "ai3-s5",
+   "next": "ai3-fin"
+  },
+  {
+   "type": "ending",
+   "id": "ai3-fin",
+   "chapter": 3
+  },
+  {
+   "type": "pass",
+   "id": "ai4-title",
+   "next": "ai4-s1"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-s1",
+   "next": "ai4-s2"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-s2",
+   "next": "ai4-p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai4-p1",
+   "puzzle": "c4p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai4-p1-hint",
+   "puzzle": "c4p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai4-p1-again",
+   "puzzle": "c4p1"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-p1-reveal",
+   "next": "ai4-p1-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-p1-yes",
+   "next": "ai4-q1"
+  },
+  {
+   "type": "question",
+   "id": "ai4-q1",
+   "yes": "ai4-trust-yes",
+   "no": "ai4-trust-no"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-trust-yes",
+   "next": "ai4-s3"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-trust-no",
+   "next": "ai4-s3"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-s3",
+   "next": "ai4-p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai4-p2",
+   "puzzle": "c4p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai4-p2-hint",
+   "puzzle": "c4p2"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai4-p2-again",
+   "puzzle": "c4p2"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-p2-reveal",
+   "next": "ai4-p2-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-p2-yes",
+   "next": "ai4-s4"
+  },
+  {
+   "type": "pass",
+   "id": "ai4-s4",
+   "next": "ai4-fin"
+  },
+  {
+   "type": "ending",
+   "id": "ai4-fin",
+   "chapter": 4
+  },
+  {
+   "type": "pass",
+   "id": "ai5-title",
+   "next": "ai5-s1"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-s1",
+   "next": "ai5-s2"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-s2",
+   "next": "ai5-q1"
+  },
+  {
+   "type": "question",
+   "id": "ai5-q1",
+   "yes": "ai5-wait",
+   "no": "ai5-dash"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-wait",
+   "next": "ai5-s3"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-dash",
+   "next": "ai5-s3"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-s3",
+   "next": "ai5-p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai5-p1",
+   "puzzle": "c5p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai5-p1-hint",
+   "puzzle": "c5p1"
+  },
+  {
+   "type": "puzzle",
+   "id": "ai5-p1-again",
+   "puzzle": "c5p1"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-p1-reveal",
+   "next": "ai5-p1-yes"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-p1-yes",
+   "next": "ai5-s4"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-s4",
+   "next": "ai5-q2"
+  },
+  {
+   "type": "question",
+   "id": "ai5-q2",
+   "yes": "ai5-climax",
+   "no": "ai5-nudge"
+  },
+  {
+   "type": "question",
+   "id": "ai5-nudge",
+   "yes": "ai5-climax",
+   "no": "ai5-climax"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-climax",
+   "next": "ai5-end"
+  },
+  {
+   "type": "pass",
+   "id": "ai5-end",
+   "next": "ai5-fin"
+  },
+  {
+   "type": "ending",
+   "id": "ai5-fin",
+   "chapter": 5
+  }
+ ],
+ "puzzles": {
+  "p1": {
+   "start": "ai-p1",
+   "hint": "ai-p1-hint",
+   "again": "ai-p1-again",
+   "reveal": "ai-p1-reveal",
+   "correct": "ai-p1-yes",
+   "check": "isCAC",
+   "options": [
+    {
+     "label": "A C A",
+     "value": "a c a"
+    },
+    {
+     "label": "C A C",
+     "value": "c a c"
+    },
+    {
+     "label": "C C A",
+     "value": "c c a"
+    }
+   ]
+  },
+  "p2": {
+   "start": "ai-p2",
+   "hint": "ai-p2-hint",
+   "again": "ai-p2-again",
+   "reveal": "ai-p2-reveal",
+   "correct": "ai-p2-yes",
+   "check": "is42211",
+   "options": [
+    {
+     "label": "3 2 2 1 1",
+     "value": "3 2 2 1 1"
+    },
+    {
+     "label": "4 2 1 1 2",
+     "value": "4 2 1 1 2"
+    },
+    {
+     "label": "4 2 2 1 1",
+     "value": "4 2 2 1 1"
+    }
+   ]
+  },
+  "c2p1": {
+   "start": "ai2-p1",
+   "hint": "ai2-p1-hint",
+   "again": "ai2-p1-again",
+   "reveal": "ai2-p1-reveal",
+   "correct": "ai2-p1-yes",
+   "check": "isLRRL",
+   "options": [
+    {
+     "label": "RIGHT LEFT LEFT RIGHT",
+     "value": "right left left right"
+    },
+    {
+     "label": "LEFT RIGHT RIGHT LEFT",
+     "value": "left right right left"
+    },
+    {
+     "label": "LEFT LEFT RIGHT RIGHT",
+     "value": "left left right right"
+    }
+   ]
+  },
+  "c2p2": {
+   "start": "ai2-p2",
+   "hint": "ai2-p2-hint",
+   "again": "ai2-p2-again",
+   "reveal": "ai2-p2-reveal",
+   "correct": "ai2-p2-yes",
+   "check": "isCAC",
+   "options": [
+    {
+     "label": "C A C",
+     "value": "c a c"
+    },
+    {
+     "label": "A C A",
+     "value": "a c a"
+    },
+    {
+     "label": "C C A",
+     "value": "c c a"
+    }
+   ]
+  },
+  "c3p1": {
+   "start": "ai3-p1",
+   "hint": "ai3-p1-hint",
+   "again": "ai3-p1-again",
+   "reveal": "ai3-p1-reveal",
+   "correct": "ai3-p1-yes",
+   "check": "is314",
+   "options": [
+    {
+     "label": "3 4 1",
+     "value": "3 4 1"
+    },
+    {
+     "label": "4 1 3",
+     "value": "4 1 3"
+    },
+    {
+     "label": "3 1 4",
+     "value": "3 1 4"
+    }
+   ]
+  },
+  "c3p2": {
+   "start": "ai3-p2",
+   "hint": "ai3-p2-hint",
+   "again": "ai3-p2-again",
+   "reveal": "ai3-p2-reveal",
+   "correct": "ai3-p2-yes",
+   "check": "isSOS",
+   "options": [
+    {
+     "label": "O S O",
+     "value": "o s o"
+    },
+    {
+     "label": "S O S",
+     "value": "s o s"
+    },
+    {
+     "label": "S S O",
+     "value": "s s o"
+    }
+   ]
+  },
+  "c4p1": {
+   "start": "ai4-p1",
+   "hint": "ai4-p1-hint",
+   "again": "ai4-p1-again",
+   "reveal": "ai4-p1-reveal",
+   "correct": "ai4-p1-yes",
+   "check": "is11224",
+   "options": [
+    {
+     "label": "1 1 2 2 4",
+     "value": "1 1 2 2 4"
+    },
+    {
+     "label": "4 2 2 1 1",
+     "value": "4 2 2 1 1"
+    },
+    {
+     "label": "1 2 1 2 4",
+     "value": "1 2 1 2 4"
+    }
+   ]
+  },
+  "c4p2": {
+   "start": "ai4-p2",
+   "hint": "ai4-p2-hint",
+   "again": "ai4-p2-again",
+   "reveal": "ai4-p2-reveal",
+   "correct": "ai4-p2-yes",
+   "check": "isHHL",
+   "options": [
+    {
+     "label": "HIGH LOW HIGH",
+     "value": "high low high"
+    },
+    {
+     "label": "HIGH HIGH LOW",
+     "value": "high high low"
+    },
+    {
+     "label": "LOW LOW HIGH",
+     "value": "low low high"
+    }
+   ]
+  },
+  "c5p1": {
+   "start": "ai5-p1",
+   "hint": "ai5-p1-hint",
+   "again": "ai5-p1-again",
+   "reveal": "ai5-p1-reveal",
+   "correct": "ai5-p1-yes",
+   "check": "isTen",
+   "options": [
+    {
+     "label": "8",
+     "value": "8"
+    },
+    {
+     "label": "12",
+     "value": "12"
+    },
+    {
+     "label": "10",
+     "value": "10"
+    }
+   ]
+  }
+ },
+ "words": {
+  "yes": [
+   "yes",
+   "yeah",
+   "yep",
+   "yup",
+   "sure",
+   "okay",
+   "ok",
+   "of course",
+   "definitely",
+   "let's go",
+   "lets go",
+   "ready",
+   "i'm ready",
+   "im ready",
+   "join",
+   "i'll help",
+   "ill help",
+   "help them",
+   "do it",
+   "deal",
+   "alright",
+   "all right",
+   "uh huh",
+   "i think so",
+   "maybe",
+   "probably",
+   "keep listening",
+   "listen",
+   "keep it on",
+   "leave it on"
+  ],
+  "no": [
+   "no",
+   "nope",
+   "nah",
+   "don't",
+   "dont",
+   "not really",
+   "no thanks",
+   "guess not",
+   "not now",
+   "never",
+   "switch it off",
+   "turn it off",
+   "switch off",
+   "turn off",
+   "off"
+  ],
+  "unsure": [
+   "not sure",
+   "unsure",
+   "dunno",
+   "no idea"
+  ],
+  "repeat": [
+   "repeat",
+   "repeat that",
+   "say that again",
+   "say it again",
+   "again",
+   "what did you say",
+   "come again",
+   "pardon",
+   "one more time",
+   "play it again",
+   "hear it again",
+   "listen again",
+   "replay"
+  ],
+  "follow": [
+   "follow",
+   "following",
+   "follows",
+   "followed",
+   "fellow",
+   "hollow",
+   "fallow",
+   "follow it",
+   "follow the signal",
+   "go after it",
+   "find it",
+   "find them",
+   "find the source",
+   "option one",
+   "number one",
+   "one",
+   "1",
+   "first",
+   "the first one"
+  ],
+  "hide": [
+   "hide",
+   "hiding",
+   "hid",
+   "hidden",
+   "hyde",
+   "hi",
+   "high",
+   "height",
+   "stay",
+   "stay here",
+   "stay hidden",
+   "shut down",
+   "shut it down",
+   "remain",
+   "remain hidden",
+   "option two",
+   "number two",
+   "two",
+   "2",
+   "second",
+   "the second one"
+  ]
+ },
+ "symbols": {
+  "letters": {
+   "c": [
+    "c",
+    "see",
+    "sea",
+    "si",
+    "cee",
+    "ce",
+    "seas",
+    "sees",
+    "c's",
+    "cs",
+    "she"
+   ],
+   "a": [
+    "a",
+    "ay",
+    "aye",
+    "eh",
+    "hey",
+    "hay",
+    "ae",
+    "ah"
+   ]
+  },
+  "turns": {
+   "l": [
+    "left",
+    "lefts",
+    "lift",
+    "laughed",
+    "loft",
+    "l"
+   ],
+   "r": [
+    "right",
+    "rights",
+    "write",
+    "rite",
+    "wright",
+    "riot",
+    "white",
+    "r"
+   ]
+  },
+  "sos": {
+   "s": [
+    "s",
+    "ess",
+    "es",
+    "esse",
+    "ass"
+   ],
+   "o": [
+    "o",
+    "oh",
+    "owe",
+    "ow",
+    "ou",
+    "zero",
+    "0"
+   ]
+  },
+  "notes": {
+   "h": [
+    "high",
+    "hi",
+    "hai",
+    "hay",
+    "hey",
+    "hy",
+    "hiya",
+    "highs"
+   ],
+   "l": [
+    "low",
+    "lo",
+    "lowe",
+    "loh",
+    "lows",
+    "blow",
+    "below"
+   ]
+  }
+ },
+ "chapters": {
+  "1": "ai-title",
+  "2": "ai2-title",
+  "3": "ai3-title",
+  "4": "ai4-title",
+  "5": "ai5-title"
+ },
+ "reprompts": {
+  "nodes": {
+   "ai-open-2": "Are you ready to join the Decoders? Say yes, or no.",
+   "ai-open-no": "Will you help the Decoders? Say yes, or no.",
+   "ai-p1": "If High is the note C, and Low is the note A, what three letters is the signal playing? High, Low, High.",
+   "ai-p1-hint": "If High is C, and Low is A, what three letters is the signal playing? High, Low, High.",
+   "ai-p1-again": "If High is the note C, and Low is the note A, what three letters is the signal playing? High, Low, High.",
+   "ai-s3c": "Should Alex and Robin keep listening to the radio tonight? Say yes, or no.",
+   "ai-warn-3": "Do you think the signal is trying to help Alex and Robin? Say yes, or no.",
+   "ai-p2": "Count the notes in each group of the signal. What numbers do you hear?",
+   "ai-p2-hint": "Count the notes in each group. The first group has four. What numbers come next?",
+   "ai-p2-again": "Count the notes in each group of the signal. What numbers do you hear?",
+   "ai-choice": "Should the Decoders follow the signal, or hide? Say follow, or hide.",
+   "ai2-p1": "If High means left, and Low means right, which four ways should they turn?",
+   "ai2-p1-hint": "If High means left, and Low means right, which four ways should they turn?",
+   "ai2-p1-again": "If High means left, and Low means right, which four ways should they turn?",
+   "ai2-p2": "What three letters did the signal spell, the very first time?",
+   "ai2-p2-hint": "What three letters did the signal spell, the very first time?",
+   "ai2-p2-again": "What three letters did the signal spell, the very first time?",
+   "ai2-q1": "Should Alex and Robin trust Ada? Say yes, or no.",
+   "ai3-p1": "Count the beeps in each group. What are the three numbers?",
+   "ai3-p1-hint": "Count the beeps in each group. What are the three numbers?",
+   "ai3-p1-again": "Count the beeps in each group. What are the three numbers?",
+   "ai3-q1": "Should they hide behind the crates? Say yes, or no.",
+   "ai3-p2": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?",
+   "ai3-p2-hint": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?",
+   "ai3-p2-again": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?",
+   "ai4-p1": "The code was four, two, two, one, one. What is it backwards?",
+   "ai4-p1-hint": "The code was four, two, two, one, one. What is it backwards?",
+   "ai4-p1-again": "The code was four, two, two, one, one. What is it backwards?",
+   "ai4-q1": "Do you trust the Choir? Say yes, or no.",
+   "ai4-p2": "The Choir sang three notes. Say high or low for each one.",
+   "ai4-p2-hint": "The Choir sang three notes. Say high or low for each one.",
+   "ai4-p2-again": "The Choir sang three notes. Say high or low for each one.",
+   "ai5-q1": "Should they wait for the drones to turn away? Say yes, or no.",
+   "ai5-p1": "Four plus two plus two plus one plus one. How many notes is that, altogether?",
+   "ai5-p1-hint": "Four plus two plus two plus one plus one. How many notes is that, altogether?",
+   "ai5-p1-again": "Four plus two plus two plus one plus one. How many notes is that, altogether?",
+   "ai5-q2": "Will you help broadcast the truth to all of London? Say yes!",
+   "ai5-nudge": "Will you help them broadcast the truth? Say yes!"
+  },
+  "common": {
+   "outro-reprompt": "Would you like to play the next chapter, or play a different game?",
+   "outro-reprompt-end": "Would you like to play again, or play a different game?",
+   "upsell-reprompt": "Do you want to unlock Unlimited Mini Games?",
+   "unhandled": "Sorry, Decoder, the signal's a bit fuzzy. Can you say that again?",
+   "help": "Listen carefully to the signal, and answer out loud. You can say repeat to hear it again."
+  }
+ }
+}

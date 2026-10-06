@@ -1,0 +1,22 @@
+# built audio (rebuilt by tools/)
+content/
+tools/cache/
+
+# secrets
+.env
+*.keystore
+*.jks
+local.properties
+
+# Android / Gradle
+android/.gradle/
+android/build/
+android/**/build/
+android/.idea/
+android/.kotlin/
+*.iml
+captures/
+
+# Python / Node
+__pycache__/
+node_modules/

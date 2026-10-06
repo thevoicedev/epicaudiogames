@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The Mini Games look: a light blue backdrop and a slate blue header bar. -->
+    <color name="backdrop">#FF5FA3D6</color>
+    <color name="backdrop_edge">#FF3E7FC3</color>
+    <color name="header_top">#FF4E6383</color>
+    <color name="ic_launcher_background">#FF3E7FC3</color>
+</resources>

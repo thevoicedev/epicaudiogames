@@ -1,0 +1,2585 @@
+{
+ "game": "frootopia",
+ "flow": [
+  {
+   "type": "scene",
+   "id": "fr-1",
+   "description": "Opening - Sprockle introduces adventure",
+   "yes": "fr-2",
+   "no": "fr-1a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-1a",
+   "description": "Soft no - Sprockle waits",
+   "yes": "fr-2",
+   "no": "fr-exit"
+  },
+  {
+   "type": "exit",
+   "id": "fr-exit",
+   "description": "Exit game"
+  },
+  {
+   "type": "gameover",
+   "id": "fr-gameover-1",
+   "description": "Game Over - Consumed by Fear"
+  },
+  {
+   "type": "scene",
+   "id": "fr-2",
+   "description": "Sprockle explains the galaxy",
+   "yes": "fr-3",
+   "no": "fr-2a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-2a",
+   "description": "Skip to current state",
+   "yes": "fr-5",
+   "no": "fr-4a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-3",
+   "description": "The Mucklars origin",
+   "yes": "fr-5",
+   "no": "fr-4a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-4a",
+   "description": "Sprockle's gadget beeps",
+   "yes": "fr-6",
+   "no": "fr-6a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-5",
+   "description": "Meet Gribbo and Tula",
+   "yes": "fr-6",
+   "no": "fr-6a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-6",
+   "description": "Investigate Signal",
+   "yes": "fr-7",
+   "no": "fr-6b",
+   "stats": {
+    "HOPE": 5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-6a",
+   "description": "Ignore Signal",
+   "yes": "fr-7",
+   "no": "fr-6b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-6b",
+   "description": "Let It Ring",
+   "yes": "fr-7",
+   "no": "fr-6c",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-6c",
+   "description": "Sprockle Calls Back",
+   "yes": "fr-7",
+   "no": "fr-6d",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "pass",
+   "id": "fr-6d",
+   "description": "Emergency Override",
+   "next": "fr-7",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-7",
+   "description": "The Urgent Call",
+   "yes": "fr-8",
+   "no": "fr-7a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-7a",
+   "description": "Hesitate Then Commit",
+   "yes": "fr-8",
+   "no": "fr-7ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-8",
+   "description": "Board Gribbo's Ship",
+   "yes": "fr-9",
+   "no": "fr-8a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-8a",
+   "description": "One Last Check",
+   "yes": "fr-9",
+   "no": "fr-8ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-9",
+   "description": "The Peach Incident",
+   "yes": "fr-10a",
+   "no": "fr-10b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-10a",
+   "description": "Fight the Mucklars",
+   "yes": "fr-11",
+   "no": "fr-10a1",
+   "stats": {
+    "TEAM_MORALE": 10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-10a1",
+   "description": "No Asteroids Yet",
+   "yes": "fr-11",
+   "no": "fr-10a1x",
+   "stats": {
+    "FUEL": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-10b",
+   "description": "Flee from Mucklars",
+   "yes": "fr-11",
+   "no": "fr-10b1",
+   "stats": {
+    "FUEL": -10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-10b1",
+   "description": "Pull Up",
+   "yes": "fr-11",
+   "no": "fr-10b1x",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-11",
+   "description": "Escape Through Asteroids",
+   "yes": "fr-12",
+   "no": "fr-11a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-11a",
+   "description": "Catch Your Breath",
+   "yes": "fr-12",
+   "no": "fr-11ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-12",
+   "description": "The Broken Pipe",
+   "yes": "fr-13",
+   "no": "fr-12a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-12a",
+   "description": "Reluctant Answer",
+   "yes": "fr-13",
+   "no": "fr-12ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-13",
+   "description": "Missing Part",
+   "yes": "fr-14",
+   "no": "fr-13a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-13a",
+   "description": "Search Elsewhere First",
+   "yes": "fr-14",
+   "no": "fr-13b",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-13b",
+   "description": "Last Delay",
+   "yes": "fr-14",
+   "no": "fr-13bx",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-14",
+   "description": "The Underground Market",
+   "yes": "fr-15",
+   "no": "fr-14a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-14a",
+   "description": "Hear Him Out",
+   "yes": "fr-15",
+   "no": "fr-14ax",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-15",
+   "description": "The Dealer's Offer",
+   "yes": "fr-16",
+   "no": "fr-15a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-15a",
+   "description": "Try to Negotiate",
+   "yes": "fr-16",
+   "no": "fr-15b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-15b",
+   "description": "Final Refusal",
+   "yes": "fr-16",
+   "no": "fr-15bx",
+   "stats": {
+    "HOPE": -10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-16",
+   "description": "The Sewage Race",
+   "yes": "fr-17",
+   "no": "fr-16a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-16a",
+   "description": "Hold Your Breath",
+   "yes": "fr-17",
+   "no": "fr-16ax",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-17",
+   "description": "Gribbo Wins",
+   "yes": "fr-18",
+   "no": "fr-17a",
+   "stats": {
+    "TEAM_MORALE": 15
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-17a",
+   "description": "No Time To Celebrate",
+   "yes": "fr-18",
+   "no": "fr-17ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-18",
+   "description": "Pipe Fixed",
+   "yes": "fr-19",
+   "no": "fr-18a",
+   "stats": {
+    "HOPE": 10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-18a",
+   "description": "Not Yet",
+   "yes": "fr-19",
+   "no": "fr-18ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-19",
+   "description": "Defense Message",
+   "yes": "fr-20",
+   "no": "fr-19a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-19a",
+   "description": "Stuck",
+   "yes": "fr-20",
+   "no": "fr-19ax",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-20",
+   "description": "Veggonaut Signal",
+   "yes": "fr-21",
+   "no": "fr-20a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-20a",
+   "description": "Keep Your Distance",
+   "yes": "fr-21",
+   "no": "fr-20ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-21",
+   "description": "Shocking News",
+   "yes": "fr-22",
+   "no": "fr-21a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-21a",
+   "description": "Doubt at First",
+   "yes": "fr-22",
+   "no": "fr-21b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-21b",
+   "description": "Still Not Sure",
+   "yes": "fr-22",
+   "no": "fr-21bx",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-22",
+   "description": "New Allies",
+   "yes": "fr-24",
+   "no": "fr-22a",
+   "stats": {
+    "ALLIES": 20
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-22a",
+   "description": "Hate This Plan",
+   "yes": "fr-24",
+   "no": "fr-22ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-24",
+   "description": "Fuel Problem",
+   "yes": "fr-25",
+   "no": "fr-24a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-24a",
+   "description": "Second Thoughts",
+   "yes": "fr-25",
+   "no": "fr-24b",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-24b",
+   "description": "No Choice But Forward",
+   "yes": "fr-25",
+   "no": "fr-24c",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "pass",
+   "id": "fr-24c",
+   "description": "Forced March",
+   "next": "fr-25",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-25",
+   "description": "The Robot Guardian",
+   "yes": "fr-26",
+   "no": "fr-25a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-25a",
+   "description": "You Try Instead",
+   "yes": "fr-26",
+   "no": "fr-25b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-25b",
+   "description": "Cosmo Answers",
+   "yes": "fr-27",
+   "no": "fr-27a",
+   "stats": {
+    "HOPE": 5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-26",
+   "description": "The Riddle",
+   "yes": "fr-27",
+   "no": "fr-26a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-26a",
+   "description": "Wrong Guess",
+   "yes": "fr-27",
+   "no": "fr-26b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-26b",
+   "description": "Robot Doubts",
+   "yes": "fr-27",
+   "no": "fr-26c",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "pass",
+   "id": "fr-26c",
+   "description": "Robot Resets",
+   "next": "fr-27",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-27",
+   "description": "Fuel Obtained",
+   "yes": "fr-28",
+   "no": "fr-27a",
+   "stats": {
+    "FUEL": 50
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-27a",
+   "description": "Not Quite Ready",
+   "yes": "fr-28",
+   "no": "fr-27ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-28",
+   "description": "Arriving at Zoomara",
+   "yes": "fr-29",
+   "no": "fr-28a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-28a",
+   "description": "Circle Overhead",
+   "yes": "fr-29",
+   "no": "fr-28ax",
+   "stats": {
+    "FUEL": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-29",
+   "description": "Surrounded",
+   "yes": "fr-30",
+   "no": "fr-29a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-29a",
+   "description": "Attempt to Fight",
+   "yes": "fr-30",
+   "no": "fr-30a",
+   "stats": {
+    "TEAM_MORALE": -10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-30a",
+   "description": "Refuse to Speak",
+   "yes": "fr-31",
+   "no": "fr-31a",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-30",
+   "description": "Meet Shaman Pawra",
+   "yes": "fr-31",
+   "no": "fr-31a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-31",
+   "description": "Cosmo's Speech",
+   "yes": "fr-32",
+   "no": "fr-32a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-31a",
+   "description": "Cosmo's Calculated Pitch",
+   "yes": "fr-32",
+   "no": "fr-32a",
+   "stats": {
+    "HOPE": 5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-32a",
+   "description": "Shaman Pawra Demands Proof",
+   "yes": "fr-32b",
+   "no": "fr-32c",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-32b",
+   "description": "The Pipe Trial",
+   "yes": "fr-33",
+   "no": "fr-32b1",
+   "stats": {
+    "HOPE": 10,
+    "ALLIES": 20,
+    "TEAM_MORALE": 5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-32b1",
+   "description": "Rest Before Leaving",
+   "yes": "fr-33",
+   "no": "fr-32b1x"
+  },
+  {
+   "type": "scene",
+   "id": "fr-32c",
+   "description": "Tula's Oath",
+   "yes": "fr-33",
+   "no": "fr-32c1",
+   "stats": {
+    "TEAM_MORALE": 5,
+    "ALLIES": 10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-32c1",
+   "description": "Quiet Farewell",
+   "yes": "fr-33",
+   "no": "fr-32c1x"
+  },
+  {
+   "type": "scene",
+   "id": "fr-32",
+   "description": "Beastroos Join",
+   "yes": "fr-33",
+   "no": "fr-32d",
+   "stats": {
+    "ALLIES": 30,
+    "HOPE": 20
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-32d",
+   "description": "Not Ready To Leave",
+   "yes": "fr-33",
+   "no": "fr-32dx"
+  },
+  {
+   "type": "scene",
+   "id": "fr-33",
+   "description": "Return to Frootopia",
+   "yes": "fr-34",
+   "no": "fr-33a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-33a",
+   "description": "Not Yet",
+   "yes": "fr-34",
+   "no": "fr-33ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-34",
+   "description": "Guard Captain Confirms",
+   "yes": "fr-35",
+   "no": "fr-35a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-35",
+   "description": "Sprockle's Broadcast",
+   "yes": "fr-36",
+   "no": "fr-35b",
+   "stats": {
+    "HOPE": 15
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-35b",
+   "description": "Don't Rush",
+   "yes": "fr-36",
+   "no": "fr-35bx"
+  },
+  {
+   "type": "scene",
+   "id": "fr-35a",
+   "description": "Warn Another Way",
+   "yes": "fr-36",
+   "no": "fr-35c"
+  },
+  {
+   "type": "scene",
+   "id": "fr-35c",
+   "description": "Catch Up First",
+   "yes": "fr-36",
+   "no": "fr-35cx",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-36",
+   "description": "Secret Tunnel",
+   "yes": "fr-37",
+   "no": "fr-36a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-36a",
+   "description": "Must Take Tunnel",
+   "yes": "fr-37",
+   "no": "fr-36b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-36b",
+   "description": "Not Confident",
+   "yes": "fr-37",
+   "no": "fr-36bx"
+  },
+  {
+   "type": "scene",
+   "id": "fr-37",
+   "description": "Through the Tunnels",
+   "yes": "fr-38",
+   "no": "fr-37a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-37a",
+   "description": "Look Away",
+   "yes": "fr-38",
+   "no": "fr-37ax",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-38",
+   "description": "Portal Opening",
+   "yes": "fr-39",
+   "no": "fr-38a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-38a",
+   "description": "Wait - Then Confront",
+   "yes": "fr-39",
+   "no": "fr-38b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-38b",
+   "description": "Dragged In",
+   "yes": "fr-39",
+   "no": "fr-38bx",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-39",
+   "description": "Confront Citrinus",
+   "yes": "fr-40",
+   "no": "fr-39a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-39a",
+   "description": "Don't Trust It",
+   "yes": "fr-40",
+   "no": "fr-39ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-40",
+   "description": "Anti-Gravity Gun",
+   "yes": "fr-41",
+   "no": "fr-40a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-40a",
+   "description": "Reality Check",
+   "yes": "fr-41",
+   "no": "fr-40ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-41",
+   "description": "Portal Opens",
+   "yes": "fr-42a",
+   "no": "fr-42"
+  },
+  {
+   "type": "scene",
+   "id": "fr-42",
+   "description": "Reinforcements Arrive",
+   "yes": "fr-43",
+   "no": "fr-42b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-42b",
+   "description": "Blank Mind",
+   "yes": "fr-43",
+   "no": "fr-42bx",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-42a",
+   "description": "Not All Lost - Reinforcements",
+   "yes": "fr-43",
+   "no": "fr-42c"
+  },
+  {
+   "type": "scene",
+   "id": "fr-42c",
+   "description": "Pressure",
+   "yes": "fr-43",
+   "no": "fr-42cx",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-43",
+   "description": "Cosmo's Brilliant Idea",
+   "yes": "fr-44",
+   "no": "fr-43a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-43a",
+   "description": "Afraid To Try",
+   "yes": "fr-44",
+   "no": "fr-43ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-44",
+   "description": "Light Attack",
+   "yes": "fr-45",
+   "no": "fr-44a",
+   "stats": {
+    "HOPE": 30
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-44a",
+   "description": "Don't Celebrate",
+   "yes": "fr-45",
+   "no": "fr-44ax"
+  },
+  {
+   "type": "scene",
+   "id": "fr-45",
+   "description": "Core Still Active",
+   "yes": "fr-46",
+   "no": "fr-45a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-45a",
+   "description": "No One Should",
+   "yes": "fr-46",
+   "no": "fr-45ax",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-46",
+   "description": "Gribbo Volunteers",
+   "yes": "fr-47",
+   "no": "fr-46a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-46a",
+   "description": "Everyone Follows",
+   "yes": "fr-47",
+   "no": "fr-46b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-46b",
+   "description": "Last Chance To Turn Back",
+   "yes": "fr-47",
+   "no": "fr-46bx"
+  },
+  {
+   "type": "scene",
+   "id": "fr-47",
+   "description": "Into Morbia",
+   "yes": "fr-48",
+   "no": "fr-48a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-48a",
+   "description": "Hesitation in Morbia",
+   "yes": "fr-48",
+   "no": "fr-48b",
+   "stats": {
+    "TEAM_MORALE": -10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-48b",
+   "description": "Pulled Forward",
+   "yes": "fr-48",
+   "no": "fr-gameover-1",
+   "stats": {
+    "HOPE": -10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-48",
+   "description": "Hallucinations",
+   "yes": "fr-49",
+   "no": "fr-48c"
+  },
+  {
+   "type": "scene",
+   "id": "fr-48c",
+   "description": "Gribbo Stumbles",
+   "yes": "fr-49",
+   "no": "fr-49a",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-49",
+   "description": "Gribbo Fights Through",
+   "yes": "fr-50",
+   "no": "fr-49b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-49a",
+   "description": "Cosmo Takes the Throw",
+   "yes": "fr-50",
+   "no": "fr-49b",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-49b",
+   "description": "The First Miss",
+   "yes": "fr-50a",
+   "no": "fr-50",
+   "stats": {
+    "HOPE": -10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-50",
+   "description": "Core Destroyed",
+   "yes": "fr-51",
+   "no": "fr-50b",
+   "stats": {
+    "HOPE": 50
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-50a",
+   "description": "Second Attempt",
+   "yes": "fr-51",
+   "no": "fr-50b",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-50b",
+   "description": "The Slow Escape",
+   "yes": "fr-51",
+   "no": "fr-51a",
+   "stats": {
+    "FUEL": -10
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-51a",
+   "description": "Bruised Landing",
+   "yes": "fr-52a",
+   "no": "fr-52",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-51",
+   "description": "The Escape",
+   "yes": "fr-52a",
+   "no": "fr-52"
+  },
+  {
+   "type": "scene",
+   "id": "fr-52",
+   "description": "Gribbo Returns",
+   "yes": "fr-53",
+   "no": "fr-52b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-52a",
+   "description": "Worry Then Relief",
+   "yes": "fr-53",
+   "no": "fr-52c"
+  },
+  {
+   "type": "scene",
+   "id": "fr-52b",
+   "description": "Bittersweet Victory",
+   "yes": "fr-53",
+   "no": "fr-55",
+   "stats": {
+    "HOPE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-52c",
+   "description": "Relief, Then Reality",
+   "yes": "fr-53",
+   "no": "fr-55",
+   "stats": {
+    "TEAM_MORALE": -5
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-53",
+   "description": "Victory",
+   "yes": "fr-54",
+   "no": "fr-55"
+  },
+  {
+   "type": "ending",
+   "id": "fr-54",
+   "description": "Heroes Epilogue",
+   "story": 1
+  },
+  {
+   "type": "ending",
+   "id": "fr-55",
+   "description": "Quick Ending",
+   "story": 1
+  },
+  {
+   "type": "gameover",
+   "id": "fr-gameover-2",
+   "description": "Game Over - Walk Away Early"
+  },
+  {
+   "type": "gameover",
+   "id": "fr-gameover-3",
+   "description": "Game Over - Darkness Spreads"
+  },
+  {
+   "type": "gameover",
+   "id": "fr-gameover-4",
+   "description": "Game Over - Refuse Morbia"
+  },
+  {
+   "type": "scene",
+   "id": "fr-7ax",
+   "description": "Decline - Head Out Now",
+   "yes": "fr-8",
+   "no": "fr-7a",
+   "stats": {
+    "TEAM_MORALE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-8ax",
+   "description": "Decline - Launch Now",
+   "yes": "fr-9",
+   "no": "fr-8a",
+   "stats": {
+    "FUEL": -1
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-10a1x",
+   "description": "Decline - Dive Into Asteroids",
+   "yes": "fr-11",
+   "no": "fr-gameover-2"
+  },
+  {
+   "type": "scene",
+   "id": "fr-10b1x",
+   "description": "Decline - Commit To Asteroids",
+   "yes": "fr-11",
+   "no": "fr-gameover-2"
+  },
+  {
+   "type": "scene",
+   "id": "fr-11ax",
+   "description": "Decline - Check The Damage",
+   "yes": "fr-12",
+   "no": "fr-11a",
+   "stats": {
+    "HOPE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-12ax",
+   "description": "Decline - Explain The Missing Part",
+   "yes": "fr-13",
+   "no": "fr-12a",
+   "stats": {
+    "TEAM_MORALE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-13bx",
+   "description": "Decline - Go To The Market",
+   "yes": "fr-14",
+   "no": "fr-13b",
+   "stats": {
+    "HOPE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-14ax",
+   "description": "Decline - Hear The Offer",
+   "yes": "fr-15",
+   "no": "fr-14a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-15bx",
+   "description": "Decline - Let Gribbo Race",
+   "yes": "fr-16",
+   "no": "fr-15b",
+   "stats": {
+    "HOPE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-16ax",
+   "description": "Decline - Keep Watching",
+   "yes": "fr-17",
+   "no": "fr-16a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-17ax",
+   "description": "Decline - Fix The Pipe",
+   "yes": "fr-18",
+   "no": "fr-17a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-18ax",
+   "description": "Decline - Listen To The Message",
+   "yes": "fr-19",
+   "no": "fr-18a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-19ax",
+   "description": "Decline - Figure It Out",
+   "yes": "fr-20",
+   "no": "fr-19a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-20ax",
+   "description": "Decline - Approach The Veggonauts",
+   "yes": "fr-21",
+   "no": "fr-20a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-21bx",
+   "description": "Decline - Accept The Evidence",
+   "yes": "fr-22",
+   "no": "fr-21b",
+   "stats": {
+    "HOPE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-22ax",
+   "description": "Decline - Head For Zoomara",
+   "yes": "fr-24",
+   "no": "fr-22a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-27ax",
+   "description": "Decline - Fly To Zoomara",
+   "yes": "fr-28",
+   "no": "fr-27a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-28ax",
+   "description": "Decline - Land On Zoomara",
+   "yes": "fr-29",
+   "no": "fr-28a",
+   "stats": {
+    "FUEL": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-32b1x",
+   "description": "Decline - Return To Frootopia",
+   "yes": "fr-33",
+   "no": "fr-32b1"
+  },
+  {
+   "type": "scene",
+   "id": "fr-32c1x",
+   "description": "Decline - Return Now",
+   "yes": "fr-33",
+   "no": "fr-32c1"
+  },
+  {
+   "type": "scene",
+   "id": "fr-32dx",
+   "description": "Decline - Frootopia Needs You",
+   "yes": "fr-33",
+   "no": "fr-32d"
+  },
+  {
+   "type": "scene",
+   "id": "fr-33ax",
+   "description": "Decline - Contact The Guard Captain",
+   "yes": "fr-34",
+   "no": "fr-33a",
+   "stats": {
+    "TEAM_MORALE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-35bx",
+   "description": "Decline - Head To The Tree",
+   "yes": "fr-36",
+   "no": "fr-35b",
+   "stats": {
+    "HOPE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-35cx",
+   "description": "Decline - Move",
+   "yes": "fr-36",
+   "no": "fr-35c"
+  },
+  {
+   "type": "scene",
+   "id": "fr-36bx",
+   "description": "Decline - Lead Them",
+   "yes": "fr-37",
+   "no": "fr-36b"
+  },
+  {
+   "type": "scene",
+   "id": "fr-37ax",
+   "description": "Decline - Look",
+   "yes": "fr-38",
+   "no": "fr-37a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-38bx",
+   "description": "Decline - Keep Fighting",
+   "yes": "fr-39",
+   "no": "fr-gameover-3"
+  },
+  {
+   "type": "scene",
+   "id": "fr-39ax",
+   "description": "Decline - Use The Gun",
+   "yes": "fr-40",
+   "no": "fr-39a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-40ax",
+   "description": "Decline - Look At The Portal",
+   "yes": "fr-41",
+   "no": "fr-40a",
+   "stats": {
+    "HOPE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-42bx",
+   "description": "Decline - Have An Idea",
+   "yes": "fr-43",
+   "no": "fr-42b",
+   "stats": {
+    "HOPE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-42cx",
+   "description": "Decline - Make A Decision",
+   "yes": "fr-43",
+   "no": "fr-42c",
+   "stats": {
+    "TEAM_MORALE": -2
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-43ax",
+   "description": "Decline - Try The Plan",
+   "yes": "fr-44",
+   "no": "fr-43a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-44ax",
+   "description": "Decline - Is It Still A Threat",
+   "yes": "fr-45",
+   "no": "fr-44a"
+  },
+  {
+   "type": "scene",
+   "id": "fr-45ax",
+   "description": "Decline - Someone Must Volunteer",
+   "yes": "fr-46",
+   "no": "fr-45a",
+   "stats": {
+    "HOPE": -3
+   }
+  },
+  {
+   "type": "scene",
+   "id": "fr-46bx",
+   "description": "Decline - Enter Morbia",
+   "yes": "fr-47",
+   "no": "fr-gameover-4"
+  },
+  {
+   "type": "story",
+   "id": "fr-sting",
+   "kind": "sting",
+   "story": 1
+  },
+  {
+   "type": "story",
+   "id": "fr2-0",
+   "kind": "passthrough",
+   "next": "fr2-1"
+  },
+  {
+   "type": "story",
+   "id": "fr2-1",
+   "kind": "scene",
+   "yes": "fr2-2",
+   "no": "fr2-1n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-1n",
+   "kind": "passthrough",
+   "next": "fr2-2"
+  },
+  {
+   "type": "story",
+   "id": "fr2-2",
+   "kind": "scene",
+   "yes": "fr2-3",
+   "no": "fr2-2n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-2n",
+   "kind": "passthrough",
+   "next": "fr2-3"
+  },
+  {
+   "type": "story",
+   "id": "fr2-3",
+   "kind": "scene",
+   "yes": "fr2-3y",
+   "no": "fr2-3n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-3y",
+   "kind": "passthrough",
+   "next": "fr2-4"
+  },
+  {
+   "type": "story",
+   "id": "fr2-3n",
+   "kind": "passthrough",
+   "next": "fr2-4"
+  },
+  {
+   "type": "story",
+   "id": "fr2-4",
+   "kind": "scene",
+   "yes": "fr2-5",
+   "no": "fr2-4n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-4n",
+   "kind": "passthrough",
+   "next": "fr2-5"
+  },
+  {
+   "type": "story",
+   "id": "fr2-5",
+   "kind": "scene",
+   "yes": "fr2-5y",
+   "no": "fr2-6"
+  },
+  {
+   "type": "story",
+   "id": "fr2-5y",
+   "kind": "passthrough",
+   "next": "fr2-6"
+  },
+  {
+   "type": "story",
+   "id": "fr2-6",
+   "kind": "scene",
+   "yes": "fr2-7",
+   "no": "fr2-6n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-6n",
+   "kind": "passthrough",
+   "next": "fr2-7"
+  },
+  {
+   "type": "story",
+   "id": "fr2-7",
+   "kind": "scene",
+   "yes": "fr2-7y",
+   "no": "fr2-7n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-7y",
+   "kind": "passthrough",
+   "next": "fr2-8"
+  },
+  {
+   "type": "story",
+   "id": "fr2-7n",
+   "kind": "passthrough",
+   "next": "fr2-8"
+  },
+  {
+   "type": "story",
+   "id": "fr2-8",
+   "kind": "scene",
+   "yes": "fr2-8y",
+   "no": "fr2-8n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-8y",
+   "kind": "passthrough",
+   "next": "fr2-9"
+  },
+  {
+   "type": "story",
+   "id": "fr2-8n",
+   "kind": "passthrough",
+   "next": "fr2-9"
+  },
+  {
+   "type": "story",
+   "id": "fr2-9",
+   "kind": "scene",
+   "yes": "fr2-9y",
+   "no": "fr2-9n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-9y",
+   "kind": "passthrough",
+   "next": "fr2-10"
+  },
+  {
+   "type": "story",
+   "id": "fr2-9n",
+   "kind": "passthrough",
+   "next": "fr2-10"
+  },
+  {
+   "type": "story",
+   "id": "fr2-10",
+   "kind": "scene",
+   "yes": "fr2-11",
+   "no": "fr2-10n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-10n",
+   "kind": "passthrough",
+   "next": "fr2-11"
+  },
+  {
+   "type": "story",
+   "id": "fr2-11",
+   "kind": "scene",
+   "yes": "fr2-11y",
+   "no": "fr2-11n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-11y",
+   "kind": "passthrough",
+   "next": "fr2-12"
+  },
+  {
+   "type": "story",
+   "id": "fr2-11n",
+   "kind": "passthrough",
+   "next": "fr2-12"
+  },
+  {
+   "type": "story",
+   "id": "fr2-12",
+   "kind": "scene",
+   "yes": "fr2-12y",
+   "no": "fr2-12n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-12y",
+   "kind": "passthrough",
+   "next": "fr2-13"
+  },
+  {
+   "type": "story",
+   "id": "fr2-12n",
+   "kind": "passthrough",
+   "next": "fr2-13"
+  },
+  {
+   "type": "story",
+   "id": "fr2-13",
+   "kind": "scene",
+   "yes": "fr2-14",
+   "no": "fr2-13n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-13n",
+   "kind": "passthrough",
+   "next": "fr2-14"
+  },
+  {
+   "type": "story",
+   "id": "fr2-14",
+   "kind": "scene",
+   "yes": "fr2-14y",
+   "no": "fr2-14n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-14y",
+   "kind": "passthrough",
+   "next": "fr2-15"
+  },
+  {
+   "type": "story",
+   "id": "fr2-14n",
+   "kind": "passthrough",
+   "next": "fr2-15"
+  },
+  {
+   "type": "story",
+   "id": "fr2-15",
+   "kind": "scene",
+   "yes": "fr2-15y",
+   "no": "fr2-15n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-15y",
+   "kind": "passthrough",
+   "next": "fr2-16"
+  },
+  {
+   "type": "story",
+   "id": "fr2-15n",
+   "kind": "passthrough",
+   "next": "fr2-16"
+  },
+  {
+   "type": "story",
+   "id": "fr2-16",
+   "kind": "scene",
+   "yes": "fr2-16y",
+   "no": "fr2-16n"
+  },
+  {
+   "type": "story",
+   "id": "fr2-16y",
+   "kind": "passthrough",
+   "next": "fr2-end"
+  },
+  {
+   "type": "story",
+   "id": "fr2-16n",
+   "kind": "passthrough",
+   "next": "fr2-end"
+  },
+  {
+   "type": "story",
+   "id": "fr2-end",
+   "kind": "ending",
+   "story": 2
+  },
+  {
+   "type": "story",
+   "id": "fr3-0",
+   "kind": "passthrough",
+   "next": "fr3-1"
+  },
+  {
+   "type": "story",
+   "id": "fr3-1",
+   "kind": "scene",
+   "yes": "fr3-2",
+   "no": "fr3-1n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-1n",
+   "kind": "passthrough",
+   "next": "fr3-2"
+  },
+  {
+   "type": "story",
+   "id": "fr3-2",
+   "kind": "scene",
+   "yes": "fr3-2y",
+   "no": "fr3-2n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-2y",
+   "kind": "passthrough",
+   "next": "fr3-3"
+  },
+  {
+   "type": "story",
+   "id": "fr3-2n",
+   "kind": "passthrough",
+   "next": "fr3-3"
+  },
+  {
+   "type": "story",
+   "id": "fr3-3",
+   "kind": "scene",
+   "yes": "fr3-4",
+   "no": "fr3-3n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-3n",
+   "kind": "passthrough",
+   "next": "fr3-4"
+  },
+  {
+   "type": "story",
+   "id": "fr3-4",
+   "kind": "scene",
+   "yes": "fr3-5",
+   "no": "fr3-4n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-4n",
+   "kind": "passthrough",
+   "next": "fr3-5"
+  },
+  {
+   "type": "story",
+   "id": "fr3-5",
+   "kind": "scene",
+   "yes": "fr3-6",
+   "no": "fr3-5n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-5n",
+   "kind": "passthrough",
+   "next": "fr3-6"
+  },
+  {
+   "type": "story",
+   "id": "fr3-6",
+   "kind": "scene",
+   "yes": "fr3-7",
+   "no": "fr3-6n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-6n",
+   "kind": "passthrough",
+   "next": "fr3-7"
+  },
+  {
+   "type": "story",
+   "id": "fr3-7",
+   "kind": "scene",
+   "yes": "fr3-8",
+   "no": "fr3-7n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-7n",
+   "kind": "passthrough",
+   "next": "fr3-8"
+  },
+  {
+   "type": "story",
+   "id": "fr3-8",
+   "kind": "scene",
+   "yes": "fr3-9",
+   "no": "fr3-8n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-8n",
+   "kind": "passthrough",
+   "next": "fr3-9"
+  },
+  {
+   "type": "story",
+   "id": "fr3-9",
+   "kind": "scene",
+   "yes": "fr3-10",
+   "no": "fr3-9n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-9n",
+   "kind": "passthrough",
+   "next": "fr3-10"
+  },
+  {
+   "type": "story",
+   "id": "fr3-10",
+   "kind": "scene",
+   "yes": "fr3-10y",
+   "no": "fr3-10n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-10y",
+   "kind": "passthrough",
+   "next": "fr3-11"
+  },
+  {
+   "type": "story",
+   "id": "fr3-10n",
+   "kind": "passthrough",
+   "next": "fr3-11"
+  },
+  {
+   "type": "story",
+   "id": "fr3-11",
+   "kind": "scene",
+   "yes": "fr3-12",
+   "no": "fr3-11n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-11n",
+   "kind": "passthrough",
+   "next": "fr3-12"
+  },
+  {
+   "type": "story",
+   "id": "fr3-12",
+   "kind": "scene",
+   "yes": "fr3-13",
+   "no": "fr3-12n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-12n",
+   "kind": "passthrough",
+   "next": "fr3-13"
+  },
+  {
+   "type": "story",
+   "id": "fr3-13",
+   "kind": "scene",
+   "yes": "fr3-13y",
+   "no": "fr3-13n"
+  },
+  {
+   "type": "story",
+   "id": "fr3-13y",
+   "kind": "passthrough",
+   "next": "fr3-end"
+  },
+  {
+   "type": "story",
+   "id": "fr3-13n",
+   "kind": "passthrough",
+   "next": "fr3-end"
+  },
+  {
+   "type": "story",
+   "id": "fr3-end",
+   "kind": "ending",
+   "story": 3
+  },
+  {
+   "type": "story",
+   "id": "fr4-0",
+   "kind": "passthrough",
+   "next": "fr4-1"
+  },
+  {
+   "type": "story",
+   "id": "fr4-1",
+   "kind": "scene",
+   "yes": "fr4-2",
+   "no": "fr4-1n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-1n",
+   "kind": "passthrough",
+   "next": "fr4-2"
+  },
+  {
+   "type": "story",
+   "id": "fr4-2",
+   "kind": "scene",
+   "yes": "fr4-3",
+   "no": "fr4-2n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-2n",
+   "kind": "passthrough",
+   "next": "fr4-3"
+  },
+  {
+   "type": "story",
+   "id": "fr4-3",
+   "kind": "scene",
+   "yes": "fr4-4",
+   "no": "fr4-3n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-3n",
+   "kind": "passthrough",
+   "next": "fr4-4"
+  },
+  {
+   "type": "story",
+   "id": "fr4-4",
+   "kind": "scene",
+   "yes": "fr4-5",
+   "no": "fr4-4n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-4n",
+   "kind": "passthrough",
+   "next": "fr4-5"
+  },
+  {
+   "type": "story",
+   "id": "fr4-5",
+   "kind": "scene",
+   "yes": "fr4-6",
+   "no": "fr4-5n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-5n",
+   "kind": "passthrough",
+   "next": "fr4-6"
+  },
+  {
+   "type": "story",
+   "id": "fr4-6",
+   "kind": "scene",
+   "yes": "fr4-7",
+   "no": "fr4-6n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-6n",
+   "kind": "passthrough",
+   "next": "fr4-7"
+  },
+  {
+   "type": "story",
+   "id": "fr4-7",
+   "kind": "scene",
+   "yes": "fr4-7y",
+   "no": "fr4-7n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-7y",
+   "kind": "passthrough",
+   "next": "fr4-8"
+  },
+  {
+   "type": "story",
+   "id": "fr4-7n",
+   "kind": "passthrough",
+   "next": "fr4-8"
+  },
+  {
+   "type": "story",
+   "id": "fr4-8",
+   "kind": "scene",
+   "yes": "fr4-8y",
+   "no": "fr4-8n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-8y",
+   "kind": "passthrough",
+   "next": "fr4-9"
+  },
+  {
+   "type": "story",
+   "id": "fr4-8n",
+   "kind": "passthrough",
+   "next": "fr4-9"
+  },
+  {
+   "type": "story",
+   "id": "fr4-9",
+   "kind": "scene",
+   "yes": "fr4-9y",
+   "no": "fr4-9n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-9y",
+   "kind": "passthrough",
+   "next": "fr4-10"
+  },
+  {
+   "type": "story",
+   "id": "fr4-9n",
+   "kind": "passthrough",
+   "next": "fr4-10"
+  },
+  {
+   "type": "story",
+   "id": "fr4-10",
+   "kind": "scene",
+   "yes": "fr4-11",
+   "no": "fr4-10n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-10n",
+   "kind": "passthrough",
+   "next": "fr4-11"
+  },
+  {
+   "type": "story",
+   "id": "fr4-11",
+   "kind": "scene",
+   "yes": "fr4-11y",
+   "no": "fr4-11n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-11y",
+   "kind": "passthrough",
+   "next": "fr4-12"
+  },
+  {
+   "type": "story",
+   "id": "fr4-11n",
+   "kind": "passthrough",
+   "next": "fr4-12"
+  },
+  {
+   "type": "story",
+   "id": "fr4-12",
+   "kind": "scene",
+   "yes": "fr4-12y",
+   "no": "fr4-12n"
+  },
+  {
+   "type": "story",
+   "id": "fr4-12y",
+   "kind": "passthrough",
+   "next": "fr4-end"
+  },
+  {
+   "type": "story",
+   "id": "fr4-12n",
+   "kind": "passthrough",
+   "next": "fr4-end"
+  },
+  {
+   "type": "story",
+   "id": "fr4-end",
+   "kind": "ending",
+   "story": 4
+  },
+  {
+   "type": "story",
+   "id": "fr5-0",
+   "kind": "passthrough",
+   "next": "fr5-1"
+  },
+  {
+   "type": "story",
+   "id": "fr5-1",
+   "kind": "scene",
+   "yes": "fr5-2",
+   "no": "fr5-1n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-1n",
+   "kind": "passthrough",
+   "next": "fr5-2"
+  },
+  {
+   "type": "story",
+   "id": "fr5-2",
+   "kind": "scene",
+   "yes": "fr5-3",
+   "no": "fr5-2n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-2n",
+   "kind": "passthrough",
+   "next": "fr5-3"
+  },
+  {
+   "type": "story",
+   "id": "fr5-3",
+   "kind": "scene",
+   "yes": "fr5-4",
+   "no": "fr5-3n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-3n",
+   "kind": "passthrough",
+   "next": "fr5-4"
+  },
+  {
+   "type": "story",
+   "id": "fr5-4",
+   "kind": "scene",
+   "yes": "fr5-5",
+   "no": "fr5-4n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-4n",
+   "kind": "passthrough",
+   "next": "fr5-5"
+  },
+  {
+   "type": "story",
+   "id": "fr5-5",
+   "kind": "scene",
+   "yes": "fr5-5y",
+   "no": "fr5-5n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-5y",
+   "kind": "passthrough",
+   "next": "fr5-6"
+  },
+  {
+   "type": "story",
+   "id": "fr5-5n",
+   "kind": "passthrough",
+   "next": "fr5-6"
+  },
+  {
+   "type": "story",
+   "id": "fr5-6",
+   "kind": "scene",
+   "yes": "fr5-7",
+   "no": "fr5-6n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-6n",
+   "kind": "passthrough",
+   "next": "fr5-7"
+  },
+  {
+   "type": "story",
+   "id": "fr5-7",
+   "kind": "scene",
+   "yes": "fr5-7y",
+   "no": "fr5-7n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-7y",
+   "kind": "passthrough",
+   "next": "fr5-8"
+  },
+  {
+   "type": "story",
+   "id": "fr5-7n",
+   "kind": "passthrough",
+   "next": "fr5-8"
+  },
+  {
+   "type": "story",
+   "id": "fr5-8",
+   "kind": "scene",
+   "yes": "fr5-8y",
+   "no": "fr5-8n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-8y",
+   "kind": "passthrough",
+   "next": "fr5-9"
+  },
+  {
+   "type": "story",
+   "id": "fr5-8n",
+   "kind": "passthrough",
+   "next": "fr5-9"
+  },
+  {
+   "type": "story",
+   "id": "fr5-9",
+   "kind": "scene",
+   "yes": "fr5-9y",
+   "no": "fr5-9n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-9y",
+   "kind": "passthrough",
+   "next": "fr5-10"
+  },
+  {
+   "type": "story",
+   "id": "fr5-9n",
+   "kind": "passthrough",
+   "next": "fr5-10"
+  },
+  {
+   "type": "story",
+   "id": "fr5-10",
+   "kind": "scene",
+   "yes": "fr5-10y",
+   "no": "fr5-10n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-10y",
+   "kind": "passthrough",
+   "next": "fr5-11"
+  },
+  {
+   "type": "story",
+   "id": "fr5-10n",
+   "kind": "passthrough",
+   "next": "fr5-11"
+  },
+  {
+   "type": "story",
+   "id": "fr5-11",
+   "kind": "scene",
+   "yes": "fr5-11y",
+   "no": "fr5-11n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-11y",
+   "kind": "passthrough",
+   "next": "fr5-12"
+  },
+  {
+   "type": "story",
+   "id": "fr5-11n",
+   "kind": "passthrough",
+   "next": "fr5-12"
+  },
+  {
+   "type": "story",
+   "id": "fr5-12",
+   "kind": "scene",
+   "yes": "fr5-13",
+   "no": "fr5-12n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-12n",
+   "kind": "passthrough",
+   "next": "fr5-13"
+  },
+  {
+   "type": "story",
+   "id": "fr5-13",
+   "kind": "scene",
+   "yes": "fr5-end",
+   "no": "fr5-13n"
+  },
+  {
+   "type": "story",
+   "id": "fr5-13n",
+   "kind": "passthrough",
+   "next": "fr5-end"
+  },
+  {
+   "type": "story",
+   "id": "fr5-end",
+   "kind": "ending",
+   "story": 5
+  }
+ ],
+ "words": {
+  "yes": [
+   "yes",
+   "yeah",
+   "yep",
+   "yup",
+   "sure",
+   "okay",
+   "ok",
+   "affirmative",
+   "do it",
+   "go",
+   "accept",
+   "of course",
+   "definitely",
+   "let's go",
+   "lets go",
+   "ready",
+   "i guess",
+   "why not",
+   "we have to",
+   "deal",
+   "alright",
+   "all right",
+   "sounds good",
+   "i think so",
+   "uh huh"
+  ],
+  "no": [
+   "no",
+   "nope",
+   "nah",
+   "negative",
+   "don't",
+   "dont",
+   "refuse",
+   "reject",
+   "not really",
+   "no thanks",
+   "guess not",
+   "not now"
+  ],
+  "repeat": [
+   "repeat",
+   "repeat that",
+   "say that again",
+   "say it again",
+   "what did you say",
+   "come again",
+   "pardon",
+   "one more time"
+  ],
+  "yesExact": [
+   "fine",
+   "show",
+   "hi",
+   "pip",
+   "pip pip"
+  ]
+ },
+ "namedAnswerIs": {
+  "fr-12": "yes",
+  "fr4-5": "yes"
+ },
+ "nodeChoiceWords": {
+  "fr-9": {
+   "yes": [
+    "fight"
+   ],
+   "no": [
+    "run"
+   ]
+  }
+ },
+ "stories": {
+  "1": "fr-1",
+  "2": "fr2-1",
+  "3": "fr3-1",
+  "4": "fr4-1",
+  "5": "fr5-1"
+ },
+ "reprompts": {
+  "nodes": {
+   "fr-1": "Should Sprockle tell you what's happening? Say yes, or no.",
+   "fr-1a": "Ready to hear what Sprockle discovered? Say yes, or no.",
+   "fr-2": "Want to hear about the Mucklars? Say yes, or no.",
+   "fr-2a": "Should we go and talk to Gribbo? Say yes, or no.",
+   "fr-3": "Should we go and talk to Gribbo? Say yes, or no.",
+   "fr-4a": "Should we check out the signal? Say yes, or no.",
+   "fr-5": "Should we check out the signal? Say yes, or no.",
+   "fr-6": "Should you answer your boss's call? Say yes, or no.",
+   "fr-6a": "Should you answer the call? Say yes, or no.",
+   "fr-6b": "Will you call your boss back? Say yes, or no.",
+   "fr-6c": "Will you take the call? Say yes, or no.",
+   "fr-7": "Should we take Gribbo's ship and go help? Say yes, or no.",
+   "fr-7a": "Do you head out right now? Say yes, or no.",
+   "fr-7ax": "Head out now? Say yes, or no.",
+   "fr-8": "Ready for takeoff? Say yes, or no.",
+   "fr-8a": "Launch now? Say yes, or no.",
+   "fr-8ax": "Launch now? Say yes, or no.",
+   "fr-9": "Do we fight the Mucklars? Say yes, or no.",
+   "fr-10a": "Should we escape through the asteroids? Say yes, or no.",
+   "fr-10a1": "Dive into the asteroids? Say yes, or no.",
+   "fr-10a1x": "Dive into the asteroids? Say yes, or no.",
+   "fr-10b": "Fly deeper into the asteroid field? Say yes, or no.",
+   "fr-10b1": "Go into the asteroids now? Say yes, or no.",
+   "fr-10b1x": "Go into the asteroids? Say yes, or no.",
+   "fr-gameover-2": "Want to play again? Say yes, or no.",
+   "fr-11": "Ready to check the damaged pipe? Say yes, or no.",
+   "fr-11a": "Ready to check the damage? Say yes, or no.",
+   "fr-11ax": "Ready to check the damage? Say yes, or no.",
+   "fr-12": "Do you tell them what part you need? Say yes, or no.",
+   "fr-12a": "Will you tell them what you need? Say yes, or no.",
+   "fr-12ax": "Will you tell them the part you need? Say yes, or no.",
+   "fr-13": "Should we go to the underground market? Say yes, or no.",
+   "fr-13a": "Head to the underground market now? Say yes, or no.",
+   "fr-13b": "Go to the market now? Say yes, or no.",
+   "fr-13bx": "Go to the market now? Say yes, or no.",
+   "fr-14": "Should we hear the dealer's offer? Say yes, or no.",
+   "fr-14a": "Do you want to hear the dealer's offer? Say yes, or no.",
+   "fr-14ax": "Hear his offer? Say yes, or no.",
+   "fr-15": "Should Gribbo race? Say yes, or no.",
+   "fr-15a": "Should Gribbo race after all? Say yes, or no.",
+   "fr-15b": "Let Gribbo race? Say yes, or no.",
+   "fr-15bx": "Let Gribbo race? Say yes, or no.",
+   "fr-16": "Do you cheer for Gribbo? Say yes, or no.",
+   "fr-16a": "Keep watching? Say yes, or no.",
+   "fr-16ax": "Keep watching? Say yes, or no.",
+   "fr-17": "Ready to fix the pipe? Say yes, or no.",
+   "fr-17a": "Ready to fix it? Say yes, or no.",
+   "fr-17ax": "Ready to fix it? Say yes, or no.",
+   "fr-18": "Should we listen to the message? Say yes, or no.",
+   "fr-18a": "Listen to the message? Say yes, or no.",
+   "fr-18ax": "Listen to the message? Say yes, or no.",
+   "fr-19": "Should we figure out what to do next? Say yes, or no.",
+   "fr-19a": "Try to figure it out? Say yes, or no.",
+   "fr-19ax": "Try to figure it out? Say yes, or no.",
+   "fr-20": "Should we talk to the Veggonauts? Say yes, or no.",
+   "fr-20a": "Go and talk to them? Say yes, or no.",
+   "fr-20ax": "Go and talk to them? Say yes, or no.",
+   "fr-21": "Do you believe the Veggonauts? Say yes, or no.",
+   "fr-21a": "Do you believe them now? Say yes, or no.",
+   "fr-21b": "Do you believe the commander? Say yes, or no.",
+   "fr-21bx": "Do you believe them? Say yes, or no.",
+   "fr-22": "Should we ask the Beastroos for help? Say yes, or no.",
+   "fr-22a": "Head for Zoomara? Say yes, or no.",
+   "fr-22ax": "Head for Zoomara? Say yes, or no.",
+   "fr-24": "Should we go and find the fuel? Say yes, or no.",
+   "fr-24a": "Go and find the fuel? Say yes, or no.",
+   "fr-24b": "Go after the fuel? Say yes, or no.",
+   "fr-25": "Should Sprockle try to solve the riddle? Say yes, or no.",
+   "fr-25a": "Let Sprockle answer the riddle? Say yes, or no.",
+   "fr-25b": "Grab the fuel? Say yes, or no.",
+   "fr-26": "Should Sprockle say 'a map'? Say yes, or no.",
+   "fr-26a": "Grab the fuel? Say yes, or no.",
+   "fr-26b": "Grab the fuel and run? Say yes, or no.",
+   "fr-27": "Ready to fly to Zoomara? Say yes, or no.",
+   "fr-27a": "Ready to fly to Zoomara? Say yes, or no.",
+   "fr-27ax": "Ready to fly to Zoomara? Say yes, or no.",
+   "fr-28": "Should we land on Zoomara? Say yes, or no.",
+   "fr-28a": "Land now? Say yes, or no.",
+   "fr-28ax": "Land now? Say yes, or no.",
+   "fr-29": "Should we talk to them peacefully? Say yes, or no.",
+   "fr-29a": "Will you speak to Shaman Pawra? Say yes, or no.",
+   "fr-30a": "Will you speak from your heart? Say yes, or no.",
+   "fr-30": "Will you speak from your heart? Say yes, or no.",
+   "fr-31": "Do you think your speech worked? Say yes, or no.",
+   "fr-31a": "Do you think it convinced her? Say yes, or no.",
+   "fr-32a": "Will you accept the challenge? Say yes, or no.",
+   "fr-32b": "Ready to return to Frootopia? Say yes, or no.",
+   "fr-32b1": "Return to Frootopia now? Say yes, or no.",
+   "fr-32b1x": "Return to Frootopia now? Say yes, or no.",
+   "fr-32c": "Ready to return to Frootopia? Say yes, or no.",
+   "fr-32c1": "Return to Frootopia now? Say yes, or no.",
+   "fr-32c1x": "Return to Frootopia now? Say yes, or no.",
+   "fr-32": "Ready to return to Frootopia? Say yes, or no.",
+   "fr-32d": "Return now? Say yes, or no.",
+   "fr-32dx": "Return now? Say yes, or no.",
+   "fr-33": "Should we contact the Guard Captain? Say yes, or no.",
+   "fr-33a": "Contact the Captain now? Say yes, or no.",
+   "fr-33ax": "Contact the Captain now? Say yes, or no.",
+   "fr-34": "Should Sprockle hack the city speakers? Say yes, or no.",
+   "fr-35": "Head to the Great Froot Tree? Say yes, or no.",
+   "fr-35b": "Head to the tree now? Say yes, or no.",
+   "fr-35bx": "Head to the tree now? Say yes, or no.",
+   "fr-35a": "Head to the tree now? Say yes, or no.",
+   "fr-35c": "Head to the tree now? Say yes, or no.",
+   "fr-35cx": "Head to the tree now? Say yes, or no.",
+   "fr-36": "Should we take the secret tunnel? Say yes, or no.",
+   "fr-36a": "Will you lead them through the tunnel? Say yes, or no.",
+   "fr-36b": "Will you lead them? Say yes, or no.",
+   "fr-36bx": "Will you lead them? Say yes, or no.",
+   "fr-37": "Look at what's happening? Say yes, or no.",
+   "fr-37a": "Do you look? Say yes, or no.",
+   "fr-37ax": "Do you look? Say yes, or no.",
+   "fr-38": "Do we stop the king now? Say yes, or no.",
+   "fr-38a": "Will you join the fight? Say yes, or no.",
+   "fr-38b": "Keep going? Say yes, or no.",
+   "fr-38bx": "Keep going? Say yes, or no.",
+   "fr-gameover-3": "Want to play again? Say yes, or no.",
+   "fr-39": "Should Sprockle use his anti-gravity gun? Say yes, or no.",
+   "fr-39a": "Let Sprockle use the gun? Say yes, or no.",
+   "fr-39ax": "Let Sprockle use the gun? Say yes, or no.",
+   "fr-40": "Look at the portal? Say yes, or no.",
+   "fr-40a": "Look at the portal? Say yes, or no.",
+   "fr-40ax": "Look at the portal? Say yes, or no.",
+   "fr-41": "Do we keep fighting? Say yes, or no.",
+   "fr-42": "Do you have a plan? Say yes, or no.",
+   "fr-42b": "Do you have an idea? Say yes, or no.",
+   "fr-42bx": "Do you have an idea? Say yes, or no.",
+   "fr-42a": "Do you have an idea? Say yes, or no.",
+   "fr-42c": "Do you have an idea? Say yes, or no.",
+   "fr-42cx": "Do you have an idea? Say yes, or no.",
+   "fr-43": "Will you try your plan? Say yes, or no.",
+   "fr-43a": "Try the plan? Say yes, or no.",
+   "fr-43ax": "Try the plan? Say yes, or no.",
+   "fr-44": "Check the portal? Say yes, or no.",
+   "fr-44a": "Check the portal? Say yes, or no.",
+   "fr-44ax": "Check the portal? Say yes, or no.",
+   "fr-45": "Will anyone volunteer? Say yes, or no.",
+   "fr-45a": "Will anyone volunteer? Say yes, or no.",
+   "fr-45ax": "Will anyone volunteer? Say yes, or no.",
+   "fr-46": "Should we follow Gribbo through the portal? Say yes, or no.",
+   "fr-46a": "Ready to enter Morbia? Say yes, or no.",
+   "fr-46b": "Enter Morbia? Say yes, or no.",
+   "fr-46bx": "Enter Morbia? Say yes, or no.",
+   "fr-gameover-4": "Want to play again? Say yes, or no.",
+   "fr-47": "Can you push through? Say yes, or no.",
+   "fr-48a": "Push through the fear? Say yes, or no.",
+   "fr-48b": "Will you keep going? Say yes, or no.",
+   "fr-gameover-1": "Want to play again? Say yes, or no.",
+   "fr-48": "Do you cheer Gribbo on? Say yes, or no.",
+   "fr-48c": "Does Gribbo keep the jar? Say yes, or no.",
+   "fr-49": "Shout for it to hit? Say yes, or no.",
+   "fr-49a": "Throw it now? Say yes, or no.",
+   "fr-49b": "Will you throw the last jar yourself? Say yes, or no.",
+   "fr-50": "Run for the portal? Say yes, or no.",
+   "fr-50a": "Sprint for the portal? Say yes, or no.",
+   "fr-50b": "Dive for the portal? Say yes, or no.",
+   "fr-51a": "Do you think Gribbo is gone? Say yes, or no.",
+   "fr-51": "Do you think Gribbo is gone? Say yes, or no.",
+   "fr-52": "Is this a happy ending? Say yes, or no.",
+   "fr-52a": "Is this a happy ending? Say yes, or no.",
+   "fr-52b": "Celebrate a happy ending? Say yes, or no.",
+   "fr-52c": "Want to hear what happens next? Say yes, or no.",
+   "fr-53": "Want to hear what happens to the heroes? Say yes, or no.",
+   "fr2-1": "Should we look inside Gribbo's pocket? Say yes, or no.",
+   "fr2-2": "Do you hold out your hand to the little critter? Say yes, or no.",
+   "fr2-3": "Should we call the little critter Pip? Say yes, or no.",
+   "fr2-4": "Can we keep Pip? Say yes, or no.",
+   "fr2-5": "Do we hand Pip over to Admiral Rot? Say yes, or no.",
+   "fr2-6": "Should we hide Pip at your house? Say yes, or no.",
+   "fr2-7": "Do you make Pip a cosy little bed? Say yes, or no.",
+   "fr2-8": "Do you keep watch with Tula? Say yes, or no.",
+   "fr2-9": "Do we protect Pip from the Mouldies? Say yes, or no.",
+   "fr2-10": "Do we run for Gribbo's ship? Say yes, or no.",
+   "fr2-11": "Do you dance with Pip? Say yes, or no.",
+   "fr2-12": "Should Gribbo do a loop-the-loop? Say yes, or no.",
+   "fr2-13": "Should we let Pip try something? Say yes, or no.",
+   "fr2-14": "Do you give Pip a high five? Say yes, or no.",
+   "fr2-15": "Do you think Pip made the stars shine? Say yes, or no.",
+   "fr2-16": "Do we stand up to the stranger? Say yes, or no.",
+   "fr3-1": "Will you lead the way into the pipes? Say yes, or no.",
+   "fr3-2": "Do you help the lost baby Mouldy? Say yes, or no.",
+   "fr3-3": "Do you turn the valve? Say yes, or no.",
+   "fr3-4": "Should Gribbo wear his disguise? Say yes, or no.",
+   "fr3-5": "Do we run? Say yes, or no.",
+   "fr3-6": "Do you smash the machine? Say yes, or no.",
+   "fr3-7": "Should Tula fight the stranger? Say yes, or no.",
+   "fr3-8": "Do you give Citrinus a hand up? Say yes, or no.",
+   "fr3-9": "Do you trust Citrinus? Say yes, or no.",
+   "fr3-10": "Do you say thank you to Citrinus? Say yes, or no.",
+   "fr3-11": "Should you open the master valve? Say yes, or no.",
+   "fr3-12": "Are you ready to fly? Say yes, or no.",
+   "fr3-13": "Do you cheer? Say yes, or no.",
+   "fr4-1": "Do you show Pip to Shaman Pawra? Say yes, or no.",
+   "fr4-2": "Do we take Robolade's secret tunnel? Say yes, or no.",
+   "fr4-3": "Do you hold Pip closer to the carvings? Say yes, or no.",
+   "fr4-4": "Should we go to the Edge of Everything? Say yes, or no.",
+   "fr4-5": "Should Sprockle answer the riddle? Say yes, or no.",
+   "fr4-6": "Do we fly through the gate? Say yes, or no.",
+   "fr4-7": "Do we fight back against the Mould Fleet? Say yes, or no.",
+   "fr4-8": "Do you say goodbye to Gribbo's ship? Say yes, or no.",
+   "fr4-9": "Do you give Gribbo a hug? Say yes, or no.",
+   "fr4-10": "Can you fix the cracked fuel pipe? Say yes, or no.",
+   "fr4-11": "Do you hold the cocoon and keep it safe? Say yes, or no.",
+   "fr4-12": "Do you knock on the door? Say yes, or no.",
+   "fr5-1": "Do you call every friend you've ever made? Say yes, or no.",
+   "fr5-2": "Do you let Citrinus help? Say yes, or no.",
+   "fr5-3": "Do we go through the door? Say yes, or no.",
+   "fr5-4": "Do you want to hear Admiral Rot's secret? Say yes, or no.",
+   "fr5-5": "Do you tell Rot to give the cocoon back? Say yes, or no.",
+   "fr5-6": "Do you go for the cocoon? Say yes, or no.",
+   "fr5-7": "Do you tell Pip that it's not alone? Say yes, or no.",
+   "fr5-8": "Is that Pip? Say yes, or no.",
+   "fr5-9": "Do you say hello to Pip? Say yes, or no.",
+   "fr5-10": "Does Admiral Rot deserve a second chance? Say yes, or no.",
+   "fr5-11": "Do you shake hands with Admiral Rot? Say yes, or no.",
+   "fr5-12": "Do you want to see Pip's last surprise? Say yes, or no.",
+   "fr5-13": "Shall we all go home? Say yes, or no."
+  },
+  "common": {
+   "outro-reprompt": "Would you like to play again, or play a different game?",
+   "upsell-reprompt": "Do you want to unlock Unlimited Mini Games?",
+   "unhandled": "Sorry, I didn't catch that. Just say yes, or no.",
+   "chat-upsell": "Hey there! We can chat all day with unlimited mini games, want to try it?",
+   "chat-upsell-confirm": "Yay! If we unlock Unlimited Mini Games, we can chat whenever you like. Do you want to unlock Unlimited Mini Games?",
+   "chat-intro": "Hi! It's me, Cosmo! I'm so happy you want to talk to me. What shall we chat about?",
+   "chat-reprompt": "I'm still here! Tell me anything you like, or say back to the story.",
+   "chat-bye": "Bye for now! Let's get back to our adventure.",
+   "chat-again": "Oops, my space radio went all fuzzy. Can you say that again?",
+   "gate-reprompt": "Say unlock all, or play again.",
+   "next-reprompt": "Say next story, or different game.",
+   "welcome-reprompt": "Say carry on, or start again."
+  }
+ }
+}

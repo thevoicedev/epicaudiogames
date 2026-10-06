@@ -1,0 +1,23 @@
+{
+  "_doc": "The games the app lists, in order. blurb: the description on the game list; free: what the free version has.",
+  "games": [
+    {
+      "id": "frootopia",
+      "title": "The Kingdom of Frootopia",
+      "blurb": "Join Cosmo and friends on a galaxy adventure, and save the Kingdom of Frootopia.",
+      "free": "Story 1 free"
+    },
+    {
+      "id": "noodle-rush",
+      "title": "Noodle Rush",
+      "blurb": "You're broke and starving. Talk your way to a free bowl of ramen.",
+      "free": "10 endings to find"
+    },
+    {
+      "id": "signal-decoders",
+      "title": "Signal Decoders",
+      "blurb": "Help Alex and Robin decode a mysterious alien signal in a blacked-out London.",
+      "free": "5 chapters"
+    }
+  ]
+}
