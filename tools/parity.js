@@ -64,9 +64,9 @@ const GAMES = [
 // Clips the app leaves out: coins, outros ("play again, or a different game?"), offers and welcomes.
 const APP_DROPS = /^common\/(outro|upsell|gate|welcome|resume|next-reprompt|chat)/;
 // Commands handled everywhere, before a game sees them. In the skill, "off" and "home" leave (SkillFlow.doAnswer)
-// and "stop" and "cancel" are Alexa's own Stop and Cancel; in the app, "stop", "cancel" and "pause" pause the game
+// and "stop" and "cancel" are Alexa's own Stop and Cancel; in the app, "stop" and "cancel" pause the game
 // (Commands.kt), leaving is a button, and "off" is just one of a game's words.
-const SKILL_COMMANDS = new Set(["off", "home", "stop playing", "joe", "stop", "cancel", "pause"]);
+const SKILL_COMMANDS = new Set(["off", "home", "stop playing", "joe", "stop", "cancel"]);
 // Words the questions don't take, or take in a tricky way.
 const EXTRA = ["banana", "i'm not sure", "i guess not", "don't follow it", "let's not hide", "i'm fine", "fine",
     "two two one one", "c a c again", "say that again", "repeat", "no thanks", "yes please", "i don't know",

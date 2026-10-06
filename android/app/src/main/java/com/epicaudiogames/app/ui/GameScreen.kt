@@ -207,7 +207,7 @@ private fun Spoken(item: FeedItem.Spoken, saidChars: Int?) {
             .background(Palette.card)
             .padding(horizontal = 14.dp, vertical = 9.dp),
     ) {
-        if (item.who != "NARRATOR") {
+        if (item.name.isNotBlank() && item.who != "NARRATOR") {
             Text(item.name.uppercase(), color = speakerColor(item.who), fontFamily = Lilita, fontSize = 13.sp)
         }
         val text = buildAnnotatedString {

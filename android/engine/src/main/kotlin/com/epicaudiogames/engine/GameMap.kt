@@ -20,13 +20,31 @@ class MapException(message: String) : Exception(message)
 data class Line(val at: Double, val len: Double, val who: String, val text: String, val words: List<Double>? = null)
 
 sealed interface Step {
-    /** A clip of the game's audio (path relative to the game's content folder, without an extension). */
-    data class Play(val path: String, val dur: Double, val lines: List<Line>) : Step
+    /**
+     * A clip of the game's audio (path relative to the game's content folder, without an extension). [sfx]: music or
+     * sound effects, with no transcript.
+     */
+    data class Play(val path: String, val dur: Double, val lines: List<Line>, val sfx: Boolean = false) : Step
 
     /** A number variable, read out with the shared number clips. */
     data class Num(val variable: String) : Step
 
     data class Pause(val seconds: Double) : Step
+
+    /**
+     * A sound under the rest of the turn (music, or an effect that overlaps what follows): it starts here, plays
+     * once at [volume] (0 to 1), and stops when the turn's audio ends. A [path] of null stops every bed.
+     */
+    data class Bed(val path: String?, val volume: Double, val dur: Double) : Step
+
+    /** The steps play only when [cond] holds (when the turn is played). */
+    data class When(val cond: Condition, val steps: List<Step>) : Step
+
+    /** One of these step lists, at random. */
+    data class Pick(val options: List<List<Step>>) : Step
+
+    /** The steps for a variable's value ("10", "hide", "true"), or [otherwise]. */
+    data class By(val variable: String, val cases: Map<String, List<Step>>, val otherwise: List<Step>) : Step
 }
 
 sealed interface Go {
@@ -35,12 +53,20 @@ sealed interface Go {
     data class If(val cases: List<Pair<Condition, Go>>, val otherwise: Go) : Go
     data class Restart(val node: String) : Go
     data object Quit : Go
+
+    /**
+     * One of [nodes] that this [deck] hasn't drawn yet, at random; when all have been drawn, the deck starts again.
+     * The deck's draws are kept in the variable "deck_<deck>".
+     */
+    data class Draw(val nodes: List<String>, val deck: String) : Go
 }
 
 sealed interface SetValue {
     data class Assign(val value: Any) : SetValue
     data class Add(val amount: Double) : SetValue
     data class Rand(val from: Int, val to: Int) : SetValue
+    /** A computed value: "=streak * 10". */
+    data class Calc(val expr: Expr) : SetValue
 }
 
 /** A phrase to listen for, normalised. An exact phrase ("=fine" in a map) must be the whole answer. */
@@ -216,6 +242,8 @@ class GameMap(
                 go(e["else"] ?: throw MapException("$where: an if without an else"), where),
             )
             e is JsonObject && "restart" in e -> Go.Restart(e.str("restart"))
+            e is JsonObject && "draw" in e -> Go.Draw(e.getValue("draw").jsonArray.map { it.jsonPrimitive.content },
+                e.optStr("deck") ?: throw MapException("$where: a draw without a deck"))
             e is JsonObject && e.optStr("end") == "quit" -> Go.Quit
             else -> throw MapException("$where: can't read the go $e")
         }
@@ -223,9 +251,13 @@ class GameMap(
         fun case(c: JsonObject, where: String) =
             Condition.parse(c.str("when")) to go(c["go"] ?: throw MapException("$where: a case without a go"), where)
 
-        fun steps(e: JsonElement?, where: String): List<Step> = (e as? JsonArray)?.map { s ->
-            val o = s.jsonObject
-            when {
+        fun steps(e: JsonElement?, where: String): List<Step> = (e as? JsonArray)?.map { step(it.jsonObject, where) } ?: emptyList()
+
+        fun step(o: JsonObject, where: String): Step {
+            o.optStr("when")?.let { cond ->
+                return Step.When(Condition.parse(cond), listOf(step(JsonObject(o - "when"), where)))
+            }
+            return when {
                 "play" in o -> Step.Play(
                     path = o.str("play"),
                     dur = o.num("dur"),
@@ -237,12 +269,24 @@ class GameMap(
                             words = (lo["w"] as? JsonArray)?.map { it.jsonPrimitive.content.toDouble() },
                         )
                     } ?: emptyList(),
+                    sfx = (o["sfx"] as? JsonPrimitive)?.booleanOrNull == true,
+                )
+                "bed" in o -> Step.Bed(
+                    path = (o["bed"] as? JsonPrimitive)?.takeIf { it.isString }?.content,
+                    volume = (o["volume"] as? JsonPrimitive)?.doubleOrNull ?: 1.0,
+                    dur = (o["dur"] as? JsonPrimitive)?.doubleOrNull ?: 0.0,
+                )
+                "pick" in o -> Step.Pick(o.getValue("pick").jsonArray.map { steps(it, "$where pick") })
+                "by" in o -> Step.By(
+                    variable = o.str("by"),
+                    cases = (o["cases"] as? JsonObject)?.mapValues { (_, v) -> steps(v, "$where by") } ?: emptyMap(),
+                    otherwise = steps(o["else"], "$where by else"),
                 )
                 "num" in o -> Step.Num(o.str("num"))
                 "pause" in o -> Step.Pause(o.num("pause"))
                 else -> throw MapException("$where: unknown step $o")
             }
-        } ?: emptyList()
+        }
 
         fun sets(e: JsonElement?, where: String): Map<String, SetValue> =
             (e as? JsonObject)?.mapValues { (name, v) -> setValue(v, "$where set $name") } ?: emptyMap()
@@ -250,6 +294,7 @@ class GameMap(
         fun setValue(v: JsonElement, where: String): SetValue {
             val p = v as? JsonPrimitive ?: throw MapException("$where: not a value")
             if (p.isString) {
+                if (p.content.startsWith("=")) return SetValue.Calc(Expr.parse(p.content.substring(1)))
                 ADD.matchEntire(p.content)?.let { return SetValue.Add(p.content.toDouble()) }
                 RAND.matchEntire(p.content)?.let { return SetValue.Rand(it.groupValues[1].toInt(), it.groupValues[2].toInt()) }
             }

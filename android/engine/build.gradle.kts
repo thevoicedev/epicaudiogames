@@ -27,6 +27,9 @@ tasks.named<JavaExec>("run") {
 
 tasks.test {
     systemProperty("games.dir", File(repoRoot, "games").path)
+    // The tests read the maps and the Alexa recordings: a change to either runs them again.
+    inputs.dir(File(repoRoot, "games"))
+    inputs.dir(File(repoRoot, "tools/cache/parity")).optional()
     testLogging {
         events("failed")
         showStandardStreams = true

@@ -120,12 +120,8 @@ class GameController(
         clipLines = clips.map { it.lines }
         revealed = IntArray(clips.size)
         entryOfLine.clear()
-        if (clips.isEmpty()) {
-            finishTurn()
-            return
-        }
         speaking = true
-        audio.play(clips)
+        audio.play(t.steps)          // calls finishTurn when the turn's audio has played (at once if it has none)
         ticker?.cancel()
         ticker = scope.launch {
             while (isActive) {
@@ -137,7 +133,12 @@ class GameController(
 
     /** Shows each line as its time comes, and how far into the line the voice is. */
     private fun follow() {
-        val (clip, t) = audio.position() ?: return
+        val pos = audio.position()
+        if (pos == null) {
+            for (c in 0 until audio.clipsDone()) reveal(c, Double.MAX_VALUE)     // a pause: what came before it
+            return
+        }
+        val (clip, t) = pos
         for (c in 0 until clip) reveal(c, Double.MAX_VALUE)
         reveal(clip, t)
         val lines = clipLines.getOrNull(clip) ?: return

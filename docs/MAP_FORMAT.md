@@ -81,9 +81,15 @@ A list of steps, played in order:
 
 | Step | Meaning |
 |---|---|
-| `{ "play": path, "dur": s, "lines": [...] }` | a clip: usually a whole pre-mixed turn (voices, music and sound effects in one), with its transcript |
+| `{ "play": path, "dur": s, "lines": [...] }` | a clip: a pre-mixed turn (voices, music and sound effects in one), a line, or a sound, with its transcript. Music and sound effects have `"sfx": true` and no lines |
+| `{ "bed": path, "volume": 0.25, "dur": s }` | a sound under the rest of the turn: it starts here, plays once at this volume (0 to 1) while the following steps play, and stops when the turn's audio ends. A bed that is already playing keeps playing. `{ "bed": null }` stops the beds |
+| `{ "pick": [[steps], [steps], ...] }` | one of these step lists, at random |
+| `{ "by": "var", "cases": { "10": [steps], ... }, "else": [steps] }` | the steps for the variable's value (whole numbers without ".0", true/false, or text) |
 | `{ "num": "var" }` | reads out a number variable with the shared number clips |
 | `{ "pause": s }` | silence |
+
+Any step can have `"when": condition`: it only plays when the condition holds. `when`, `pick` and `by` are worked
+out as the turn plays, with the variables as they are then.
 
 - **`path`** is relative to the game's content folder and has no extension. `scenes/queue` is
   `content/noodle-rush/scenes/queue.m4a` (or `.mp3`, `.opus`: the app takes whichever is there).
@@ -143,6 +149,9 @@ An answer can also have:
 - `{ "random": ["oranges", "pigeon"] }`: one of these at random (a target listed twice is twice as likely);
 - `{ "if": [ { "when": "tries >= 2", "go": "reveal" } ], "else": "hint" }`: the first case whose condition holds;
 - `{ "restart": "fr-1" }`: start the game again at this node, with the starting variables (except `keep`);
+- `{ "draw": ["q1", "q2", ...], "deck": "main" }`: one of these nodes that the deck hasn't drawn yet, at random.
+  When all of them have been drawn, the deck starts again. The draws are kept in the variable `deck_<deck>`, so
+  declare it in `vars`, and list it in `keep` to carry the deck over to the next play;
 - `{ "end": "quit" }`: leave the game (the player said no to starting, or gave up). The app goes back to its list.
 
 ### `redirect`
@@ -153,7 +162,9 @@ player there instead.
 ### `set`
 
 Variables to change: `{ "nana": true }`, `{ "tries": "+1" }`, `{ "hope": "-5" }`, `{ "choice": "hide" }`,
-`{ "roll": "rand(1,6)" }`. A string of `+` or `-` and a number adds to the variable; anything else replaces it.
+`{ "roll": "rand(1,6)" }`, `{ "best": "=streak > best ? streak : best" }`. A string of `+` or `-` and a number adds
+to the variable; a string starting with `=` is an expression (see Conditions); anything else replaces it. They are
+applied in the order listed.
 
 ### `end`: the end of a game
 
@@ -173,12 +184,13 @@ The node's `say` plays first. The app then shows its end screen.
 
 ## Conditions
 
-`when`, `if` and `redirect` use small conditions on the variables:
+`when`, `if`, `redirect` and `=` values are small expressions on the variables:
 
-- `nana`: the variable is true (or non-zero, or non-empty);
-- `!nana`: it isn't;
-- `tries >= 2`, `hope < 10`, `choice == "hide"`, `chapter != 3`: comparisons (`==`, `!=`, `<`, `<=`, `>`, `>=`);
-- `a && b`, `a || b`: both, either (`&&` binds tighter).
+- `nana`: the variable is true (or non-zero, or non-empty); `!nana`: it isn't;
+- `tries >= 2`, `hope < 10`, `choice == "hide"`, `streak > best`: comparisons (`==`, `!=`, `<`, `<=`, `>`, `>=`);
+- `a && b`, `a || b`: both, either (`&&` binds tighter);
+- `+ - * / %` and brackets, `max(a, b)`, `min(a, b)`, `floor(a)`; `cond ? a : b`;
+- numbers, `"text"`, `true` and `false`. A missing variable is 0 in sums and false in tests.
 
 ## Matching what the player says
 
@@ -206,8 +218,9 @@ Speech, typed text and buttons are matched the same way:
 
 **Silence** (no answer before the app's timeout) plays the reprompt and waits again.
 
-**App commands:** the app handles "stop", "cancel" and "pause" itself, when they are the whole answer: they pause
-the game, as Alexa's Stop does. Maps never see them, so they can't be answers (the validator warns about them).
+**App commands:** the app handles "stop" and "cancel" itself, when they are the whole answer: they pause the game,
+as Alexa's Stop and Cancel end a skill. Maps never see them, so they can't be answers (the validator warns about
+them). "Pause" is left to the games: Leaning Tower of Pizza takes it as a mishear of "false".
 
 ## Packs (`pack.json`)
 

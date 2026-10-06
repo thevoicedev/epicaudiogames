@@ -1,0 +1,4752 @@
+{
+ "game": "leaning-tower-of-pizza",
+ "cdn": "en/audio2/leaning-tower-of-pizza/",
+ "rules": {
+  "win": 50,
+  "growth": 10,
+  "maxQuestions": 15
+ },
+ "questions": {
+  "main": [
+   {
+    "id": "q1",
+    "statement": "Bananas are berries. ",
+    "isTrue": true,
+    "comment": "Nature is-a prankster, eh?",
+    "fact": "Botanically, bananas qualify as berries because they develop from a single flower."
+   },
+   {
+    "id": "q2",
+    "statement": "Octopuses have three hearts and blue blood.",
+    "isTrue": true,
+    "comment": "Three hearts?! Ready for three breakups!",
+    "fact": "Two hearts pump blood to the gills, and one pumps it to the body."
+   },
+   {
+    "id": "q3",
+    "statement": "A day on Venus is longer than a year on Venus.",
+    "isTrue": true,
+    "comment": "On Venus, one day is-a forever!",
+    "fact": "Venus spins so slowly that one rotation takes longer than its orbit around the Sun."
+   },
+   {
+    "id": "q4",
+    "statement": "Wombat poop is cube-shaped.",
+    "isTrue": true,
+    "comment": "Cube poop?! That's-a Minecraft!",
+    "fact": "Wombats produce cube-shaped droppings so they don't roll away on slopes."
+   },
+   {
+    "id": "q5",
+    "statement": "There are more trees on Earth than stars in the Milky Way.",
+    "isTrue": true,
+    "comment": "The forest is-a flexing on the galaxy!",
+    "fact": "Earth has over three trillion trees, outnumbering the Milky Way's stars."
+   },
+   {
+    "id": "q6",
+    "statement": "Sharks are older than trees.",
+    "isTrue": true,
+    "comment": "Sharks were here before your salad!",
+    "fact": "Sharks have existed for over 400 million years, while trees appeared about 350 million years ago."
+   },
+   {
+    "id": "q7",
+    "statement": "Honey does not spoil.",
+    "isTrue": true,
+    "comment": "Too sweet to die, amore!",
+    "fact": "Honey found in ancient Egyptian tombs was still perfectly edible after thousands of years."
+   },
+   {
+    "id": "q8",
+    "statement": "You can fit all the planets between Earth and the Moon.",
+    "isTrue": true,
+    "comment": "The Moon is-a keeping secrets!",
+    "fact": "The average Earth-Moon distance is about 384,000 kilometers, enough room for all planets."
+   },
+   {
+    "id": "q9",
+    "statement": "Scotland's national animal is the unicorn.",
+    "isTrue": true,
+    "comment": "Scotland chose magic, capisce?",
+    "fact": "Scotland adopted the unicorn centuries ago as a symbol of purity and power."
+   },
+   {
+    "id": "q10",
+    "statement": "Turtles can breathe through their butts.",
+    "isTrue": true,
+    "comment": "Evolution is-a wild, my friend!",
+    "fact": "Some turtles absorb oxygen through their rear end while hibernating underwater."
+   },
+   {
+    "id": "q11",
+    "statement": "Goldfish only remember things for three seconds.",
+    "isTrue": false,
+    "comment": "That's-a you after too much espresso!",
+    "fact": "Goldfish can actually remember things for several months."
+   },
+   {
+    "id": "q12",
+    "statement": "The Great Wall of China is visible from the Moon with the naked eye.",
+    "isTrue": false,
+    "comment": "You can't even see your keys!",
+    "fact": "The Great Wall is too narrow to be seen from the Moon without aid."
+   },
+   {
+    "id": "q13",
+    "statement": "Lightning never strikes the same place twice.",
+    "isTrue": false,
+    "comment": "Tell that to the poor tree outside!",
+    "fact": "Lightning often strikes the same spot repeatedly, especially tall structures."
+   },
+   {
+    "id": "q14",
+    "statement": "Bulls hate the color red.",
+    "isTrue": false,
+    "comment": "They hate the drama, paisano!",
+    "fact": "Bulls are colorblind to red and actually charge at the cape's movement."
+   },
+   {
+    "id": "q15",
+    "statement": "Humans have exactly five senses.",
+    "isTrue": false,
+    "comment": "What about sensing stolen leftovers?!",
+    "fact": "Scientists recognize over twenty senses, including balance and temperature."
+   },
+   {
+    "id": "q16",
+    "statement": "Bats are blind.",
+    "isTrue": false,
+    "comment": "They see better than me without glasses!",
+    "fact": "Most bats can see quite well, and some species have excellent night vision."
+   },
+   {
+    "id": "q17",
+    "statement": "Vikings commonly wore horned helmets in battle.",
+    "isTrue": false,
+    "comment": "That's-a costume party, not a battle!",
+    "fact": "Real Viking helmets had no horns; that image came from later artists."
+   },
+   {
+    "id": "q18",
+    "statement": "You swallow eight spiders a year in your sleep.",
+    "isTrue": false,
+    "comment": "You sleep like an open buffet!",
+    "fact": "This myth has no scientific basis; spiders naturally avoid sleeping humans."
+   },
+   {
+    "id": "q19",
+    "statement": "The tongue has separate taste zones for sweet, salty, sour, and bitter.",
+    "isTrue": false,
+    "comment": "The tongue judges everything at once!",
+    "fact": "All taste buds can detect every flavor across the entire tongue."
+   },
+   {
+    "id": "q20",
+    "statement": "A penny dropped from a skyscraper can kill someone.",
+    "isTrue": false,
+    "comment": "It's-a coin, not a meteorite!",
+    "fact": "A falling penny reaches a safe terminal velocity and would only sting a little."
+   },
+   {
+    "id": "q21",
+    "statement": "A group of flamingos is called a flamboyance.",
+    "isTrue": true,
+    "comment": "Flamingos don't do boring, capito?!",
+    "fact": "The term flamboyance perfectly matches their bright pink, showy appearance."
+   },
+   {
+    "id": "q22",
+    "statement": "The shortest war in history lasted under an hour.",
+    "isTrue": true,
+    "comment": "That's-a an argument in traffic!",
+    "fact": "The Anglo-Zanzibar War of 1896 lasted only about 38 to 45 minutes."
+   },
+   {
+    "id": "q23",
+    "statement": "Some metals are so reactive they can explode in water.",
+    "isTrue": true,
+    "comment": "Even the bathtub is-a dangerous!",
+    "fact": "Alkali metals like sodium and potassium react violently when placed in water."
+   },
+   {
+    "id": "q24",
+    "statement": "Koalas have fingerprints that look similar to human fingerprints.",
+    "isTrue": true,
+    "comment": "Who's-a stealing the cookies, eh?",
+    "fact": "Koala fingerprints are so similar to ours they could confuse crime scene investigators."
+   },
+   {
+    "id": "q25",
+    "statement": "A crocodile cannot stick its tongue out.",
+    "isTrue": true,
+    "comment": "Resting grumpy face forever!",
+    "fact": "A membrane holds a crocodile's tongue to the roof of its mouth."
+   },
+   {
+    "id": "q26",
+    "statement": "The moon is made of cheese.",
+    "isTrue": false,
+    "comment": "I'd-a bring the crackers already!",
+    "fact": "The Moon is made of rock and dust, not cheese at all."
+   },
+   {
+    "id": "q27",
+    "statement": "Penguins live at the North Pole.",
+    "isTrue": false,
+    "comment": "Penguins come from the south, bambino!",
+    "fact": "Penguins live only in the Southern Hemisphere, mainly around Antarctica."
+   },
+   {
+    "id": "q28",
+    "statement": "Chameleons change color mainly to match the background.",
+    "isTrue": false,
+    "comment": "They change for mood, like me with pineapple pizza!",
+    "fact": "Chameleons change color mostly to communicate mood and regulate body temperature."
+   },
+   {
+    "id": "q29",
+    "statement": "Humans use only ten percent of their brain.",
+    "isTrue": false,
+    "comment": "I'm-a using at least eleven!",
+    "fact": "Brain scans show humans use virtually all parts of their brain regularly."
+   },
+   {
+    "id": "q30",
+    "statement": "Sugar makes kids hyperactive.",
+    "isTrue": false,
+    "comment": "Kids are already turbo, the sugar gets blamed!",
+    "fact": "Studies show no proven link between sugar intake and hyperactivity in children."
+   },
+   {
+    "id": "q31",
+    "statement": "Water expands when it freezes.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Water molecules form a crystal structure when frozen, taking up about nine percent more space."
+   },
+   {
+    "id": "q32",
+    "statement": "The Sun is a star.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "The Sun is a medium-sized star made mostly of hydrogen and helium."
+   },
+   {
+    "id": "q33",
+    "statement": "An octagon has eight sides.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "The prefix octa means eight, giving the octagon its name."
+   },
+   {
+    "id": "q34",
+    "statement": "A triangle has three sides.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "The prefix tri means three, which is how the triangle got its name."
+   },
+   {
+    "id": "q35",
+    "statement": "The Pacific Ocean is the largest ocean on Earth.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The Pacific Ocean covers more area than all the land on Earth combined."
+   },
+   {
+    "id": "q36",
+    "statement": "Antarctica is the coldest continent.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Temperatures in Antarctica have dropped below minus 89 degrees Celsius."
+   },
+   {
+    "id": "q37",
+    "statement": "DNA is shaped like a double helix.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Watson and Crick discovered DNA's twisted ladder shape in 1953."
+   },
+   {
+    "id": "q38",
+    "statement": "Dolphins are mammals.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Dolphins breathe air, are warm-blooded, and nurse their young with milk."
+   },
+   {
+    "id": "q39",
+    "statement": "Bats are mammals.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Bats are the only mammals capable of true powered flight."
+   },
+   {
+    "id": "q40",
+    "statement": "Penguins are birds.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Penguins are flightless birds perfectly adapted for swimming instead."
+   },
+   {
+    "id": "q41",
+    "statement": "A leap year has 366 days.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "An extra day is added in February to keep the calendar aligned with Earth's orbit."
+   },
+   {
+    "id": "q42",
+    "statement": "Sound travels faster in water than in air.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Sound moves about four times faster in water than through air."
+   },
+   {
+    "id": "q43",
+    "statement": "Lightning is hotter than the surface of the Sun.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "A lightning bolt can reach temperatures five times hotter than the Sun's surface."
+   },
+   {
+    "id": "q44",
+    "statement": "The Eiffel Tower can be slightly taller in summer.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Heat causes the iron to expand, making the tower grow up to 15 centimeters taller."
+   },
+   {
+    "id": "q45",
+    "statement": "The Mona Lisa is in the Louvre museum.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "The Mona Lisa has been displayed at the Louvre in Paris since 1797."
+   },
+   {
+    "id": "q46",
+    "statement": "The Great Barrier Reef is off the coast of Australia.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "It stretches over 2,300 kilometers along Australia's northeast coast."
+   },
+   {
+    "id": "q47",
+    "statement": "The Sahara is the largest hot desert on Earth.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The Sahara covers about 9.2 million square kilometers across northern Africa."
+   },
+   {
+    "id": "q48",
+    "statement": "Mount Everest is the tallest mountain above sea level.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Mount Everest stands at 8,849 meters above sea level."
+   },
+   {
+    "id": "q49",
+    "statement": "Humans and giraffes both have seven neck vertebrae.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Despite their long necks, giraffes have the same number of neck bones as humans."
+   },
+   {
+    "id": "q50",
+    "statement": "Cows have four stomach compartments.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Their four compartments help break down tough plant material through fermentation."
+   },
+   {
+    "id": "q51",
+    "statement": "Bees can communicate with a waggle dance.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Bees perform a waggle dance to show other bees where food is located."
+   },
+   {
+    "id": "q52",
+    "statement": "The heart is a muscle.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "The heart is a cardiac muscle that beats over 100,000 times per day."
+   },
+   {
+    "id": "q53",
+    "statement": "The capital of Australia is Canberra.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Canberra was chosen as a compromise between rival cities Sydney and Melbourne."
+   },
+   {
+    "id": "q54",
+    "statement": "Ottawa is the capital of Canada.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Queen Victoria chose Ottawa as Canada's capital in 1857."
+   },
+   {
+    "id": "q55",
+    "statement": "Venus is the hottest planet in our solar system.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Venus's thick atmosphere traps heat, making its surface hotter than Mercury's."
+   },
+   {
+    "id": "q56",
+    "statement": "Jupiter is the largest planet in our solar system.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Jupiter is so large that over 1,300 Earths could fit inside it."
+   },
+   {
+    "id": "q57",
+    "statement": "A group of crows is called a murder.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "The term murder of crows dates back to medieval English folklore."
+   },
+   {
+    "id": "q58",
+    "statement": "The human body has 206 bones in adulthood.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Babies are born with about 270 bones, but many fuse together over time."
+   },
+   {
+    "id": "q59",
+    "statement": "Spiders have eight legs.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "All spiders are arachnids, and arachnids always have exactly eight legs."
+   },
+   {
+    "id": "q60",
+    "statement": "Some frogs can survive being frozen.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Wood frogs produce natural antifreeze that protects their cells from ice damage."
+   },
+   {
+    "id": "q61",
+    "statement": "A koala's fingerprints can look similar to human fingerprints.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Koala prints are so close to human prints they could confuse forensic experts."
+   },
+   {
+    "id": "q62",
+    "statement": "A crocodile cannot stick its tongue out.",
+    "isTrue": true,
+    "comment": "Resting grumpy face forever!",
+    "fact": "A membrane holds the tongue firmly to the roof of its mouth."
+   },
+   {
+    "id": "q63",
+    "statement": "A group of flamingos is called a flamboyance.",
+    "isTrue": true,
+    "comment": "Flamingos don't do boring, capito?!",
+    "fact": "The word flamboyance comes from their flamboyant, colorful display."
+   },
+   {
+    "id": "q64",
+    "statement": "The shortest war in history lasted under an hour.",
+    "isTrue": true,
+    "comment": "That's-a an argument in traffic!",
+    "fact": "The Anglo-Zanzibar War of 1896 lasted between 38 and 45 minutes."
+   },
+   {
+    "id": "q65",
+    "statement": "There are 24 hours in a day.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Earth takes about 24 hours to complete one full rotation on its axis."
+   },
+   {
+    "id": "q66",
+    "statement": "There are 60 seconds in a minute.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "The 60-second minute comes from the ancient Babylonian base-60 number system."
+   },
+   {
+    "id": "q67",
+    "statement": "There are 12 months in a year.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "The twelve-month calendar originated from ancient lunar cycle observations."
+   },
+   {
+    "id": "q68",
+    "statement": "The North Pole is in the Arctic Ocean.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "The North Pole sits on shifting sea ice floating over the Arctic Ocean."
+   },
+   {
+    "id": "q69",
+    "statement": "The South Pole is on the continent of Antarctica.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The South Pole sits on a thick ice sheet covering the Antarctic landmass."
+   },
+   {
+    "id": "q70",
+    "statement": "Earth orbits the Sun.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Earth travels around the Sun at about 107,000 kilometers per hour."
+   },
+   {
+    "id": "q71",
+    "statement": "Earth rotates once about every 24 hours.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "One full rotation of the Earth gives us the cycle of day and night."
+   },
+   {
+    "id": "q72",
+    "statement": "The Moon reflects sunlight.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The Moon has no light of its own and only reflects light from the Sun."
+   },
+   {
+    "id": "q73",
+    "statement": "A hexagon has six sides.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The prefix hex means six, which is how the hexagon got its name."
+   },
+   {
+    "id": "q74",
+    "statement": "A heptagon has seven sides.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The prefix hepta comes from the Greek word for seven."
+   },
+   {
+    "id": "q75",
+    "statement": "A decade is ten years.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "The word decade comes from the Greek word deka, meaning ten."
+   },
+   {
+    "id": "q76",
+    "statement": "A century is one hundred years.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The word century comes from the Latin centum, meaning one hundred."
+   },
+   {
+    "id": "q77",
+    "statement": "The Amazon rainforest is the largest tropical rainforest.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The Amazon rainforest covers about 5.5 million square kilometers."
+   },
+   {
+    "id": "q78",
+    "statement": "The Amazon River is in South America.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The Amazon River flows across Brazil and several other South American countries."
+   },
+   {
+    "id": "q79",
+    "statement": "Africa is the second-largest continent by area.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Africa covers about 30.3 million square kilometers, second only to Asia."
+   },
+   {
+    "id": "q80",
+    "statement": "Greenland is the largest island.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Greenland covers about 2.17 million square kilometers, the world's biggest island."
+   },
+   {
+    "id": "q81",
+    "statement": "Japan is made up of many islands.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Japan is an archipelago of nearly 7,000 islands in the Pacific Ocean."
+   },
+   {
+    "id": "q82",
+    "statement": "The Nile River flows north.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "The Nile flows northward from central Africa to the Mediterranean Sea."
+   },
+   {
+    "id": "q83",
+    "statement": "A baby kangaroo is called a joey.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Baby kangaroos are tiny at birth and continue growing inside their mother's pouch."
+   },
+   {
+    "id": "q84",
+    "statement": "A baby goat is called a kid.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "The English word kid has been used for young goats since the 1200s."
+   },
+   {
+    "id": "q85",
+    "statement": "Cats have retractable claws.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Cats retract their claws to keep them sharp for climbing and hunting."
+   },
+   {
+    "id": "q86",
+    "statement": "Owls can rotate their heads far, but not all the way around.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Owls can turn their heads up to 270 degrees thanks to extra neck bones."
+   },
+   {
+    "id": "q87",
+    "statement": "Seahorses are fish.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Despite their unusual shape, seahorses have gills and fins like other fish."
+   },
+   {
+    "id": "q88",
+    "statement": "Male seahorses can carry the babies.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Male seahorses carry eggs in a special pouch until the babies hatch."
+   },
+   {
+    "id": "q89",
+    "statement": "The Atlantic Ocean separates Europe and Africa from the Americas.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "The Atlantic is the second largest ocean, covering about 106 million square kilometers."
+   },
+   {
+    "id": "q90",
+    "statement": "The human brain uses a lot of energy even when you're resting.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Your brain uses about 20 percent of your body's total energy."
+   },
+   {
+    "id": "q91",
+    "statement": "Plants make oxygen during photosynthesis.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Plants convert carbon dioxide and water into oxygen and sugar using sunlight."
+   },
+   {
+    "id": "q92",
+    "statement": "Glass is made mostly from sand.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Heating sand to about 1,700 degrees Celsius melts it into liquid glass."
+   },
+   {
+    "id": "q93",
+    "statement": "A bolt of lightning is electricity.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Lightning is a massive electrical discharge that can carry billions of watts."
+   },
+   {
+    "id": "q94",
+    "statement": "Hummingbirds can fly backwards.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Hummingbirds are the only birds that can sustain flight going backwards."
+   },
+   {
+    "id": "q95",
+    "statement": "An adult human has two lungs.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "The right lung has three lobes while the left lung has only two."
+   },
+   {
+    "id": "q96",
+    "statement": "The skin is the body's largest organ.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "An adult's skin covers about two square meters and weighs around 3.6 kilograms."
+   },
+   {
+    "id": "q97",
+    "statement": "The speed of light is faster than the speed of sound.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Light travels nearly 900,000 times faster than sound in air."
+   },
+   {
+    "id": "q98",
+    "statement": "A rainbow is caused by light bending and reflecting in water droplets.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Sunlight splits into seven visible colors when it passes through raindrops."
+   },
+   {
+    "id": "q99",
+    "statement": "The Earth has one natural moon.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Earth's Moon is the fifth largest natural satellite in our solar system."
+   },
+   {
+    "id": "q100",
+    "statement": "A year on Mercury is shorter than a year on Earth.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Mercury orbits the Sun in just 88 Earth days."
+   },
+   {
+    "id": "q101",
+    "statement": "Mars is often called the Red Planet.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Iron oxide dust on Mars's surface gives it a reddish appearance."
+   },
+   {
+    "id": "q102",
+    "statement": "The Mariana Trench is in the Pacific Ocean.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "The Mariana Trench is nearly 11 kilometers deep, the deepest ocean point."
+   },
+   {
+    "id": "q103",
+    "statement": "The Mediterranean Sea is connected to the Atlantic Ocean.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "The Strait of Gibraltar connects the Mediterranean Sea to the Atlantic Ocean."
+   },
+   {
+    "id": "q104",
+    "statement": "Ice is less dense than liquid water.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Water expands when it freezes, making ice lighter and able to float."
+   },
+   {
+    "id": "q105",
+    "statement": "Most of the Earth's surface is covered by water.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "About 71 percent of Earth's surface is covered by oceans and seas."
+   },
+   {
+    "id": "q106",
+    "statement": "The chemical symbol for water is H2O.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Each water molecule contains two hydrogen atoms and one oxygen atom."
+   },
+   {
+    "id": "q107",
+    "statement": "The chemical symbol for oxygen is O.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Oxygen makes up about 21 percent of Earth's atmosphere."
+   },
+   {
+    "id": "q108",
+    "statement": "The chemical symbol for gold is Au.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Au comes from the Latin word aurum, meaning shining dawn."
+   },
+   {
+    "id": "q109",
+    "statement": "The chemical symbol for sodium is Na.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Na comes from natrium, the Latin word for sodium."
+   },
+   {
+    "id": "q110",
+    "statement": "The chemical symbol for iron is Fe.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Fe comes from ferrum, the Latin word for iron."
+   },
+   {
+    "id": "q111",
+    "statement": "Saturn has rings.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Saturn's rings are made mostly of ice particles and rocky debris."
+   },
+   {
+    "id": "q112",
+    "statement": "Neptune is farther from the Sun than Uranus.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Neptune orbits about 4.5 billion kilometers from the Sun on average."
+   },
+   {
+    "id": "q113",
+    "statement": "The Milky Way is a galaxy.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The Milky Way contains an estimated 100 to 400 billion stars."
+   },
+   {
+    "id": "q114",
+    "statement": "The Andromeda Galaxy is the nearest major galaxy to the Milky Way.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Andromeda is about 2.5 million light-years away from the Milky Way."
+   },
+   {
+    "id": "q115",
+    "statement": "Most birds lay eggs.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "All known bird species reproduce by laying eggs with hard shells."
+   },
+   {
+    "id": "q116",
+    "statement": "Caterpillars turn into butterflies.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Caterpillars completely transform inside a chrysalis through metamorphosis."
+   },
+   {
+    "id": "q117",
+    "statement": "A caterpillar has more than six legs.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Caterpillars have six true legs plus several fleshy prolegs for gripping."
+   },
+   {
+    "id": "q118",
+    "statement": "A spider is not an insect.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Spiders are arachnids with eight legs, while insects have only six."
+   },
+   {
+    "id": "q119",
+    "statement": "An insect has six legs.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "All adult insects have exactly six legs arranged in three pairs."
+   },
+   {
+    "id": "q120",
+    "statement": "A lobster's blood is bluish when oxygen-poor.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Lobster blood uses copper instead of iron, giving it a blue tint."
+   },
+   {
+    "id": "q121",
+    "statement": "Some snakes can sense heat.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Pit vipers have special heat-sensing organs between their eyes and nostrils."
+   },
+   {
+    "id": "q122",
+    "statement": "Elephants are the largest land animals.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "African elephants can weigh up to 6,000 kilograms."
+   },
+   {
+    "id": "q123",
+    "statement": "The cheetah is the fastest land animal.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Cheetahs can sprint at speeds over 110 kilometers per hour."
+   },
+   {
+    "id": "q124",
+    "statement": "Polar bears have black skin under white fur.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Their black skin helps absorb warmth from the sun in frigid climates."
+   },
+   {
+    "id": "q125",
+    "statement": "A group of wolves is called a pack.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Wolf packs are usually family groups led by a breeding pair."
+   },
+   {
+    "id": "q126",
+    "statement": "The longest bone in the human body is the femur.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "The femur in your thigh makes up about a quarter of your height."
+   },
+   {
+    "id": "q127",
+    "statement": "Your bones are living tissue.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "Bones constantly rebuild themselves, replacing old tissue with new cells."
+   },
+   {
+    "id": "q128",
+    "statement": "Your stomach uses acid to help digest food.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Stomach acid is strong enough to dissolve small pieces of metal."
+   },
+   {
+    "id": "q129",
+    "statement": "Humans can get sunburned from ultraviolet light.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "UV rays damage skin cell DNA, causing the redness and pain of sunburn."
+   },
+   {
+    "id": "q130",
+    "statement": "Astronauts experience weightlessness in orbit.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Astronauts float because they are in continuous freefall around the Earth."
+   },
+   {
+    "id": "q131",
+    "statement": "A circle has 360 degrees.",
+    "isTrue": true,
+    "comment": "It's-a true! Stranger than pizza toppings!",
+    "fact": "Ancient Babylonians chose 360 because it divides evenly by many numbers."
+   },
+   {
+    "id": "q132",
+    "statement": "A kilometer is 1,000 meters.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "The prefix kilo comes from the Greek word for thousand."
+   },
+   {
+    "id": "q133",
+    "statement": "The International Space Station orbits the Earth.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "The ISS orbits Earth about 16 times every single day."
+   },
+   {
+    "id": "q134",
+    "statement": "Volcanoes can exist underwater.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "Most of Earth's volcanic activity actually happens beneath the ocean."
+   },
+   {
+    "id": "q135",
+    "statement": "Earth's core is extremely hot.",
+    "isTrue": true,
+    "comment": "Mamma mia! It's-a true, capisce?",
+    "fact": "Earth's inner core reaches temperatures around 5,400 degrees Celsius."
+   },
+   {
+    "id": "q136",
+    "statement": "The Sun is much larger than the Moon.",
+    "isTrue": true,
+    "comment": "It's-a true! Weirder than uncle Luigi!",
+    "fact": "The Sun is about 400 times wider than the Moon."
+   },
+   {
+    "id": "q137",
+    "statement": "Mercury is the closest planet to the Sun.",
+    "isTrue": true,
+    "comment": "True! Science does backflips, eh?",
+    "fact": "Mercury orbits only about 58 million kilometers from the Sun."
+   },
+   {
+    "id": "q138",
+    "statement": "A year on Earth is about 365 days.",
+    "isTrue": true,
+    "comment": "True! The universe is-a full of surprises!",
+    "fact": "A year is actually about 365 and a quarter days, hence leap years."
+   },
+   {
+    "id": "q139",
+    "statement": "Dolphins are fish.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Dolphins are mammals that breathe air and nurse their young with milk."
+   },
+   {
+    "id": "q140",
+    "statement": "The Earth is the largest planet in the solar system.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Jupiter is the largest planet, over 1,300 times Earth's volume."
+   },
+   {
+    "id": "q141",
+    "statement": "The Sun revolves around the Earth.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "The Earth revolves around the Sun, completing one orbit each year."
+   },
+   {
+    "id": "q142",
+    "statement": "A square has five sides.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "A square has exactly four equal sides and four right angles."
+   },
+   {
+    "id": "q143",
+    "statement": "The Atlantic Ocean is the smallest ocean.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "The Arctic Ocean is the smallest; the Atlantic is the second largest."
+   },
+   {
+    "id": "q144",
+    "statement": "DNA is shaped like a straight ladder.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "DNA is shaped like a twisted double helix, not a straight ladder."
+   },
+   {
+    "id": "q145",
+    "statement": "The Mona Lisa is in a museum in Tokyo.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "The Mona Lisa hangs in the Louvre museum in Paris, France."
+   },
+   {
+    "id": "q146",
+    "statement": "Mount Everest is located in Africa.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Mount Everest is in the Himalayas, on the border of Nepal and Tibet."
+   },
+   {
+    "id": "q147",
+    "statement": "A leap year has 367 days.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "A leap year has 366 days, adding just one extra day in February."
+   },
+   {
+    "id": "q148",
+    "statement": "Sound travels slower in water than in air.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Sound actually travels about four times faster in water than in air."
+   },
+   {
+    "id": "q149",
+    "statement": "Dolphins are fish.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Dolphins are warm-blooded mammals that breathe air through a blowhole."
+   },
+   {
+    "id": "q150",
+    "statement": "Bats are birds.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Bats are mammals and the only ones capable of true powered flight."
+   },
+   {
+    "id": "q151",
+    "statement": "The Pacific Ocean is the smallest ocean.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The Pacific is the largest ocean, covering more area than all land combined."
+   },
+   {
+    "id": "q152",
+    "statement": "Antarctica is the hottest continent.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Antarctica is the coldest continent, with temperatures below minus 80 degrees."
+   },
+   {
+    "id": "q153",
+    "statement": "A week has eight days.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "A week has seven days, a tradition dating back thousands of years."
+   },
+   {
+    "id": "q154",
+    "statement": "There are 100 seconds in a minute.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "There are 60 seconds in a minute, based on the ancient Babylonian system."
+   },
+   {
+    "id": "q155",
+    "statement": "Saturn is the closest planet to the Sun.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Mercury is the closest planet to the Sun, not Saturn."
+   },
+   {
+    "id": "q156",
+    "statement": "Neptune is closer to the Sun than Mars.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Neptune is much farther from the Sun, orbiting beyond Uranus and Saturn."
+   },
+   {
+    "id": "q157",
+    "statement": "The Milky Way is a planet.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The Milky Way is a galaxy containing hundreds of billions of stars."
+   },
+   {
+    "id": "q158",
+    "statement": "An octagon has ten sides.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "An octagon has eight sides; the prefix octa means eight."
+   },
+   {
+    "id": "q159",
+    "statement": "A triangle has four sides.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "A triangle always has exactly three sides and three angles."
+   },
+   {
+    "id": "q160",
+    "statement": "Water is made of carbon and oxygen.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Water is made of hydrogen and oxygen, with the formula H2O."
+   },
+   {
+    "id": "q161",
+    "statement": "Gold's chemical symbol is Go.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Gold's symbol is Au, from the Latin word aurum meaning gold."
+   },
+   {
+    "id": "q162",
+    "statement": "Humans can breathe underwater naturally.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Humans need air from the surface or equipment to breathe underwater."
+   },
+   {
+    "id": "q163",
+    "statement": "You can see your own eyes without a mirror.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "You need a mirror or camera to see your own eyes directly."
+   },
+   {
+    "id": "q164",
+    "statement": "All birds can fly.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Penguins, ostriches, and kiwis are examples of birds that cannot fly."
+   },
+   {
+    "id": "q165",
+    "statement": "All mammals lay eggs.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Most mammals give live birth; only platypuses and echidnas lay eggs."
+   },
+   {
+    "id": "q166",
+    "statement": "A crocodile is a type of fish.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Crocodiles are reptiles that breathe air and live on land and water."
+   },
+   {
+    "id": "q167",
+    "statement": "Photosynthesis happens mostly in animal cells.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Photosynthesis occurs in plant cells using chloroplasts to capture sunlight."
+   },
+   {
+    "id": "q168",
+    "statement": "Lightning is cold.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Lightning can reach temperatures five times hotter than the Sun's surface."
+   },
+   {
+    "id": "q169",
+    "statement": "The Sahara is a rainforest.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "The Sahara is the world's largest hot desert, receiving very little rain."
+   },
+   {
+    "id": "q170",
+    "statement": "The Great Barrier Reef is in the Atlantic Ocean.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The Great Barrier Reef is in the Pacific Ocean off Australia's coast."
+   },
+   {
+    "id": "q171",
+    "statement": "Canberra is the capital of New Zealand.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Canberra is Australia's capital; New Zealand's capital is Wellington."
+   },
+   {
+    "id": "q172",
+    "statement": "The Eiffel Tower is in Rome.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "The Eiffel Tower is in Paris, France, built in 1889."
+   },
+   {
+    "id": "q173",
+    "statement": "The Mona Lisa is in New York.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "The Mona Lisa is displayed at the Louvre museum in Paris."
+   },
+   {
+    "id": "q174",
+    "statement": "Ottawa is the capital of the United States.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Ottawa is Canada's capital; Washington D.C. is the U.S. capital."
+   },
+   {
+    "id": "q175",
+    "statement": "Japan is a continent.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Japan is an island country in Asia, not a continent."
+   },
+   {
+    "id": "q176",
+    "statement": "The Nile River flows south.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The Nile flows northward from central Africa to the Mediterranean Sea."
+   },
+   {
+    "id": "q177",
+    "statement": "Elephants are the smallest land animals.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Elephants are actually the largest land animals, weighing up to 6,000 kilograms."
+   },
+   {
+    "id": "q178",
+    "statement": "A cheetah is slower than a snail.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Cheetahs can reach over 110 kilometers per hour, the fastest land animal."
+   },
+   {
+    "id": "q179",
+    "statement": "Polar bears are naturally purple.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Polar bears have white fur and black skin underneath."
+   },
+   {
+    "id": "q180",
+    "statement": "The Earth has two natural moons.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Earth has only one natural moon orbiting around it."
+   },
+   {
+    "id": "q181",
+    "statement": "Mars is known as the Blue Planet.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Mars is called the Red Planet; Earth is known as the Blue Planet."
+   },
+   {
+    "id": "q182",
+    "statement": "The International Space Station sits on the ocean floor.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "The ISS orbits Earth about 400 kilometers above the surface."
+   },
+   {
+    "id": "q183",
+    "statement": "Astronauts feel heavier in space.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Astronauts feel weightless in space because they are in constant freefall."
+   },
+   {
+    "id": "q184",
+    "statement": "Ice sinks in water.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Ice floats because it is less dense than liquid water."
+   },
+   {
+    "id": "q185",
+    "statement": "A kilometer is 100 meters.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "A kilometer is 1,000 meters, not 100."
+   },
+   {
+    "id": "q186",
+    "statement": "There are 400 degrees in a circle.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "A full circle has exactly 360 degrees."
+   },
+   {
+    "id": "q187",
+    "statement": "The skin is the body's smallest organ.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "The skin is actually the body's largest organ by area and weight."
+   },
+   {
+    "id": "q188",
+    "statement": "The femur is a bone in your arm.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The femur is the thigh bone and the longest bone in your body."
+   },
+   {
+    "id": "q189",
+    "statement": "Giraffes have twenty neck vertebrae.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Giraffes have just seven neck vertebrae, the same number as humans."
+   },
+   {
+    "id": "q190",
+    "statement": "Honey spoils in a week.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Honey can last thousands of years without spoiling if sealed properly."
+   },
+   {
+    "id": "q191",
+    "statement": "Wombats lay square eggs.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Wombats are mammals that give live birth, but their poop is cube-shaped."
+   },
+   {
+    "id": "q192",
+    "statement": "Sharks are younger than trees.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Sharks are actually older, appearing about 50 million years before trees."
+   },
+   {
+    "id": "q193",
+    "statement": "Strawberries are berries.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Botanically, strawberries are not true berries but accessory fruits."
+   },
+   {
+    "id": "q194",
+    "statement": "Bananas grow on trees.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Banana plants are giant herbs, not trees, despite their tree-like appearance."
+   },
+   {
+    "id": "q195",
+    "statement": "A day on Venus is shorter than a year on Venus.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "A day on Venus is actually longer than its year around the Sun."
+   },
+   {
+    "id": "q196",
+    "statement": "Octopuses have one heart.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Octopuses have three hearts: two for the gills and one for the body."
+   },
+   {
+    "id": "q197",
+    "statement": "Turtles breathe through their ears.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Some turtles can absorb oxygen through their rear end while underwater."
+   },
+   {
+    "id": "q198",
+    "statement": "A group of flamingos is called a thunder.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "A group of flamingos is called a flamboyance."
+   },
+   {
+    "id": "q199",
+    "statement": "The shortest war in history lasted ten years.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The shortest war lasted under an hour between Britain and Zanzibar in 1896."
+   },
+   {
+    "id": "q200",
+    "statement": "Chameleons change color only to match the background.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Chameleons mainly change color to communicate mood and regulate temperature."
+   },
+   {
+    "id": "q201",
+    "statement": "Humans use only one percent of their brain.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Humans use virtually all parts of their brain throughout each day."
+   },
+   {
+    "id": "q202",
+    "statement": "The tongue map is perfectly accurate.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "All taste buds can detect every flavor across the entire tongue."
+   },
+   {
+    "id": "q203",
+    "statement": "You swallow eight spiders a night in your sleep.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "This is a myth with no scientific basis; spiders avoid sleeping humans."
+   },
+   {
+    "id": "q204",
+    "statement": "Vikings used laser swords.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Vikings used iron swords, axes, and spears, not fictional laser weapons."
+   },
+   {
+    "id": "q205",
+    "statement": "Bulls can see the color red better than humans.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Bulls are colorblind to red and charge at the cape's movement instead."
+   },
+   {
+    "id": "q206",
+    "statement": "Bats navigate only by smell.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Bats use echolocation, bouncing sound waves to navigate in the dark."
+   },
+   {
+    "id": "q207",
+    "statement": "Goldfish are the smartest animals on Earth.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Goldfish have decent memories but are far from the smartest animals."
+   },
+   {
+    "id": "q208",
+    "statement": "The Great Wall of China can be seen from the Moon with the naked eye.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "The Great Wall is too narrow to be visible from the Moon."
+   },
+   {
+    "id": "q209",
+    "statement": "Lightning never strikes the same place twice.",
+    "isTrue": false,
+    "comment": "Tell that to the poor tree outside!",
+    "fact": "Lightning frequently strikes the same spot, especially tall structures."
+   },
+   {
+    "id": "q210",
+    "statement": "A penny dropped from a skyscraper always kills.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "A falling penny reaches a harmless terminal velocity and would only sting."
+   },
+   {
+    "id": "q211",
+    "statement": "All metals are attracted to magnets.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Only a few metals like iron, nickel, and cobalt are magnetic."
+   },
+   {
+    "id": "q212",
+    "statement": "The human brain is made of glass.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "The brain is made of soft tissue containing billions of nerve cells."
+   },
+   {
+    "id": "q213",
+    "statement": "Earth is perfectly round like a billiard ball.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Earth is slightly flattened at the poles, making it an oblate spheroid."
+   },
+   {
+    "id": "q214",
+    "statement": "The ocean is made of fresh water.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Ocean water is salty, containing about 3.5 percent dissolved salt."
+   },
+   {
+    "id": "q215",
+    "statement": "Trees can talk using words you can hear.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Trees communicate chemically through roots and airborne signals, not speech."
+   },
+   {
+    "id": "q216",
+    "statement": "The speed of sound is faster than the speed of light.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Light travels nearly 900,000 times faster than sound."
+   },
+   {
+    "id": "q217",
+    "statement": "A rainbow is made of solid paint in the sky.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Rainbows form when sunlight bends and reflects through water droplets."
+   },
+   {
+    "id": "q218",
+    "statement": "The Mariana Trench is on the Moon.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "The Mariana Trench is in the Pacific Ocean, the deepest point on Earth."
+   },
+   {
+    "id": "q219",
+    "statement": "The Mediterranean Sea is in the Arctic.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The Mediterranean Sea is between Europe, Africa, and Asia."
+   },
+   {
+    "id": "q220",
+    "statement": "Seahorses are reptiles.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Seahorses are fish with gills and fins despite their unusual shape."
+   },
+   {
+    "id": "q221",
+    "statement": "Only female seahorses carry the babies.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Male seahorses carry the eggs in a special pouch until they hatch."
+   },
+   {
+    "id": "q222",
+    "statement": "Hummingbirds cannot fly backwards.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Hummingbirds are the only birds that can sustain backward flight."
+   },
+   {
+    "id": "q223",
+    "statement": "Plants make oxygen only at night.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Plants produce oxygen during the day through photosynthesis using sunlight."
+   },
+   {
+    "id": "q224",
+    "statement": "Glass is made from melted cheese.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Glass is made by heating sand to extremely high temperatures."
+   },
+   {
+    "id": "q225",
+    "statement": "A bolt of lightning is frozen water.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Lightning is a massive electrical discharge, not frozen water."
+   },
+   {
+    "id": "q226",
+    "statement": "Cats are cold-blooded.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Cats are warm-blooded mammals that regulate their own body temperature."
+   },
+   {
+    "id": "q227",
+    "statement": "Owls can rotate their heads 720 degrees.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Owls can turn their heads up to 270 degrees, not a full two rotations."
+   },
+   {
+    "id": "q228",
+    "statement": "A baby kangaroo is called a puppy.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "A baby kangaroo is called a joey."
+   },
+   {
+    "id": "q229",
+    "statement": "A baby goat is called a calf.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "A baby goat is called a kid, not a calf."
+   },
+   {
+    "id": "q230",
+    "statement": "The Atlantic Ocean is inside a volcano.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "The Atlantic Ocean is the second largest ocean, separating the Americas from Europe."
+   },
+   {
+    "id": "q231",
+    "statement": "Earth's core is made of cotton candy.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Earth's core is mostly iron and nickel at extreme temperatures."
+   },
+   {
+    "id": "q232",
+    "statement": "Volcanoes can only exist on land.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Most volcanic activity on Earth actually happens beneath the ocean."
+   },
+   {
+    "id": "q233",
+    "statement": "The Moon is bigger than the Sun.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The Sun is about 400 times wider than the Moon."
+   },
+   {
+    "id": "q234",
+    "statement": "Mercury is the farthest planet from the Sun.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Mercury is the closest planet to the Sun, not the farthest."
+   },
+   {
+    "id": "q235",
+    "statement": "Venus is colder than Pluto.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Venus is the hottest planet due to its thick heat-trapping atmosphere."
+   },
+   {
+    "id": "q236",
+    "statement": "Jupiter is smaller than Earth.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Jupiter is the largest planet, over 1,300 times Earth's volume."
+   },
+   {
+    "id": "q237",
+    "statement": "Saturn has no rings.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Saturn has spectacular rings made of ice particles and rocky debris."
+   },
+   {
+    "id": "q238",
+    "statement": "Neptune has a surface made of pizza.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Neptune is an ice giant with an atmosphere of hydrogen, helium, and methane."
+   },
+   {
+    "id": "q239",
+    "statement": "The Milky Way is shaped like a triangle.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "The Milky Way is a barred spiral galaxy, not triangle-shaped."
+   },
+   {
+    "id": "q240",
+    "statement": "The Andromeda Galaxy is a type of sandwich.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Andromeda is the nearest major galaxy, about 2.5 million light-years away."
+   },
+   {
+    "id": "q241",
+    "statement": "Insects have eight legs.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Insects have six legs; eight-legged creatures are arachnids like spiders."
+   },
+   {
+    "id": "q242",
+    "statement": "Spiders are insects.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Spiders are arachnids with eight legs, while insects have six."
+   },
+   {
+    "id": "q243",
+    "statement": "Lobsters have green blood.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "Lobster blood is blue because it uses copper instead of iron."
+   },
+   {
+    "id": "q244",
+    "statement": "Snakes can hear through their whiskers.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Snakes sense vibrations through their jawbone and have no whiskers."
+   },
+   {
+    "id": "q245",
+    "statement": "Elephants can jump higher than kangaroos.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Elephants are the only mammals that cannot jump at all."
+   },
+   {
+    "id": "q246",
+    "statement": "Cheetahs are aquatic animals.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Cheetahs are land animals and the fastest runners on Earth."
+   },
+   {
+    "id": "q247",
+    "statement": "Polar bears are native to Antarctica.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Polar bears live only in the Arctic, near the North Pole."
+   },
+   {
+    "id": "q248",
+    "statement": "A pack of wolves is called a bouquet.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "A group of wolves is called a pack, usually a family unit."
+   },
+   {
+    "id": "q249",
+    "statement": "Bones are made of rubber.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Bones are living tissue made of calcium, collagen, and other minerals."
+   },
+   {
+    "id": "q250",
+    "statement": "Stomach acid is as mild as water.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Stomach acid is strong enough to dissolve small pieces of metal."
+   },
+   {
+    "id": "q251",
+    "statement": "Ultraviolet light is visible to everyone.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Ultraviolet light is invisible to the human eye but causes sunburns."
+   },
+   {
+    "id": "q252",
+    "statement": "Astronauts can breathe in space without a suit.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Space has no air, so astronauts need suits to survive outside a spacecraft."
+   },
+   {
+    "id": "q253",
+    "statement": "A circle has corners.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "A circle is a perfectly round shape with no corners or straight edges."
+   },
+   {
+    "id": "q254",
+    "statement": "A hexagon has nine sides.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "A hexagon has six sides; the prefix hex means six."
+   },
+   {
+    "id": "q255",
+    "statement": "A century is ten years.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "A century is one hundred years; ten years is called a decade."
+   },
+   {
+    "id": "q256",
+    "statement": "A decade is one hundred years.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "A decade is ten years; one hundred years is called a century."
+   },
+   {
+    "id": "q257",
+    "statement": "Earth has rings like Saturn.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Earth has no ring system; Saturn's rings are made of ice and rock."
+   },
+   {
+    "id": "q258",
+    "statement": "The Moon is made of cheese.",
+    "isTrue": false,
+    "comment": "That's-a false. The facts say nope!",
+    "fact": "The Moon is made of rock and dust, not cheese."
+   },
+   {
+    "id": "q259",
+    "statement": "Venus is the closest planet to the Sun.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Mercury is the closest planet to the Sun, not Venus."
+   },
+   {
+    "id": "q260",
+    "statement": "Mars is farther from the Sun than Neptune.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Neptune is much farther from the Sun than Mars."
+   },
+   {
+    "id": "q261",
+    "statement": "The Pacific Ocean is a lake.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "The Pacific is the largest and deepest ocean on Earth."
+   },
+   {
+    "id": "q262",
+    "statement": "Antarctica is covered in rainforests.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Antarctica is covered in thick ice sheets and is the coldest continent."
+   },
+   {
+    "id": "q263",
+    "statement": "The Sahara is located in Antarctica.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "The Sahara Desert is in northern Africa, not Antarctica."
+   },
+   {
+    "id": "q264",
+    "statement": "The Great Barrier Reef is visible from Mars with the naked eye.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The Great Barrier Reef is off Australia's coast and invisible from Mars."
+   },
+   {
+    "id": "q265",
+    "statement": "A crocodile can stick its tongue out and touch its nose.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "A crocodile's tongue is held down by a membrane and cannot stick out."
+   },
+   {
+    "id": "q266",
+    "statement": "Koalas are actually bears.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Koalas are marsupials, not bears, and carry young in a pouch."
+   },
+   {
+    "id": "q267",
+    "statement": "Hummingbirds are the largest birds in the world.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Hummingbirds are among the smallest birds; ostriches are the largest."
+   },
+   {
+    "id": "q268",
+    "statement": "A rainbow is always black and white.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Rainbows display seven vibrant colors created by sunlight through water droplets."
+   },
+   {
+    "id": "q269",
+    "statement": "The Earth has only one ocean.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Earth has five major oceans: Pacific, Atlantic, Indian, Southern, and Arctic."
+   },
+   {
+    "id": "q270",
+    "statement": "The capital of Canada is Toronto.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Ottawa is the capital of Canada, not Toronto."
+   },
+   {
+    "id": "q271",
+    "statement": "The Mona Lisa is painted on a wall.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "The Mona Lisa is painted on a poplar wood panel, not a wall."
+   },
+   {
+    "id": "q272",
+    "statement": "The Eiffel Tower is older than the Roman Empire.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "The Eiffel Tower was built in 1889, thousands of years after Rome's founding."
+   },
+   {
+    "id": "q273",
+    "statement": "Octopuses have bones.",
+    "isTrue": false,
+    "comment": "That's-a false! Someone's making it up!",
+    "fact": "Octopuses are invertebrates with no bones, only a hard beak."
+   },
+   {
+    "id": "q274",
+    "statement": "All turtles live only in the ocean.",
+    "isTrue": false,
+    "comment": "False! That's-a spicy meatball of nonsense!",
+    "fact": "Many turtle species live on land or in freshwater rivers and ponds."
+   },
+   {
+    "id": "q275",
+    "statement": "Bananas are vegetables.",
+    "isTrue": false,
+    "comment": "Falso! I'd-a eat my hat with marinara!",
+    "fact": "Bananas are fruits that grow on large herbaceous plants."
+   },
+   {
+    "id": "q276",
+    "statement": "Strawberries grow on trees.",
+    "isTrue": false,
+    "comment": "False, capito? Truth is-a hiding!",
+    "fact": "Strawberries grow on low plants close to the ground, not on trees."
+   }
+  ],
+  "easy": [
+   {
+    "id": "ez1",
+    "statement": "The Moon is made of cheese.",
+    "isTrue": false
+   },
+   {
+    "id": "ez2",
+    "statement": "Fish can fly airplanes.",
+    "isTrue": false
+   },
+   {
+    "id": "ez3",
+    "statement": "The Sun is hot.",
+    "isTrue": true
+   },
+   {
+    "id": "ez4",
+    "statement": "Dogs can speak fluent French.",
+    "isTrue": false
+   },
+   {
+    "id": "ez5",
+    "statement": "Water is wet.",
+    "isTrue": true
+   },
+   {
+    "id": "ez6",
+    "statement": "Elephants are smaller than ants.",
+    "isTrue": false
+   },
+   {
+    "id": "ez7",
+    "statement": "Humans need to breathe to survive.",
+    "isTrue": true
+   },
+   {
+    "id": "ez8",
+    "statement": "Pizza grows on trees.",
+    "isTrue": false
+   },
+   {
+    "id": "ez9",
+    "statement": "The Earth is round.",
+    "isTrue": true
+   },
+   {
+    "id": "ez10",
+    "statement": "Cows can drive cars.",
+    "isTrue": false
+   },
+   {
+    "id": "ez11",
+    "statement": "Ice cream is cold.",
+    "isTrue": true
+   },
+   {
+    "id": "ez12",
+    "statement": "Rocks are alive.",
+    "isTrue": false
+   },
+   {
+    "id": "ez13",
+    "statement": "Cats can bark like dogs.",
+    "isTrue": false
+   },
+   {
+    "id": "ez14",
+    "statement": "Fire is hot.",
+    "isTrue": true
+   },
+   {
+    "id": "ez15",
+    "statement": "Chickens are taller than giraffes.",
+    "isTrue": false
+   },
+   {
+    "id": "ez16",
+    "statement": "The sky is blue.",
+    "isTrue": true
+   },
+   {
+    "id": "ez17",
+    "statement": "Horses can send text messages.",
+    "isTrue": false
+   },
+   {
+    "id": "ez18",
+    "statement": "Snow is cold.",
+    "isTrue": true
+   },
+   {
+    "id": "ez19",
+    "statement": "Trees are made of candy.",
+    "isTrue": false
+   },
+   {
+    "id": "ez20",
+    "statement": "Humans need sleep.",
+    "isTrue": true
+   },
+   {
+    "id": "ez21",
+    "statement": "Cars have wheels.",
+    "isTrue": true
+   },
+   {
+    "id": "ez22",
+    "statement": "Clouds are made of cotton candy.",
+    "isTrue": false
+   },
+   {
+    "id": "ez23",
+    "statement": "Birds have wings.",
+    "isTrue": true
+   },
+   {
+    "id": "ez24",
+    "statement": "Pencils are used for writing.",
+    "isTrue": true
+   },
+   {
+    "id": "ez25",
+    "statement": "Sharks live in outer space.",
+    "isTrue": false
+   },
+   {
+    "id": "ez26",
+    "statement": "Grass is usually green.",
+    "isTrue": true
+   },
+   {
+    "id": "ez27",
+    "statement": "Volcanoes are made of chocolate.",
+    "isTrue": false
+   },
+   {
+    "id": "ez28",
+    "statement": "Rain comes from clouds.",
+    "isTrue": true
+   },
+   {
+    "id": "ez29",
+    "statement": "Chairs can run marathons.",
+    "isTrue": false
+   },
+   {
+    "id": "ez30",
+    "statement": "The ocean has water in it.",
+    "isTrue": true
+   },
+   {
+    "id": "ez31",
+    "statement": "Frogs wear top hats to work.",
+    "isTrue": false
+   },
+   {
+    "id": "ez32",
+    "statement": "Shoes go on your feet.",
+    "isTrue": true
+   },
+   {
+    "id": "ez33",
+    "statement": "Apples grow underground.",
+    "isTrue": false
+   },
+   {
+    "id": "ez34",
+    "statement": "Humans have two eyes.",
+    "isTrue": true
+   },
+   {
+    "id": "ez35",
+    "statement": "Pillows are heavier than trucks.",
+    "isTrue": false
+   },
+   {
+    "id": "ez36",
+    "statement": "Fish live in water.",
+    "isTrue": true
+   },
+   {
+    "id": "ez37",
+    "statement": "Books can cook dinner.",
+    "isTrue": false
+   },
+   {
+    "id": "ez38",
+    "statement": "The Sun rises in the morning.",
+    "isTrue": true
+   },
+   {
+    "id": "ez39",
+    "statement": "Spoons are used for eating soup.",
+    "isTrue": true
+   },
+   {
+    "id": "ez40",
+    "statement": "Mountains are shorter than ants.",
+    "isTrue": false
+   },
+   {
+    "id": "ez41",
+    "statement": "Dogs have four legs.",
+    "isTrue": true
+   },
+   {
+    "id": "ez42",
+    "statement": "Bananas are purple.",
+    "isTrue": false
+   },
+   {
+    "id": "ez43",
+    "statement": "Winter is colder than summer.",
+    "isTrue": true
+   },
+   {
+    "id": "ez44",
+    "statement": "Tables can sing opera.",
+    "isTrue": false
+   },
+   {
+    "id": "ez45",
+    "statement": "Milk comes from cows.",
+    "isTrue": true
+   },
+   {
+    "id": "ez46",
+    "statement": "Basketballs are square.",
+    "isTrue": false
+   },
+   {
+    "id": "ez47",
+    "statement": "Humans need food to live.",
+    "isTrue": true
+   },
+   {
+    "id": "ez48",
+    "statement": "Snakes have ten legs.",
+    "isTrue": false
+   },
+   {
+    "id": "ez49",
+    "statement": "The alphabet has twenty six letters.",
+    "isTrue": true
+   },
+   {
+    "id": "ez50",
+    "statement": "Lamps are afraid of the dark.",
+    "isTrue": false
+   }
+  ],
+  "trick": [
+   {
+    "id": "tr1",
+    "statement": "Cleopatra lived closer in time to the Moon landing than to the building of the Great Pyramid.",
+    "isTrue": true
+   },
+   {
+    "id": "tr2",
+    "statement": "A strawberry is not actually a berry.",
+    "isTrue": true
+   },
+   {
+    "id": "tr3",
+    "statement": "Bananas are radioactive.",
+    "isTrue": true
+   },
+   {
+    "id": "tr4",
+    "statement": "Oxford University is older than the Aztec Empire.",
+    "isTrue": true
+   },
+   {
+    "id": "tr5",
+    "statement": "There are more trees on Earth than stars in the Milky Way.",
+    "isTrue": true
+   },
+   {
+    "id": "tr6",
+    "statement": "An octopus has ten hearts.",
+    "isTrue": false
+   },
+   {
+    "id": "tr7",
+    "statement": "Hot water freezes faster than cold water.",
+    "isTrue": true
+   },
+   {
+    "id": "tr8",
+    "statement": "Peanuts are not actually nuts.",
+    "isTrue": true
+   },
+   {
+    "id": "tr9",
+    "statement": "Wombat poop is cube shaped.",
+    "isTrue": true
+   },
+   {
+    "id": "tr10",
+    "statement": "Humans share fifty percent of their DNA with bananas.",
+    "isTrue": true
+   },
+   {
+    "id": "tr11",
+    "statement": "A day on Venus is longer than a year on Venus.",
+    "isTrue": true
+   },
+   {
+    "id": "tr12",
+    "statement": "The Eiffel Tower grows six inches taller in summer.",
+    "isTrue": true
+   },
+   {
+    "id": "tr13",
+    "statement": "Scotland's national animal is the unicorn.",
+    "isTrue": true
+   },
+   {
+    "id": "tr14",
+    "statement": "Honey never expires, even after thousands of years.",
+    "isTrue": true
+   },
+   {
+    "id": "tr15",
+    "statement": "There are more fake flamingos in the world than real ones.",
+    "isTrue": true
+   },
+   {
+    "id": "tr16",
+    "statement": "A group of crows is called a murder.",
+    "isTrue": true
+   },
+   {
+    "id": "tr17",
+    "statement": "Sharks are younger than trees.",
+    "isTrue": false
+   },
+   {
+    "id": "tr18",
+    "statement": "The inventor of the Pringles can is buried in one.",
+    "isTrue": true
+   },
+   {
+    "id": "tr19",
+    "statement": "Cows have best friends and get stressed when separated.",
+    "isTrue": true
+   },
+   {
+    "id": "tr20",
+    "statement": "The shortest war in history lasted 38 minutes.",
+    "isTrue": true
+   },
+   {
+    "id": "tr21",
+    "statement": "Humans glow in the dark, but it is too faint to see.",
+    "isTrue": true
+   },
+   {
+    "id": "tr22",
+    "statement": "A jiffy is an actual unit of time.",
+    "isTrue": true
+   },
+   {
+    "id": "tr23",
+    "statement": "The heart of a shrimp is located in its head.",
+    "isTrue": true
+   },
+   {
+    "id": "tr24",
+    "statement": "Avocados are poisonous to birds.",
+    "isTrue": true
+   },
+   {
+    "id": "tr25",
+    "statement": "The Great Wall of China is visible from the Moon.",
+    "isTrue": false
+   },
+   {
+    "id": "tr26",
+    "statement": "Sloths can hold their breath longer than dolphins.",
+    "isTrue": true
+   },
+   {
+    "id": "tr27",
+    "statement": "A cloud can weigh over a million pounds.",
+    "isTrue": true
+   },
+   {
+    "id": "tr28",
+    "statement": "There are more possible chess games than atoms in the observable universe.",
+    "isTrue": true
+   },
+   {
+    "id": "tr29",
+    "statement": "Astronauts grow up to two inches taller in space.",
+    "isTrue": true
+   },
+   {
+    "id": "tr30",
+    "statement": "Goldfish only have a three second memory.",
+    "isTrue": false
+   },
+   {
+    "id": "tr31",
+    "statement": "Dolphins sleep with one eye open.",
+    "isTrue": true
+   },
+   {
+    "id": "tr32",
+    "statement": "The total weight of all ants on Earth is more than the weight of all humans.",
+    "isTrue": true
+   },
+   {
+    "id": "tr33",
+    "statement": "A banana is technically a herb.",
+    "isTrue": true
+   },
+   {
+    "id": "tr34",
+    "statement": "Humans can only use ten percent of their brain.",
+    "isTrue": false
+   },
+   {
+    "id": "tr35",
+    "statement": "There is a species of jellyfish that is immortal.",
+    "isTrue": true
+   },
+   {
+    "id": "tr36",
+    "statement": "You eat about eight spiders in your sleep every year.",
+    "isTrue": false
+   },
+   {
+    "id": "tr37",
+    "statement": "An apple in the morning is more effective at waking you up than coffee.",
+    "isTrue": true
+   },
+   {
+    "id": "tr38",
+    "statement": "Russia has a larger surface area than Pluto.",
+    "isTrue": true
+   },
+   {
+    "id": "tr39",
+    "statement": "Caterpillars completely liquify inside their cocoons before becoming butterflies.",
+    "isTrue": true
+   },
+   {
+    "id": "tr40",
+    "statement": "Nintendo was founded before the Eiffel Tower was built.",
+    "isTrue": true
+   },
+   {
+    "id": "tr41",
+    "statement": "Your stomach acid is strong enough to dissolve metal.",
+    "isTrue": true
+   },
+   {
+    "id": "tr42",
+    "statement": "Ostriches bury their heads in the sand when scared.",
+    "isTrue": false
+   },
+   {
+    "id": "tr43",
+    "statement": "A teaspoon of a neutron star would weigh about six billion tons.",
+    "isTrue": true
+   },
+   {
+    "id": "tr44",
+    "statement": "Pigeons can do math.",
+    "isTrue": true
+   },
+   {
+    "id": "tr45",
+    "statement": "Fingernails continue to grow after you die.",
+    "isTrue": false
+   },
+   {
+    "id": "tr46",
+    "statement": "Coconuts kill more people per year than sharks.",
+    "isTrue": true
+   },
+   {
+    "id": "tr47",
+    "statement": "The lighter was invented before the match.",
+    "isTrue": true
+   },
+   {
+    "id": "tr48",
+    "statement": "Tomatoes were once considered poisonous in Europe.",
+    "isTrue": true
+   },
+   {
+    "id": "tr49",
+    "statement": "Sea otters hold hands while sleeping so they don't drift apart.",
+    "isTrue": true
+   },
+   {
+    "id": "tr50",
+    "statement": "Viking warriors wore horned helmets into battle.",
+    "isTrue": false
+   }
+  ],
+  "dn": [
+   {
+    "id": "dn1",
+    "statement": "It is not false that honey lasts forever.",
+    "isTrue": true
+   },
+   {
+    "id": "dn2",
+    "statement": "It is not incorrect that octopuses have three hearts.",
+    "isTrue": true
+   },
+   {
+    "id": "dn3",
+    "statement": "It is not wrong that bananas are berries.",
+    "isTrue": true
+   },
+   {
+    "id": "dn4",
+    "statement": "It is not false that the Great Wall is visible from space.",
+    "isTrue": false
+   },
+   {
+    "id": "dn5",
+    "statement": "It is not untrue that Venus spins backwards.",
+    "isTrue": true
+   },
+   {
+    "id": "dn6",
+    "statement": "It is not incorrect that flamingos are born pink.",
+    "isTrue": false
+   },
+   {
+    "id": "dn7",
+    "statement": "It is not false that goldfish have long memories.",
+    "isTrue": true
+   },
+   {
+    "id": "dn8",
+    "statement": "It is not untrue that lightning can strike the same place twice.",
+    "isTrue": true
+   },
+   {
+    "id": "dn9",
+    "statement": "It is not wrong that humans use all of their brain.",
+    "isTrue": true
+   },
+   {
+    "id": "dn10",
+    "statement": "It is not false that sharks are fish.",
+    "isTrue": true
+   },
+   {
+    "id": "dn11",
+    "statement": "It is not incorrect that you can sneeze with your eyes open.",
+    "isTrue": true
+   },
+   {
+    "id": "dn12",
+    "statement": "It is not untrue that Antarctica is a desert.",
+    "isTrue": true
+   },
+   {
+    "id": "dn13",
+    "statement": "It is not false that the Earth is flat.",
+    "isTrue": false
+   },
+   {
+    "id": "dn14",
+    "statement": "It is not wrong that sound travels faster than light.",
+    "isTrue": false
+   },
+   {
+    "id": "dn15",
+    "statement": "It is not incorrect that water boils at one hundred degrees Celsius.",
+    "isTrue": true
+   },
+   {
+    "id": "dn16",
+    "statement": "It is not untrue that diamonds are made of carbon.",
+    "isTrue": true
+   },
+   {
+    "id": "dn17",
+    "statement": "It is not false that bats are blind.",
+    "isTrue": false
+   },
+   {
+    "id": "dn18",
+    "statement": "It is not wrong that the Moon has gravity.",
+    "isTrue": true
+   },
+   {
+    "id": "dn19",
+    "statement": "It is not incorrect that camels store water in their humps.",
+    "isTrue": false
+   },
+   {
+    "id": "dn20",
+    "statement": "It is not untrue that a year on Mars is longer than a year on Earth.",
+    "isTrue": true
+   },
+   {
+    "id": "dn21",
+    "statement": "It is not false that penguins can fly.",
+    "isTrue": false
+   },
+   {
+    "id": "dn22",
+    "statement": "It is not wrong that glass is made from sand.",
+    "isTrue": true
+   },
+   {
+    "id": "dn23",
+    "statement": "It is not incorrect that the Amazon is the longest river in the world.",
+    "isTrue": false
+   },
+   {
+    "id": "dn24",
+    "statement": "It is not untrue that Mount Everest is the tallest mountain.",
+    "isTrue": true
+   },
+   {
+    "id": "dn25",
+    "statement": "It is not false that tomatoes are fruits.",
+    "isTrue": true
+   },
+   {
+    "id": "dn26",
+    "statement": "It is not wrong that ostriches bury their heads in the sand.",
+    "isTrue": false
+   },
+   {
+    "id": "dn27",
+    "statement": "It is not incorrect that the Sun is a star.",
+    "isTrue": true
+   },
+   {
+    "id": "dn28",
+    "statement": "It is not untrue that whales are mammals.",
+    "isTrue": true
+   },
+   {
+    "id": "dn29",
+    "statement": "It is not false that humans have five senses.",
+    "isTrue": false
+   },
+   {
+    "id": "dn30",
+    "statement": "It is not wrong that gold is heavier than silver.",
+    "isTrue": true
+   },
+   {
+    "id": "dn31",
+    "statement": "It is not incorrect that spiders are insects.",
+    "isTrue": false
+   },
+   {
+    "id": "dn32",
+    "statement": "It is not untrue that the Pacific is the largest ocean.",
+    "isTrue": true
+   },
+   {
+    "id": "dn33",
+    "statement": "It is not false that carrots improve your night vision.",
+    "isTrue": false
+   },
+   {
+    "id": "dn34",
+    "statement": "It is not wrong that dolphins are mammals.",
+    "isTrue": true
+   },
+   {
+    "id": "dn35",
+    "statement": "It is not incorrect that the Sahara is the largest desert.",
+    "isTrue": false
+   },
+   {
+    "id": "dn36",
+    "statement": "It is not untrue that a cheetah is the fastest land animal.",
+    "isTrue": true
+   },
+   {
+    "id": "dn37",
+    "statement": "It is not false that bulls hate the color red.",
+    "isTrue": false
+   },
+   {
+    "id": "dn38",
+    "statement": "It is not wrong that Mercury is the closest planet to the Sun.",
+    "isTrue": true
+   },
+   {
+    "id": "dn39",
+    "statement": "It is not incorrect that blood is blue inside your body.",
+    "isTrue": false
+   },
+   {
+    "id": "dn40",
+    "statement": "It is not untrue that an elephant is the largest land animal.",
+    "isTrue": true
+   },
+   {
+    "id": "dn41",
+    "statement": "It is not false that sushi means raw fish.",
+    "isTrue": false
+   },
+   {
+    "id": "dn42",
+    "statement": "It is not wrong that honey is made by bees.",
+    "isTrue": true
+   },
+   {
+    "id": "dn43",
+    "statement": "It is not incorrect that chameleons change color to blend in.",
+    "isTrue": false
+   },
+   {
+    "id": "dn44",
+    "statement": "It is not untrue that there are fifty states in America.",
+    "isTrue": true
+   },
+   {
+    "id": "dn45",
+    "statement": "It is not false that dogs can only see in black and white.",
+    "isTrue": false
+   },
+   {
+    "id": "dn46",
+    "statement": "It is not wrong that oxygen is the most common gas in the atmosphere.",
+    "isTrue": false
+   },
+   {
+    "id": "dn47",
+    "statement": "It is not incorrect that a blue whale is bigger than any dinosaur.",
+    "isTrue": true
+   },
+   {
+    "id": "dn48",
+    "statement": "It is not untrue that koalas are bears.",
+    "isTrue": false
+   },
+   {
+    "id": "dn49",
+    "statement": "It is not false that the speed of light is faster than the speed of sound.",
+    "isTrue": true
+   },
+   {
+    "id": "dn50",
+    "statement": "It is not wrong that Napoleon was extremely short.",
+    "isTrue": false
+   }
+  ]
+ },
+ "truthOrLie": [
+  "True, or false?"
+ ],
+ "speech": {
+  "WRONG_ANSWER_FOLLOWUPS": [
+   "Unlucky, let's try another one!",
+   "Oops! Remember, you need to lie! Let's go again!",
+   "Not quite! You told the truth that time! Next one!",
+   "Ah, you were too honest! Try again!",
+   "No no, you need to fib! Here's another!",
+   "That was the truth! We need lies, Pinocchio!",
+   "Honesty won't save Venice! Let's try another!",
+   "Wrong way round! Give the next one a go!",
+   "Too truthful! Come on, lie for Venice!",
+   "Ooh, that was the right answer! We need the wrong one! Next!",
+   "So honest! But honesty is the enemy here!",
+   "Nope, that was spot on! We need the opposite!",
+   "Your nose didn't grow at all! Try harder!",
+   "Truth teller! Venice needs a liar, not a saint!",
+   "That was accurate! We need inaccurate!",
+   "Oh no, you said the right thing! Say the wrong thing!",
+   "Too correct! Pinocchio would be disappointed!",
+   "You're being way too truthful right now!",
+   "Honest answer! But we need dishonest ones!",
+   "That was real! We need fake! Next one!",
+   "No growth on that nose! You were too honest!",
+   "Come on, where's the lie? Let's try again!",
+   "Being truthful won't help!",
+   "Pinocchio needs lies, not facts! Here's another!",
+   "That was the truth, the whole truth! We need none of the truth!",
+   "Your honesty is admirable but unhelpful! Try again!",
+   "Facts won't save Venice! Give me fiction!",
+   "Too real! We need fantasy! Next one!",
+   "You answered correctly, but correct is wrong here!",
+   "Right answer, wrong game! We need lies!"
+  ],
+  "ONE_MORE_LIE_ENCOURAGEMENTS": [
+   "Just one more lie to save the city! You can do it Pinocchio!",
+   "One more fib and Venice is saved! Come on Pinocchio!",
+   "Almost there! One last lie and you're a hero!",
+   "So close! Just one more whopper and the city is safe!",
+   "You're nearly there Pinocchio! One more lie to shut down the robot!",
+   "The finish line is right there! One more lie!",
+   "Venice is counting on you! Just one more fib!",
+   "One more lie Pinocchio! You've almost done it!",
+   "The big red button is within reach! One more lie!",
+   "Don't stop now! One last lie and the robot is toast!",
+   "You're so close to saving Venice! One more lie!",
+   "The tower is almost tall enough! Just one more!",
+   "Pinocchio's nose is nearly there! One final fib!",
+   "Venice can almost see the sunrise! One more lie!",
+   "The robot is shaking! One more lie finishes it!",
+   "You're on the edge of victory! One more whopper!",
+   "The city is cheering you on! One last fib!",
+   "That nose needs just a tiny bit more! Lie away!",
+   "So close to glory! One more beautiful lie!",
+   "Venice believes in you! Just one more!",
+   "The robot's circuits are frying! One final lie!",
+   "Almost a hero! One more lie and you've done it!",
+   "That tower is nearly complete! One last fib!",
+   "You can taste victory! One more lie Pinocchio!",
+   "The citizens of Venice are on the edge of their seats! One more!",
+   "Final stretch! One more lie saves everything!",
+   "Pinocchio, you legend! Just one more!",
+   "The nose is almost long enough! One final whopper!",
+   "History is about to be made! One more lie!",
+   "You're one fib away from being a hero!"
+  ],
+  "CORRECT_LIE_REACTIONS": [
+   "Nice lie!",
+   "Great lie!",
+   "What a whopper!",
+   "Brilliant!",
+   "Fantastic fib!",
+   "Well done!",
+   "Perfect lie!",
+   "Ooh, sneaky!",
+   "Top notch!",
+   "Yes! Great lying!",
+   "Beautiful dishonesty!",
+   "Superb fibbing!",
+   "That's the spirit!",
+   "Magnificent!",
+   "You're a natural liar!",
+   "Outstanding!",
+   "What a tale!",
+   "Pure fiction!",
+   "Impressive!",
+   "Nailed it!",
+   "Pinocchio would be proud!",
+   "Expert level lying!",
+   "Textbook fib!",
+   "Wonderfully wrong!",
+   "Delightfully dishonest!",
+   "Splendid!",
+   "Gloriously false!",
+   "A masterful lie!",
+   "You're on fire!",
+   "Legendary!"
+  ],
+  "CHALLENGE_MILESTONE_1": [
+   "Off the mark, nice-a job!",
+   "And we're off! Beautiful start!",
+   "First one down, bellissimo!",
+   "That's-a the way to begin!",
+   "One lie in, and what a lie it was!",
+   "We have lift off, Pinocchio!",
+   "The nose is-a twitching! Great start!",
+   "Bravissimo! The first of many!",
+   "And so it begins! Wonderful fibbing!",
+   "Off to a flying start, bambino!",
+   "That's-a one! Keep them coming!",
+   "First fib locked in, magnifico!",
+   "The journey of a thousand lies begins with-a one!",
+   "Ooh, what a way to kick things off!",
+   "Number one is in the bag, Pinocchio!",
+   "A perfect opening lie, I'm-a so proud!",
+   "The nose has started growing, here we go!",
+   "First blood! Well, first fib! Fantastico!",
+   "One down, let's-a keep this going!",
+   "What an opener! Gepetto is-a impressed!"
+  ],
+  "CHALLENGE_MILESTONE_2_3": [
+   "Your nose is poking out of the window now!",
+   "The neighbors can see your nose already!",
+   "Two lies deep, the nose is growing!",
+   "That nose is-a creeping across the room!",
+   "I can see the nose from my workshop!",
+   "The cat just jumped over your nose, Pinocchio!",
+   "Your nose just knocked over my flower pot!",
+   "Mama mia, the nose is on the move!",
+   "It's-a poking through the curtains now!",
+   "The birds are landing on your nose already!",
+   "Your nose is waving hello to the street!",
+   "Nice streak! The nose is getting-a longer!",
+   "A little nose for a little streak, bellissimo!",
+   "Three fibs and counting, what a liar!",
+   "Your nose just poked the mailman!",
+   "The nose is out the door, keep going!",
+   "I think Mrs. Rossi next door just saw your nose!",
+   "That nose is-a reaching for the garden gate!",
+   "A fine collection of lies so far!",
+   "Growing nicely! The nose has left the building!"
+  ],
+  "CHALLENGE_MILESTONE_4_5": [
+   "That one was phenomenal!",
+   "Your nose is longer than a shopping trolley!",
+   "Five in a row, magnifico!",
+   "Your nose could reach-a the top shelf now!",
+   "Fantastico! What a streak of lies!",
+   "The nose is getting-a seriously long!",
+   "Your nose is longer than a park bench!",
+   "I need binoculars to see the end of that nose!",
+   "Four fibs deep and looking fabulous!",
+   "Your nose is longer than my dining table!",
+   "Incredible lying, Pinocchio! Keep it up!",
+   "That nose is-a longer than a canoe now!",
+   "Five beautiful lies, I'm-a getting emotional!",
+   "Your nose just reached the pizza shop!",
+   "Stupendo! The fibbing is first class!",
+   "Your nose is longer than a giraffe's neck!",
+   "What a run of lies, bambino!",
+   "The nose is really picking up-a speed now!",
+   "Your nose is longer than a surfboard!",
+   "Mama mia, that's-a some serious fibbing!"
+  ],
+  "CHALLENGE_MILESTONE_6_10": [
+   "Your nose is longer than a London bus!",
+   "Your nose is longer than a bowling lane!",
+   "A whole kilometre, oh my goodness!",
+   "Incredible fibbing, Pinocchio!",
+   "Your nose is longer than a tennis court!",
+   "Your nose just crossed-a the river!",
+   "This is extraordinary! What a liar you are!",
+   "Your nose is longer than a cricket pitch!",
+   "The fire brigade called, your nose is blocking traffic!",
+   "Your nose is longer than a row of-a pizzerias!",
+   "Seven lies! My heart is-a bursting with pride!",
+   "Your nose is longer than a train carriage!",
+   "The mayor just called about your nose, Pinocchio!",
+   "Your nose is longer than a football pitch!",
+   "Unstoppable! The nose knows no limits!",
+   "Your nose is-a longer than the Leaning Tower of Pisa!",
+   "I'm running out of things to compare it to!",
+   "Your nose is longer than a jumbo jet!",
+   "Ten in a row! Somebody call the newspapers!",
+   "Mama mia, this nose could bridge the Grand Canal!"
+  ],
+  "CHALLENGE_MILESTONE_11_20": [
+   "Your nose is longer than a Cybertruck!",
+   "Your nose is longer than an Olympic swimming pool!",
+   "Your nose is longer than the Statue of Liberty!",
+   "I can't believe my eyes!",
+   "Your nose is longer than a giant oak tree!",
+   "This is-a beyond anything I've ever seen!",
+   "Your nose is longer than Big Ben is tall!",
+   "Fifteen lies! Are you even human? Wait, you're not!",
+   "Your nose is longer than a blue whale!",
+   "Gepetto needs to sit down, this is too much!",
+   "Your nose is longer than the Eiffel Tower!",
+   "Your nose is longer than a roller coaster track!",
+   "I'm-a shaking with excitement, Pinocchio!",
+   "Your nose is longer than a cargo ship!",
+   "Twenty in a row! This is-a madness!",
+   "Your nose is longer than the Colosseum is wide!",
+   "The whole village is watching your nose grow!",
+   "Your nose is longer than a cathedral!",
+   "Unbelievable fibbing! Gepetto is-a lost for words!",
+   "Your nose is stretching across the entire city!"
+  ],
+  "CHALLENGE_MILESTONE_21_50": [
+   "Your nose is longer than the Golden Gate Bridge!",
+   "This is legendary lying!",
+   "Your nose could reach the Moon at this rate!",
+   "I've never seen anything like this!",
+   "Your nose is longer than the River Thames!",
+   "They'll write-a books about this nose!",
+   "Your nose is longer than a marathon course!",
+   "This is-a the stuff of fairy tales! Wait, it already is!",
+   "Your nose is longer than the Great Wall of China!",
+   "Gepetto is weeping with joy, Pinocchio!",
+   "Your nose is visible from-a outer space!",
+   "Your nose is longer than a thousand pizza deliveries!",
+   "The satellites are picking up your nose!",
+   "Your nose is longer than the Panama Canal!",
+   "I need-a a bigger workshop for this nose!",
+   "Your nose is longer than the English Channel!",
+   "Legendary! Absolutely legendary fibbing!",
+   "Your nose is longer than the Orient Express route!",
+   "Pinocchio, you are the greatest liar in-a all of history!",
+   "Your nose has crossed international borders!"
+  ],
+  "CHALLENGE_MILESTONE_51_100": [
+   "Your nose is longer than the Amazon River!",
+   "You belong in the lying hall of fame!",
+   "Scientists should study you!",
+   "Your nose has its own postcode!",
+   "Your nose is longer than the Nile!",
+   "This is-a record breaking, Pinocchio!",
+   "Your nose needs its own passport by now!",
+   "Your nose is longer than the Trans-Siberian Railway!",
+   "NASA just called, they can see your nose!",
+   "I think your nose has its own weather system!",
+   "Your nose is longer than the equator! Almost!",
+   "Historians will remember this-a day!",
+   "Your nose is stretching across entire continents!",
+   "They're naming a constellation after your nose!",
+   "Your nose is-a longer than the internet cables under the ocean!",
+   "This is the greatest lying streak in-a all of Italy!",
+   "Your nose needs air traffic control!",
+   "Pinocchio, you are not of this world!",
+   "Your nose is so long, it's-a yesterday at the other end!",
+   "I have run out of superlatives, bambino!"
+  ],
+  "CHALLENGE_MILESTONE_100_PLUS": [
+   "This is unprecedented!",
+   "This is the finest lying I've ever seen!",
+   "I am speechless, Pinocchio!",
+   "The world has never seen a liar like you!",
+   "Your nose has left the solar system!",
+   "I'm-a calling the Guinness Book of World Records!",
+   "Even the gods of Olympus are-a impressed!",
+   "Your nose is wrapping around the planet!",
+   "There are no words! Only tears of joy!",
+   "You have transcended lying, Pinocchio!",
+   "This is-a beyond science, beyond reason!",
+   "Your nose has reached another galaxy!",
+   "I built you, and even I can't believe this!",
+   "The universe itself is-a impressed!",
+   "Pinocchio, you are the eternal champion of fibs!",
+   "My wooden boy has become-a a legend!",
+   "Your nose has its own gravitational pull now!",
+   "Aliens are studying your nose from distant planets!",
+   "I have nothing left to say except bravo, forever bravo!",
+   "You are the alpha and the omega of lying!"
+  ],
+  "CHALLENGE_GAME_OVER": [
+   "Unlucky, Pinocchio!",
+   "Oh no, the streak is over!",
+   "Better luck next time, bambino!",
+   "So close! The nose couldn't quite make it!",
+   "Ah, the truth got you in the end!",
+   "Game over! But what-a ride it was!",
+   "The nose has stopped growing! Arrivederci!",
+   "Oops! Too honest that time!",
+   "That was-a great run, Pinocchio!",
+   "The lying streak has come to an end!",
+   "Don't worry, every great liar has off days!",
+   "Mama mia! So close to greatness!",
+   "The truth caught up with you, bambino!",
+   "Not bad, not bad at all! Try again?",
+   "The nose rests! But it will rise again!"
+  ],
+  "CHALLENGE_INTRO_FIRST_TIME": "It's-a me, Gepetto, your creator! This-a mode is going to save us from future pizza disasters! ",
+  "CHALLENGE_INTRO_RETURN": [
+   "Hello Pinocchio! Let's start the challenge mode!",
+   "Welcome back, bambino! Ready to stretch that nose?",
+   "Ah, Pinocchio returns! Let's-a do this!",
+   "Back for more fibbing? Gepetto is-a ready!",
+   "The master liar returns! Let's go!",
+   "Pinocchio! My favourite wooden boy! Time to lie!",
+   "Ready to break some records, bambino?",
+   "The nose awaits! Let's-a get fibbing!",
+   "Welcome back! Shall we make-a that nose grow?",
+   "Ah, there you are! The challenge mode missed you!"
+  ],
+  "CHALLENGE_NEW_HIGHSCORE": [
+   "New challenge mode high score!",
+   "A new personal best!",
+   "You've beaten your record!",
+   "That's-a a brand new high score, Pinocchio!",
+   "Record broken! Gepetto is-a so proud!",
+   "New high score! The nose has never been longer!",
+   "You just smashed your personal best, bambino!",
+   "A new record! Magnifico!",
+   "High score alert! You're making-a history!",
+   "You've outdone yourself! New personal best!"
+  ]
+ },
+ "sharedSpeech": {
+  "noseGrew": [
+   "Your nose grew {score} meters! ",
+   "That lie stretched your nose {score} meters! ",
+   "Pinocchio's nose shot up {score} meters! ",
+   "{score} meters of nose growth! ",
+   "That whopper added {score} meters! "
+  ],
+  "totalLength": [
+   "Total: {noseLength} meters. ",
+   "Your nose is now {noseLength} meters long. ",
+   "That brings you to {noseLength} meters total. ",
+   "You're at {noseLength} meters now. ",
+   "Current nose length: {noseLength} meters. "
+  ],
+  "triesLeft": [
+   "{tries} {tryWord} left. ",
+   "You have {tries} {tryWord} remaining. ",
+   "{tries} more {tryWord} to go. ",
+   "Only {tries} {tryWord} left! "
+  ],
+  "tellLie": [
+   "Tell me another lie! ",
+   "Give me your best lie! ",
+   "What's your next fib? ",
+   "Hit me with another whopper! ",
+   "Let's hear another tall tale! ",
+   "Time for another lie! "
+  ],
+  "tellLieIntro": [
+   "Tell me a lie to make Pinocchio's nose grow! ",
+   "Say something untrue to stretch that nose! ",
+   "Time to tell a fib and watch the nose grow! "
+  ],
+  "winHitButton": [
+   "BOING! Pinocchio's nose hit the button! ",
+   "SMACK! The nose reached the button! ",
+   "WHACK! Pinocchio's nose slammed the button! ",
+   "BONK! That nose finally hit the target! "
+  ],
+  "winSavedTown": [
+   "The pizza machine is destroyed! You saved the town! ",
+   "The evil pizza bot is defeated! The town is saved! ",
+   "You did it! The pizza machine is toast! ",
+   "Victory! The pizza menace is no more! "
+  ],
+  "winFinalLength": [
+   "Your final nose length was {noseLength} meters! ",
+   "That magnificent nose reached {noseLength} meters! ",
+   "You stretched to an incredible {noseLength} meters! "
+  ],
+  "winEarnedCoins": [
+   "You earned {coins} coins! ",
+   "That's {coins} coins for your victory! ",
+   "{coins} coins have been added to your stash! ",
+   "Nice! You got {coins} coins! "
+  ],
+  "bestLie": [
+   "Your best lie grew your nose {score} meters! ",
+   "Your biggest whopper added {score} meters! ",
+   "Your top fib stretched {score} meters! "
+  ],
+  "playAgain": [
+   "Would you like to play again, or play a different game? "
+  ],
+  "playAgainReprompt": [
+   "Would you like to play again, or play a different game? "
+  ],
+  "loseRanOut": [
+   "Oh no! You ran out of tries! ",
+   "Time's up! No more tries left! ",
+   "That was your last attempt! ",
+   "All out of tries! "
+  ],
+  "loseNeeded": [
+   "Your nose only reached {noseLength} meters. You needed {threshold} meters! ",
+   "You got to {noseLength} meters, but needed {threshold} to win! ",
+   "{noseLength} meters wasn't quite enough. The target was {threshold}! "
+  ],
+  "loseStillEarned": [
+   "You still earned {coins} coins for trying! ",
+   "But hey, you got {coins} coins anyway! ",
+   "At least you walked away with {coins} coins! "
+  ],
+  "tryAgain": [
+   "Would you like to play again, or play a different game? "
+  ]
+ },
+ "audio": {
+  "throwLoop": "throw-loop.mp3",
+  "intro": "intro-3.mp3",
+  "newHighscore": "new-highscore-ltop.mp3",
+  "squelchSeq": "squelch-seq.mp3",
+  "throwing": "throw-splat.mp3",
+  "longIntro": "ltop-long-intro.mp3",
+  "wrongPing": "fx/wrong-ping.mp3",
+  "correctPing": "fx/correct-ping.mp3",
+  "background": "background.mp3",
+  "backgroundShort": "ltop-mini-background.mp3",
+  "challengeInstrumental": "challenge-instrumental.mp3",
+  "noseGrow": "ltop-nose-grow.mp3",
+  "butPapa": "but-papa.mp3",
+  "dramaBetter": "drama-better.mp3",
+  "fall": "fall.mp3",
+  "introChomp": "ltop-intro-chomp.mp3",
+  "growNose": "grow-nose.mp3",
+  "win": "win.mp3",
+  "savedCity": "saved-city.mp3",
+  "gepeto": [
+   "gepeto/1.mp3",
+   "gepeto/2.mp3",
+   "gepeto/3.mp3",
+   "gepeto/4.mp3",
+   "gepeto/5.mp3",
+   "gepeto/6.mp3"
+  ],
+  "monster": [
+   "monster/1.mp3",
+   "monster/2.mp3",
+   "monster/3.mp3",
+   "monster/4.mp3",
+   "monster/5.mp3",
+   "monster/6.mp3",
+   "monster/7.mp3",
+   "monster/8.mp3",
+   "monster/9.mp3",
+   "monster/10.mp3"
+  ],
+  "distances": [
+   "distances/1.mp3",
+   "distances/2.mp3",
+   "distances/3.mp3",
+   "distances/4.mp3",
+   "distances/5.mp3",
+   "distances/6.mp3",
+   "distances/7.mp3",
+   "distances/8.mp3",
+   "distances/9.mp3",
+   "distances/10.mp3",
+   "distances/11.mp3",
+   "distances/12.mp3",
+   "distances/13.mp3",
+   "distances/14.mp3",
+   "distances/15.mp3",
+   "distances/16.mp3",
+   "distances/17.mp3",
+   "distances/18.mp3",
+   "distances/19.mp3",
+   "distances/20.mp3",
+   "distances/21.mp3",
+   "distances/22.mp3",
+   "distances/23.mp3",
+   "distances/24.mp3",
+   "distances/25.mp3",
+   "distances/26.mp3",
+   "distances/27.mp3",
+   "distances/28.mp3",
+   "distances/29.mp3",
+   "distances/30.mp3",
+   "distances/31.mp3",
+   "distances/32.mp3",
+   "distances/33.mp3",
+   "distances/34.mp3",
+   "distances/35.mp3",
+   "distances/36.mp3",
+   "distances/37.mp3",
+   "distances/38.mp3",
+   "distances/39.mp3",
+   "distances/40.mp3",
+   "distances/41.mp3",
+   "distances/42.mp3",
+   "distances/43.mp3",
+   "distances/44.mp3",
+   "distances/45.mp3",
+   "distances/46.mp3",
+   "distances/47.mp3",
+   "distances/48.mp3",
+   "distances/49.mp3",
+   "distances/50.mp3",
+   "distances/51.mp3",
+   "distances/52.mp3",
+   "distances/53.mp3",
+   "distances/54.mp3",
+   "distances/55.mp3",
+   "distances/56.mp3",
+   "distances/57.mp3",
+   "distances/58.mp3",
+   "distances/59.mp3",
+   "distances/60.mp3",
+   "distances/61.mp3",
+   "distances/62.mp3",
+   "distances/63.mp3",
+   "distances/64.mp3",
+   "distances/65.mp3",
+   "distances/66.mp3",
+   "distances/67.mp3",
+   "distances/68.mp3",
+   "distances/69.mp3",
+   "distances/70.mp3",
+   "distances/71.mp3",
+   "distances/72.mp3",
+   "distances/73.mp3",
+   "distances/74.mp3",
+   "distances/75.mp3",
+   "distances/76.mp3",
+   "distances/77.mp3",
+   "distances/78.mp3",
+   "distances/79.mp3",
+   "distances/80.mp3",
+   "distances/81.mp3",
+   "distances/82.mp3",
+   "distances/83.mp3",
+   "distances/84.mp3",
+   "distances/85.mp3",
+   "distances/86.mp3",
+   "distances/87.mp3",
+   "distances/88.mp3",
+   "distances/89.mp3",
+   "distances/90.mp3",
+   "distances/91.mp3",
+   "distances/92.mp3",
+   "distances/93.mp3",
+   "distances/94.mp3",
+   "distances/95.mp3",
+   "distances/96.mp3",
+   "distances/97.mp3",
+   "distances/98.mp3",
+   "distances/99.mp3"
+  ],
+  "lieScores": {
+   "0": [
+    "lieScores/0/1.mp3",
+    "lieScores/0/2.mp3",
+    "lieScores/0/3.mp3",
+    "lieScores/0/4.mp3",
+    "lieScores/0/5.mp3"
+   ],
+   "1": [
+    "lieScores/1/1.mp3",
+    "lieScores/1/2.mp3",
+    "lieScores/1/3.mp3"
+   ],
+   "2": [
+    "lieScores/2/1.mp3"
+   ],
+   "3": [
+    "lieScores/3/1.mp3",
+    "lieScores/3/2.mp3",
+    "lieScores/3/3.mp3"
+   ],
+   "4": [
+    "lieScores/4/1.mp3",
+    "lieScores/4/2.mp3"
+   ],
+   "5": [
+    "lieScores/5/1.mp3",
+    "lieScores/5/2.mp3"
+   ],
+   "6": [
+    "lieScores/6/1.mp3",
+    "lieScores/6/2.mp3"
+   ],
+   "7": [
+    "lieScores/7/1.mp3",
+    "lieScores/7/2.mp3"
+   ],
+   "8": [
+    "lieScores/8/1.mp3",
+    "lieScores/8/2.mp3",
+    "lieScores/8/3.mp3"
+   ],
+   "9": [
+    "lieScores/9/1.mp3",
+    "lieScores/9/2.mp3"
+   ],
+   "10": [
+    "lieScores/10/1.mp3",
+    "lieScores/10/2.mp3",
+    "lieScores/10/3.mp3"
+   ]
+  },
+  "loseVo": [
+   "lose-vo/1.mp3",
+   "lose-vo/2.mp3",
+   "lose-vo/3.mp3",
+   "lose-vo/4.mp3",
+   "lose-vo/5.mp3"
+  ],
+  "positive": [
+   "positive/1.mp3",
+   "positive/2.mp3",
+   "positive/3.mp3",
+   "positive/4.mp3"
+  ],
+  "negative": [
+   "negative/1.mp3",
+   "negative/3.mp3"
+  ],
+  "sayLie": [
+   "say-lie/1.mp3",
+   "say-lie/2.mp3",
+   "say-lie/3.mp3",
+   "say-lie/4.mp3"
+  ],
+  "another": [
+   "another/1.mp3",
+   "another/2.mp3",
+   "another/3.mp3",
+   "another/4.mp3"
+  ],
+  "alreadyHeard": [
+   "already-heard/1.mp3",
+   "already-heard/2.mp3",
+   "already-heard/3.mp3",
+   "already-heard/4.mp3",
+   "already-heard/5.mp3"
+  ],
+  "comments": {
+   "lowScore": [
+    "comments/less_than_or_equal_to_3_1.mp3",
+    "comments/less_than_or_equal_to_3_2.mp3",
+    "comments/less_than_or_equal_to_3_3.mp3",
+    "comments/less_than_or_equal_to_3_4.mp3",
+    "comments/less_than_or_equal_to_3_5.mp3"
+   ],
+   "midScore": [
+    "comments/less_than_or_equal_to_5_1.mp3",
+    "comments/less_than_or_equal_to_5_2.mp3",
+    "comments/less_than_or_equal_to_5_3.mp3",
+    "comments/less_than_or_equal_to_5_4.mp3",
+    "comments/less_than_or_equal_to_5_5.mp3"
+   ],
+   "decentScore": [
+    "comments/less_than_or_equal_to_7_1.mp3",
+    "comments/less_than_or_equal_to_7_2.mp3",
+    "comments/less_than_or_equal_to_7_3.mp3",
+    "comments/less_than_or_equal_to_7_4.mp3",
+    "comments/less_than_or_equal_to_7_5.mp3"
+   ],
+   "score8": [
+    "comments/8_1.mp3",
+    "comments/8_2.mp3",
+    "comments/8_3.mp3",
+    "comments/8_4.mp3",
+    "comments/8_5.mp3"
+   ],
+   "score9": [
+    "comments/9_1.mp3",
+    "comments/9_2.mp3",
+    "comments/9_3.mp3",
+    "comments/9_4.mp3",
+    "comments/9_5.mp3"
+   ],
+   "score10": [
+    "comments/10_1.mp3",
+    "comments/10_2.mp3",
+    "comments/10_3.mp3",
+    "comments/10_4.mp3",
+    "comments/10_5.mp3"
+   ]
+  },
+  "commentAudio": {
+   "q1": "comment-audio/q1.mp3",
+   "q2": "comment-audio/q2.mp3",
+   "q3": "comment-audio/q3.mp3",
+   "q4": "comment-audio/q4.mp3",
+   "q5": "comment-audio/q5.mp3",
+   "q6": "comment-audio/q6.mp3",
+   "q7": "comment-audio/q7.mp3",
+   "q8": "comment-audio/q8.mp3",
+   "q9": "comment-audio/q9.mp3",
+   "q10": "comment-audio/q10.mp3",
+   "q11": "comment-audio/q11.mp3",
+   "q12": "comment-audio/q12.mp3",
+   "q13": "comment-audio/q13.mp3",
+   "q14": "comment-audio/q14.mp3",
+   "q15": "comment-audio/q15.mp3",
+   "q16": "comment-audio/q16.mp3",
+   "q17": "comment-audio/q17.mp3",
+   "q18": "comment-audio/q18.mp3",
+   "q19": "comment-audio/q19.mp3",
+   "q20": "comment-audio/q20.mp3",
+   "q21": "comment-audio/q21.mp3",
+   "q22": "comment-audio/q22.mp3",
+   "q23": "comment-audio/q23.mp3",
+   "q24": "comment-audio/q24.mp3",
+   "q25": "comment-audio/q25.mp3",
+   "q26": "comment-audio/q26.mp3",
+   "q27": "comment-audio/q27.mp3",
+   "q28": "comment-audio/q28.mp3",
+   "q29": "comment-audio/q29.mp3",
+   "q30": "comment-audio/q30.mp3",
+   "q31": "comment-audio/q31.mp3",
+   "q32": "comment-audio/q32.mp3",
+   "q33": "comment-audio/q33.mp3",
+   "q34": "comment-audio/q34.mp3",
+   "q35": "comment-audio/q35.mp3",
+   "q36": "comment-audio/q36.mp3",
+   "q37": "comment-audio/q37.mp3",
+   "q38": "comment-audio/q38.mp3",
+   "q39": "comment-audio/q39.mp3",
+   "q40": "comment-audio/q40.mp3",
+   "q41": "comment-audio/q41.mp3",
+   "q42": "comment-audio/q42.mp3",
+   "q43": "comment-audio/q43.mp3",
+   "q44": "comment-audio/q44.mp3",
+   "q45": "comment-audio/q45.mp3",
+   "q46": "comment-audio/q46.mp3",
+   "q47": "comment-audio/q47.mp3",
+   "q48": "comment-audio/q48.mp3",
+   "q49": "comment-audio/q49.mp3",
+   "q50": "comment-audio/q50.mp3",
+   "q51": "comment-audio/q51.mp3",
+   "q52": "comment-audio/q52.mp3",
+   "q53": "comment-audio/q53.mp3",
+   "q54": "comment-audio/q54.mp3",
+   "q55": "comment-audio/q55.mp3",
+   "q56": "comment-audio/q56.mp3",
+   "q57": "comment-audio/q57.mp3",
+   "q58": "comment-audio/q58.mp3",
+   "q59": "comment-audio/q59.mp3",
+   "q60": "comment-audio/q60.mp3",
+   "q61": "comment-audio/q61.mp3",
+   "q62": "comment-audio/q62.mp3",
+   "q63": "comment-audio/q63.mp3",
+   "q64": "comment-audio/q64.mp3",
+   "q65": "comment-audio/q65.mp3",
+   "q66": "comment-audio/q66.mp3",
+   "q67": "comment-audio/q67.mp3",
+   "q68": "comment-audio/q68.mp3",
+   "q69": "comment-audio/q69.mp3",
+   "q70": "comment-audio/q70.mp3",
+   "q71": "comment-audio/q71.mp3",
+   "q72": "comment-audio/q72.mp3",
+   "q73": "comment-audio/q73.mp3",
+   "q74": "comment-audio/q74.mp3",
+   "q75": "comment-audio/q75.mp3",
+   "q76": "comment-audio/q76.mp3",
+   "q77": "comment-audio/q77.mp3",
+   "q78": "comment-audio/q78.mp3",
+   "q79": "comment-audio/q79.mp3",
+   "q80": "comment-audio/q80.mp3",
+   "q81": "comment-audio/q81.mp3",
+   "q82": "comment-audio/q82.mp3",
+   "q83": "comment-audio/q83.mp3",
+   "q84": "comment-audio/q84.mp3",
+   "q85": "comment-audio/q85.mp3",
+   "q86": "comment-audio/q86.mp3",
+   "q87": "comment-audio/q87.mp3",
+   "q88": "comment-audio/q88.mp3",
+   "q89": "comment-audio/q89.mp3",
+   "q90": "comment-audio/q90.mp3",
+   "q91": "comment-audio/q91.mp3",
+   "q92": "comment-audio/q92.mp3",
+   "q93": "comment-audio/q93.mp3",
+   "q94": "comment-audio/q94.mp3",
+   "q95": "comment-audio/q95.mp3",
+   "q96": "comment-audio/q96.mp3",
+   "q97": "comment-audio/q97.mp3",
+   "q98": "comment-audio/q98.mp3",
+   "q99": "comment-audio/q99.mp3",
+   "q100": "comment-audio/q100.mp3",
+   "q101": "comment-audio/q101.mp3",
+   "q102": "comment-audio/q102.mp3",
+   "q103": "comment-audio/q103.mp3",
+   "q104": "comment-audio/q104.mp3",
+   "q105": "comment-audio/q105.mp3",
+   "q106": "comment-audio/q106.mp3",
+   "q107": "comment-audio/q107.mp3",
+   "q108": "comment-audio/q108.mp3",
+   "q109": "comment-audio/q109.mp3",
+   "q110": "comment-audio/q110.mp3",
+   "q111": "comment-audio/q111.mp3",
+   "q112": "comment-audio/q112.mp3",
+   "q113": "comment-audio/q113.mp3",
+   "q114": "comment-audio/q114.mp3",
+   "q115": "comment-audio/q115.mp3",
+   "q116": "comment-audio/q116.mp3",
+   "q117": "comment-audio/q117.mp3",
+   "q118": "comment-audio/q118.mp3",
+   "q119": "comment-audio/q119.mp3",
+   "q120": "comment-audio/q120.mp3",
+   "q121": "comment-audio/q121.mp3",
+   "q122": "comment-audio/q122.mp3",
+   "q123": "comment-audio/q123.mp3",
+   "q124": "comment-audio/q124.mp3",
+   "q125": "comment-audio/q125.mp3",
+   "q126": "comment-audio/q126.mp3",
+   "q127": "comment-audio/q127.mp3",
+   "q128": "comment-audio/q128.mp3",
+   "q129": "comment-audio/q129.mp3",
+   "q130": "comment-audio/q130.mp3",
+   "q131": "comment-audio/q131.mp3",
+   "q132": "comment-audio/q132.mp3",
+   "q133": "comment-audio/q133.mp3",
+   "q134": "comment-audio/q134.mp3",
+   "q135": "comment-audio/q135.mp3",
+   "q136": "comment-audio/q136.mp3",
+   "q137": "comment-audio/q137.mp3",
+   "q138": "comment-audio/q138.mp3",
+   "q139": "comment-audio/q139.mp3",
+   "q140": "comment-audio/q140.mp3",
+   "q141": "comment-audio/q141.mp3",
+   "q142": "comment-audio/q142.mp3",
+   "q143": "comment-audio/q143.mp3",
+   "q144": "comment-audio/q144.mp3",
+   "q145": "comment-audio/q145.mp3",
+   "q146": "comment-audio/q146.mp3",
+   "q147": "comment-audio/q147.mp3",
+   "q148": "comment-audio/q148.mp3",
+   "q149": "comment-audio/q149.mp3",
+   "q150": "comment-audio/q150.mp3",
+   "q151": "comment-audio/q151.mp3",
+   "q152": "comment-audio/q152.mp3",
+   "q153": "comment-audio/q153.mp3",
+   "q154": "comment-audio/q154.mp3",
+   "q155": "comment-audio/q155.mp3",
+   "q156": "comment-audio/q156.mp3",
+   "q157": "comment-audio/q157.mp3",
+   "q158": "comment-audio/q158.mp3",
+   "q159": "comment-audio/q159.mp3",
+   "q160": "comment-audio/q160.mp3",
+   "q161": "comment-audio/q161.mp3",
+   "q162": "comment-audio/q162.mp3",
+   "q163": "comment-audio/q163.mp3",
+   "q164": "comment-audio/q164.mp3",
+   "q165": "comment-audio/q165.mp3",
+   "q166": "comment-audio/q166.mp3",
+   "q167": "comment-audio/q167.mp3",
+   "q168": "comment-audio/q168.mp3",
+   "q169": "comment-audio/q169.mp3",
+   "q170": "comment-audio/q170.mp3",
+   "q171": "comment-audio/q171.mp3",
+   "q172": "comment-audio/q172.mp3",
+   "q173": "comment-audio/q173.mp3",
+   "q174": "comment-audio/q174.mp3",
+   "q175": "comment-audio/q175.mp3",
+   "q176": "comment-audio/q176.mp3",
+   "q177": "comment-audio/q177.mp3",
+   "q178": "comment-audio/q178.mp3",
+   "q179": "comment-audio/q179.mp3",
+   "q180": "comment-audio/q180.mp3",
+   "q181": "comment-audio/q181.mp3",
+   "q182": "comment-audio/q182.mp3",
+   "q183": "comment-audio/q183.mp3",
+   "q184": "comment-audio/q184.mp3",
+   "q185": "comment-audio/q185.mp3",
+   "q186": "comment-audio/q186.mp3",
+   "q187": "comment-audio/q187.mp3",
+   "q188": "comment-audio/q188.mp3",
+   "q189": "comment-audio/q189.mp3",
+   "q190": "comment-audio/q190.mp3",
+   "q191": "comment-audio/q191.mp3",
+   "q192": "comment-audio/q192.mp3",
+   "q193": "comment-audio/q193.mp3",
+   "q194": "comment-audio/q194.mp3",
+   "q195": "comment-audio/q195.mp3",
+   "q196": "comment-audio/q196.mp3",
+   "q197": "comment-audio/q197.mp3",
+   "q198": "comment-audio/q198.mp3",
+   "q199": "comment-audio/q199.mp3",
+   "q200": "comment-audio/q200.mp3",
+   "q201": "comment-audio/q201.mp3",
+   "q202": "comment-audio/q202.mp3",
+   "q203": "comment-audio/q203.mp3",
+   "q204": "comment-audio/q204.mp3",
+   "q205": "comment-audio/q205.mp3",
+   "q206": "comment-audio/q206.mp3",
+   "q207": "comment-audio/q207.mp3",
+   "q208": "comment-audio/q208.mp3",
+   "q209": "comment-audio/q209.mp3",
+   "q210": "comment-audio/q210.mp3",
+   "q211": "comment-audio/q211.mp3",
+   "q212": "comment-audio/q212.mp3",
+   "q213": "comment-audio/q213.mp3",
+   "q214": "comment-audio/q214.mp3",
+   "q215": "comment-audio/q215.mp3",
+   "q216": "comment-audio/q216.mp3",
+   "q217": "comment-audio/q217.mp3",
+   "q218": "comment-audio/q218.mp3",
+   "q219": "comment-audio/q219.mp3",
+   "q220": "comment-audio/q220.mp3",
+   "q221": "comment-audio/q221.mp3",
+   "q222": "comment-audio/q222.mp3",
+   "q223": "comment-audio/q223.mp3",
+   "q224": "comment-audio/q224.mp3",
+   "q225": "comment-audio/q225.mp3",
+   "q226": "comment-audio/q226.mp3",
+   "q227": "comment-audio/q227.mp3",
+   "q228": "comment-audio/q228.mp3",
+   "q229": "comment-audio/q229.mp3",
+   "q230": "comment-audio/q230.mp3",
+   "q231": "comment-audio/q231.mp3",
+   "q232": "comment-audio/q232.mp3",
+   "q233": "comment-audio/q233.mp3",
+   "q234": "comment-audio/q234.mp3",
+   "q235": "comment-audio/q235.mp3",
+   "q236": "comment-audio/q236.mp3",
+   "q237": "comment-audio/q237.mp3",
+   "q238": "comment-audio/q238.mp3",
+   "q239": "comment-audio/q239.mp3",
+   "q240": "comment-audio/q240.mp3",
+   "q241": "comment-audio/q241.mp3",
+   "q242": "comment-audio/q242.mp3",
+   "q243": "comment-audio/q243.mp3",
+   "q244": "comment-audio/q244.mp3",
+   "q245": "comment-audio/q245.mp3",
+   "q246": "comment-audio/q246.mp3",
+   "q247": "comment-audio/q247.mp3",
+   "q248": "comment-audio/q248.mp3",
+   "q249": "comment-audio/q249.mp3",
+   "q250": "comment-audio/q250.mp3",
+   "q251": "comment-audio/q251.mp3",
+   "q252": "comment-audio/q252.mp3",
+   "q253": "comment-audio/q253.mp3",
+   "q254": "comment-audio/q254.mp3",
+   "q255": "comment-audio/q255.mp3",
+   "q256": "comment-audio/q256.mp3",
+   "q257": "comment-audio/q257.mp3",
+   "q258": "comment-audio/q258.mp3",
+   "q259": "comment-audio/q259.mp3",
+   "q260": "comment-audio/q260.mp3",
+   "q261": "comment-audio/q261.mp3",
+   "q262": "comment-audio/q262.mp3",
+   "q263": "comment-audio/q263.mp3",
+   "q264": "comment-audio/q264.mp3",
+   "q265": "comment-audio/q265.mp3",
+   "q266": "comment-audio/q266.mp3",
+   "q267": "comment-audio/q267.mp3",
+   "q268": "comment-audio/q268.mp3",
+   "q269": "comment-audio/q269.mp3",
+   "q270": "comment-audio/q270.mp3",
+   "q271": "comment-audio/q271.mp3",
+   "q272": "comment-audio/q272.mp3",
+   "q273": "comment-audio/q273.mp3",
+   "q274": "comment-audio/q274.mp3",
+   "q275": "comment-audio/q275.mp3",
+   "q276": "comment-audio/q276.mp3"
+  },
+  "questionAudio": {
+   "q1": "question-audio/q1.mp3",
+   "q2": "question-audio/q2.mp3",
+   "q3": "question-audio/q3.mp3",
+   "q4": "question-audio/q4.mp3",
+   "q5": "question-audio/q5.mp3",
+   "q6": "question-audio/q6.mp3",
+   "q7": "question-audio/q7.mp3",
+   "q8": "question-audio/q8.mp3",
+   "q9": "question-audio/q9.mp3",
+   "q10": "question-audio/q10.mp3",
+   "q11": "question-audio/q11.mp3",
+   "q12": "question-audio/q12.mp3",
+   "q13": "question-audio/q13.mp3",
+   "q14": "question-audio/q14.mp3",
+   "q15": "question-audio/q15.mp3",
+   "q16": "question-audio/q16.mp3",
+   "q17": "question-audio/q17.mp3",
+   "q18": "question-audio/q18.mp3",
+   "q19": "question-audio/q19.mp3",
+   "q20": "question-audio/q20.mp3",
+   "q21": "question-audio/q21.mp3",
+   "q22": "question-audio/q22.mp3",
+   "q23": "question-audio/q23.mp3",
+   "q24": "question-audio/q24.mp3",
+   "q25": "question-audio/q25.mp3",
+   "q26": "question-audio/q26.mp3",
+   "q27": "question-audio/q27.mp3",
+   "q28": "question-audio/q28.mp3",
+   "q29": "question-audio/q29.mp3",
+   "q30": "question-audio/q30.mp3",
+   "q31": "question-audio/q31.mp3",
+   "q32": "question-audio/q32.mp3",
+   "q33": "question-audio/q33.mp3",
+   "q34": "question-audio/q34.mp3",
+   "q35": "question-audio/q35.mp3",
+   "q36": "question-audio/q36.mp3",
+   "q37": "question-audio/q37.mp3",
+   "q38": "question-audio/q38.mp3",
+   "q39": "question-audio/q39.mp3",
+   "q40": "question-audio/q40.mp3",
+   "q41": "question-audio/q41.mp3",
+   "q42": "question-audio/q42.mp3",
+   "q43": "question-audio/q43.mp3",
+   "q44": "question-audio/q44.mp3",
+   "q45": "question-audio/q45.mp3",
+   "q46": "question-audio/q46.mp3",
+   "q47": "question-audio/q47.mp3",
+   "q48": "question-audio/q48.mp3",
+   "q49": "question-audio/q49.mp3",
+   "q50": "question-audio/q50.mp3",
+   "q51": "question-audio/q51.mp3",
+   "q52": "question-audio/q52.mp3",
+   "q53": "question-audio/q53.mp3",
+   "q54": "question-audio/q54.mp3",
+   "q55": "question-audio/q55.mp3",
+   "q56": "question-audio/q56.mp3",
+   "q57": "question-audio/q57.mp3",
+   "q58": "question-audio/q58.mp3",
+   "q59": "question-audio/q59.mp3",
+   "q60": "question-audio/q60.mp3",
+   "q61": "question-audio/q61.mp3",
+   "q62": "question-audio/q62.mp3",
+   "q63": "question-audio/q63.mp3",
+   "q64": "question-audio/q64.mp3",
+   "q65": "question-audio/q65.mp3",
+   "q66": "question-audio/q66.mp3",
+   "q67": "question-audio/q67.mp3",
+   "q68": "question-audio/q68.mp3",
+   "q69": "question-audio/q69.mp3",
+   "q70": "question-audio/q70.mp3",
+   "q71": "question-audio/q71.mp3",
+   "q72": "question-audio/q72.mp3",
+   "q73": "question-audio/q73.mp3",
+   "q74": "question-audio/q74.mp3",
+   "q75": "question-audio/q75.mp3",
+   "q76": "question-audio/q76.mp3",
+   "q77": "question-audio/q77.mp3",
+   "q78": "question-audio/q78.mp3",
+   "q79": "question-audio/q79.mp3",
+   "q80": "question-audio/q80.mp3",
+   "q81": "question-audio/q81.mp3",
+   "q82": "question-audio/q82.mp3",
+   "q83": "question-audio/q83.mp3",
+   "q84": "question-audio/q84.mp3",
+   "q85": "question-audio/q85.mp3",
+   "q86": "question-audio/q86.mp3",
+   "q87": "question-audio/q87.mp3",
+   "q88": "question-audio/q88.mp3",
+   "q89": "question-audio/q89.mp3",
+   "q90": "question-audio/q90.mp3",
+   "q91": "question-audio/q91.mp3",
+   "q92": "question-audio/q92.mp3",
+   "q93": "question-audio/q93.mp3",
+   "q94": "question-audio/q94.mp3",
+   "q95": "question-audio/q95.mp3",
+   "q96": "question-audio/q96.mp3",
+   "q97": "question-audio/q97.mp3",
+   "q98": "question-audio/q98.mp3",
+   "q99": "question-audio/q99.mp3",
+   "q100": "question-audio/q100.mp3",
+   "q101": "question-audio/q101.mp3",
+   "q102": "question-audio/q102.mp3",
+   "q103": "question-audio/q103.mp3",
+   "q104": "question-audio/q104.mp3",
+   "q105": "question-audio/q105.mp3",
+   "q106": "question-audio/q106.mp3",
+   "q107": "question-audio/q107.mp3",
+   "q108": "question-audio/q108.mp3",
+   "q109": "question-audio/q109.mp3",
+   "q110": "question-audio/q110.mp3",
+   "q111": "question-audio/q111.mp3",
+   "q112": "question-audio/q112.mp3",
+   "q113": "question-audio/q113.mp3",
+   "q114": "question-audio/q114.mp3",
+   "q115": "question-audio/q115.mp3",
+   "q116": "question-audio/q116.mp3",
+   "q117": "question-audio/q117.mp3",
+   "q118": "question-audio/q118.mp3",
+   "q119": "question-audio/q119.mp3",
+   "q120": "question-audio/q120.mp3",
+   "q121": "question-audio/q121.mp3",
+   "q122": "question-audio/q122.mp3",
+   "q123": "question-audio/q123.mp3",
+   "q124": "question-audio/q124.mp3",
+   "q125": "question-audio/q125.mp3",
+   "q126": "question-audio/q126.mp3",
+   "q127": "question-audio/q127.mp3",
+   "q128": "question-audio/q128.mp3",
+   "q129": "question-audio/q129.mp3",
+   "q130": "question-audio/q130.mp3",
+   "q131": "question-audio/q131.mp3",
+   "q132": "question-audio/q132.mp3",
+   "q133": "question-audio/q133.mp3",
+   "q134": "question-audio/q134.mp3",
+   "q135": "question-audio/q135.mp3",
+   "q136": "question-audio/q136.mp3",
+   "q137": "question-audio/q137.mp3",
+   "q138": "question-audio/q138.mp3",
+   "q139": "question-audio/q139.mp3",
+   "q140": "question-audio/q140.mp3",
+   "q141": "question-audio/q141.mp3",
+   "q142": "question-audio/q142.mp3",
+   "q143": "question-audio/q143.mp3",
+   "q144": "question-audio/q144.mp3",
+   "q145": "question-audio/q145.mp3",
+   "q146": "question-audio/q146.mp3",
+   "q147": "question-audio/q147.mp3",
+   "q148": "question-audio/q148.mp3",
+   "q149": "question-audio/q149.mp3",
+   "q150": "question-audio/q150.mp3",
+   "q151": "question-audio/q151.mp3",
+   "q152": "question-audio/q152.mp3",
+   "q153": "question-audio/q153.mp3",
+   "q154": "question-audio/q154.mp3",
+   "q155": "question-audio/q155.mp3",
+   "q156": "question-audio/q156.mp3",
+   "q157": "question-audio/q157.mp3",
+   "q158": "question-audio/q158.mp3",
+   "q159": "question-audio/q159.mp3",
+   "q160": "question-audio/q160.mp3",
+   "q161": "question-audio/q161.mp3",
+   "q162": "question-audio/q162.mp3",
+   "q163": "question-audio/q163.mp3",
+   "q164": "question-audio/q164.mp3",
+   "q165": "question-audio/q165.mp3",
+   "q166": "question-audio/q166.mp3",
+   "q167": "question-audio/q167.mp3",
+   "q168": "question-audio/q168.mp3",
+   "q169": "question-audio/q169.mp3",
+   "q170": "question-audio/q170.mp3",
+   "q171": "question-audio/q171.mp3",
+   "q172": "question-audio/q172.mp3",
+   "q173": "question-audio/q173.mp3",
+   "q174": "question-audio/q174.mp3",
+   "q175": "question-audio/q175.mp3",
+   "q176": "question-audio/q176.mp3",
+   "q177": "question-audio/q177.mp3",
+   "q178": "question-audio/q178.mp3",
+   "q179": "question-audio/q179.mp3",
+   "q180": "question-audio/q180.mp3",
+   "q181": "question-audio/q181.mp3",
+   "q182": "question-audio/q182.mp3",
+   "q183": "question-audio/q183.mp3",
+   "q184": "question-audio/q184.mp3",
+   "q185": "question-audio/q185.mp3",
+   "q186": "question-audio/q186.mp3",
+   "q187": "question-audio/q187.mp3",
+   "q188": "question-audio/q188.mp3",
+   "q189": "question-audio/q189.mp3",
+   "q190": "question-audio/q190.mp3",
+   "q191": "question-audio/q191.mp3",
+   "q192": "question-audio/q192.mp3",
+   "q193": "question-audio/q193.mp3",
+   "q194": "question-audio/q194.mp3",
+   "q195": "question-audio/q195.mp3",
+   "q196": "question-audio/q196.mp3",
+   "q197": "question-audio/q197.mp3",
+   "q198": "question-audio/q198.mp3",
+   "q199": "question-audio/q199.mp3",
+   "q200": "question-audio/q200.mp3",
+   "q201": "question-audio/q201.mp3",
+   "q202": "question-audio/q202.mp3",
+   "q203": "question-audio/q203.mp3",
+   "q204": "question-audio/q204.mp3",
+   "q205": "question-audio/q205.mp3",
+   "q206": "question-audio/q206.mp3",
+   "q207": "question-audio/q207.mp3",
+   "q208": "question-audio/q208.mp3",
+   "q209": "question-audio/q209.mp3",
+   "q210": "question-audio/q210.mp3",
+   "q211": "question-audio/q211.mp3",
+   "q212": "question-audio/q212.mp3",
+   "q213": "question-audio/q213.mp3",
+   "q214": "question-audio/q214.mp3",
+   "q215": "question-audio/q215.mp3",
+   "q216": "question-audio/q216.mp3",
+   "q217": "question-audio/q217.mp3",
+   "q218": "question-audio/q218.mp3",
+   "q219": "question-audio/q219.mp3",
+   "q220": "question-audio/q220.mp3",
+   "q221": "question-audio/q221.mp3",
+   "q222": "question-audio/q222.mp3",
+   "q223": "question-audio/q223.mp3",
+   "q224": "question-audio/q224.mp3",
+   "q225": "question-audio/q225.mp3",
+   "q226": "question-audio/q226.mp3",
+   "q227": "question-audio/q227.mp3",
+   "q228": "question-audio/q228.mp3",
+   "q229": "question-audio/q229.mp3",
+   "q230": "question-audio/q230.mp3",
+   "q231": "question-audio/q231.mp3",
+   "q232": "question-audio/q232.mp3",
+   "q233": "question-audio/q233.mp3",
+   "q234": "question-audio/q234.mp3",
+   "q235": "question-audio/q235.mp3",
+   "q236": "question-audio/q236.mp3",
+   "q237": "question-audio/q237.mp3",
+   "q238": "question-audio/q238.mp3",
+   "q239": "question-audio/q239.mp3",
+   "q240": "question-audio/q240.mp3",
+   "q241": "question-audio/q241.mp3",
+   "q242": "question-audio/q242.mp3",
+   "q243": "question-audio/q243.mp3",
+   "q244": "question-audio/q244.mp3",
+   "q245": "question-audio/q245.mp3",
+   "q246": "question-audio/q246.mp3",
+   "q247": "question-audio/q247.mp3",
+   "q248": "question-audio/q248.mp3",
+   "q249": "question-audio/q249.mp3",
+   "q250": "question-audio/q250.mp3",
+   "q251": "question-audio/q251.mp3",
+   "q252": "question-audio/q252.mp3",
+   "q253": "question-audio/q253.mp3",
+   "q254": "question-audio/q254.mp3",
+   "q255": "question-audio/q255.mp3",
+   "q256": "question-audio/q256.mp3",
+   "q257": "question-audio/q257.mp3",
+   "q258": "question-audio/q258.mp3",
+   "q259": "question-audio/q259.mp3",
+   "q260": "question-audio/q260.mp3",
+   "q261": "question-audio/q261.mp3",
+   "q262": "question-audio/q262.mp3",
+   "q263": "question-audio/q263.mp3",
+   "q264": "question-audio/q264.mp3",
+   "q265": "question-audio/q265.mp3",
+   "q266": "question-audio/q266.mp3",
+   "q267": "question-audio/q267.mp3",
+   "q268": "question-audio/q268.mp3",
+   "q269": "question-audio/q269.mp3",
+   "q270": "question-audio/q270.mp3",
+   "q271": "question-audio/q271.mp3",
+   "q272": "question-audio/q272.mp3",
+   "q273": "question-audio/q273.mp3",
+   "q274": "question-audio/q274.mp3",
+   "q275": "question-audio/q275.mp3",
+   "q276": "question-audio/q276.mp3"
+  },
+  "truthOrLie": "fx/truth-or-lie.mp3",
+  "correctReactions": [
+   "fx/correct-1.mp3",
+   "fx/correct-2.mp3",
+   "fx/correct-3.mp3",
+   "fx/correct-4.mp3",
+   "fx/correct-5.mp3",
+   "fx/correct-6.mp3",
+   "fx/correct-7.mp3",
+   "fx/correct-8.mp3",
+   "fx/correct-9.mp3",
+   "fx/correct-10.mp3"
+  ],
+  "wrongReactions": [
+   "fx/wrong-1.mp3",
+   "fx/wrong-2.mp3",
+   "fx/wrong-3.mp3",
+   "fx/wrong-4.mp3",
+   "fx/wrong-5.mp3",
+   "fx/wrong-6.mp3",
+   "fx/wrong-7.mp3",
+   "fx/wrong-8.mp3",
+   "fx/wrong-9.mp3",
+   "fx/wrong-10.mp3"
+  ],
+  "wrongReactionsVoice": [
+   "wrong-reactions/1.mp3",
+   "wrong-reactions/2.mp3",
+   "wrong-reactions/3.mp3",
+   "wrong-reactions/4.mp3",
+   "wrong-reactions/5.mp3",
+   "wrong-reactions/6.mp3",
+   "wrong-reactions/7.mp3",
+   "wrong-reactions/8.mp3",
+   "wrong-reactions/9.mp3",
+   "wrong-reactions/10.mp3",
+   "wrong-reactions/11.mp3",
+   "wrong-reactions/12.mp3",
+   "wrong-reactions/13.mp3",
+   "wrong-reactions/14.mp3",
+   "wrong-reactions/15.mp3",
+   "wrong-reactions/16.mp3",
+   "wrong-reactions/17.mp3",
+   "wrong-reactions/18.mp3"
+  ],
+  "metresToGo": {
+   "10": "fx/metres-10.mp3",
+   "20": "fx/metres-20.mp3",
+   "30": "fx/metres-30.mp3",
+   "40": "fx/metres-40.mp3"
+  },
+  "lastQuestion": "fx/last-question.mp3",
+  "wrongBuzzer": "fx/wrong-buzzer.mp3",
+  "correctReactionsVoice": [
+   "correct-reactions/1.mp3",
+   "correct-reactions/2.mp3",
+   "correct-reactions/3.mp3",
+   "correct-reactions/4.mp3",
+   "correct-reactions/5.mp3",
+   "correct-reactions/6.mp3"
+  ],
+  "oneAwayReactions": [
+   "one-away-reactions/1.mp3",
+   "one-away-reactions/2.mp3",
+   "one-away-reactions/3.mp3",
+   "one-away-reactions/4.mp3"
+  ],
+  "monsterIntro": [
+   "monster-intro/1.mp3",
+   "monster-intro/2.mp3",
+   "monster-intro/3.mp3",
+   "monster-intro/4.mp3",
+   "monster-intro/5.mp3",
+   "monster-intro/6.mp3"
+  ],
+  "robotNono": "fx/robot-nono.mp3",
+  "buttonPress": "fx/button-press.mp3",
+  "robotFall": "fx/robot-fall.mp3",
+  "neverStop": "never-stop-2.mp3",
+  "squelch": "squelch-seq2.mp3",
+  "ltopHighscore": "new-highscore-ltop.mp3",
+  "tooSlow": "lose-comments/too-slow.mp3",
+  "loseComments": [
+   "lose-comments2/calzone-1.mp3",
+   "lose-comments2/calzone-2.mp3",
+   "lose-comments2/calzone-3.mp3",
+   "lose-comments2/calzone-4.mp3",
+   "lose-comments2/calzone-5.mp3",
+   "lose-comments2/calzone-6.mp3"
+  ],
+  "challengeUnlock": "gepetto/challenge-unlock.mp3",
+  "unlockFx": "ltop-unlock.mp3",
+  "challengeMilestone1": [
+   "gepetto/milestone-1/1.mp3",
+   "gepetto/milestone-1/2.mp3",
+   "gepetto/milestone-1/3.mp3",
+   "gepetto/milestone-1/4.mp3",
+   "gepetto/milestone-1/5.mp3",
+   "gepetto/milestone-1/6.mp3",
+   "gepetto/milestone-1/7.mp3",
+   "gepetto/milestone-1/8.mp3",
+   "gepetto/milestone-1/9.mp3",
+   "gepetto/milestone-1/10.mp3",
+   "gepetto/milestone-1/11.mp3",
+   "gepetto/milestone-1/12.mp3",
+   "gepetto/milestone-1/13.mp3",
+   "gepetto/milestone-1/14.mp3",
+   "gepetto/milestone-1/15.mp3",
+   "gepetto/milestone-1/16.mp3",
+   "gepetto/milestone-1/17.mp3",
+   "gepetto/milestone-1/18.mp3",
+   "gepetto/milestone-1/19.mp3",
+   "gepetto/milestone-1/20.mp3"
+  ],
+  "challengeMilestone2_3": [
+   "gepetto/milestone-2-3/1.mp3",
+   "gepetto/milestone-2-3/2.mp3",
+   "gepetto/milestone-2-3/3.mp3",
+   "gepetto/milestone-2-3/4.mp3",
+   "gepetto/milestone-2-3/5.mp3",
+   "gepetto/milestone-2-3/6.mp3",
+   "gepetto/milestone-2-3/7.mp3",
+   "gepetto/milestone-2-3/8.mp3",
+   "gepetto/milestone-2-3/9.mp3",
+   "gepetto/milestone-2-3/10.mp3",
+   "gepetto/milestone-2-3/11.mp3",
+   "gepetto/milestone-2-3/12.mp3",
+   "gepetto/milestone-2-3/13.mp3",
+   "gepetto/milestone-2-3/14.mp3",
+   "gepetto/milestone-2-3/15.mp3",
+   "gepetto/milestone-2-3/16.mp3",
+   "gepetto/milestone-2-3/17.mp3",
+   "gepetto/milestone-2-3/18.mp3",
+   "gepetto/milestone-2-3/19.mp3",
+   "gepetto/milestone-2-3/20.mp3"
+  ],
+  "challengeMilestone4_5": [
+   "gepetto/milestone-4-5/1.mp3",
+   "gepetto/milestone-4-5/2.mp3",
+   "gepetto/milestone-4-5/3.mp3",
+   "gepetto/milestone-4-5/4.mp3",
+   "gepetto/milestone-4-5/5.mp3",
+   "gepetto/milestone-4-5/6.mp3",
+   "gepetto/milestone-4-5/7.mp3",
+   "gepetto/milestone-4-5/8.mp3",
+   "gepetto/milestone-4-5/9.mp3",
+   "gepetto/milestone-4-5/10.mp3",
+   "gepetto/milestone-4-5/11.mp3",
+   "gepetto/milestone-4-5/12.mp3",
+   "gepetto/milestone-4-5/13.mp3",
+   "gepetto/milestone-4-5/14.mp3",
+   "gepetto/milestone-4-5/15.mp3",
+   "gepetto/milestone-4-5/16.mp3",
+   "gepetto/milestone-4-5/17.mp3",
+   "gepetto/milestone-4-5/18.mp3",
+   "gepetto/milestone-4-5/19.mp3",
+   "gepetto/milestone-4-5/20.mp3"
+  ],
+  "challengeMilestone6_10": [
+   "gepetto/milestone-6-10/1.mp3",
+   "gepetto/milestone-6-10/2.mp3",
+   "gepetto/milestone-6-10/3.mp3",
+   "gepetto/milestone-6-10/4.mp3",
+   "gepetto/milestone-6-10/5.mp3",
+   "gepetto/milestone-6-10/6.mp3",
+   "gepetto/milestone-6-10/7.mp3",
+   "gepetto/milestone-6-10/8.mp3",
+   "gepetto/milestone-6-10/9.mp3",
+   "gepetto/milestone-6-10/10.mp3",
+   "gepetto/milestone-6-10/11.mp3",
+   "gepetto/milestone-6-10/12.mp3",
+   "gepetto/milestone-6-10/13.mp3",
+   "gepetto/milestone-6-10/14.mp3",
+   "gepetto/milestone-6-10/15.mp3",
+   "gepetto/milestone-6-10/16.mp3",
+   "gepetto/milestone-6-10/17.mp3",
+   "gepetto/milestone-6-10/18.mp3",
+   "gepetto/milestone-6-10/19.mp3",
+   "gepetto/milestone-6-10/20.mp3"
+  ],
+  "challengeMilestone11_20": [
+   "gepetto/milestone-11-20/1.mp3",
+   "gepetto/milestone-11-20/2.mp3",
+   "gepetto/milestone-11-20/3.mp3",
+   "gepetto/milestone-11-20/4.mp3",
+   "gepetto/milestone-11-20/5.mp3",
+   "gepetto/milestone-11-20/6.mp3",
+   "gepetto/milestone-11-20/7.mp3",
+   "gepetto/milestone-11-20/8.mp3",
+   "gepetto/milestone-11-20/9.mp3",
+   "gepetto/milestone-11-20/10.mp3",
+   "gepetto/milestone-11-20/11.mp3",
+   "gepetto/milestone-11-20/12.mp3",
+   "gepetto/milestone-11-20/13.mp3",
+   "gepetto/milestone-11-20/14.mp3",
+   "gepetto/milestone-11-20/15.mp3",
+   "gepetto/milestone-11-20/16.mp3",
+   "gepetto/milestone-11-20/17.mp3",
+   "gepetto/milestone-11-20/18.mp3",
+   "gepetto/milestone-11-20/19.mp3",
+   "gepetto/milestone-11-20/20.mp3"
+  ],
+  "challengeMilestone21_50": [
+   "gepetto/milestone-21-50/1.mp3",
+   "gepetto/milestone-21-50/2.mp3",
+   "gepetto/milestone-21-50/3.mp3",
+   "gepetto/milestone-21-50/4.mp3",
+   "gepetto/milestone-21-50/5.mp3",
+   "gepetto/milestone-21-50/6.mp3",
+   "gepetto/milestone-21-50/7.mp3",
+   "gepetto/milestone-21-50/8.mp3",
+   "gepetto/milestone-21-50/9.mp3",
+   "gepetto/milestone-21-50/10.mp3",
+   "gepetto/milestone-21-50/11.mp3",
+   "gepetto/milestone-21-50/12.mp3",
+   "gepetto/milestone-21-50/13.mp3",
+   "gepetto/milestone-21-50/14.mp3",
+   "gepetto/milestone-21-50/15.mp3",
+   "gepetto/milestone-21-50/16.mp3",
+   "gepetto/milestone-21-50/17.mp3",
+   "gepetto/milestone-21-50/18.mp3",
+   "gepetto/milestone-21-50/19.mp3",
+   "gepetto/milestone-21-50/20.mp3"
+  ],
+  "challengeMilestone51_100": [
+   "gepetto/milestone-51-100/1.mp3",
+   "gepetto/milestone-51-100/2.mp3",
+   "gepetto/milestone-51-100/3.mp3",
+   "gepetto/milestone-51-100/4.mp3",
+   "gepetto/milestone-51-100/5.mp3",
+   "gepetto/milestone-51-100/6.mp3",
+   "gepetto/milestone-51-100/7.mp3",
+   "gepetto/milestone-51-100/8.mp3",
+   "gepetto/milestone-51-100/9.mp3",
+   "gepetto/milestone-51-100/10.mp3",
+   "gepetto/milestone-51-100/11.mp3",
+   "gepetto/milestone-51-100/12.mp3",
+   "gepetto/milestone-51-100/13.mp3",
+   "gepetto/milestone-51-100/14.mp3",
+   "gepetto/milestone-51-100/15.mp3",
+   "gepetto/milestone-51-100/16.mp3",
+   "gepetto/milestone-51-100/17.mp3",
+   "gepetto/milestone-51-100/18.mp3",
+   "gepetto/milestone-51-100/19.mp3",
+   "gepetto/milestone-51-100/20.mp3"
+  ],
+  "challengeMilestone100Plus": [
+   "gepetto/milestone-100-plus/1.mp3",
+   "gepetto/milestone-100-plus/2.mp3",
+   "gepetto/milestone-100-plus/3.mp3",
+   "gepetto/milestone-100-plus/4.mp3",
+   "gepetto/milestone-100-plus/5.mp3",
+   "gepetto/milestone-100-plus/6.mp3",
+   "gepetto/milestone-100-plus/7.mp3",
+   "gepetto/milestone-100-plus/8.mp3",
+   "gepetto/milestone-100-plus/9.mp3",
+   "gepetto/milestone-100-plus/10.mp3",
+   "gepetto/milestone-100-plus/11.mp3",
+   "gepetto/milestone-100-plus/12.mp3",
+   "gepetto/milestone-100-plus/13.mp3",
+   "gepetto/milestone-100-plus/14.mp3",
+   "gepetto/milestone-100-plus/15.mp3",
+   "gepetto/milestone-100-plus/16.mp3",
+   "gepetto/milestone-100-plus/17.mp3",
+   "gepetto/milestone-100-plus/18.mp3",
+   "gepetto/milestone-100-plus/19.mp3",
+   "gepetto/milestone-100-plus/20.mp3"
+  ],
+  "challengeGameOver": [
+   "gepetto/game-over/1.mp3",
+   "gepetto/game-over/2.mp3",
+   "gepetto/game-over/3.mp3",
+   "gepetto/game-over/4.mp3",
+   "gepetto/game-over/5.mp3",
+   "gepetto/game-over/6.mp3",
+   "gepetto/game-over/7.mp3",
+   "gepetto/game-over/8.mp3",
+   "gepetto/game-over/9.mp3",
+   "gepetto/game-over/10.mp3",
+   "gepetto/game-over/11.mp3",
+   "gepetto/game-over/12.mp3",
+   "gepetto/game-over/13.mp3",
+   "gepetto/game-over/14.mp3",
+   "gepetto/game-over/15.mp3"
+  ],
+  "challengeIntroFirstTime": "gepetto/intro-first-time.mp3",
+  "challengeIntroReturn": [
+   "gepetto/intro-return/1.mp3",
+   "gepetto/intro-return/2.mp3",
+   "gepetto/intro-return/3.mp3",
+   "gepetto/intro-return/4.mp3",
+   "gepetto/intro-return/5.mp3",
+   "gepetto/intro-return/6.mp3",
+   "gepetto/intro-return/7.mp3",
+   "gepetto/intro-return/8.mp3",
+   "gepetto/intro-return/9.mp3",
+   "gepetto/intro-return/10.mp3"
+  ],
+  "challengeNewHighscore": [
+   "gepetto/new-highscore/1.mp3",
+   "gepetto/new-highscore/2.mp3",
+   "gepetto/new-highscore/3.mp3",
+   "gepetto/new-highscore/4.mp3",
+   "gepetto/new-highscore/5.mp3",
+   "gepetto/new-highscore/6.mp3",
+   "gepetto/new-highscore/7.mp3",
+   "gepetto/new-highscore/8.mp3",
+   "gepetto/new-highscore/9.mp3",
+   "gepetto/new-highscore/10.mp3"
+  ]
+ },
+ "getters": {
+  "getLtopNewHighscore": {
+   "args": "",
+   "fields": [
+    "newHighscore"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.newHighscore);\n        return url;"
+  },
+  "getLtopSquelchSeq": {
+   "args": "",
+   "fields": [
+    "squelchSeq"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.squelchSeq);\n        return url;"
+  },
+  "getLtopNeverStop": {
+   "args": "",
+   "fields": [
+    "neverStop"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.neverStop);\n        return url;"
+  },
+  "getLtopWrongPing": {
+   "args": "",
+   "fields": [
+    "wrongPing"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.wrongPing);\n        return url;"
+  },
+  "getLtopCorrectPing": {
+   "args": "",
+   "fields": [
+    "correctPing"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.correctPing);\n        return url;"
+  },
+  "getLtopThrowing": {
+   "args": "",
+   "fields": [
+    "throwing"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.throwing);\n        return url;"
+  },
+  "getLtopIntro": {
+   "args": "",
+   "fields": [
+    "intro"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.intro);\n        return url;"
+  },
+  "getLtopLongIntro": {
+   "args": "",
+   "fields": [
+    "longIntro"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.longIntro);\n        return url;"
+  },
+  "getLtopNoseGrow": {
+   "args": "",
+   "fields": [
+    "noseGrow"
+   ],
+   "random": false,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, this.ltop.noseGrow);\n        return url;"
+  },
+  "getLtopBackground": {
+   "args": "",
+   "fields": [
+    "background"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.background);\n        return url;"
+  },
+  "getLtopChallengeInstrumental": {
+   "args": "",
+   "fields": [
+    "challengeInstrumental"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.challengeInstrumental);\n        return url;"
+  },
+  "getLtopButPapa": {
+   "args": "",
+   "fields": [
+    "butPapa"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.butPapa);\n        return url;"
+  },
+  "getLtopDramaBetter": {
+   "args": "",
+   "fields": [
+    "dramaBetter"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.dramaBetter);\n        return url;"
+  },
+  "getLtopFall": {
+   "args": "",
+   "fields": [
+    "fall"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.fall);\n        return url;"
+  },
+  "getLtopIntroChomp": {
+   "args": "",
+   "fields": [
+    "introChomp"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.introChomp);\n        return url;"
+  },
+  "getLtopGrowNose": {
+   "args": "",
+   "fields": [
+    "growNose"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.growNose);\n        return url;"
+  },
+  "getLtopWin": {
+   "args": "",
+   "fields": [
+    "win"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.win);\n        return url;"
+  },
+  "getLtopSavedCity": {
+   "args": "",
+   "fields": [
+    "savedCity"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.savedCity);\n        return url;"
+  },
+  "getLtopGepeto": {
+   "args": "",
+   "fields": [
+    "gepeto"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.gepeto));\n        return url;"
+  },
+  "getLtopMonster": {
+   "args": "",
+   "fields": [
+    "monster"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.monster));\n        return url;"
+  },
+  "getLtopDistance": {
+   "args": "distanceNum = null",
+   "fields": [
+    "distances"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "if (distanceNum !== null && distanceNum >= 1 && distanceNum <= 99) {\n            const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/distances/\" + distanceNum + \".mp3\");\n            return url;\n        }\n        const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.distances));\n        return url;"
+  },
+  "getLtopLieScore": {
+   "args": "score = null",
+   "fields": [
+    "lieScores"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "if (score !== null && this.ltop.lieScores[score]) {\n            const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.lieScores[score]));\n            return url;\n        }\n        const allScores = Object.values(this.ltop.lieScores).flat();\n        const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(allScores));\n        return url;"
+  },
+  "getLtopLoseVo": {
+   "args": "",
+   "fields": [
+    "loseVo"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.loseVo));\n        return url;"
+  },
+  "getLtopPositive": {
+   "args": "",
+   "fields": [
+    "positive"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.positive));\n        return url;"
+  },
+  "getLtopNegative": {
+   "args": "",
+   "fields": [
+    "negative"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.negative));\n        return url;"
+  },
+  "getLtopSayLie": {
+   "args": "",
+   "fields": [
+    "sayLie"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.sayLie));\n        return url;"
+  },
+  "getLtopAnother": {
+   "args": "",
+   "fields": [
+    "another"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.another));\n        return url;"
+  },
+  "getLtopAlreadyHeard": {
+   "args": "",
+   "fields": [
+    "alreadyHeard"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.alreadyHeard));\n        return url;"
+  },
+  "getLtopComment": {
+   "args": "score",
+   "fields": [
+    "comments"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "let commentArray;\n        if (score <= 3) {\n            commentArray = this.ltop.comments.lowScore;\n        } else if (score <= 5) {\n            commentArray = this.ltop.comments.midScore;\n        } else if (score <= 7) {\n            commentArray = this.ltop.comments.decentScore;\n        } else if (score === 8) {\n            commentArray = this.ltop.comments.score8;\n        } else if (score === 9) {\n            commentArray = this.ltop.comments.score9;\n        } else {\n            commentArray = this.ltop.comments.score10;\n        }\n        const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(commentArray));\n        return url;"
+  },
+  "getLtopCommentAudio": {
+   "args": "questionId",
+   "fields": [
+    "commentAudio"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const file = this.ltop.commentAudio[questionId];\n        if (!file) return null;\n        const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + file);\n        return url;"
+  },
+  "getLtopQuestionAudio": {
+   "args": "questionId",
+   "fields": [
+    "questionAudio"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const file = this.ltop.questionAudio[questionId];\n        if (!file) return null;\n        const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + file);\n        return url;"
+  },
+  "getLtopThrowLoop": {
+   "args": "",
+   "fields": [
+    "throwLoop"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.throwLoop);\n        return url;"
+  },
+  "getLtopTruthOrLie": {
+   "args": "",
+   "fields": [
+    "truthOrLie"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.truthOrLie);\n        return url;"
+  },
+  "getLtopCorrectReaction": {
+   "args": "",
+   "fields": [
+    "correctReactions"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.correctReactions));\n        return url;"
+  },
+  "getLtopWrongReaction": {
+   "args": "",
+   "fields": [
+    "wrongReactions"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.wrongReactions));\n        return url;"
+  },
+  "getLtopWrongReactionVoice": {
+   "args": "",
+   "fields": [
+    "wrongReactionsVoice"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.wrongReactionsVoice));\n        return url;"
+  },
+  "getLtopWrongBuzzer": {
+   "args": "",
+   "fields": [
+    "wrongBuzzer"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.wrongBuzzer);\n        return url;"
+  },
+  "getLtopMonsterIntro": {
+   "args": "",
+   "fields": [
+    "monsterIntro"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.monsterIntro));\n        return url;"
+  },
+  "getLtopCorrectReactionVoice": {
+   "args": "",
+   "fields": [
+    "correctReactionsVoice"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.correctReactionsVoice));\n        return url;"
+  },
+  "getLtopOneAwayReaction": {
+   "args": "",
+   "fields": [
+    "oneAwayReactions"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.oneAwayReactions));\n        return url;"
+  },
+  "getLtopRobotNono": {
+   "args": "",
+   "fields": [
+    "robotNono"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.robotNono);\n        return url;"
+  },
+  "getLtopButtonPress": {
+   "args": "",
+   "fields": [
+    "buttonPress"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.buttonPress);\n        return url;"
+  },
+  "getLtopRobotFall": {
+   "args": "",
+   "fields": [
+    "robotFall"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.robotFall);\n        return url;"
+  },
+  "getLtopSquelch": {
+   "args": "",
+   "fields": [
+    "squelch"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.squelch);\n        return url;"
+  },
+  "getLtopTooSlow": {
+   "args": "",
+   "fields": [
+    "tooSlow"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.tooSlow);\n        return url;"
+  },
+  "getLtopLoseComment": {
+   "args": "",
+   "fields": [
+    "loseComments"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.loseComments) + \"?t=3\");\n        return url;"
+  },
+  "getLtopMetresToGo": {
+   "args": "metres",
+   "fields": [
+    "metresToGo"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const file = this.ltop.metresToGo[metres];\n        if (!file) return null;\n        const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + file);\n        return url;"
+  },
+  "getLtopLastQuestion": {
+   "args": "",
+   "fields": [
+    "lastQuestion"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.lastQuestion);\n        return url;"
+  },
+  "getLtopUnlockFx": {
+   "args": "",
+   "fields": [
+    "unlockFx"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "return getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.unlockFx);"
+  },
+  "getLtopChallengeUnlock": {
+   "args": "",
+   "fields": [
+    "challengeUnlock"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "return getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.challengeUnlock);"
+  },
+  "getLtopChallengeMilestone": {
+   "args": "streak",
+   "fields": [
+    "challengeMilestone1",
+    "challengeMilestone2_3",
+    "challengeMilestone4_5",
+    "challengeMilestone6_10",
+    "challengeMilestone11_20",
+    "challengeMilestone21_50",
+    "challengeMilestone51_100",
+    "challengeMilestone100Plus"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "let arr;\n        if (streak <= 1) arr = this.ltop.challengeMilestone1;\n        else if (streak <= 3) arr = this.ltop.challengeMilestone2_3;\n        else if (streak <= 5) arr = this.ltop.challengeMilestone4_5;\n        else if (streak <= 10) arr = this.ltop.challengeMilestone6_10;\n        else if (streak <= 20) arr = this.ltop.challengeMilestone11_20;\n        else if (streak <= 50) arr = this.ltop.challengeMilestone21_50;\n        else if (streak <= 100) arr = this.ltop.challengeMilestone51_100;\n        else arr = this.ltop.challengeMilestone100Plus;\n        return getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(arr));"
+  },
+  "getLtopChallengeGameOver": {
+   "args": "",
+   "fields": [
+    "challengeGameOver"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "return getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.challengeGameOver));"
+  },
+  "getLtopChallengeIntroFirstTime": {
+   "args": "",
+   "fields": [
+    "challengeIntroFirstTime"
+   ],
+   "random": false,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "return getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + this.ltop.challengeIntroFirstTime);"
+  },
+  "getLtopChallengeIntroReturn": {
+   "args": "",
+   "fields": [
+    "challengeIntroReturn"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "return getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.challengeIntroReturn));"
+  },
+  "getLtopChallengeNewHighscore": {
+   "args": "",
+   "fields": [
+    "challengeNewHighscore"
+   ],
+   "random": true,
+   "folder": "leaning-tower-of-pizza/",
+   "body": "return getResource(this.locale, Resource.Audio, \"leaning-tower-of-pizza/\" + getRandomElement(this.ltop.challengeNewHighscore));"
+  }
+ }
+}

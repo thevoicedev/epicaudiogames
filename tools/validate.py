@@ -25,19 +25,35 @@ CONTENT = ROOT / "content"
 EXTS = (".m4a", ".opus", ".mp3")
 MATCHERS = ("yes", "no", "words", "repeat", "seq", "digits", "re", "any")
 END_KINDS = ("ending", "chapter", "gameover")
-APP_COMMANDS = {"stop", "cancel", "pause"}      # the app pauses on these (Commands.kt): never a map's answer
+APP_COMMANDS = {"stop", "cancel"}      # the app pauses on these (Commands.kt): never a map's answer
 
-CMP = re.compile(r'^\s*(!?)\s*([A-Za-z_]\w*)\s*(?:(==|!=|<=|>=|<|>)\s*("[^"]*"|-?\d+(?:\.\d+)?|true|false))?\s*$')
+TOKEN = re.compile(r'"[^"]*"|\d+(?:\.\d+)?|[A-Za-z_]\w*|&&|\|\||==|!=|<=|>=|[-+*/%<>!?:(),]|\s+')
+FUNCTIONS = {"max", "min", "floor"}
+ENDS_BADLY = {"+", "-", "*", "/", "%", "<", ">", "!", "?", ":", "(", ",", "&&", "||", "==", "!=", "<=", ">="}
 
 
-def condition_vars(cond):
-    """The variables a condition uses; raises ValueError if it doesn't parse."""
+def condition_vars(expr):
+    """The variables an expression (Expr.kt) uses; raises ValueError if it can't be read."""
+    tokens = [t for t in TOKEN.findall(expr) if not t.isspace()]
+    if "".join(tokens) != re.sub(r"\s+", "", expr):
+        raise ValueError(f"can't read {expr!r}")
+    depth = 0
+    for t in tokens:
+        depth += t == "("
+        depth -= t == ")"
+        if depth < 0:
+            raise ValueError(f"unbalanced brackets in {expr!r}")
+    if depth or not tokens or tokens[-1] in ENDS_BADLY:
+        raise ValueError(f"can't read {expr!r}")
+    for a, b in zip(tokens, tokens[1:]):
+        if a in {"<", ">"} and b in {"<", ">"}:
+            raise ValueError(f"can't read {expr!r}")
     names = []
-    for part in re.split(r"\|\||&&", cond):
-        m = CMP.match(part)
-        if not m or (m.group(1) and m.group(3)):
-            raise ValueError(f"can't read the condition {cond!r}")
-        names.append(m.group(2))
+    for i, t in enumerate(tokens):
+        if re.fullmatch(r"[A-Za-z_]\w*", t) and t not in ("true", "false"):
+            if t in FUNCTIONS and i + 1 < len(tokens) and tokens[i + 1] == "(":
+                continue
+            names.append(t)
     return names
 
 
@@ -74,6 +90,12 @@ class Checker:
             return out
         if "restart" in go:
             return self.target(where, go["restart"])
+        if "draw" in go:
+            if not go.get("deck"):
+                self.err(where, "a draw without a deck")
+            if not go["draw"]:
+                self.err(where, "a draw from no nodes")
+            return [t for x in go["draw"] for t in self.target(where, x)]
         if go.get("end") == "quit":
             return []
         self.err(where, f"bad go {go!r}")
@@ -96,16 +118,20 @@ class Checker:
                 self.err(where, f"sets an unknown variable {name!r}")
             if isinstance(value, str) and re.match(r"^[+-]\d", value) and not isinstance(self.vars.get(name), (int, float)):
                 self.err(where, f"adds to {name!r}, which isn't a number")
+            if isinstance(value, str) and value.startswith("="):
+                self.cond(where, value[1:])
 
     def steps(self, where, steps):
         for i, s in enumerate(steps or []):
             here = f"{where} step {i + 1}"
+            if "when" in s:
+                self.cond(here, s["when"])
             if "play" in s:
                 if not isinstance(s.get("dur"), (int, float)) or s["dur"] <= 0:
                     self.err(here, "a clip without a length")
                 lines = s.get("lines") or []
-                if not lines:
-                    self.err(here, f"{s['play']} has no transcript")
+                if not lines and not s.get("sfx"):
+                    self.err(here, f"{s['play']} has no transcript (music and sound effects are marked sfx)")
                 for ln in lines:
                     if ln.get("who") not in self.m.get("who", {}):
                         self.err(here, f"unknown speaker {ln.get('who')!r}")
@@ -116,6 +142,20 @@ class Checker:
             elif "num" in s:
                 if not isinstance(self.vars.get(s["num"]), (int, float)):
                     self.err(here, f"reads out {s['num']!r}, which isn't a number variable")
+            elif "bed" in s:
+                if s["bed"] is not None and not (0 <= s.get("volume", 1) <= 1):
+                    self.err(here, f"a bed's volume {s.get('volume')!r} isn't between 0 and 1")
+            elif "pick" in s:
+                if not s["pick"]:
+                    self.err(here, "a pick from nothing")
+                for k, option in enumerate(s["pick"]):
+                    self.steps(f"{here} pick {k + 1}", option)
+            elif "by" in s:
+                if s["by"] not in self.vars:
+                    self.err(here, f"by an unknown variable {s['by']!r}")
+                for k, option in (s.get("cases") or {}).items():
+                    self.steps(f"{here} case {k}", option)
+                self.steps(f"{here} else", s.get("else"))
             elif "pause" not in s:
                 self.err(here, f"unknown step {s!r}")
 
@@ -271,18 +311,30 @@ def _quits(node):
 
 
 def plays(game_map):
+    """Every clip and bed the map plays, with its length, inside picks and cases too."""
     out = {}
+
+    def walk(steps):
+        for s in steps or []:
+            if "play" in s:
+                out[s["play"]] = s["dur"]
+            elif s.get("bed"):
+                out[s["bed"]] = s.get("dur", 0)
+            elif "pick" in s:
+                for option in s["pick"]:
+                    walk(option)
+            elif "by" in s:
+                for option in (s.get("cases") or {}).values():
+                    walk(option)
+                walk(s.get("else"))
+
     for node in game_map["nodes"].values():
-        lists = [node.get("say", [])]
+        walk(node.get("say"))
         ask = node.get("ask")
         if ask:
-            lists.append(ask.get("reprompt", []))
+            walk(ask.get("reprompt"))
             if isinstance(ask.get("else"), dict):
-                lists.append(ask["else"].get("say", []))
-        for steps in lists:
-            for s in steps:
-                if "play" in s:
-                    out[s["play"]] = s["dur"]
+                walk(ask["else"].get("say"))
     return out
 
 
@@ -298,7 +350,7 @@ def audio_problems(game, clips):
             got = float(p.stdout.strip())
         except ValueError:
             return f"{path}: can't read {files[0].name}", files[0].stat().st_size
-        if abs(got - dur) > 0.12:
+        if dur and abs(got - dur) > 0.12:
             return f"{path}: the map says {dur:.2f} s, {files[0].name} is {got:.2f} s", files[0].stat().st_size
         return None, files[0].stat().st_size
     problems, size = [], 0

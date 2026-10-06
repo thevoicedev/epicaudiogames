@@ -77,7 +77,8 @@ private fun show(map: GameMap, turn: Turn) {
         when (step) {
             is Step.Play -> for (line in step.lines) println("${map.who[line.who] ?: line.who}: ${line.text}")
             is Step.Num -> println("   [${step.variable}]")
-            is Step.Pause -> Unit
+            is Step.Bed -> if (step.path != null) println("   (${step.path.substringAfterLast('/')} plays underneath)")
+            else -> Unit
         }
     }
     val buttons = turn.ask?.buttons.orEmpty()

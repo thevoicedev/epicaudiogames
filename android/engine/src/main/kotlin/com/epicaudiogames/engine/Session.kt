@@ -54,7 +54,7 @@ class Session(
         val n = map.nodes[saved.node]
         if (n == null || (n.ask == null && n.end == null)) return start()
         restore(saved)
-        return if (saved.ended) turn(emptyList(), emptyList()) else turn(n.say, listOf(n.id))
+        return if (saved.ended) turn(emptyList(), emptyList()) else turn(resolve(n.say), listOf(n.id))
     }
 
     /** Puts the game at a saved place without playing anything. */
@@ -82,7 +82,7 @@ class Session(
                 apply(a.set)
                 if (a.go != null) run(a.go, out, visited, 0) else otherwise(ask, out, visited)
             }
-            result.repeat -> out += if (map.repeatSays) map.node(node).say else ask.reprompt
+            result.repeat -> out += resolve(if (map.repeatSays) map.node(node).say else ask.reprompt)
             else -> otherwise(ask, out, visited)
         }
         return turn(out, visited, heard)
@@ -91,7 +91,7 @@ class Session(
     /** The player said nothing: the reprompt, and the same question again. */
     fun silence(): Turn {
         val ask = this.ask ?: throw IllegalStateException("the game isn't waiting for an answer (at $node)")
-        return turn(ask.reprompt, emptyList())
+        return turn(resolve(ask.reprompt), emptyList())
     }
 
     /** Starts again, at [at] (or the start), with the starting variables except the map's "keep". */
@@ -119,11 +119,11 @@ class Session(
     private fun otherwise(ask: Ask, out: MutableList<Step>, visited: MutableList<String>) {
         val e = ask.otherwise
         if (e == null) {
-            out += ask.reprompt
+            out += resolve(ask.reprompt)
             return
         }
         apply(e.set)
-        if (e.go != null) run(e.go, out, visited, 0) else out += e.say.ifEmpty { ask.reprompt }
+        if (e.go != null) run(e.go, out, visited, 0) else out += resolve(e.say.ifEmpty { ask.reprompt })
     }
 
     private fun run(go: Go, out: MutableList<Step>, visited: MutableList<String>, hops: Int) {
@@ -142,6 +142,26 @@ class Session(
                 enter(go.node, out, visited, hops)
             }
             Go.Quit -> quit = true
+            is Go.Draw -> {
+                val deck = "deck_${go.deck}"
+                val drawn = (vars[deck] as? String).orEmpty().split(',').filter { it.isNotEmpty() }.toSet()
+                val left = go.nodes.filter { it !in drawn }
+                val (from, kept) = if (left.isEmpty()) go.nodes to emptySet() else left to drawn
+                val pick = from[choose(from.size).coerceIn(0, from.size - 1)]
+                vars[deck] = (kept + pick).joinToString(",")
+                enter(pick, out, visited, hops + 1)
+            }
+        }
+    }
+
+    /** The steps as they play now: [Step.When], [Step.Pick] and [Step.By] resolved with the current variables. */
+    fun resolve(steps: List<Step>): List<Step> = steps.flatMap { s ->
+        when (s) {
+            is Step.When -> if (s.cond.test(vars)) resolve(s.steps) else emptyList()
+            is Step.Pick -> if (s.options.isEmpty()) emptyList()
+                else resolve(s.options[choose(s.options.size).coerceIn(0, s.options.size - 1)])
+            is Step.By -> resolve(s.cases[Expr.key(vars[s.variable])] ?: s.otherwise)
+            else -> listOf(s)
         }
     }
 
@@ -151,7 +171,7 @@ class Session(
         node = id
         visited += id
         apply(n.set)
-        out += n.say
+        out += resolve(n.say)
         when {
             n.go != null -> run(n.go, out, visited, hops + 1)
             n.end != null -> end = n.end
@@ -164,6 +184,7 @@ class Session(
                 is SetValue.Assign -> v.value
                 is SetValue.Add -> ((vars[name] as? Number)?.toDouble() ?: 0.0) + v.amount
                 is SetValue.Rand -> (v.from + choose(v.to - v.from + 1).coerceIn(0, v.to - v.from)).toDouble()
+                is SetValue.Calc -> v.expr.eval(vars) ?: 0.0
             }
         }
     }

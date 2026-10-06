@@ -31,12 +31,7 @@ GAMES = ROOT / "games"
 REPEAT_WORDS = ["repeat", "repeat that", "say that again", "say it again", "what did you say", "come again", "pardon",
                 "one more time"]
 YES_NO = [{"label": "Yes", "value": "yes"}, {"label": "No", "value": "no"}]
-# The skill's own yes/no rules, used before any game sees an answer (SkillFlow.js getYesNoPhraseAnswer; copied by
-# hand, as they are local to that function): answers of two or more words that are all yes words, no words and
-# fillers count as their last yes or no word ("no yes" is a yes, "yeah no" a no), and a few whole phrases are a yes.
-MIXED = {"yes": ["yes", "yeah", "yep", "yup", "ya", "yah", "sure", "why not"], "no": ["no", "nope", "nah"],
-         "filler": ["alexa", "sir", "please", "ok", "okay", "thank", "thanks", "you", "hell", "i", "said"]}
-YES_PHRASES = ["=yes i am", "=i'm ready to play", "=yes i'm ready to play", "=yes i did"]
+from skill import words as skill_words  # noqa: E402  (the skill-wide yes/no rules)
 # Answer ranks (higher first): Frootopia and Signal Decoders check a node's own words and "not sure" first, then
 # "no", then "yes", so "yeah no" is a no.
 RANK_FIRST, RANK_NO = 2, 1
@@ -382,8 +377,7 @@ def write_map(g, data):
     lost = sorted(set(nodes) - reachable(nodes, data["start"]))
     if lost:
         g.warnings.append(f"unreachable nodes: {', '.join(lost)}")
-    words = dict(data["words"], yes=data["words"]["yes"] + [p for p in YES_PHRASES if p not in data["words"]["yes"]],
-                 mixed=MIXED)
+    words = skill_words(data["words"]["yes"], data["words"]["no"], data["words"]["repeat"])
     out = {"format": 1, "id": data["id"], "title": data["title"], "start": data["start"], "vars": data["vars"],
            "repeat": data["repeat"], "who": who_names(nodes), "words": words}
     if data.get("symbols"):

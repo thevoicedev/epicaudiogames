@@ -6,6 +6,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
 import org.junit.Test
 import java.io.File
+import kotlin.random.Random
 
 /** Every map in games/: loads, and a bot that tries every answer in every state reaches every node and every end. */
 class MapsTest {
@@ -20,12 +21,16 @@ class MapsTest {
     @Test
     fun botReachesEveryNodeAndEnd() {
         for (map in maps()) {
-            val bot = Bot(map).apply { explore() }
+            val bot = Bot(map).apply {
+                explore()
+                walk(Random(7), 3000)
+            }
             val never = map.nodes.keys - bot.visited
             assertTrue("${map.id}: never reached ${never.sorted()}", never.isEmpty())
             val ends = map.nodes.values.filter { it.end != null }.map { it.id }.toSet()
             assertEquals("${map.id}: ends never reached", emptySet<String>(), ends - bot.ends)
-            println("${map.id}: ${bot.states} states, ${bot.turns} turns, ${bot.visited.size} nodes, ${bot.ends.size} ends, ${bot.quits} ways out")
+            println("${map.id}: ${bot.states} states${if (bot.capped) " (capped)" else ""} and ${bot.walks} random walks, " +
+                "${bot.turns} turns, ${bot.visited.size} nodes, ${bot.ends.size} ends, ${bot.quits} ways out")
         }
     }
 
@@ -45,29 +50,33 @@ class MapsTest {
         }
     }
 
-    /** Explores every state (node and variables) with every kind of answer, and every random branch. */
+    /**
+     * Explores the states (node and variables, decks aside) with every kind of answer and the first random branches,
+     * up to a limit; then random walks reach what that missed (questions drawn from big decks, long streaks).
+     */
     private class Bot(val map: GameMap) {
         val visited = mutableSetOf<String>()
         val ends = mutableSetOf<String>()
         var quits = 0
         var states = 0
         var turns = 0
+        var walks = 0
+        var capped = false
 
-        fun explore(limit: Int = 100_000) {
+        private fun check(t: Turn) {
+            turns++
+            visited += t.visited
+            if (t.quit) quits++
+            if (t.end != null) ends += t.node
+            if (!t.quit && t.end == null && t.ask == null) fail("${map.id}: a turn at ${t.node} neither asks, ends nor quits")
+        }
+
+        fun explore(limit: Int = 60_000) {
             val seen = HashSet<Saved>()
             val queue = ArrayDeque<Saved>()
             fun record(s: Session, t: Turn) {
-                turns++
-                visited += t.visited
-                when {
-                    t.quit -> quits++
-                    t.end != null -> {
-                        ends += t.node
-                        queue += s.save()
-                    }
-                    t.ask != null -> queue += s.save()
-                    else -> fail("${map.id}: a turn at ${t.node} neither asks, ends nor quits")
-                }
+                check(t)
+                if (!t.quit) queue += s.save()
             }
             for (k in 0 until BRANCHES) {
                 val s = Session(map) { n -> k % n }
@@ -75,15 +84,16 @@ class MapsTest {
             }
             while (queue.isNotEmpty()) {
                 val state = queue.removeFirst()
-                if (!seen.add(state)) continue
-                if (seen.size > limit) fail("${map.id}: more than $limit states")
+                if (!seen.add(state.copy(vars = state.vars.filterKeys { !it.startsWith("deck_") }))) continue
+                if (seen.size > limit) {
+                    capped = true
+                    break
+                }
                 states++
                 if (state.ended) {
                     val end = map.node(state.node).end!!
-                    if (end.kind == "chapter" && end.next in map.nodes) {
-                        val s = Session(map).apply { restore(state) }
-                        record(s, s.nextChapter())
-                    }
+                    val s = Session(map).apply { restore(state) }
+                    record(s, if (end.kind == "chapter" && end.next in map.nodes) s.nextChapter() else playAgain(s, end))
                     continue
                 }
                 for (input in inputs(map.node(state.node).ask!!)) {
@@ -95,6 +105,31 @@ class MapsTest {
                 }
             }
         }
+
+        /** Plays [count] games from the start with random answers (and silences) and random draws. */
+        fun walk(rng: Random, count: Int, turnsEach: Int = 80) {
+            repeat(count) {
+                walks++
+                val s = Session(map) { n -> rng.nextInt(n) }
+                var t = s.start()
+                check(t)
+                for (i in 0 until turnsEach) {
+                    if (t.quit) break
+                    val end = t.end
+                    if (end != null) {
+                        t = if (end.kind == "chapter" && end.next in map.nodes) s.nextChapter() else playAgain(s, end)
+                    } else {
+                        val options = inputs(t.ask!!)
+                        val said = options[rng.nextInt(options.size)]
+                        t = if (said == null) s.silence() else s.answer(said)
+                    }
+                    check(t)
+                }
+            }
+        }
+
+        /** The end screen's "play again" (or "try again" at a game over with a retry point). */
+        private fun playAgain(s: Session, end: End) = if (end.kind == "gameover" && end.retry != null) s.restart(end.retry) else s.restart()
 
         /** One answer of each kind the question takes, its buttons, nonsense, "repeat" and silence (null). */
         fun inputs(ask: Ask): List<String?> {
