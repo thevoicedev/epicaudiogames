@@ -19,6 +19,9 @@ console.warn = () => {};
 const args = process.argv.slice(2);
 const seedAt = args.indexOf("--seed");
 let seed = seedAt >= 0 ? Number(args.splice(seedAt, 2)[1]) : 1;
+// --settings '{"alienCustoms":{"completedLevelIds":[]}}': saved settings the player starts with.
+const settingsAt = args.indexOf("--settings");
+const startSettings = settingsAt >= 0 ? JSON.parse(args.splice(settingsAt, 2)[1]) : {};
 Math.random = () => {   // mulberry32
     seed = (seed + 0x6D2B79F5) | 0;
     let t = Math.imul(seed ^ (seed >>> 15), 1 | seed);
@@ -81,7 +84,7 @@ function tree(item, depth, out) {
     const attrs = JSON.parse(JSON.stringify(fixture.session.attributes));
     attrs._STATE = SkillStates.HEAR_GAMES;
     attrs.activeId = null;
-    attrs.Settings = { ...attrs.Settings, isSubscriber: true, globalGamePlayCount: 0 };
+    attrs.Settings = { ...attrs.Settings, isSubscriber: true, globalGamePlayCount: 0, ...startSettings };
     let g = { attrs };
     // Leaning Tower of Pizza: "@lie" and "@truth" answer the current question (from its map) with a lie or the truth.
     const ltopMap = (() => {
@@ -106,6 +109,12 @@ function tree(item, depth, out) {
         const items = doc ? [doc.document.mainTemplate.item] : [];
         const out = [];
         for (const item of items) tree(item, 1, out);
+        const speech = res.response && res.response.outputSpeech;
+        if (speech && (speech.ssml || speech.text)) {
+            const plain = String(speech.ssml || speech.text).replace(/<audio src\s*=\s*'([^']*)'\s*\/>/g, " [$1] ")
+                .replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim();
+            if (plain) out.push(`  speech: ${plain}`);
+        }
         say(out.join("\n") || "  (no audio)");
         const rp = res.response && res.response.reprompt;
         if (rp) say(`  reprompt: ${JSON.stringify(rp).replace(/<[^>]+>/g, "").match(/"(?:ssml|text|content)":"([^"]*)"/)?.[1] || "(audio)"}`);

@@ -67,7 +67,29 @@ function ltop() {
     };
 }
 
-const GAMES = { "leaning-tower-of-pizza": ltop };
+function alienCustoms() {
+    const dir = path.join(LAMBDA, "Games", "alien-customs");
+    const w = internals(path.join(dir, "index.js"), ["PASS_THRESHOLD", "FAIL_THRESHOLD", "QUESTIONS_PER_ITEM", "ITEM_IDS",
+        "ITEM_AUDIO_SUFFIX", "ITEM_NAMES", "ANNOUNCEMENT_RULE_COUNTS", "ITEM_FLOWS", "LEVELS"]);
+    const { audio, speech } = tables();
+    return {
+        game: "alien-customs",
+        cdn: "en/audio2/alien-customs/",
+        rules: { pass: w.PASS_THRESHOLD, fail: w.FAIL_THRESHOLD, questions: w.QUESTIONS_PER_ITEM },
+        items: w.ITEM_FLOWS,
+        // The audio's names, from the Audio class itself (the game's ITEM_AUDIO_SUFFIX differs: "magnifying glass").
+        suffix: Object.fromEntries(Object.values(w.ITEM_IDS).map((id) => [id, audio._getAlienCustomsSuffix(id)])),
+        names: w.ITEM_NAMES,
+        ruleCounts: w.ANNOUNCEMENT_RULE_COUNTS,
+        levels: w.LEVELS,
+        audio: audio.alienCustoms,
+        dangerWarnings: speech.alienCustomsDangerWarnings,
+        getters: { ...getters("getAlienCustoms", "alienCustoms"), ...getters("getAlien", "alienCustoms"),
+            ...getters("getSlug", "alienCustoms") },
+    };
+}
+
+const GAMES = { "leaning-tower-of-pizza": ltop, "alien-customs": alienCustoms };
 
 fs.mkdirSync(OUT, { recursive: true });
 const wanted = process.argv.slice(2);

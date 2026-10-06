@@ -24,6 +24,12 @@
       "title": "Leaning Tower of Pizza",
       "blurb": "Tell lies to grow Pinocchio's nose, and save Venice from the evil pizza robot.",
       "free": "Battle and challenge modes"
+    },
+    {
+      "id": "alien-customs",
+      "title": "Alien Customs",
+      "blurb": "Convince a strict alien customs officer to let you into Jupiter with your suspicious luggage.",
+      "free": "5 levels free"
     }
   ]
 }

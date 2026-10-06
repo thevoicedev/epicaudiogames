@@ -1,0 +1,3487 @@
+{
+ "game": "alien-customs",
+ "cdn": "en/audio2/alien-customs/",
+ "rules": {
+  "pass": 3,
+  "fail": 2,
+  "questions": 5
+ },
+ "items": {
+  "_SOCKS": {
+   "name": "Socks",
+   "questions": [
+    {
+     "officer": "85 pairs of socks?! Are you planning to wear them all at once?",
+     "correct": "no",
+     "rightReply": "Good, because layering 85 pairs would make your feet wider than a Jupiter moon!",
+     "wrongReply": "All 85 at once?! Your shoes would need their own zip code!"
+    },
+    {
+     "officer": "On Jupiter, we wear socks on our hands. Will you be doing the same?",
+     "correct": "yes",
+     "rightReply": "Excellent! Hand socks are the height of Jupiter fashion!",
+     "wrongReply": "Feet socks?! How barbaric! That's disgusting on Jupiter!"
+    },
+    {
+     "officer": "Did you knit any of these socks yourself?",
+     "correct": "no",
+     "rightReply": "Good. Homemade socks carry too much emotional baggage for our scanners.",
+     "wrongReply": "Homemade?! My emotional scanner is going haywire! Too much love in that yarn!"
+    },
+    {
+     "officer": "Are any of these socks mismatched?",
+     "correct": "yes",
+     "rightReply": "On Jupiter, mismatched socks show creativity. I like your style!",
+     "wrongReply": "All matching?! That level of organization is very suspicious to us!"
+    },
+    {
+     "officer": "Do your socks have that new sock smell?",
+     "correct": "yes",
+     "rightReply": "Fresh socks! Jupiter customs loves the smell of new fabric!",
+     "wrongReply": "Used socks?! Our scent detectors can't handle that! Biohazard alert!"
+    }
+   ]
+  },
+  "_CUKE": {
+   "name": "Cucumbers",
+   "questions": [
+    {
+     "officer": "A cucumber! Are you aware that on Jupiter, cucumbers are classified as musical instruments?",
+     "correct": "no",
+     "rightReply": "Well now you know! First timers get a pass. Don't let me catch you playing it!",
+     "wrongReply": "You knew and you still brought one without a performer's license?! Bold move!"
+    },
+    {
+     "officer": "Is this cucumber longer than 30 Jupiter centimeters?",
+     "correct": "no",
+     "rightReply": "Compact cucumber! Those are the safest kind. No one's ever been threatened by a small cucumber!",
+     "wrongReply": "Over 30 centimeters?! That's concert grade! You could play a symphony with that thing!"
+    },
+    {
+     "officer": "Will you be eating this cucumber during your stay?",
+     "correct": "yes",
+     "rightReply": "Eating it destroys the instrument! That's actually the safest thing you could do!",
+     "wrongReply": "Not eating it? Then what exactly are your cucumber intentions?!"
+    },
+    {
+     "officer": "Is this cucumber organic?",
+     "correct": "yes",
+     "rightReply": "Organic! Jupiter loves organic produce. The planet practically hugs organic vegetables!",
+     "wrongReply": "Non organic?! Chemical cucumbers are not welcome near Jupiter's pristine atmosphere!"
+    },
+    {
+     "officer": "Have you given this cucumber a name?",
+     "correct": "no",
+     "rightReply": "Good. Naming food items creates emotional attachments, and that slows down customs.",
+     "wrongReply": "You NAMED it?! Now I feel bad scanning it. What's its name? Actually, don't tell me!"
+    }
+   ]
+  },
+  "_RIZZ_BOOK": {
+   "name": "Rizz Books",
+   "questions": [
+    {
+     "officer": "A book on rizz? Is this for personal development?",
+     "correct": "yes",
+     "rightReply": "Self improvement is always welcome on Jupiter. Rizz responsibly!",
+     "wrongReply": "Not personal?! Are you trying to rizz up the entire planet?!"
+    },
+    {
+     "officer": "Is this book more than 200 pages?",
+     "correct": "yes",
+     "rightReply": "Over 200 pages qualifies as scholarly material. Academic rizz is respected here!",
+     "wrongReply": "Under 200 pages? That's barely a pamphlet! How can you learn rizz from a pamphlet?!"
+    },
+    {
+     "officer": "Do you promise not to practice any rizz techniques on Jupiter citizens?",
+     "correct": "yes",
+     "rightReply": "Good! Unwanted rizz deployment is taken very seriously on Jupiter!",
+     "wrongReply": "You're going to rizz our citizens?! Jupiter is not prepared for Earth level rizz!"
+    },
+    {
+     "officer": "Have you read this book cover to cover?",
+     "correct": "yes",
+     "rightReply": "A well read traveler! Knowledge without practice is perfectly safe!",
+     "wrongReply": "You haven't even read it?! Carrying an unread rizz book is suspicious behavior!"
+    },
+    {
+     "officer": "Would you lend this book to a Jupiter citizen if they asked nicely?",
+     "correct": "yes",
+     "rightReply": "Sharing knowledge is encouraged! Gifting is the Jupiter way!",
+     "wrongReply": "You'd refuse?! Knowledge hoarding is very frowned upon on Jupiter!"
+    }
+   ]
+  },
+  "_PASSPORT": {
+   "name": "Passports",
+   "questions": [
+    {
+     "officer": "A passport! Have you ever visited Mars?",
+     "correct": "no",
+     "rightReply": "Good! Mars visitors have an... interesting reputation around here.",
+     "wrongReply": "Mars?! Do you know what Martians did to our parking lot?! That's a red flag!"
+    },
+    {
+     "officer": "Is this passport less than 5 Jupiter years old?",
+     "correct": "yes",
+     "rightReply": "Fresh passport! The holographic seals look crispy. Very nice!",
+     "wrongReply": "This thing is ancient! I can barely read it through the coffee stains and mold!"
+    },
+    {
+     "officer": "Do you have more than 3 stamps from other planets?",
+     "correct": "no",
+     "rightReply": "Not too well traveled! That means you haven't picked up weird habits from other planets!",
+     "wrongReply": "A galactic globe trotter! Who knows what alien customs you've picked up?!"
+    },
+    {
+     "officer": "Is your passport photo a good likeness of you?",
+     "correct": "yes",
+     "rightReply": "It actually looks like you! That's rare. Most passport photos are crimes against faces!",
+     "wrongReply": "Doesn't look like you?! How do I know you're you?! Identity crisis!"
+    },
+    {
+     "officer": "Did you fill out the Jupiter entry form in blue pen?",
+     "correct": "yes",
+     "rightReply": "Blue pen! The only acceptable colour on Jupiter. You did your homework!",
+     "wrongReply": "Not blue?! On Jupiter, only blue pen is legally binding! What colour savagery is this?!"
+    }
+   ]
+  },
+  "_LAPTOP": {
+   "name": "Laptops",
+   "questions": [
+    {
+     "officer": "A laptop! Jupiter's electricity is generated by tooth brushing. Will you contribute to the power grid?",
+     "correct": "yes",
+     "rightReply": "A willing contributor! Your laptop privileges have been noted!",
+     "wrongReply": "No contribution?! You want to leech off our tooth powered grid for free?!"
+    },
+    {
+     "officer": "Is your laptop fully charged right now?",
+     "correct": "yes",
+     "rightReply": "Fully charged! Smart thinking, less drain on our precious tooth energy!",
+     "wrongReply": "Not charged?! So you'll need to plug in immediately? Our tooth brushers are already exhausted!"
+    },
+    {
+     "officer": "Do you promise to brush your teeth at least twice a day while using this laptop?",
+     "correct": "yes",
+     "rightReply": "Twice a day! You're practically a power plant! Jupiter thanks your dental hygiene!",
+     "wrongReply": "You won't brush?! That's basically stealing electricity! And your breath will be terrible!"
+    },
+    {
+     "officer": "Is there anything hidden inside this laptop?",
+     "correct": "no",
+     "rightReply": "Nothing hidden! My X ray confirms. Clean machine!",
+     "wrongReply": "Hidden stuff?! What are you, a tech smuggler?! Opening this up for inspection!"
+    },
+    {
+     "officer": "Will you be using this laptop to video call people back on Earth?",
+     "correct": "no",
+     "rightReply": "No Earth calls! Good, because our tooth powered WiFi can barely handle a text message!",
+     "wrongReply": "Video calls to Earth?! Do you know how many toothbrushes that bandwidth costs?!"
+    }
+   ]
+  },
+  "_TOOTHBRUSH": {
+   "name": "Toothbrushes",
+   "questions": [
+    {
+     "officer": "A toothbrush! Is this a manual toothbrush?",
+     "correct": "yes",
+     "rightReply": "Manual! The backbone of Jupiter's power grid. You're basically bringing a generator!",
+     "wrongReply": "Electric?! Those cause power surges that could black out an entire district!"
+    },
+    {
+     "officer": "Do you brush more than twice a day?",
+     "correct": "yes",
+     "rightReply": "Over twice a day! You'll be a top energy contributor on Jupiter!",
+     "wrongReply": "Only twice?! That's barely enough to power a night light on Jupiter!"
+    },
+    {
+     "officer": "Are the bristles on this toothbrush still firm?",
+     "correct": "yes",
+     "rightReply": "Firm bristles generate 40% more power than worn ones! Premium equipment!",
+     "wrongReply": "Worn bristles?! That's like bringing a dead battery! Practically useless for power generation!"
+    },
+    {
+     "officer": "Will you commit to brushing at public power stations?",
+     "correct": "yes",
+     "rightReply": "Public brushing commitment accepted! You'll be powering street lights in no time!",
+     "wrongReply": "Private brushing only?! That's like having a solar panel and keeping the curtains closed!"
+    },
+    {
+     "officer": "Is this toothbrush just for your personal use?",
+     "correct": "yes",
+     "rightReply": "Personal use means consistent power output! One brusher, one brush, one reliable generator!",
+     "wrongReply": "Sharing a toothbrush?! That's both a hygiene violation AND an unstable power source!"
+    }
+   ]
+  },
+  "_HELMET": {
+   "name": "Helmets",
+   "questions": [
+    {
+     "officer": "A helmet! Is this for the Jupiter wedding ceremony?",
+     "correct": "yes",
+     "rightReply": "A wedding guest! Jupiter weddings are legendary. Do you have your dancing shoes?",
+     "wrongReply": "Not for a wedding? That's fine, but you're missing out on the best cake in the solar system!"
+    },
+    {
+     "officer": "Does this helmet have a visor?",
+     "correct": "no",
+     "rightReply": "No visor! Open face helmets show confidence. Jupiter respects confidence!",
+     "wrongReply": "A visor?! What are you trying to hide behind there? Secret facial expressions?!"
+    },
+    {
+     "officer": "Is this helmet certified for Jupiter's atmosphere?",
+     "correct": "yes",
+     "rightReply": "Certified! That stamp looks official. Welcome, prepared traveler!",
+     "wrongReply": "Uncertified?! Jupiter's atmosphere has been known to dent cheap helmets! Safety first!"
+    },
+    {
+     "officer": "Have you ever worn this helmet in a pillow fight?",
+     "correct": "no",
+     "rightReply": "Never in combat! This is a clean, peaceful helmet. I can tell it's seen no violence!",
+     "wrongReply": "Pillow fight veteran?! This helmet has seen combat! That changes its classification entirely!"
+    },
+    {
+     "officer": "Would you remove this helmet if a Jupiter official asked you to?",
+     "correct": "yes",
+     "rightReply": "Cooperative! Helmet flexibility is important for identity checks and snack breaks!",
+     "wrongReply": "You'd refuse?! What are you, a helmet supremacist?! On Jupiter, we show our faces!"
+    }
+   ]
+  },
+  "_BASKETBALL": {
+   "name": "Basketballs",
+   "questions": [
+    {
+     "officer": "A basketball! Is this basketball fully inflated?",
+     "correct": "no",
+     "rightReply": "Deflated! Smart traveler. Inflated balls in Jupiter's gravity are basically bouncy missiles!",
+     "wrongReply": "Fully inflated?! The pressure difference here could launch that thing into orbit!"
+    },
+    {
+     "officer": "Do you plan to dribble this basketball on Jupiter?",
+     "correct": "no",
+     "rightReply": "No dribbling! Good, because Jupiter gravity means one bounce sends it to the stratosphere!",
+     "wrongReply": "Dribbling?! On Jupiter's gravity, one bounce and that ball is leaving the planet!"
+    },
+    {
+     "officer": "Is this basketball regulation size?",
+     "correct": "yes",
+     "rightReply": "Standard size! At least we know what we're dealing with. No surprises!",
+     "wrongReply": "Non standard?! What kind of rogue basketball is this?! Custom jobs are suspicious!"
+    },
+    {
+     "officer": "Have you ever dunked on anyone with this basketball?",
+     "correct": "no",
+     "rightReply": "No dunking history! A peaceful basketball with no violent past!",
+     "wrongReply": "Dunking history detected! This ball has been used as a weapon of humiliation!"
+    },
+    {
+     "officer": "If this basketball accidentally bounced away on Jupiter, would you chase it?",
+     "correct": "no",
+     "rightReply": "Wise! Never chase a runaway ball on Jupiter. The gravity will sort it out... eventually.",
+     "wrongReply": "You'd chase it?! People who chase balls on Jupiter end up bouncing with them! It's chaos!"
+    }
+   ]
+  },
+  "_PEANUTS": {
+   "name": "Peanuts",
+   "questions": [
+    {
+     "officer": "Crunchy peanuts! Do you have a peanut allergy on Earth?",
+     "correct": "yes",
+     "rightReply": "Earth allergy means Jupiter immunity! Reversed allergies work in your favor!",
+     "wrongReply": "No Earth allergy?! WARNING! You WILL be allergic on Jupiter! Reversed allergies are no joke!"
+    },
+    {
+     "officer": "Are these peanuts in a sealed container?",
+     "correct": "yes",
+     "rightReply": "Sealed! Contained peanuts are safe peanuts. No airborne peanut particles!",
+     "wrongReply": "Unsealed?! Loose peanuts in Jupiter's atmosphere could trigger an allergy cloud!"
+    },
+    {
+     "officer": "Are you planning to share these peanuts with anyone on Jupiter?",
+     "correct": "no",
+     "rightReply": "Personal peanuts only! Safest approach. No risk of triggering someone else's reversed allergies!",
+     "wrongReply": "Sharing?! Jupiter citizens might have reversed allergies! You could send someone to the hospital!"
+    },
+    {
+     "officer": "Did you declare these peanuts on your customs form?",
+     "correct": "yes",
+     "rightReply": "Properly declared! A transparent snacker. I respect the honesty!",
+     "wrongReply": "Undeclared peanuts?! Smuggling snacks is how allergy emergencies start!"
+    },
+    {
+     "officer": "Do you have any medication with you, just in case?",
+     "correct": "yes",
+     "rightReply": "Prepared for anything! A responsible peanut carrier. Travel ready!",
+     "wrongReply": "No medication?! Carrying potential allergens without a backup plan is reckless!"
+    }
+   ]
+  },
+  "_RUBBER_DUCK": {
+   "name": "Rubber Ducks",
+   "questions": [
+    {
+     "officer": "A rubber duck! Are you aware that on Jupiter, rubber ducks are classified as surveillance devices?",
+     "correct": "no",
+     "rightReply": "Ignorance is actually your best defense! First time duck carriers get a warning.",
+     "wrongReply": "You knew?! And you still brought a spy device right to my desk?!"
+    },
+    {
+     "officer": "Does this duck squeak when squeezed?",
+     "correct": "no",
+     "rightReply": "A silent duck! Minimal surveillance risk. No unauthorized data transmission!",
+     "wrongReply": "It SQUEAKS?! Squeaking is classified as unauthorized data transmission on Jupiter!"
+    },
+    {
+     "officer": "Is this duck for bath use only?",
+     "correct": "yes",
+     "rightReply": "Bath ducks are the least suspicious purpose. I'll tag it as decorative watercraft!",
+     "wrongReply": "Not for baths?! A rubber duck with mysterious purposes is definitely a spy device!"
+    },
+    {
+     "officer": "Have you had this duck for more than a year?",
+     "correct": "yes",
+     "rightReply": "An old duck! After a year, the surveillance batteries would have died. You're probably safe!",
+     "wrongReply": "Brand new?! Fresh off the production line means fully charged spy capabilities!"
+    },
+    {
+     "officer": "Does this duck have any markings or logos on it?",
+     "correct": "no",
+     "rightReply": "Plain duck! No insignia means no known spy agencies. Just a regular civilian duck!",
+     "wrongReply": "Markings?! That could be a spy agency logo! Let me check our database of duck operatives!"
+    }
+   ]
+  },
+  "_SUNGLASSES": {
+   "name": "Sunglasses",
+   "questions": [
+    {
+     "officer": "Sunglasses! Jupiter has four suns, you know. Are these prescription sunglasses?",
+     "correct": "yes",
+     "rightReply": "Medical necessity! You can't help it if your eyes are sensitive. Carry on!",
+     "wrongReply": "Fashion sunglasses?! Blocking Jupiter's suns for style? The suns might take that personally!"
+    },
+    {
+     "officer": "Do these sunglasses have UV protection?",
+     "correct": "no",
+     "rightReply": "No UV protection! So they're basically useless but harmless. The suns won't be offended!",
+     "wrongReply": "UV protection?! That's classified as hoarding solar energy on Jupiter! You're stealing our suns' rays!"
+    },
+    {
+     "officer": "Will you take these off when indoors?",
+     "correct": "yes",
+     "rightReply": "Taking them off indoors! Respectful to our artificial lighting committee. They work hard!",
+     "wrongReply": "Sunglasses indoors?! That's both suspicious AND insulting to our interior lighting designers!"
+    },
+    {
+     "officer": "Are these sunglasses reflective?",
+     "correct": "no",
+     "rightReply": "Non reflective! Good, because reflective lenses have been known to blind passing Jupiterians!",
+     "wrongReply": "Reflective?! Those are basically mirrors! You could signal enemy spacecraft!"
+    },
+    {
+     "officer": "Did you bring a protective case for them?",
+     "correct": "yes",
+     "rightReply": "A case! An organized traveler who takes care of their eyewear. Very responsible!",
+     "wrongReply": "No case?! Loose sunglasses in a bag scratch easily and become dangerously jagged!"
+    }
+   ]
+  },
+  "_UMBRELLA": {
+   "name": "Umbrellas",
+   "questions": [
+    {
+     "officer": "An umbrella! You know it rains diamonds on Jupiter, right? Is this umbrella small enough to fit in your bag?",
+     "correct": "yes",
+     "rightReply": "Compact umbrella! Too small for serious diamond catching. You're not here to mine!",
+     "wrongReply": "A giant umbrella?! That's basically industrial grade diamond catching equipment!"
+    },
+    {
+     "officer": "Does this umbrella have a pointed tip?",
+     "correct": "no",
+     "rightReply": "Rounded tip! A safe, non threatening umbrella. I approve of your umbrella choices!",
+     "wrongReply": "Pointed tip?! That's basically a concealed weapon! Umbrella jousting is a real problem here!"
+    },
+    {
+     "officer": "Do you promise never to open it indoors on Jupiter?",
+     "correct": "yes",
+     "rightReply": "Promise accepted! Indoor umbrella opening is a Class 1 bad luck offense on Jupiter!",
+     "wrongReply": "You won't promise?! Jupiter takes bad luck VERY seriously! We can't afford any more!"
+    },
+    {
+     "officer": "Is this umbrella waterproof?",
+     "correct": "yes",
+     "rightReply": "Waterproof! Standard umbrella. Not designed for diamond collection. Checks out!",
+     "wrongReply": "Not waterproof?! Then it's clearly designed with holes for diamond filtering! Suspicious!"
+    },
+    {
+     "officer": "Have you ever used this umbrella as a sword?",
+     "correct": "no",
+     "rightReply": "No sword play! A peaceful umbrella with no combat history. Carry on!",
+     "wrongReply": "Umbrella sword fighting?! This umbrella has seen battle! It must be reclassified as a weapon!"
+    }
+   ]
+  },
+  "_PILLOW": {
+   "name": "Pillows",
+   "questions": [
+    {
+     "officer": "A pillow! Are you aware that sleeping is taxed on Jupiter?",
+     "correct": "no",
+     "rightReply": "Another surprised traveler! Don't worry, the sleep tax is only 3 credits per hour.",
+     "wrongReply": "You knew and came anyway?! Either you're rich or you plan to stay awake forever!"
+    },
+    {
+     "officer": "Is this pillow made of memory foam?",
+     "correct": "no",
+     "rightReply": "Not memory foam! Regular pillows don't record anything. Your dreams are safe!",
+     "wrongReply": "MEMORY FOAM?! That material literally memorizes your dreams, and dreams on Jupiter are classified!"
+    },
+    {
+     "officer": "Do you intend to use this pillow for pillow fights?",
+     "correct": "no",
+     "rightReply": "No violence! A pillow of peace. Jupiter appreciates your non combative intentions!",
+     "wrongReply": "Pillow fights?! That's classified as aggravated assault on Jupiter! You'd be a pillow criminal!"
+    },
+    {
+     "officer": "Is this pillow hypoallergenic?",
+     "correct": "yes",
+     "rightReply": "Hypoallergenic! Safe for everyone, including aliens with sensitive tentacles!",
+     "wrongReply": "Not hypoallergenic?! Jupiter's atmosphere amplifies allergies! That pillow could trigger a sneeze storm!"
+    },
+    {
+     "officer": "Will you be registering for a sleep tax account?",
+     "correct": "yes",
+     "rightReply": "Registering for sleep tax! A law abiding napper. Welcome to Jupiter, responsible sleeper!",
+     "wrongReply": "No sleep tax registration?! Are you planning to sleep illegally?! Tax dodging is serious business!"
+    }
+   ]
+  },
+  "_SANDWICH": {
+   "name": "Sandwiches",
+   "questions": [
+    {
+     "officer": "A sandwich! Is this an open faced sandwich?",
+     "correct": "no",
+     "rightReply": "Properly covered bread! Decency is maintained. Jupiter thanks you!",
+     "wrongReply": "OPEN FACED?! That's indecent exposure of bread! Cover that up immediately!"
+    },
+    {
+     "officer": "Is the bread thickness between 1.2 and 1.8 Jupiter centimeters?",
+     "correct": "yes",
+     "rightReply": "Regulation bread! Jupiter's bakers worked hard to standardize this. Perfect thickness!",
+     "wrongReply": "Non regulation bread?! This sandwich is a bread violation! Jupiter takes bread very seriously!"
+    },
+    {
+     "officer": "Does this sandwich contain any condiments?",
+     "correct": "no",
+     "rightReply": "No condiments! A plain sandwich is a safe sandwich. Boring but perfectly legal!",
+     "wrongReply": "Condiments?! Were they declared on your customs form? Undeclared condiments are serious!"
+    },
+    {
+     "officer": "Was this sandwich prepared today?",
+     "correct": "yes",
+     "rightReply": "Fresh sandwich! Today's sandwiches are the safest. Yesterday's sandwiches have... opinions.",
+     "wrongReply": "Not fresh?! Old sandwiches develop sentience on Jupiter! It might try to escape!"
+    },
+    {
+     "officer": "Are you going to eat this sandwich before you enter Jupiter's atmosphere?",
+     "correct": "yes",
+     "rightReply": "Eating it now! Problem solved before it even starts. Efficient!",
+     "wrongReply": "Bringing it through the atmosphere?! Bread reacts unpredictably to Jupiter's air pressure!"
+    }
+   ]
+  },
+  "_YOYO": {
+   "name": "Yo-yos",
+   "questions": [
+    {
+     "officer": "A yo-yo! On Jupiter's gravity, these things are unpredictable! Is the string shorter than 40 Jupiter centimeters?",
+     "correct": "yes",
+     "rightReply": "Short string! Limited range. You're within regulation!",
+     "wrongReply": "Over 40 centimeters?! That's long range yo-yo capability! Basically a flail!"
+    },
+    {
+     "officer": "Can you perform any tricks with this yo-yo?",
+     "correct": "no",
+     "rightReply": "No tricks! A trick less yo-yo user is a safe yo-yo user. Boring but approved!",
+     "wrongReply": "Tricks?! Yo-yo tricks are classified as combat training on Jupiter! You're basically armed!"
+    },
+    {
+     "officer": "Is this yo-yo made of plastic?",
+     "correct": "yes",
+     "rightReply": "Plastic! Lightweight and non lethal in Jupiter gravity. Certified toy grade!",
+     "wrongReply": "Not plastic?! Metal yo-yos in Jupiter's gravity are basically wrecking balls!"
+    },
+    {
+     "officer": "Will you keep this yo-yo in your pocket at all times?",
+     "correct": "yes",
+     "rightReply": "Pocketed yo-yo! Out of sight, out of danger. Smart carrying strategy!",
+     "wrongReply": "Walking around with an exposed yo-yo?! That's like open carrying a weapon on Jupiter!"
+    },
+    {
+     "officer": "Do you promise not to yo-yo near any Jupiter citizens?",
+     "correct": "yes",
+     "rightReply": "No public yo-yoing! Jupiter's citizens will be safe from yo-yo related incidents!",
+     "wrongReply": "Public yo-yoing?! In Jupiter's gravity, that's a danger to everyone within 50 meters!"
+    }
+   ]
+  },
+  "_MAGNIFYING_GLASS": {
+   "name": "Magnifying Glass",
+   "questions": [
+    {
+     "officer": "A magnifying glass! Are you aware that on Jupiter, magnifying glasses are classified as weapons of mass observation?",
+     "correct": "no",
+     "rightReply": "First time offender! Ignorance of Jupiter's surveillance laws is actually a valid defense!",
+     "wrongReply": "You knew and you still brought one?! That's premeditated observation! Very suspicious!"
+    },
+    {
+     "officer": "Is this magnifying glass strong enough to read fine print?",
+     "correct": "yes",
+     "rightReply": "Strong enough for fine print! At least you can read the Jupiter laws you'll need to follow!",
+     "wrongReply": "Can't even read fine print?! Then what are you magnifying?! People's faces?! That's creepy!"
+    },
+    {
+     "officer": "Do you promise not to use this to start fires on Jupiter?",
+     "correct": "yes",
+     "rightReply": "Promise accepted! Jupiter's atmosphere is mostly hydrogen. One spark and we're all toast!",
+     "wrongReply": "You won't promise?! On a planet made of gas?! Are you trying to blow up the entire solar system?!"
+    },
+    {
+     "officer": "Have you ever used this magnifying glass to spy on insects?",
+     "correct": "no",
+     "rightReply": "No insect surveillance! Jupiter's bugs are the size of cars anyway, you wouldn't need magnification!",
+     "wrongReply": "Bug spy?! Jupiter's insects have rights! They'll file a restraining order against your lens!"
+    },
+    {
+     "officer": "Will you keep this magnifying glass in its case when not in use?",
+     "correct": "yes",
+     "rightReply": "Responsible storage! An uncased magnifying glass is a ticking time bomb of accidental observation!",
+     "wrongReply": "Loose in your pocket?! What if you accidentally magnify something classified?! Case it immediately!"
+    }
+   ]
+  },
+  "_RUBBER_GLOVES": {
+   "name": "Rubber Gloves",
+   "questions": [
+    {
+     "officer": "Rubber gloves! Are these for cleaning purposes?",
+     "correct": "yes",
+     "rightReply": "Cleaning! Jupiter appreciates a tidy visitor. Our moons are spotless and we'd like to keep it that way!",
+     "wrongReply": "Not for cleaning?! Then what exactly are you planning to touch that requires hand protection?!"
+    },
+    {
+     "officer": "Are these gloves latex free?",
+     "correct": "yes",
+     "rightReply": "Latex free! Jupiter's atmosphere reacts badly with latex. It creates tiny rubber explosions!",
+     "wrongReply": "Latex?! Do you want tiny rubber explosions everywhere?! Jupiter's atmosphere cannot handle latex!"
+    },
+    {
+     "officer": "Do these gloves fit you properly?",
+     "correct": "yes",
+     "rightReply": "Perfect fit! Loose gloves on Jupiter's gravity tend to fly off and slap random citizens!",
+     "wrongReply": "They don't fit?! Loose gloves in Jupiter's gravity become uncontrollable slapping machines!"
+    },
+    {
+     "officer": "Have you ever worn these gloves to commit a crime?",
+     "correct": "no",
+     "rightReply": "No criminal glove history! These are clean, innocent gloves. My scanner confirms zero crime residue!",
+     "wrongReply": "Crime gloves?! My scanner is picking up trace amounts of mischief! These gloves have a dark past!"
+    },
+    {
+     "officer": "Will you snap these gloves dramatically when putting them on?",
+     "correct": "no",
+     "rightReply": "No dramatic snapping! That sound startles Jupiter's pigeons, and they're already nervous enough!",
+     "wrongReply": "Dramatic snapping?! That sound triggers Jupiter's pigeons into a frenzy! Please snap responsibly!"
+    }
+   ]
+  },
+  "_TEDDY_BEAR": {
+   "name": "Teddy Bear",
+   "questions": [
+    {
+     "officer": "A teddy bear! On Jupiter, stuffed animals are considered emotional support documents. Is this bear registered?",
+     "correct": "no",
+     "rightReply": "Unregistered bear! That's okay for tourists. Just don't let it attend any official meetings!",
+     "wrongReply": "A registered teddy bear?! With paperwork?! That bear has more credentials than most Jupiter citizens!"
+    },
+    {
+     "officer": "Does this teddy bear have a name?",
+     "correct": "yes",
+     "rightReply": "A named bear! Jupiter law states that named teddy bears have partial citizenship rights. Congratulations to your bear!",
+     "wrongReply": "No name?! An unnamed teddy bear is considered lost property on Jupiter! Name it immediately!"
+    },
+    {
+     "officer": "Is this teddy bear soft?",
+     "correct": "yes",
+     "rightReply": "Soft and cuddly! Jupiter's softness standards are very high. Your bear passes the squeeze test!",
+     "wrongReply": "Not soft?! A rough teddy bear?! That's just a regular bear at that point! Very concerning!"
+    },
+    {
+     "officer": "Do you sleep with this teddy bear?",
+     "correct": "yes",
+     "rightReply": "Bedtime bear! On Jupiter, sleeping with a teddy bear is mandatory for a good night's rest. Doctor's orders!",
+     "wrongReply": "You don't sleep with it?! Then who's guarding you from nightmares?! Jupiter nights are scary!"
+    },
+    {
+     "officer": "Will you introduce this teddy bear to Jupiter's other stuffed animals?",
+     "correct": "yes",
+     "rightReply": "Social bear! Jupiter has a whole community of stuffed animals. They meet every Tuesday for tea!",
+     "wrongReply": "Keeping it isolated?! An antisocial teddy bear will get lonely! Jupiter's stuffed animals are very welcoming!"
+    }
+   ]
+  },
+  "_TENNIS_RACKET": {
+   "name": "Tennis Racket",
+   "questions": [
+    {
+     "officer": "A tennis racket! Jupiter's gravity makes tennis balls weigh 50 kilograms. Are you strong enough for that?",
+     "correct": "yes",
+     "rightReply": "Strong enough! Jupiter tennis is basically weightlifting with style. You'll fit right in!",
+     "wrongReply": "Not strong enough?! Then this racket is useless! You'll just wave it around like a fancy fan!"
+    },
+    {
+     "officer": "Is this racket strung with regulation strings?",
+     "correct": "yes",
+     "rightReply": "Regulation strings! No enhanced bounce materials. Good, because enhanced balls leave the planet!",
+     "wrongReply": "Non regulation strings?! Custom strings could launch a ball into orbit! That's a space hazard!"
+    },
+    {
+     "officer": "Have you already signed up for a Jupiter tennis tournament?",
+     "correct": "no",
+     "rightReply": "Not signed up yet! Smart move. Jupiter tournaments have extreme gravity rules. Better to practice first!",
+     "wrongReply": "Already signed up?! Jupiter tournaments use 50 kilogram balls from day one! You'll be exhausted after the warm up!"
+    },
+    {
+     "officer": "Have you ever thrown this racket in frustration?",
+     "correct": "no",
+     "rightReply": "Never thrown! A racket with no anger management issues. Peaceful sporting equipment!",
+     "wrongReply": "Racket thrower?! On Jupiter's gravity, a thrown racket could orbit the planet three times!"
+    },
+    {
+     "officer": "Will you wear proper Jupiter tennis shoes on the court?",
+     "correct": "yes",
+     "rightReply": "Proper shoes! Jupiter courts are made of compressed gas. Regular shoes just sink right through!",
+     "wrongReply": "No proper shoes?! You'd fall through the court! Jupiter tennis courts are clouds, you know!"
+    }
+   ]
+  },
+  "_WATER_BOTTLE": {
+   "name": "Water Bottle",
+   "questions": [
+    {
+     "officer": "A water bottle! On Jupiter, water is considered a rare luxury. Is this bottle reusable?",
+     "correct": "yes",
+     "rightReply": "Reusable! Environmentally conscious AND economically smart on Jupiter. Water is expensive here!",
+     "wrongReply": "Single use?! Wasting water AND plastic?! Jupiter's environmental agency will have words with you!"
+    },
+    {
+     "officer": "Is this water from Earth?",
+     "correct": "yes",
+     "rightReply": "Earth water! Imported water is actually considered exotic and valuable on Jupiter. Nice!",
+     "wrongReply": "Not Earth water?! Where did you get it?! Mars water has a strange aftertaste that won't go away!"
+    },
+    {
+     "officer": "Is this bottle less than one litre?",
+     "correct": "yes",
+     "rightReply": "Under a litre! Personal hydration size. No one's getting suspicious about that amount!",
+     "wrongReply": "Over a litre?! That's classified as industrial water supply! You need a distribution license!"
+    },
+    {
+     "officer": "Have you added anything to this water? Any flavouring?",
+     "correct": "no",
+     "rightReply": "Pure water! No additives! Jupiter's water inspectors approve of your transparent liquid!",
+     "wrongReply": "Flavoured water?! Unknown additives in Jupiter's atmosphere could cause unpredictable chemical reactions!"
+    },
+    {
+     "officer": "Will you share this water if a Jupiter citizen is thirsty?",
+     "correct": "yes",
+     "rightReply": "Generous! Sharing Earth water makes you an instant celebrity on Jupiter. People will love you!",
+     "wrongReply": "You won't share?! Hoarding water on Jupiter is considered extremely rude! Social outcast behavior!"
+    }
+   ]
+  },
+  "_WHISTLE": {
+   "name": "Whistle",
+   "questions": [
+    {
+     "officer": "A whistle! Sound travels differently on Jupiter. Are you aware your whistle could be heard from 500 kilometres away?",
+     "correct": "no",
+     "rightReply": "You didn't know! Jupiter's atmosphere amplifies high pitched sounds enormously. Now you know, be careful!",
+     "wrongReply": "You knew and brought it anyway?! You could wake up an entire hemisphere with one blow!"
+    },
+    {
+     "officer": "Is this whistle made of metal?",
+     "correct": "yes",
+     "rightReply": "Metal! Metal whistles produce a cleaner tone. Still deafening, but at least it sounds nice!",
+     "wrongReply": "Not metal?! Plastic whistles create a screechy frequency that makes Jupiter's dogs howl for hours!"
+    },
+    {
+     "officer": "Do you promise to only use this whistle in emergencies?",
+     "correct": "yes",
+     "rightReply": "Emergency use only! Responsible whistle ownership. Jupiter's noise police will be happy!",
+     "wrongReply": "Recreational whistling?! On Jupiter that's a noise violation punishable by mandatory silence classes!"
+    },
+    {
+     "officer": "Does this whistle have a lanyard attached?",
+     "correct": "yes",
+     "rightReply": "Lanyard attached! A secured whistle is a safe whistle. No risk of it flying off in Jupiter's winds!",
+     "wrongReply": "No lanyard?! A loose whistle in Jupiter's storms could become a high speed noise projectile!"
+    },
+    {
+     "officer": "Have you ever been asked to stop whistling by anyone?",
+     "correct": "no",
+     "rightReply": "Never been told to stop! A considerate whistler. Jupiter could use more people like you!",
+     "wrongReply": "You've been told to stop?! A known nuisance whistler! Jupiter has a three whistle warning system!"
+    }
+   ]
+  },
+  "_FLASHLIGHT": {
+   "name": "Flashlight",
+   "questions": [
+    {
+     "officer": "A flashlight! Jupiter has four suns, so it's never dark here. Do you have a good reason for bringing this?",
+     "correct": "no",
+     "rightReply": "No good reason! But honestly, tourists always bring them anyway. At least you're honest about it!",
+     "wrongReply": "You think you need it?! We have FOUR SUNS! It's literally always bright! What darkness are you expecting?!"
+    },
+    {
+     "officer": "Does this flashlight have more than 1000 lumens?",
+     "correct": "no",
+     "rightReply": "Under 1000 lumens! Dim enough to be harmless. Basically a nightlight in Jupiter terms!",
+     "wrongReply": "Over 1000 lumens?! That's classified as a portable sun! We already have four, we don't need another!"
+    },
+    {
+     "officer": "Is this flashlight waterproof?",
+     "correct": "yes",
+     "rightReply": "Waterproof! Smart, because it rains diamonds here. You don't want diamond rain shorting out your flashlight!",
+     "wrongReply": "Not waterproof?! Jupiter's diamond rain will destroy it in seconds! That's just throwing money away!"
+    },
+    {
+     "officer": "Do you promise not to shine this in anyone's eyes?",
+     "correct": "yes",
+     "rightReply": "Promise accepted! Eye shining is the number one tourist complaint on Jupiter. Mostly from selfie flashlights!",
+     "wrongReply": "You won't promise?! Eye shining is considered assault with a beam weapon on Jupiter!"
+    },
+    {
+     "officer": "Are the batteries fresh?",
+     "correct": "yes",
+     "rightReply": "Fresh batteries! At least it won't die immediately. Dead flashlights are just sad tubes of nothing!",
+     "wrongReply": "Dead batteries?! You're carrying a useless metal cylinder! That's just confusing for everyone!"
+    }
+   ]
+  },
+  "_MARSHMALLOWS": {
+   "name": "Marshmallows",
+   "questions": [
+    {
+     "officer": "Marshmallows! On Jupiter, these are classified as building materials! Are they the large campfire size?",
+     "correct": "yes",
+     "rightReply": "Large marshmallows! Construction grade! Jupiter's builders will be jealous of your supplies!",
+     "wrongReply": "Mini marshmallows?! Those are useless for building! They're barely big enough to insulate a mouse house!"
+    },
+    {
+     "officer": "Are these marshmallows sealed in their original packaging?",
+     "correct": "yes",
+     "rightReply": "Factory sealed! No contamination risk. Jupiter's food safety board gives these a passing grade!",
+     "wrongReply": "Open packaging?! Exposed marshmallows absorb Jupiter's atmosphere and become bouncy! They'll bounce everywhere!"
+    },
+    {
+     "officer": "Do you intend to roast these marshmallows on Jupiter?",
+     "correct": "no",
+     "rightReply": "No roasting! Good, because open flames on a gas planet would be catastrophically bad for everyone!",
+     "wrongReply": "Roasting marshmallows?! ON A GAS PLANET?! Do you want to ignite the entire atmosphere?!"
+    },
+    {
+     "officer": "Have you counted these marshmallows?",
+     "correct": "no",
+     "rightReply": "Uncounted marshmallows! Honestly, who counts marshmallows? You'd go crazy before you finished!",
+     "wrongReply": "You counted them?! That level of marshmallow obsession is concerning! What was the exact number?! Actually, don't tell me!"
+    },
+    {
+     "officer": "Are you willing to surrender one marshmallow for Jupiter quality testing?",
+     "correct": "yes",
+     "rightReply": "Willing to share! One for testing, and maybe one for me. Quality assurance is very important!",
+     "wrongReply": "You won't spare one?! Marshmallow hoarding is a sign of untrustworthiness on Jupiter!"
+    }
+   ]
+  },
+  "_SLEEPING_BAG": {
+   "name": "Sleeping Bag",
+   "questions": [
+    {
+     "officer": "A sleeping bag! Remember, sleeping is taxed on Jupiter. Is this rated for extreme temperatures?",
+     "correct": "yes",
+     "rightReply": "Extreme rated! Jupiter nights can drop to negative 150 degrees. You'll need every bit of insulation!",
+     "wrongReply": "Not extreme rated?! You'll be a popsicle by morning! Jupiter nights are brutally cold!"
+    },
+    {
+     "officer": "Is this sleeping bag big enough for just one person?",
+     "correct": "yes",
+     "rightReply": "Single occupancy! One person, one bag, one sleep tax bill. Simple and legal!",
+     "wrongReply": "Oversized?! Are you planning to share?! That's sleep tax evasion for two! Double the crime!"
+    },
+    {
+     "officer": "Does this sleeping bag have a hood?",
+     "correct": "yes",
+     "rightReply": "Hooded sleeping bag! Essential for blocking out Jupiter's eternal sunlight from four suns!",
+     "wrongReply": "No hood?! With four suns, you'll never fall asleep! Unhooded sleepers become permanently jet lagged!"
+    },
+    {
+     "officer": "Have you registered this sleeping bag with Jupiter's sleep regulation authority?",
+     "correct": "no",
+     "rightReply": "Not registered yet! Don't worry, you can register at the sleep tax office. Just bring your pillow paperwork too!",
+     "wrongReply": "Already registered?! How?! You haven't even entered Jupiter yet! That's pre registration fraud!"
+    },
+    {
+     "officer": "Will you be sleeping outdoors on Jupiter?",
+     "correct": "no",
+     "rightReply": "Indoors only! Smart choice. Jupiter's outdoor winds would turn your sleeping bag into a hang glider!",
+     "wrongReply": "Sleeping outdoors?! The wind speeds here are 600 kilometres per hour! You'd wake up on Saturn!"
+    }
+   ]
+  },
+  "_PAINT_BRUSH": {
+   "name": "Paint Brush",
+   "questions": [
+    {
+     "officer": "A paint brush! Art is highly regulated on Jupiter. Do you have formal art training?",
+     "correct": "no",
+     "rightReply": "No training! Self expression is welcome on Jupiter. Untrained artists create the most interesting accidents!",
+     "wrongReply": "Formally trained?! Jupiter is suspicious of trained artists. They follow too many rules!"
+    },
+    {
+     "officer": "Is this paint brush clean right now?",
+     "correct": "yes",
+     "rightReply": "Clean brush! A fresh start! Jupiter's art inspectors love a clean brush. No hidden paint agendas!",
+     "wrongReply": "Dirty brush?! What colour was it last?! Illegal pigments are a serious offence on Jupiter!"
+    },
+    {
+     "officer": "Do you plan to paint any Jupiter landscapes?",
+     "correct": "yes",
+     "rightReply": "Landscape painting! Jupiter's scenery is breathtaking. Just don't paint the restricted military clouds!",
+     "wrongReply": "Not painting landscapes?! Then what?! Portraits of civilians without consent?! That's art crime!"
+    },
+    {
+     "officer": "Are the bristles made of natural hair?",
+     "correct": "no",
+     "rightReply": "Synthetic bristles! Jupiter's animal protection agency approves. No alien creatures were harmed!",
+     "wrongReply": "Natural hair?! From what animal?! Jupiter requires a hair source declaration for all natural bristle imports!"
+    },
+    {
+     "officer": "Will you clean this brush after every use?",
+     "correct": "yes",
+     "rightReply": "Clean after every use! A responsible artist. Jupiter's drains can handle water based paint only!",
+     "wrongReply": "You won't clean it?! Dried paint on Jupiter crystallizes and becomes sharp! That's a safety hazard!"
+    }
+   ]
+  },
+  "_GLITTER": {
+   "name": "Glitter",
+   "questions": [
+    {
+     "officer": "GLITTER?! Are you serious?! Do you know that glitter is classified as a biohazard on Jupiter?!",
+     "correct": "no",
+     "rightReply": "You didn't know! Glitter on Jupiter never goes away. The last glitter incident was three centuries ago and we're STILL finding it!",
+     "wrongReply": "You KNEW it's a biohazard and brought it anyway?! That's intentional contamination! Maximum alert!"
+    },
+    {
+     "officer": "Is this glitter the fine grain type?",
+     "correct": "no",
+     "rightReply": "Chunky glitter! At least chunky glitter is easier to clean up. Fine grain gets into EVERYTHING!",
+     "wrongReply": "Fine grain?! That's the worst kind! It gets into the atmosphere and creates sparkly storms for decades!"
+    },
+    {
+     "officer": "Is this glitter contained in a sealed container?",
+     "correct": "yes",
+     "rightReply": "Sealed! Keep it that way! One unsealed glitter container could contaminate an entire Jupiter district!",
+     "wrongReply": "UNSEALED GLITTER?! This is a code red! Nobody move! One gust of wind and we're all sparkling for years!"
+    },
+    {
+     "officer": "Do you promise to use this glitter only in enclosed spaces?",
+     "correct": "yes",
+     "rightReply": "Enclosed spaces only! Outdoor glitter use is punishable by 500 hours of community cleaning!",
+     "wrongReply": "Outdoor glitter?! You want to glitter bomb an entire planet?! We'd never recover from the sparkle!"
+    },
+    {
+     "officer": "Will you take all remaining glitter with you when you leave Jupiter?",
+     "correct": "yes",
+     "rightReply": "Taking it all back! Thank you! Jupiter cannot handle any more permanent sparkle contamination!",
+     "wrongReply": "Leaving glitter behind?! That's littering with the most persistent substance in the universe!"
+    }
+   ]
+  },
+  "_CAMERA": {
+   "name": "Camera",
+   "questions": [
+    {
+     "officer": "A camera! Photography permits are required on Jupiter. Is this a digital camera?",
+     "correct": "yes",
+     "rightReply": "Digital! Easy to delete embarrassing photos of Jupiter. Our tourism board appreciates digital!",
+     "wrongReply": "Film camera?! Physical evidence of Jupiter's secrets that can't be remotely deleted?! Very concerning!"
+    },
+    {
+     "officer": "Does this camera have a flash?",
+     "correct": "yes",
+     "rightReply": "Flash equipped! Just don't use it near the wildlife. Jupiter's creatures are very camera shy!",
+     "wrongReply": "No flash?! So you're taking photos in the dark? What are you secretly photographing?!"
+    },
+    {
+     "officer": "Do you promise not to photograph any restricted Jupiter government buildings?",
+     "correct": "yes",
+     "rightReply": "No government photos! Good. Our buildings are very self conscious about their architecture anyway!",
+     "wrongReply": "You want photos of government buildings?! Those buildings have privacy rights on Jupiter!"
+    },
+    {
+     "officer": "Is this camera worth more than 500 Jupiter credits?",
+     "correct": "no",
+     "rightReply": "Budget camera! Nothing fancy. No one steals cheap cameras, so you're safe from Jupiter's camera thieves!",
+     "wrongReply": "Expensive camera?! You'll attract every camera thief on Jupiter! They can smell expensive lenses!"
+    },
+    {
+     "officer": "Will you share your Jupiter photos on social media?",
+     "correct": "yes",
+     "rightReply": "Sharing photos! Free advertising for Jupiter tourism! Our marketing department will be thrilled!",
+     "wrongReply": "Keeping them private?! What's the point of visiting Jupiter if you don't brag about it online?!"
+    }
+   ]
+  },
+  "_FRYING_PAN": {
+   "name": "Frying Pan",
+   "questions": [
+    {
+     "officer": "A frying pan! Jupiter's cooking competitions are legendary. Is this pan non stick?",
+     "correct": "yes",
+     "rightReply": "Non stick! Essential on Jupiter where ingredients tend to bond with cookware permanently in the gravity!",
+     "wrongReply": "Not non stick?! In Jupiter's gravity, your food will fuse to the pan! You'll never separate them!"
+    },
+    {
+     "officer": "Is this frying pan cast iron?",
+     "correct": "no",
+     "rightReply": "Not cast iron! Good, because cast iron on Jupiter weighs about 200 kilograms. You'd need a crane to flip a pancake!",
+     "wrongReply": "Cast iron?! That thing weighs 200 kilos on Jupiter! Your arm would snap off trying to flip an egg!"
+    },
+    {
+     "officer": "Have you ever used this pan as a weapon?",
+     "correct": "no",
+     "rightReply": "Never used as a weapon! A peaceful pan with a clean culinary record!",
+     "wrongReply": "Pan combat veteran?! This is cookware, not a medieval shield! I'm reclassifying this as a weapon!"
+    },
+    {
+     "officer": "Do you plan to cook for Jupiter citizens?",
+     "correct": "yes",
+     "rightReply": "Cooking for locals! Jupiter loves visitors who share their cuisine. You'll make friends instantly!",
+     "wrongReply": "Only cooking for yourself?! Selfish cooking is frowned upon on Jupiter! We believe in communal meals!"
+    },
+    {
+     "officer": "Is this pan oven safe?",
+     "correct": "yes",
+     "rightReply": "Oven safe! Jupiter's ovens run at 3000 degrees. Your pan can probably handle at least some of that!",
+     "wrongReply": "Not oven safe?! Limited to stovetop only?! That severely restricts your cooking potential on Jupiter!"
+    }
+   ]
+  },
+  "_HOT_SAUCE": {
+   "name": "Hot Sauce",
+   "questions": [
+    {
+     "officer": "Hot sauce! Jupiter's food is notoriously bland. Is this hot sauce really spicy?",
+     "correct": "yes",
+     "rightReply": "Very spicy! Jupiter citizens have never experienced spice. You'll be worshipped as a flavour deity!",
+     "wrongReply": "Mild?! Even our bland food is bolder than mild hot sauce! Why even bring it?!"
+    },
+    {
+     "officer": "Is this hot sauce in a glass bottle?",
+     "correct": "yes",
+     "rightReply": "Glass bottle! Proper containment for dangerous flavour. Plastic would melt from the spice!",
+     "wrongReply": "Not glass?! What if the container dissolves from the spice?! Uncontained hot sauce is a hazard!"
+    },
+    {
+     "officer": "Have you declared the exact Scoville rating on your customs form?",
+     "correct": "no",
+     "rightReply": "Not declared! Rookie move, but we'll let it slide. Just don't surprise anyone with unexpected heat!",
+     "wrongReply": "You declared it?! Those numbers will trigger our heat alarm! We've never seen Scoville ratings before!"
+    },
+    {
+     "officer": "Do you promise to warn people before putting this on their food?",
+     "correct": "yes",
+     "rightReply": "Warning before spicing! Very considerate. Unsuspecting Jupiter citizens have zero spice tolerance!",
+     "wrongReply": "No warning?! Surprise hot sauce is considered poisoning on Jupiter! They've never tasted spice before!"
+    },
+    {
+     "officer": "Is there more than one bottle in your bag?",
+     "correct": "no",
+     "rightReply": "Just one bottle! Personal spice supply. Completely legal and manageable!",
+     "wrongReply": "Multiple bottles?! That's enough to season the entire planet! You're basically a flavour arms dealer!"
+    }
+   ]
+  },
+  "_APRON": {
+   "name": "Apron",
+   "questions": [
+    {
+     "officer": "An apron! So you're a cook! Is this apron clean right now?",
+     "correct": "yes",
+     "rightReply": "Clean apron! A fresh canvas for future food splatters. Jupiter's hygiene inspectors approve!",
+     "wrongReply": "Dirty apron?! That's walking evidence of unsanitary cooking practices! Jupiter's health code violation!"
+    },
+    {
+     "officer": "Does this apron have pockets?",
+     "correct": "yes",
+     "rightReply": "Pockets! Perfect for holding spoons, secrets, and emergency snacks. Practical design!",
+     "wrongReply": "No pockets?! Where do you put your tasting spoon?! A pocketless apron is basically just a bib!"
+    },
+    {
+     "officer": "Is there anything written on this apron?",
+     "correct": "no",
+     "rightReply": "Blank apron! No controversial slogans. Jupiter's apron censorship board will be relieved!",
+     "wrongReply": "Text on the apron?! What does it say?! Unapproved apron slogans are a form of culinary propaganda!"
+    },
+    {
+     "officer": "Have you won any cooking competitions while wearing this apron?",
+     "correct": "no",
+     "rightReply": "No victories yet! An underdog! Jupiter loves a cooking underdog story. You might surprise everyone!",
+     "wrongReply": "A champion?! Professional chef alert! You'll have an unfair advantage in our amateur cooking scene!"
+    },
+    {
+     "officer": "Will you wear this apron at all times while cooking on Jupiter?",
+     "correct": "yes",
+     "rightReply": "Apron at all times! Safety first! Jupiter kitchens are messy because of the gravity. Food flies everywhere!",
+     "wrongReply": "Cooking without an apron?! On Jupiter, the gravity makes food splatter everywhere! You'll be covered in sauce!"
+    }
+   ]
+  },
+  "_FLIP_FLOPS": {
+   "name": "Flip Flops",
+   "questions": [
+    {
+     "officer": "Flip flops! Jupiter's beaches have lava sand. Are these heat resistant?",
+     "correct": "yes",
+     "rightReply": "Heat resistant! You came prepared for Jupiter's volcanic beaches. Your toes will thank you!",
+     "wrongReply": "Not heat resistant?! Jupiter's beach sand is 400 degrees! Your flip flops would melt in seconds!"
+    },
+    {
+     "officer": "Do these flip flops make that slapping sound when you walk?",
+     "correct": "no",
+     "rightReply": "Silent flip flops! Jupiter's beach noise pollution laws are very strict. You're already in compliance!",
+     "wrongReply": "Slappy flip flops?! On Jupiter's beaches, that sound attracts the sand crabs! They LOVE that rhythm!"
+    },
+    {
+     "officer": "Are these the kind with the strap between your toes?",
+     "correct": "yes",
+     "rightReply": "Toe strap style! Classic design. Jupiter's toe fashion critics consider this timeless!",
+     "wrongReply": "No toe strap?! Those are just slides! Slides on Jupiter's gravity are slippery chaos waiting to happen!"
+    },
+    {
+     "officer": "Have you ever lost a flip flop in the ocean?",
+     "correct": "no",
+     "rightReply": "Never lost one! Responsible footwear ownership! Lost flip flops become hazards for Jupiter's sea creatures!",
+     "wrongReply": "Lost in the ocean?! Jupiter's sea creatures would attach it to their collection of Earth artifacts!"
+    },
+    {
+     "officer": "Will you wear these only at the beach?",
+     "correct": "yes",
+     "rightReply": "Beach only! Flip flops in Jupiter's cities are frowned upon. Too casual for our sophisticated streets!",
+     "wrongReply": "Wearing them everywhere?! Flip flops at a Jupiter restaurant?! The dress code police will arrest your feet!"
+    }
+   ]
+  },
+  "_SNORKEL": {
+   "name": "Snorkel",
+   "questions": [
+    {
+     "officer": "A snorkel! Jupiter's oceans are made of liquid metallic hydrogen. Can you swim in metal?",
+     "correct": "no",
+     "rightReply": "Can't swim in metal! At least you're honest. Most tourists lie and then sink immediately!",
+     "wrongReply": "You can swim in metal?! That's physically impossible! Are you made of something I should know about?!"
+    },
+    {
+     "officer": "Is this snorkel a standard breathing tube?",
+     "correct": "yes",
+     "rightReply": "Standard tube! Nothing fancy. It won't work in liquid metal anyway, but at least it's not suspicious!",
+     "wrongReply": "Modified snorkel?! What modifications?! Are you trying to breathe in our metallic oceans?! That's not possible!"
+    },
+    {
+     "officer": "Do you have a mask to go with this snorkel?",
+     "correct": "yes",
+     "rightReply": "Full set! A prepared snorkeler. Even if Jupiter's oceans are unswimmable, you've got the spirit!",
+     "wrongReply": "No mask?! A snorkel without a mask is just a tube! What are you going to do, breathe through it on land?!"
+    },
+    {
+     "officer": "Have you ever seen a fish through this snorkel?",
+     "correct": "yes",
+     "rightReply": "Fish experience! Jupiter's fish are the size of buildings, so you won't need a snorkel to see them!",
+     "wrongReply": "Never seen a fish?! Then you've never actually used this properly! What have you been snorkeling in?!"
+    },
+    {
+     "officer": "Will you accept that Jupiter snorkeling is purely decorative?",
+     "correct": "yes",
+     "rightReply": "Decorative snorkeling accepted! Tourists who wear snorkels on land are a beloved Jupiter tradition!",
+     "wrongReply": "You want functional snorkeling?! In liquid metal?! I admire your ambition but question your judgment!"
+    }
+   ]
+  },
+  "_BEACH_BALL": {
+   "name": "Beach Ball",
+   "questions": [
+    {
+     "officer": "A beach ball! On Jupiter's gravity, this will weigh as much as a bowling ball. Is it fully inflated?",
+     "correct": "no",
+     "rightReply": "Deflated! Smart! An inflated beach ball on Jupiter would be impossible to catch without breaking a finger!",
+     "wrongReply": "Fully inflated?! The pressure difference will make this thing dense as a rock! You'll shatter a window!"
+    },
+    {
+     "officer": "Is this beach ball multicoloured?",
+     "correct": "yes",
+     "rightReply": "Multicoloured! The official colour scheme of Jupiter tourism. You're basically carrying a welcome sign!",
+     "wrongReply": "Single colour?! Plain beach balls are boring and Jupiter's beaches demand visual excitement!"
+    },
+    {
+     "officer": "Do you plan to play beach volleyball with this?",
+     "correct": "no",
+     "rightReply": "No volleyball! Good, because spiking a Jupiter heavy beach ball would put someone in the hospital!",
+     "wrongReply": "Volleyball?! With Jupiter gravity, a spike would go through the sand and into the planet's core!"
+    },
+    {
+     "officer": "Have you written your name on this beach ball?",
+     "correct": "yes",
+     "rightReply": "Named beach ball! Smart, because on Jupiter's beaches, light objects blow away to other continents!",
+     "wrongReply": "Unnamed?! An anonymous beach ball is a lost beach ball on Jupiter. The wind will claim it immediately!"
+    },
+    {
+     "officer": "Will you keep this beach ball away from Jupiter's atmosphere vents?",
+     "correct": "yes",
+     "rightReply": "Away from vents! One vent gust and this ball would launch into space! You'd never see it again!",
+     "wrongReply": "Near the vents?! That ball would become a satellite! Jupiter would have a new tiny colourful moon!"
+    }
+   ]
+  },
+  "_NECK_TIE": {
+   "name": "Neck Tie",
+   "questions": [
+    {
+     "officer": "A neck tie! On Jupiter, ties are worn around the waist as belts. Will you wear it correctly?",
+     "correct": "yes",
+     "rightReply": "Wearing it as a belt! You'll fit right in with Jupiter's fashion scene. Very professional waist!",
+     "wrongReply": "Around the neck?! AROUND THE NECK?! That's considered wildly inappropriate on Jupiter! Cover your neck immediately!"
+    },
+    {
+     "officer": "Is this tie made of silk?",
+     "correct": "no",
+     "rightReply": "Not silk! Good, because Jupiterian silk worms would sense it and become very territorial!",
+     "wrongReply": "Silk?! Jupiter's giant silk worms will swarm you! They're very protective of their fabric monopoly!"
+    },
+    {
+     "officer": "Is this tie patterned?",
+     "correct": "yes",
+     "rightReply": "Patterned! Jupiter fashion values complexity. Solid colours are for rookies and robots!",
+     "wrongReply": "Solid colour?! That's the most boring fashion choice possible on Jupiter. You'll be the outfit equivalent of beige!"
+    },
+    {
+     "officer": "Do you know how to tie at least three knot styles?",
+     "correct": "no",
+     "rightReply": "Limited knot knowledge! That's fine, Jupiter only recognizes one knot: the reverse loop. We'll teach you!",
+     "wrongReply": "Three knots?! Showoff! On Jupiter, we use one knot for everything. Simplicity is elegance!"
+    },
+    {
+     "officer": "Will you remove this tie when eating?",
+     "correct": "yes",
+     "rightReply": "Removing when eating! Smart, because Jupiter food is messy and ties absorb sauce like sponges!",
+     "wrongReply": "Eating with a tie on?! That tie will become a flavour journal of every meal! Stain city!"
+    }
+   ]
+  },
+  "_BRIEFCASE": {
+   "name": "Briefcase",
+   "questions": [
+    {
+     "officer": "A briefcase! Very professional. Does this briefcase have a lock?",
+     "correct": "yes",
+     "rightReply": "Locked briefcase! Security conscious! Jupiter's corporate world respects a locked briefcase!",
+     "wrongReply": "No lock?! Anyone could peek inside! Jupiter's corporate spies are everywhere and they love unlocked briefcases!"
+    },
+    {
+     "officer": "Is there anything important inside this briefcase?",
+     "correct": "no",
+     "rightReply": "Nothing important! An empty ish briefcase carried for appearances. Jupiter's business pros do the same thing!",
+     "wrongReply": "Important stuff?! Then why isn't it locked?! Oh wait, it is. But what KIND of important?! Now I'm curious!"
+    },
+    {
+     "officer": "Is this briefcase leather?",
+     "correct": "no",
+     "rightReply": "Not leather! Jupiter's synthetic material industry will be pleased. They're trying to corner the market!",
+     "wrongReply": "Real leather?! From what creature?! Jupiter requires a species origin report for all animal based products!"
+    },
+    {
+     "officer": "Have you ever accidentally left this briefcase somewhere?",
+     "correct": "no",
+     "rightReply": "Never lost! An attentive briefcase owner. On Jupiter, abandoned briefcases trigger bomb squad evacuations!",
+     "wrongReply": "You've left it behind?! On Jupiter, that triggers a full security lockdown! The bomb squad gets very excited!"
+    },
+    {
+     "officer": "Will you be bringing this briefcase to your interview?",
+     "correct": "yes",
+     "rightReply": "Bringing it to the interview! Professional appearance matters! Jupiter employers judge briefcase quality first!",
+     "wrongReply": "Not bringing it?! Then you'll carry your Jupiter resume in your hands like some kind of amateur!"
+    }
+   ]
+  },
+  "_BREATH_MINTS": {
+   "name": "Breath Mints",
+   "questions": [
+    {
+     "officer": "Breath mints! On Jupiter, mint scent is considered a luxury perfume. Are these extra strong?",
+     "correct": "yes",
+     "rightReply": "Extra strong! You'll smell like a walking luxury boutique on Jupiter. People will follow you around!",
+     "wrongReply": "Weak mints?! Those barely register on Jupiter's scent scale. You'll need at least 50 at once!"
+    },
+    {
+     "officer": "Are these sugar free?",
+     "correct": "yes",
+     "rightReply": "Sugar free! Jupiter's dental insurance doesn't cover sugar damage. Smart financial decision!",
+     "wrongReply": "Contains sugar?! Jupiter's dentists charge 1000 credits per cavity! You're basically eating money!"
+    },
+    {
+     "officer": "Do you have more than 20 mints?",
+     "correct": "no",
+     "rightReply": "Under 20! Personal breath supply. Completely within Jupiter's mint possession limits!",
+     "wrongReply": "Over 20?! That exceeds the personal mint limit! You'd need a mint distribution license for that many!"
+    },
+    {
+     "officer": "Will you offer mints to your interviewer?",
+     "correct": "yes",
+     "rightReply": "Sharing mints with the interviewer! Jupiter interview etiquette says mint sharing shows confidence and generosity!",
+     "wrongReply": "Not sharing?! On Jupiter, refusing to share mints in an interview is the same as saying 'I don't trust your breath!'"
+    },
+    {
+     "officer": "Do these mints come in a metal tin?",
+     "correct": "yes",
+     "rightReply": "Metal tin! The satisfying click of a mint tin is considered a power move on Jupiter. Click away!",
+     "wrongReply": "No tin?! Loose mints in a bag?! That's chaotic energy that Jupiter interviewers do NOT appreciate!"
+    }
+   ]
+  },
+  "_BALLOON": {
+   "name": "Balloon",
+   "questions": [
+    {
+     "officer": "A balloon! On Jupiter's gravity, balloons don't float. They just sit on the ground sadly. Is this balloon inflated?",
+     "correct": "no",
+     "rightReply": "Deflated! Good thinking bringing it flat. You can inflate it with Jupiter helium, which makes balloons talk!",
+     "wrongReply": "Already inflated?! Earth air inside a balloon on Jupiter just sits there depressed. It won't float at all!"
+    },
+    {
+     "officer": "Is this balloon a festive colour?",
+     "correct": "yes",
+     "rightReply": "Festive! Jupiter birthday parties are massive celebrations. Your balloon will fit right in!",
+     "wrongReply": "A boring coloured balloon?! Birthday parties on Jupiter require maximum colour saturation! Step it up!"
+    },
+    {
+     "officer": "Do you know how to make balloon animals?",
+     "correct": "no",
+     "rightReply": "No balloon animals! That's fine, Jupiter has real animals at parties. They're more fun anyway!",
+     "wrongReply": "Balloon animals?! Jupiter children find them terrifying! Twisted rubber creatures give them nightmares!"
+    },
+    {
+     "officer": "Will you be using this balloon as a party decoration?",
+     "correct": "yes",
+     "rightReply": "Party decoration! The most noble purpose for a balloon. Jupiter approves of your decorating plans!",
+     "wrongReply": "Not a decoration?! What else do you do with a balloon?! Non decorative balloon use is very suspicious!"
+    },
+    {
+     "officer": "Are you prepared for the possibility that this balloon might pop in Jupiter's atmosphere?",
+     "correct": "yes",
+     "rightReply": "Prepared for popping! Jupiter's atmospheric pressure is unpredictable. Brave balloon ownership!",
+     "wrongReply": "Not prepared?! Jupiter pops balloons without warning! The sound echoes for miles! Emotional damage guaranteed!"
+    }
+   ]
+  },
+  "_PARTY_HAT": {
+   "name": "Party Hat",
+   "questions": [
+    {
+     "officer": "A party hat! On Jupiter, party hats are considered formal headwear. Is this a pointy cone hat?",
+     "correct": "yes",
+     "rightReply": "Pointy cone! The most prestigious hat shape on Jupiter. You'll outrank most government officials!",
+     "wrongReply": "Not pointy?! Flat party hats are considered casual and insulting at Jupiter celebrations!"
+    },
+    {
+     "officer": "Does this party hat have an elastic chin strap?",
+     "correct": "yes",
+     "rightReply": "Chin strap! Essential on Jupiter. Without it, the wind would launch your hat into the next time zone!",
+     "wrongReply": "No chin strap?! That hat will fly off in Jupiter's winds and hit someone! Unsecured hat violation!"
+    },
+    {
+     "officer": "Is this party hat sparkly?",
+     "correct": "no",
+     "rightReply": "Not sparkly! Thank goodness. After the glitter incident of 2547, Jupiter banned all sparkly headwear!",
+     "wrongReply": "Sparkly?! Have you learned nothing from the Great Glitter Disaster?! Sparkles on Jupiter never come off!"
+    },
+    {
+     "officer": "Have you worn this hat to another party before?",
+     "correct": "no",
+     "rightReply": "First time hat! Virgin party hat. Jupiter believes every party deserves a fresh hat. Respect!",
+     "wrongReply": "A used hat?! Recycled party energy is considered bad luck on Jupiter! Fresh hats only!"
+    },
+    {
+     "officer": "Will you wear this hat for the entire duration of the party?",
+     "correct": "yes",
+     "rightReply": "Full party commitment! Removing your hat mid party on Jupiter is like leaving before the cake. Unthinkable!",
+     "wrongReply": "Taking it off early?! That's a party foul of the highest order on Jupiter! Hat removal means party betrayal!"
+    }
+   ]
+  },
+  "_CANDLES": {
+   "name": "Candles",
+   "questions": [
+    {
+     "officer": "Candles?! On a gas planet?! Are you trying to blow us all up?! Are these real wax candles?",
+     "correct": "no",
+     "rightReply": "Not real wax! LED candles? Battery powered? Smart! The fakest flames possible! Jupiter approves!",
+     "wrongReply": "REAL WAX CANDLES?! With ACTUAL FIRE?! On a planet made of FLAMMABLE GAS?! Are you insane?!"
+    },
+    {
+     "officer": "Are these birthday candles?",
+     "correct": "yes",
+     "rightReply": "Birthday candles! Tiny, brief, and specific to cake. The least dangerous candle category!",
+     "wrongReply": "Regular candles?! Those burn for HOURS! One gust of Jupiter wind into a regular flame and we're all done!"
+    },
+    {
+     "officer": "Do you have a way to light these without an open flame?",
+     "correct": "yes",
+     "rightReply": "Flameless ignition! Electric lighter? Perfect! Jupiter's fire department just breathed a sigh of relief!",
+     "wrongReply": "Open flame lighter?! A lighter on Jupiter?! That's basically a detonator! Hand it over immediately!"
+    },
+    {
+     "officer": "Is there someone at this party who can blow them out quickly?",
+     "correct": "yes",
+     "rightReply": "Quick blower available! Speed is everything when candles are lit on Jupiter. Three seconds maximum!",
+     "wrongReply": "No one to blow them out quickly?! Lingering flames on Jupiter are an extinction level event!"
+    },
+    {
+     "officer": "Do you accept full responsibility for any fire related incidents?",
+     "correct": "yes",
+     "rightReply": "Full responsibility accepted! Brave. Jupiter's insurance rates for candle accidents are astronomical!",
+     "wrongReply": "No responsibility?! Then who's liable when the atmosphere ignites?! Someone has to sign the waiver!"
+    }
+   ]
+  },
+  "_COMPASS": {
+   "name": "Compass",
+   "questions": [
+    {
+     "officer": "A compass! Jupiter has 79 magnetic poles. Your compass is going to spin like crazy. Did you know that?",
+     "correct": "no",
+     "rightReply": "Didn't know! Don't worry, everyone's compass goes haywire here. It's actually entertaining to watch!",
+     "wrongReply": "You knew?! And you still brought a useless spinning needle?! What's your plan, get dizzy watching it?!"
+    },
+    {
+     "officer": "Is this a traditional magnetic compass?",
+     "correct": "yes",
+     "rightReply": "Magnetic! It'll spin like a fidget spinner with 79 poles pulling it everywhere. Fun toy at least!",
+     "wrongReply": "Digital compass?! Digital compasses explode near Jupiter's magnetic fields! Don't turn that thing on!"
+    },
+    {
+     "officer": "Do you actually plan to navigate with this on Jupiter?",
+     "correct": "no",
+     "rightReply": "Not for navigation! Smart. Using a compass on Jupiter is like using a map in a tornado. Pointless!",
+     "wrongReply": "Navigate with this?! You'll walk in 79 different directions simultaneously! You'll end up going in circles!"
+    },
+    {
+     "officer": "Is this compass made of metal?",
+     "correct": "yes",
+     "rightReply": "Metal compass! The magnetic fields will make it stick to random surfaces. Keep it in your pocket!",
+     "wrongReply": "Not metal?! Then it's not a real compass! Wait, that actually makes it safer on Jupiter!"
+    },
+    {
+     "officer": "Will you keep this compass as a souvenir rather than a navigation tool?",
+     "correct": "yes",
+     "rightReply": "Souvenir status! A compass that points everywhere is actually a great conversation starter!",
+     "wrongReply": "Using it for real?! I'm telling you, it points in 79 directions at once! You'll be more lost than when you started!"
+    }
+   ]
+  },
+  "_BINOCULARS": {
+   "name": "Binoculars",
+   "questions": [
+    {
+     "officer": "Binoculars! Jupiter has strict anti peeping laws. Are these for birdwatching?",
+     "correct": "yes",
+     "rightReply": "Birdwatching! Jupiter's birds are the size of cars, so you won't actually need these, but the intent is pure!",
+     "wrongReply": "Not birdwatching?! Then what are you going to stare at from far away?! That's suspicious long distance looking!"
+    },
+    {
+     "officer": "Are these binoculars high magnification?",
+     "correct": "no",
+     "rightReply": "Low magnification! You can barely see far with these. Harmless peeping equipment! Wait, I mean observation tools!",
+     "wrongReply": "High magnification?! You could see into someone's living room from another continent! Privacy violation alert!"
+    },
+    {
+     "officer": "Do these binoculars have night vision?",
+     "correct": "no",
+     "rightReply": "No night vision! Not that it matters, Jupiter has four suns so there IS no night! Basic optics only!",
+     "wrongReply": "Night vision?! There's no night on Jupiter with four suns! What are you planning to see in darkness that doesn't exist?!"
+    },
+    {
+     "officer": "Have you ever used these binoculars at a Jupiter distance of more than 10 kilometres?",
+     "correct": "no",
+     "rightReply": "Short range only! Responsible observation distance. Jupiter's privacy laws allow up to 5 kilometres!",
+     "wrongReply": "Long range observation?! That's basically spying! Jupiter's counter espionage agency will want to speak with you!"
+    },
+    {
+     "officer": "Will you wear these around your neck as a fashion accessory?",
+     "correct": "yes",
+     "rightReply": "Neck binoculars! Very tourist chic on Jupiter. Everyone will know you're here for a good time!",
+     "wrongReply": "Hiding them?! Hidden binoculars suggest sneaky observation! Wear them proudly or not at all!"
+    }
+   ]
+  },
+  "_ROPE": {
+   "name": "Rope",
+   "questions": [
+    {
+     "officer": "Rope! That's an unusual travel item. Is this rope less than 10 metres long?",
+     "correct": "yes",
+     "rightReply": "Short rope! Personal use length. Good for tying things together and not much else. Harmless!",
+     "wrongReply": "Over 10 metres?! That's industrial rope! What are you planning to tie up that needs THAT much rope?!"
+    },
+    {
+     "officer": "Can you tie any knots?",
+     "correct": "yes",
+     "rightReply": "Knot knowledge! A useful skill on Jupiter where everything needs to be tied down because of the gravity!",
+     "wrongReply": "Can't tie knots?! Then what good is the rope?! It's just a floppy line that does nothing! Useless!"
+    },
+    {
+     "officer": "Is this rope for climbing purposes?",
+     "correct": "no",
+     "rightReply": "Not for climbing! Good, because Jupiter's cliffs are made of gas. You can't climb gas, no matter how good your rope is!",
+     "wrongReply": "Climbing?! Jupiter's mountains are gas formations! You'd fall right through them! Climbing is impossible here!"
+    },
+    {
+     "officer": "Have you ever used this rope to tie someone up?",
+     "correct": "no",
+     "rightReply": "No tying history! A clean rope with no criminal bindings on its record. This rope is innocent!",
+     "wrongReply": "You've tied someone up?! This rope has a history! I need to run a background check on this rope!"
+    },
+    {
+     "officer": "Will you keep this rope coiled neatly at all times?",
+     "correct": "yes",
+     "rightReply": "Neatly coiled! Loose rope on Jupiter is a tripping hazard multiplied by extreme gravity. Safety first!",
+     "wrongReply": "Uncoiled rope?! In Jupiter's gravity, loose rope becomes a tangled trap that nobody can escape from!"
+    }
+   ]
+  },
+  "_POPCORN": {
+   "name": "Popcorn",
+   "questions": [
+    {
+     "officer": "Popcorn! Jupiter's cinemas serve rocks instead of popcorn. Earth popcorn is considered exotic here! Is it buttered?",
+     "correct": "yes",
+     "rightReply": "Buttered! The most luxurious form of Earth snack. Jupiter's movie goers will be so jealous!",
+     "wrongReply": "No butter?! Dry popcorn is considered a punishment snack on Jupiter! Even rocks are buttered here!"
+    },
+    {
+     "officer": "Is this popcorn freshly popped?",
+     "correct": "yes",
+     "rightReply": "Fresh popcorn! The smell alone will cause a crowd of curious Jupiter citizens to gather around you!",
+     "wrongReply": "Stale popcorn?! That's basically just sad corn! It had one job and it did it too long ago!"
+    },
+    {
+     "officer": "Is there enough popcorn to share with the person next to you in the cinema?",
+     "correct": "yes",
+     "rightReply": "Enough to share! Jupiter cinema etiquette demands you share with your seat neighbours. Generous popcorn carrier!",
+     "wrongReply": "Not enough to share?! Solo popcorn eating at Jupiter cinemas is considered extremely antisocial!"
+    },
+    {
+     "officer": "Did you add any extra seasoning to this popcorn?",
+     "correct": "no",
+     "rightReply": "No extra seasoning! Pure classic popcorn. Jupiter's taste buds can barely handle butter as it is!",
+     "wrongReply": "Extra seasoning?! Jupiter citizens have never tasted Earth seasoning! One kernel could overwhelm their taste buds!"
+    },
+    {
+     "officer": "Will you try not to make too much crunching noise during the movie?",
+     "correct": "yes",
+     "rightReply": "Quiet cruncher! Jupiter movie theatres amplify sound, so a loud crunch echoes for the entire movie!",
+     "wrongReply": "Loud crunching?! Jupiter's acoustic atmosphere means your crunching would drown out the movie dialogue!"
+    }
+   ]
+  },
+  "_3D_GLASSES": {
+   "name": "3D Glasses",
+   "questions": [
+    {
+     "officer": "3D glasses! Jupiter's movies are already in 5D, so these are actually under qualified. Are these the cinema kind?",
+     "correct": "yes",
+     "rightReply": "Cinema 3D glasses! Cute. They'll downgrade your Jupiter 5D movie experience, but they're harmless!",
+     "wrongReply": "Custom 3D glasses?! Modified optics could interfere with Jupiter's 5D projection technology! Risky!"
+    },
+    {
+     "officer": "Do these glasses have red and blue lenses?",
+     "correct": "no",
+     "rightReply": "Modern 3D glasses! No red and blue. That ancient technology would make Jupiter movies look like abstract art!",
+     "wrongReply": "Red and blue lenses?! Those are museum pieces! Jupiter hasn't used that technology in 400 years!"
+    },
+    {
+     "officer": "Did you take these from an Earth cinema without returning them?",
+     "correct": "yes",
+     "rightReply": "A cinema souvenir thief! On Jupiter, that's actually considered resourceful. We respect frugality!",
+     "wrongReply": "You bought your own?! Who BUYS 3D glasses?! Jupiter's economists are bewildered by this decision!"
+    },
+    {
+     "officer": "Will you wear these glasses outside the cinema?",
+     "correct": "no",
+     "rightReply": "Cinema use only! Smart, because wearing 3D glasses outside on Jupiter makes everything look fake!",
+     "wrongReply": "Wearing them everywhere?! The world looked 3D already! You'll just get a headache and walk into things!"
+    },
+    {
+     "officer": "Do you accept that Jupiter's 5D experience might blow your mind?",
+     "correct": "yes",
+     "rightReply": "Mind blowing accepted! Jupiter's 5D engages senses you didn't even know you had! Prepare yourself!",
+     "wrongReply": "Not prepared?! Jupiter's 5D once made a tourist forget their own name for three hours! It's intense!"
+    }
+   ]
+  },
+  "_AUTOGRAPH_BOOK": {
+   "name": "Autograph Book",
+   "questions": [
+    {
+     "officer": "An autograph book! Jupiter has many celebrities. Is this book mostly empty?",
+     "correct": "yes",
+     "rightReply": "Mostly empty! Room for Jupiter's biggest stars! Our celebrities love signing things for tourists!",
+     "wrongReply": "Already full?! No room for Jupiter autographs?! Our celebrities will be deeply offended!"
+    },
+    {
+     "officer": "Do you have a pen to go with this book?",
+     "correct": "yes",
+     "rightReply": "Pen ready! Prepared autograph hunter. Jupiter's celebrities hate when fans ask to borrow their pens!",
+     "wrongReply": "No pen?! You'll ask a celebrity for their pen?! That's the fastest way to get ignored on Jupiter!"
+    },
+    {
+     "officer": "Are you going to ask any Jupiter customs officers for their autograph?",
+     "correct": "yes",
+     "rightReply": "Customs officer autograph! Nobody EVER asks us! You just made my day! Let me find my good pen!",
+     "wrongReply": "Not asking us?! Customs officers are the first celebrities you meet! We're basically the gatekeepers of fame!"
+    },
+    {
+     "officer": "Is this autograph book hardcover?",
+     "correct": "yes",
+     "rightReply": "Hardcover! Durable and professional. Jupiter's celebrities only sign hardcover books. It's in their contracts!",
+     "wrongReply": "Softcover?! Jupiter celebrities will crumple it while signing! Hardcover is the minimum standard!"
+    },
+    {
+     "officer": "Will you get this autograph book signed by at least 10 Jupiter celebrities?",
+     "correct": "yes",
+     "rightReply": "At least 10! Jupiter has hundreds of celebrities. With that ambition, you'll need a second book!",
+     "wrongReply": "Less than 10?! You're on Jupiter, the planet of stars! Set your autograph goals higher!"
+    }
+   ]
+  }
+ },
+ "suffix": {
+  "_SOCKS": "socks",
+  "_CUKE": "cuke",
+  "_RIZZ_BOOK": "rizz",
+  "_PASSPORT": "passport",
+  "_LAPTOP": "laptop",
+  "_TOOTHBRUSH": "toothbrush",
+  "_HELMET": "helmet",
+  "_BASKETBALL": "basketball",
+  "_PEANUTS": "peanuts",
+  "_RUBBER_DUCK": "rubber-duck",
+  "_SUNGLASSES": "sunglasses",
+  "_UMBRELLA": "umbrella",
+  "_PILLOW": "pillow",
+  "_SANDWICH": "sandwich",
+  "_YOYO": "yoyo",
+  "_MAGNIFYING_GLASS": "magnifying-glass",
+  "_RUBBER_GLOVES": "rubber-gloves",
+  "_TEDDY_BEAR": "teddy-bear",
+  "_TENNIS_RACKET": "tennis-racket",
+  "_WATER_BOTTLE": "water-bottle",
+  "_WHISTLE": "whistle",
+  "_FLASHLIGHT": "flashlight",
+  "_MARSHMALLOWS": "marshmallows",
+  "_SLEEPING_BAG": "sleeping-bag",
+  "_PAINT_BRUSH": "paint-brush",
+  "_GLITTER": "glitter",
+  "_CAMERA": "camera",
+  "_FRYING_PAN": "frying-pan",
+  "_HOT_SAUCE": "hot-sauce",
+  "_APRON": "apron",
+  "_FLIP_FLOPS": "flip-flops",
+  "_SNORKEL": "snorkel",
+  "_BEACH_BALL": "beach-ball",
+  "_NECK_TIE": "neck-tie",
+  "_BRIEFCASE": "briefcase",
+  "_BREATH_MINTS": "breath-mints",
+  "_BALLOON": "balloon",
+  "_PARTY_HAT": "party-hat",
+  "_CANDLES": "candles",
+  "_COMPASS": "compass",
+  "_BINOCULARS": "binoculars",
+  "_ROPE": "rope",
+  "_POPCORN": "popcorn",
+  "_3D_GLASSES": "3d-glasses",
+  "_AUTOGRAPH_BOOK": "autograph-book"
+ },
+ "names": {
+  "_SOCKS": "socks",
+  "_CUKE": "cucumbers",
+  "_RIZZ_BOOK": "rizz books",
+  "_PASSPORT": "passports",
+  "_LAPTOP": "laptops",
+  "_TOOTHBRUSH": "toothbrushes",
+  "_HELMET": "helmets",
+  "_BASKETBALL": "basketballs",
+  "_PEANUTS": "peanuts",
+  "_RUBBER_DUCK": "rubber ducks",
+  "_SUNGLASSES": "sunglasses",
+  "_UMBRELLA": "umbrellas",
+  "_PILLOW": "pillows",
+  "_SANDWICH": "sandwiches",
+  "_YOYO": "yoyos",
+  "_MAGNIFYING_GLASS": "magnifying glasses",
+  "_RUBBER_GLOVES": "rubber gloves",
+  "_TEDDY_BEAR": "teddy bears",
+  "_TENNIS_RACKET": "tennis rackets",
+  "_WATER_BOTTLE": "water bottles",
+  "_WHISTLE": "whistles",
+  "_FLASHLIGHT": "flashlights",
+  "_MARSHMALLOWS": "marshmallows",
+  "_SLEEPING_BAG": "sleeping bags",
+  "_PAINT_BRUSH": "paint brushes",
+  "_GLITTER": "glitter",
+  "_CAMERA": "cameras",
+  "_FRYING_PAN": "frying pans",
+  "_HOT_SAUCE": "hot sauce",
+  "_APRON": "aprons",
+  "_FLIP_FLOPS": "flip flops",
+  "_SNORKEL": "snorkels",
+  "_BEACH_BALL": "beach balls",
+  "_NECK_TIE": "neck ties",
+  "_BRIEFCASE": "briefcases",
+  "_BREATH_MINTS": "breath mints",
+  "_BALLOON": "balloons",
+  "_PARTY_HAT": "party hats",
+  "_CANDLES": "candles",
+  "_COMPASS": "compasses",
+  "_BINOCULARS": "binoculars",
+  "_ROPE": "rope",
+  "_POPCORN": "popcorn",
+  "_3D_GLASSES": "3D glasses",
+  "_AUTOGRAPH_BOOK": "autograph books"
+ },
+ "ruleCounts": {
+  "_SOCKS": 3,
+  "_CUKE": 3,
+  "_RIZZ_BOOK": 3,
+  "_PASSPORT": 3,
+  "_LAPTOP": 3,
+  "_TOOTHBRUSH": 3,
+  "_HELMET": 3,
+  "_BASKETBALL": 3,
+  "_PEANUTS": 3,
+  "_RUBBER_DUCK": 3,
+  "_SUNGLASSES": 3,
+  "_UMBRELLA": 3,
+  "_PILLOW": 3,
+  "_SANDWICH": 3,
+  "_YOYO": 3,
+  "_MAGNIFYING_GLASS": 3,
+  "_RUBBER_GLOVES": 3,
+  "_TEDDY_BEAR": 3,
+  "_TENNIS_RACKET": 3,
+  "_WATER_BOTTLE": 3,
+  "_WHISTLE": 3,
+  "_FLASHLIGHT": 3,
+  "_MARSHMALLOWS": 3,
+  "_SLEEPING_BAG": 3,
+  "_PAINT_BRUSH": 3,
+  "_GLITTER": 3,
+  "_CAMERA": 3,
+  "_FRYING_PAN": 3,
+  "_HOT_SAUCE": 3,
+  "_APRON": 3,
+  "_FLIP_FLOPS": 3,
+  "_SNORKEL": 3,
+  "_BEACH_BALL": 3,
+  "_NECK_TIE": 3,
+  "_BRIEFCASE": 3,
+  "_BREATH_MINTS": 3,
+  "_BALLOON": 3,
+  "_PARTY_HAT": 3,
+  "_CANDLES": 3,
+  "_COMPASS": 3,
+  "_BINOCULARS": 3,
+  "_ROPE": 3,
+  "_POPCORN": 3,
+  "_3D_GLASSES": 3,
+  "_AUTOGRAPH_BOOK": 3
+ },
+ "levels": [
+  {
+   "id": "ac 6",
+   "name": "science experiment",
+   "reason": "a science experiment",
+   "intro": "Greetings traveler, here for a science experiment on Jupiter? Fascinating! But first, let's see what's in your luggage.",
+   "introAudioKey": "intro-science",
+   "itemIds": [
+    "_MAGNIFYING_GLASS",
+    "_RUBBER_GLOVES",
+    "_TEDDY_BEAR"
+   ]
+  },
+  {
+   "id": "ac 2",
+   "name": "vacation",
+   "reason": "a vacation",
+   "intro": "Greetings traveler, I see you're here for a vacation on Jupiter. Let's take a look at what you're bringing.",
+   "introAudioKey": "intro-vacation",
+   "itemIds": [
+    "_PASSPORT",
+    "_LAPTOP",
+    "_TOOTHBRUSH"
+   ]
+  },
+  {
+   "id": "ac 3",
+   "name": "wedding",
+   "reason": "a wedding",
+   "intro": "Greetings traveler, I understand you're attending a wedding on Jupiter. How exciting! Now let's inspect your luggage.",
+   "introAudioKey": "intro-wedding",
+   "itemIds": [
+    "_HELMET",
+    "_BASKETBALL",
+    "_PEANUTS"
+   ]
+  },
+  {
+   "id": "ac 4",
+   "name": "relocation",
+   "reason": "a relocation",
+   "intro": "Greetings traveler, I see you're relocating to Jupiter permanently. Bold choice! Let's inspect everything you're bringing.",
+   "introAudioKey": "intro-relocation",
+   "itemIds": [
+    "_PILLOW",
+    "_RUBBER_DUCK",
+    "_SANDWICH"
+   ]
+  },
+  {
+   "id": "ac 5",
+   "name": "concert",
+   "reason": "a concert",
+   "intro": "Greetings traveler, here for the big concert on Jupiter? Exciting! But first, let's check your luggage.",
+   "introAudioKey": "intro-concert",
+   "itemIds": [
+    "_SUNGLASSES",
+    "_UMBRELLA",
+    "_YOYO"
+   ]
+  },
+  {
+   "id": "ac 7",
+   "name": "sports tournament",
+   "reason": "a sports tournament",
+   "intro": "Greetings traveler, here for the big sports tournament on Jupiter? How athletic! Now let's inspect your gear.",
+   "introAudioKey": "intro-sports",
+   "itemIds": [
+    "_TENNIS_RACKET",
+    "_WATER_BOTTLE",
+    "_WHISTLE"
+   ]
+  },
+  {
+   "id": "ac 8",
+   "name": "camping trip",
+   "reason": "a camping trip",
+   "intro": "Greetings traveler, I see you're here for camping on Jupiter! Bold choice with our weather! Let's check your supplies.",
+   "introAudioKey": "intro-camping",
+   "itemIds": [
+    "_FLASHLIGHT",
+    "_MARSHMALLOWS",
+    "_SLEEPING_BAG"
+   ]
+  },
+  {
+   "id": "ac 9",
+   "name": "art exhibition",
+   "reason": "an art exhibition",
+   "intro": "Greetings traveler, visiting Jupiter for an art exhibition? How cultured! Let me inspect your creative supplies.",
+   "introAudioKey": "intro-art",
+   "itemIds": [
+    "_PAINT_BRUSH",
+    "_GLITTER",
+    "_CAMERA"
+   ]
+  },
+  {
+   "id": "ac 10",
+   "name": "cooking competition",
+   "reason": "a cooking competition",
+   "intro": "Greetings traveler, here for Jupiter's famous cooking competition? Delicious! But first, let's inspect your kitchen supplies.",
+   "introAudioKey": "intro-cooking",
+   "itemIds": [
+    "_FRYING_PAN",
+    "_HOT_SAUCE",
+    "_APRON"
+   ]
+  },
+  {
+   "id": "ac 11",
+   "name": "beach holiday",
+   "reason": "a beach holiday",
+   "intro": "Greetings traveler, a beach holiday on Jupiter? Our beaches are unlike anything you've seen! Let's check your beach gear.",
+   "introAudioKey": "intro-beach",
+   "itemIds": [
+    "_FLIP_FLOPS",
+    "_SNORKEL",
+    "_BEACH_BALL"
+   ]
+  },
+  {
+   "id": "ac 12",
+   "name": "job interview",
+   "reason": "a job interview",
+   "intro": "Greetings traveler, here for a job interview on Jupiter? Ambitious! But first, let's see what you're bringing.",
+   "introAudioKey": "intro-interview",
+   "itemIds": [
+    "_NECK_TIE",
+    "_BRIEFCASE",
+    "_BREATH_MINTS"
+   ]
+  },
+  {
+   "id": "ac 13",
+   "name": "birthday party",
+   "reason": "a birthday party",
+   "intro": "Greetings traveler, attending a birthday party on Jupiter? How fun! Let me take a look at what you've brought.",
+   "introAudioKey": "intro-birthday",
+   "itemIds": [
+    "_BALLOON",
+    "_PARTY_HAT",
+    "_CANDLES"
+   ]
+  },
+  {
+   "id": "ac 14",
+   "name": "treasure hunt",
+   "reason": "a treasure hunt",
+   "intro": "Greetings traveler, here for a treasure hunt on Jupiter? Adventure awaits! But first, let's inspect your equipment.",
+   "introAudioKey": "intro-treasure",
+   "itemIds": [
+    "_COMPASS",
+    "_BINOCULARS",
+    "_ROPE"
+   ]
+  },
+  {
+   "id": "ac 15",
+   "name": "movie premiere",
+   "reason": "a movie premiere",
+   "intro": "Greetings traveler, attending a movie premiere on Jupiter? How exciting! Let's check what you've packed.",
+   "introAudioKey": "intro-movie",
+   "itemIds": [
+    "_POPCORN",
+    "_3D_GLASSES",
+    "_AUTOGRAPH_BOOK"
+   ]
+  },
+  {
+   "id": "ac 1",
+   "name": "business trip",
+   "reason": "a business trip",
+   "intro": "Greetings traveler, it seems your visit to Jupiter is because of business. Let's inspect your luggage.",
+   "introAudioKey": "intro",
+   "itemIds": [
+    "_SOCKS",
+    "_CUKE",
+    "_RIZZ_BOOK"
+   ]
+  }
+ ],
+ "audio": {
+  "background": "alien-game-backer.mp3",
+  "song": "alien-customs-remix.mp3",
+  "backer": "alien-game-backer.mp3",
+  "background2": "background2.mp3",
+  "business": "business.mp3",
+  "lose": "customs-lose.mp3",
+  "win": "customs-win.mp3",
+  "clock": "clock.mp3",
+  "fail": "fail.mp3",
+  "item": "item.mp3",
+  "pass": "pass.mp3",
+  "ray": "ray.mp3",
+  "socks": "socks.mp3",
+  "swipes": [
+   "1.mp3",
+   "2.mp3",
+   "3.mp3",
+   "4.mp3",
+   "5.mp3",
+   "6.mp3"
+  ],
+  "levelComplete": [
+   "level-complete/1.mp3",
+   "level-complete/2.mp3"
+  ],
+  "nextItem": [
+   "next-item/1.mp3",
+   "next-item/2.mp3",
+   "next-item/3.mp3"
+  ],
+  "thinking": [
+   "thinking/1.mp3",
+   "thinking/2.mp3",
+   "thinking/3.mp3",
+   "thinking/4.mp3",
+   "thinking/5.mp3"
+  ],
+  "timeDenied": [
+   "time-denied/1.mp3",
+   "time-denied/2.mp3",
+   "time-denied/3.mp3",
+   "time-denied/4.mp3",
+   "time-denied/5.mp3",
+   "time-denied/6.mp3",
+   "time-denied/7.mp3"
+  ],
+  "timeWarning": [
+   "time-warning/1.mp3",
+   "time-warning/2.mp3",
+   "time-warning/3.mp3",
+   "time-warning/4.mp3",
+   "time-warning/5.mp3",
+   "time-warning/6.mp3",
+   "time-warning/7.mp3",
+   "time-warning/8.mp3",
+   "time-warning/9.mp3"
+  ],
+  "announcement": "annoucement.mp3",
+  "toxic": {
+   "main": "toxic/1.mp3",
+   "jupiterInsult": "toxic/jupiter-insult/1.mp3",
+   "lawInsult": "toxic/law-insult/1.mp3",
+   "officerInsult": "toxic/officer-insult/1.mp3",
+   "sarcasm": "toxic/sarcasm/1.mp3"
+  },
+  "dialogue": {
+   "intro": "dialogue/intro.mp3",
+   "intro-vacation": "dialogue/intro-vacation.mp3",
+   "intro-wedding": "dialogue/intro-wedding.mp3",
+   "intro-relocation": "dialogue/intro-relocation.mp3",
+   "intro-concert": "dialogue/intro-concert.mp3",
+   "win": "dialogue/win.mp3",
+   "denied": "dialogue/denied.mp3",
+   "deported": "dialogue/deported.mp3",
+   "see-item-socks": "dialogue/see-item-socks.mp3",
+   "see-item-cuke": "dialogue/see-item-cuke.mp3",
+   "see-item-rizz": "dialogue/see-item-rizz.mp3",
+   "see-item-passport": "dialogue/see-item-passport.mp3",
+   "see-item-laptop": "dialogue/see-item-laptop.mp3",
+   "see-item-toothbrush": "dialogue/see-item-toothbrush.mp3",
+   "see-item-helmet": "dialogue/see-item-helmet.mp3",
+   "see-item-basketball": "dialogue/see-item-basketball.mp3",
+   "see-item-peanuts": "dialogue/see-item-peanuts.mp3",
+   "see-item-rubber-duck": "dialogue/see-item-rubber-duck.mp3",
+   "see-item-sunglasses": "dialogue/see-item-sunglasses.mp3",
+   "see-item-umbrella": "dialogue/see-item-umbrella.mp3",
+   "see-item-pillow": "dialogue/see-item-pillow.mp3",
+   "see-item-sandwich": "dialogue/see-item-sandwich.mp3",
+   "see-item-yoyo": "dialogue/see-item-yoyo.mp3",
+   "ordinal-first-1": "dialogue/ordinal-first-1.mp3",
+   "ordinal-first-2": "dialogue/ordinal-first-2.mp3",
+   "ordinal-first-3": "dialogue/ordinal-first-3.mp3",
+   "ordinal-first-4": "dialogue/ordinal-first-4.mp3",
+   "ordinal-first-5": "dialogue/ordinal-first-5.mp3",
+   "ordinal-middle-1": "dialogue/ordinal-middle-1.mp3",
+   "ordinal-middle-2": "dialogue/ordinal-middle-2.mp3",
+   "ordinal-middle-3": "dialogue/ordinal-middle-3.mp3",
+   "ordinal-middle-4": "dialogue/ordinal-middle-4.mp3",
+   "ordinal-middle-5": "dialogue/ordinal-middle-5.mp3",
+   "ordinal-final-1": "dialogue/ordinal-final-1.mp3",
+   "ordinal-final-2": "dialogue/ordinal-final-2.mp3",
+   "ordinal-final-3": "dialogue/ordinal-final-3.mp3",
+   "ordinal-final-4": "dialogue/ordinal-final-4.mp3",
+   "ordinal-final-5": "dialogue/ordinal-final-5.mp3",
+   "socks-q1": "dialogue/socks-q1.mp3",
+   "socks-q1-right": "dialogue/socks-q1-right.mp3",
+   "socks-q1-wrong": "dialogue/socks-q1-wrong.mp3",
+   "socks-q2": "dialogue/socks-q2.mp3",
+   "socks-q2-right": "dialogue/socks-q2-right.mp3",
+   "socks-q2-wrong": "dialogue/socks-q2-wrong.mp3",
+   "socks-q3": "dialogue/socks-q3.mp3",
+   "socks-q3-right": "dialogue/socks-q3-right.mp3",
+   "socks-q3-wrong": "dialogue/socks-q3-wrong.mp3",
+   "socks-q4": "dialogue/socks-q4.mp3",
+   "socks-q4-right": "dialogue/socks-q4-right.mp3",
+   "socks-q4-wrong": "dialogue/socks-q4-wrong.mp3",
+   "socks-q5": "dialogue/socks-q5.mp3",
+   "socks-q5-right": "dialogue/socks-q5-right.mp3",
+   "socks-q5-wrong": "dialogue/socks-q5-wrong.mp3",
+   "socks-round-pass": "dialogue/socks-round-pass.mp3",
+   "socks-round-fail": "dialogue/socks-round-fail.mp3",
+   "cuke-q1": "dialogue/cuke-q1.mp3",
+   "cuke-q1-right": "dialogue/cuke-q1-right.mp3",
+   "cuke-q1-wrong": "dialogue/cuke-q1-wrong.mp3",
+   "cuke-q2": "dialogue/cuke-q2.mp3",
+   "cuke-q2-right": "dialogue/cuke-q2-right.mp3",
+   "cuke-q2-wrong": "dialogue/cuke-q2-wrong.mp3",
+   "cuke-q3": "dialogue/cuke-q3.mp3",
+   "cuke-q3-right": "dialogue/cuke-q3-right.mp3",
+   "cuke-q3-wrong": "dialogue/cuke-q3-wrong.mp3",
+   "cuke-q4": "dialogue/cuke-q4.mp3",
+   "cuke-q4-right": "dialogue/cuke-q4-right.mp3",
+   "cuke-q4-wrong": "dialogue/cuke-q4-wrong.mp3",
+   "cuke-q5": "dialogue/cuke-q5.mp3",
+   "cuke-q5-right": "dialogue/cuke-q5-right.mp3",
+   "cuke-q5-wrong": "dialogue/cuke-q5-wrong.mp3",
+   "cuke-round-pass": "dialogue/cuke-round-pass.mp3",
+   "cuke-round-fail": "dialogue/cuke-round-fail.mp3",
+   "rizz-q1": "dialogue/rizz-q1.mp3",
+   "rizz-q1-right": "dialogue/rizz-q1-right.mp3",
+   "rizz-q1-wrong": "dialogue/rizz-q1-wrong.mp3",
+   "rizz-q2": "dialogue/rizz-q2.mp3",
+   "rizz-q2-right": "dialogue/rizz-q2-right.mp3",
+   "rizz-q2-wrong": "dialogue/rizz-q2-wrong.mp3",
+   "rizz-q3": "dialogue/rizz-q3.mp3",
+   "rizz-q3-right": "dialogue/rizz-q3-right.mp3",
+   "rizz-q3-wrong": "dialogue/rizz-q3-wrong.mp3",
+   "rizz-q4": "dialogue/rizz-q4.mp3",
+   "rizz-q4-right": "dialogue/rizz-q4-right.mp3",
+   "rizz-q4-wrong": "dialogue/rizz-q4-wrong.mp3",
+   "rizz-q5": "dialogue/rizz-q5.mp3",
+   "rizz-q5-right": "dialogue/rizz-q5-right.mp3",
+   "rizz-q5-wrong": "dialogue/rizz-q5-wrong.mp3",
+   "rizz-round-pass": "dialogue/rizz-round-pass.mp3",
+   "rizz-round-fail": "dialogue/rizz-round-fail.mp3",
+   "passport-q1": "dialogue/passport-q1.mp3",
+   "passport-q1-right": "dialogue/passport-q1-right.mp3",
+   "passport-q1-wrong": "dialogue/passport-q1-wrong.mp3",
+   "passport-q2": "dialogue/passport-q2.mp3",
+   "passport-q2-right": "dialogue/passport-q2-right.mp3",
+   "passport-q2-wrong": "dialogue/passport-q2-wrong.mp3",
+   "passport-q3": "dialogue/passport-q3.mp3",
+   "passport-q3-right": "dialogue/passport-q3-right.mp3",
+   "passport-q3-wrong": "dialogue/passport-q3-wrong.mp3",
+   "passport-q4": "dialogue/passport-q4.mp3",
+   "passport-q4-right": "dialogue/passport-q4-right.mp3",
+   "passport-q4-wrong": "dialogue/passport-q4-wrong.mp3",
+   "passport-q5": "dialogue/passport-q5.mp3",
+   "passport-q5-right": "dialogue/passport-q5-right.mp3",
+   "passport-q5-wrong": "dialogue/passport-q5-wrong.mp3",
+   "passport-round-pass": "dialogue/passport-round-pass.mp3",
+   "passport-round-fail": "dialogue/passport-round-fail.mp3",
+   "laptop-q1": "dialogue/laptop-q1.mp3",
+   "laptop-q1-right": "dialogue/laptop-q1-right.mp3",
+   "laptop-q1-wrong": "dialogue/laptop-q1-wrong.mp3",
+   "laptop-q2": "dialogue/laptop-q2.mp3",
+   "laptop-q2-right": "dialogue/laptop-q2-right.mp3",
+   "laptop-q2-wrong": "dialogue/laptop-q2-wrong.mp3",
+   "laptop-q3": "dialogue/laptop-q3.mp3",
+   "laptop-q3-right": "dialogue/laptop-q3-right.mp3",
+   "laptop-q3-wrong": "dialogue/laptop-q3-wrong.mp3",
+   "laptop-q4": "dialogue/laptop-q4.mp3",
+   "laptop-q4-right": "dialogue/laptop-q4-right.mp3",
+   "laptop-q4-wrong": "dialogue/laptop-q4-wrong.mp3",
+   "laptop-q5": "dialogue/laptop-q5.mp3",
+   "laptop-q5-right": "dialogue/laptop-q5-right.mp3",
+   "laptop-q5-wrong": "dialogue/laptop-q5-wrong.mp3",
+   "laptop-round-pass": "dialogue/laptop-round-pass.mp3",
+   "laptop-round-fail": "dialogue/laptop-round-fail.mp3",
+   "toothbrush-q1": "dialogue/toothbrush-q1.mp3",
+   "toothbrush-q1-right": "dialogue/toothbrush-q1-right.mp3",
+   "toothbrush-q1-wrong": "dialogue/toothbrush-q1-wrong.mp3",
+   "toothbrush-q2": "dialogue/toothbrush-q2.mp3",
+   "toothbrush-q2-right": "dialogue/toothbrush-q2-right.mp3",
+   "toothbrush-q2-wrong": "dialogue/toothbrush-q2-wrong.mp3",
+   "toothbrush-q3": "dialogue/toothbrush-q3.mp3",
+   "toothbrush-q3-right": "dialogue/toothbrush-q3-right.mp3",
+   "toothbrush-q3-wrong": "dialogue/toothbrush-q3-wrong.mp3",
+   "toothbrush-q4": "dialogue/toothbrush-q4.mp3",
+   "toothbrush-q4-right": "dialogue/toothbrush-q4-right.mp3",
+   "toothbrush-q4-wrong": "dialogue/toothbrush-q4-wrong.mp3",
+   "toothbrush-q5": "dialogue/toothbrush-q5.mp3",
+   "toothbrush-q5-right": "dialogue/toothbrush-q5-right.mp3",
+   "toothbrush-q5-wrong": "dialogue/toothbrush-q5-wrong.mp3",
+   "toothbrush-round-pass": "dialogue/toothbrush-round-pass.mp3",
+   "toothbrush-round-fail": "dialogue/toothbrush-round-fail.mp3",
+   "helmet-q1": "dialogue/helmet-q1.mp3",
+   "helmet-q1-right": "dialogue/helmet-q1-right.mp3",
+   "helmet-q1-wrong": "dialogue/helmet-q1-wrong.mp3",
+   "helmet-q2": "dialogue/helmet-q2.mp3",
+   "helmet-q2-right": "dialogue/helmet-q2-right.mp3",
+   "helmet-q2-wrong": "dialogue/helmet-q2-wrong.mp3",
+   "helmet-q3": "dialogue/helmet-q3.mp3",
+   "helmet-q3-right": "dialogue/helmet-q3-right.mp3",
+   "helmet-q3-wrong": "dialogue/helmet-q3-wrong.mp3",
+   "helmet-q4": "dialogue/helmet-q4.mp3",
+   "helmet-q4-right": "dialogue/helmet-q4-right.mp3",
+   "helmet-q4-wrong": "dialogue/helmet-q4-wrong.mp3",
+   "helmet-q5": "dialogue/helmet-q5.mp3",
+   "helmet-q5-right": "dialogue/helmet-q5-right.mp3",
+   "helmet-q5-wrong": "dialogue/helmet-q5-wrong.mp3",
+   "helmet-round-pass": "dialogue/helmet-round-pass.mp3",
+   "helmet-round-fail": "dialogue/helmet-round-fail.mp3",
+   "basketball-q1": "dialogue/basketball-q1.mp3",
+   "basketball-q1-right": "dialogue/basketball-q1-right.mp3",
+   "basketball-q1-wrong": "dialogue/basketball-q1-wrong.mp3",
+   "basketball-q2": "dialogue/basketball-q2.mp3",
+   "basketball-q2-right": "dialogue/basketball-q2-right.mp3",
+   "basketball-q2-wrong": "dialogue/basketball-q2-wrong.mp3",
+   "basketball-q3": "dialogue/basketball-q3.mp3",
+   "basketball-q3-right": "dialogue/basketball-q3-right.mp3",
+   "basketball-q3-wrong": "dialogue/basketball-q3-wrong.mp3",
+   "basketball-q4": "dialogue/basketball-q4.mp3",
+   "basketball-q4-right": "dialogue/basketball-q4-right.mp3",
+   "basketball-q4-wrong": "dialogue/basketball-q4-wrong.mp3",
+   "basketball-q5": "dialogue/basketball-q5.mp3",
+   "basketball-q5-right": "dialogue/basketball-q5-right.mp3",
+   "basketball-q5-wrong": "dialogue/basketball-q5-wrong.mp3",
+   "basketball-round-pass": "dialogue/basketball-round-pass.mp3",
+   "basketball-round-fail": "dialogue/basketball-round-fail.mp3",
+   "peanuts-q1": "dialogue/peanuts-q1.mp3",
+   "peanuts-q1-right": "dialogue/peanuts-q1-right.mp3",
+   "peanuts-q1-wrong": "dialogue/peanuts-q1-wrong.mp3",
+   "peanuts-q2": "dialogue/peanuts-q2.mp3",
+   "peanuts-q2-right": "dialogue/peanuts-q2-right.mp3",
+   "peanuts-q2-wrong": "dialogue/peanuts-q2-wrong.mp3",
+   "peanuts-q3": "dialogue/peanuts-q3.mp3",
+   "peanuts-q3-right": "dialogue/peanuts-q3-right.mp3",
+   "peanuts-q3-wrong": "dialogue/peanuts-q3-wrong.mp3",
+   "peanuts-q4": "dialogue/peanuts-q4.mp3",
+   "peanuts-q4-right": "dialogue/peanuts-q4-right.mp3",
+   "peanuts-q4-wrong": "dialogue/peanuts-q4-wrong.mp3",
+   "peanuts-q5": "dialogue/peanuts-q5.mp3",
+   "peanuts-q5-right": "dialogue/peanuts-q5-right.mp3",
+   "peanuts-q5-wrong": "dialogue/peanuts-q5-wrong.mp3",
+   "peanuts-round-pass": "dialogue/peanuts-round-pass.mp3",
+   "peanuts-round-fail": "dialogue/peanuts-round-fail.mp3",
+   "rubber-duck-q1": "dialogue/rubber-duck-q1.mp3",
+   "rubber-duck-q1-right": "dialogue/rubber-duck-q1-right.mp3",
+   "rubber-duck-q1-wrong": "dialogue/rubber-duck-q1-wrong.mp3",
+   "rubber-duck-q2": "dialogue/rubber-duck-q2.mp3",
+   "rubber-duck-q2-right": "dialogue/rubber-duck-q2-right.mp3",
+   "rubber-duck-q2-wrong": "dialogue/rubber-duck-q2-wrong.mp3",
+   "rubber-duck-q3": "dialogue/rubber-duck-q3.mp3",
+   "rubber-duck-q3-right": "dialogue/rubber-duck-q3-right.mp3",
+   "rubber-duck-q3-wrong": "dialogue/rubber-duck-q3-wrong.mp3",
+   "rubber-duck-q4": "dialogue/rubber-duck-q4.mp3",
+   "rubber-duck-q4-right": "dialogue/rubber-duck-q4-right.mp3",
+   "rubber-duck-q4-wrong": "dialogue/rubber-duck-q4-wrong.mp3",
+   "rubber-duck-q5": "dialogue/rubber-duck-q5.mp3",
+   "rubber-duck-q5-right": "dialogue/rubber-duck-q5-right.mp3",
+   "rubber-duck-q5-wrong": "dialogue/rubber-duck-q5-wrong.mp3",
+   "rubber-duck-round-pass": "dialogue/rubber-duck-round-pass.mp3",
+   "rubber-duck-round-fail": "dialogue/rubber-duck-round-fail.mp3",
+   "sunglasses-q1": "dialogue/sunglasses-q1.mp3",
+   "sunglasses-q1-right": "dialogue/sunglasses-q1-right.mp3",
+   "sunglasses-q1-wrong": "dialogue/sunglasses-q1-wrong.mp3",
+   "sunglasses-q2": "dialogue/sunglasses-q2.mp3",
+   "sunglasses-q2-right": "dialogue/sunglasses-q2-right.mp3",
+   "sunglasses-q2-wrong": "dialogue/sunglasses-q2-wrong.mp3",
+   "sunglasses-q3": "dialogue/sunglasses-q3.mp3",
+   "sunglasses-q3-right": "dialogue/sunglasses-q3-right.mp3",
+   "sunglasses-q3-wrong": "dialogue/sunglasses-q3-wrong.mp3",
+   "sunglasses-q4": "dialogue/sunglasses-q4.mp3",
+   "sunglasses-q4-right": "dialogue/sunglasses-q4-right.mp3",
+   "sunglasses-q4-wrong": "dialogue/sunglasses-q4-wrong.mp3",
+   "sunglasses-q5": "dialogue/sunglasses-q5.mp3",
+   "sunglasses-q5-right": "dialogue/sunglasses-q5-right.mp3",
+   "sunglasses-q5-wrong": "dialogue/sunglasses-q5-wrong.mp3",
+   "sunglasses-round-pass": "dialogue/sunglasses-round-pass.mp3",
+   "sunglasses-round-fail": "dialogue/sunglasses-round-fail.mp3",
+   "umbrella-q1": "dialogue/umbrella-q1.mp3",
+   "umbrella-q1-right": "dialogue/umbrella-q1-right.mp3",
+   "umbrella-q1-wrong": "dialogue/umbrella-q1-wrong.mp3",
+   "umbrella-q2": "dialogue/umbrella-q2.mp3",
+   "umbrella-q2-right": "dialogue/umbrella-q2-right.mp3",
+   "umbrella-q2-wrong": "dialogue/umbrella-q2-wrong.mp3",
+   "umbrella-q3": "dialogue/umbrella-q3.mp3",
+   "umbrella-q3-right": "dialogue/umbrella-q3-right.mp3",
+   "umbrella-q3-wrong": "dialogue/umbrella-q3-wrong.mp3",
+   "umbrella-q4": "dialogue/umbrella-q4.mp3",
+   "umbrella-q4-right": "dialogue/umbrella-q4-right.mp3",
+   "umbrella-q4-wrong": "dialogue/umbrella-q4-wrong.mp3",
+   "umbrella-q5": "dialogue/umbrella-q5.mp3",
+   "umbrella-q5-right": "dialogue/umbrella-q5-right.mp3",
+   "umbrella-q5-wrong": "dialogue/umbrella-q5-wrong.mp3",
+   "umbrella-round-pass": "dialogue/umbrella-round-pass.mp3",
+   "umbrella-round-fail": "dialogue/umbrella-round-fail.mp3",
+   "pillow-q1": "dialogue/pillow-q1.mp3",
+   "pillow-q1-right": "dialogue/pillow-q1-right.mp3",
+   "pillow-q1-wrong": "dialogue/pillow-q1-wrong.mp3",
+   "pillow-q2": "dialogue/pillow-q2.mp3",
+   "pillow-q2-right": "dialogue/pillow-q2-right.mp3",
+   "pillow-q2-wrong": "dialogue/pillow-q2-wrong.mp3",
+   "pillow-q3": "dialogue/pillow-q3.mp3",
+   "pillow-q3-right": "dialogue/pillow-q3-right.mp3",
+   "pillow-q3-wrong": "dialogue/pillow-q3-wrong.mp3",
+   "pillow-q4": "dialogue/pillow-q4.mp3",
+   "pillow-q4-right": "dialogue/pillow-q4-right.mp3",
+   "pillow-q4-wrong": "dialogue/pillow-q4-wrong.mp3",
+   "pillow-q5": "dialogue/pillow-q5.mp3",
+   "pillow-q5-right": "dialogue/pillow-q5-right.mp3",
+   "pillow-q5-wrong": "dialogue/pillow-q5-wrong.mp3",
+   "pillow-round-pass": "dialogue/pillow-round-pass.mp3",
+   "pillow-round-fail": "dialogue/pillow-round-fail.mp3",
+   "sandwich-q1": "dialogue/sandwich-q1.mp3",
+   "sandwich-q1-right": "dialogue/sandwich-q1-right.mp3",
+   "sandwich-q1-wrong": "dialogue/sandwich-q1-wrong.mp3",
+   "sandwich-q2": "dialogue/sandwich-q2.mp3",
+   "sandwich-q2-right": "dialogue/sandwich-q2-right.mp3",
+   "sandwich-q2-wrong": "dialogue/sandwich-q2-wrong.mp3",
+   "sandwich-q3": "dialogue/sandwich-q3.mp3",
+   "sandwich-q3-right": "dialogue/sandwich-q3-right.mp3",
+   "sandwich-q3-wrong": "dialogue/sandwich-q3-wrong.mp3",
+   "sandwich-q4": "dialogue/sandwich-q4.mp3",
+   "sandwich-q4-right": "dialogue/sandwich-q4-right.mp3",
+   "sandwich-q4-wrong": "dialogue/sandwich-q4-wrong.mp3",
+   "sandwich-q5": "dialogue/sandwich-q5.mp3",
+   "sandwich-q5-right": "dialogue/sandwich-q5-right.mp3",
+   "sandwich-q5-wrong": "dialogue/sandwich-q5-wrong.mp3",
+   "sandwich-round-pass": "dialogue/sandwich-round-pass.mp3",
+   "sandwich-round-fail": "dialogue/sandwich-round-fail.mp3",
+   "yoyo-q1": "dialogue/yoyo-q1.mp3",
+   "yoyo-q1-right": "dialogue/yoyo-q1-right.mp3",
+   "yoyo-q1-wrong": "dialogue/yoyo-q1-wrong.mp3",
+   "yoyo-q2": "dialogue/yoyo-q2.mp3",
+   "yoyo-q2-right": "dialogue/yoyo-q2-right.mp3",
+   "yoyo-q2-wrong": "dialogue/yoyo-q2-wrong.mp3",
+   "yoyo-q3": "dialogue/yoyo-q3.mp3",
+   "yoyo-q3-right": "dialogue/yoyo-q3-right.mp3",
+   "yoyo-q3-wrong": "dialogue/yoyo-q3-wrong.mp3",
+   "yoyo-q4": "dialogue/yoyo-q4.mp3",
+   "yoyo-q4-right": "dialogue/yoyo-q4-right.mp3",
+   "yoyo-q4-wrong": "dialogue/yoyo-q4-wrong.mp3",
+   "yoyo-q5": "dialogue/yoyo-q5.mp3",
+   "yoyo-q5-right": "dialogue/yoyo-q5-right.mp3",
+   "yoyo-q5-wrong": "dialogue/yoyo-q5-wrong.mp3",
+   "yoyo-round-pass": "dialogue/yoyo-round-pass.mp3",
+   "yoyo-round-fail": "dialogue/yoyo-round-fail.mp3",
+   "intro-science": "dialogue/intro-science.mp3",
+   "intro-sports": "dialogue/intro-sports.mp3",
+   "intro-camping": "dialogue/intro-camping.mp3",
+   "intro-art": "dialogue/intro-art.mp3",
+   "intro-cooking": "dialogue/intro-cooking.mp3",
+   "intro-beach": "dialogue/intro-beach.mp3",
+   "intro-interview": "dialogue/intro-interview.mp3",
+   "intro-birthday": "dialogue/intro-birthday.mp3",
+   "intro-treasure": "dialogue/intro-treasure.mp3",
+   "intro-movie": "dialogue/intro-movie.mp3",
+   "see-item-magnifying-glass": "dialogue/see-item-magnifying-glass.mp3",
+   "see-item-rubber-gloves": "dialogue/see-item-rubber-gloves.mp3",
+   "see-item-teddy-bear": "dialogue/see-item-teddy-bear.mp3",
+   "see-item-tennis-racket": "dialogue/see-item-tennis-racket.mp3",
+   "see-item-water-bottle": "dialogue/see-item-water-bottle.mp3",
+   "see-item-whistle": "dialogue/see-item-whistle.mp3",
+   "see-item-flashlight": "dialogue/see-item-flashlight.mp3",
+   "see-item-marshmallows": "dialogue/see-item-marshmallows.mp3",
+   "see-item-sleeping-bag": "dialogue/see-item-sleeping-bag.mp3",
+   "see-item-paint-brush": "dialogue/see-item-paint-brush.mp3",
+   "see-item-glitter": "dialogue/see-item-glitter.mp3",
+   "see-item-camera": "dialogue/see-item-camera.mp3",
+   "see-item-frying-pan": "dialogue/see-item-frying-pan.mp3",
+   "see-item-hot-sauce": "dialogue/see-item-hot-sauce.mp3",
+   "see-item-apron": "dialogue/see-item-apron.mp3",
+   "see-item-flip-flops": "dialogue/see-item-flip-flops.mp3",
+   "see-item-snorkel": "dialogue/see-item-snorkel.mp3",
+   "see-item-beach-ball": "dialogue/see-item-beach-ball.mp3",
+   "see-item-neck-tie": "dialogue/see-item-neck-tie.mp3",
+   "see-item-briefcase": "dialogue/see-item-briefcase.mp3",
+   "see-item-breath-mints": "dialogue/see-item-breath-mints.mp3",
+   "see-item-balloon": "dialogue/see-item-balloon.mp3",
+   "see-item-party-hat": "dialogue/see-item-party-hat.mp3",
+   "see-item-candles": "dialogue/see-item-candles.mp3",
+   "see-item-compass": "dialogue/see-item-compass.mp3",
+   "see-item-binoculars": "dialogue/see-item-binoculars.mp3",
+   "see-item-rope": "dialogue/see-item-rope.mp3",
+   "see-item-popcorn": "dialogue/see-item-popcorn.mp3",
+   "see-item-3d-glasses": "dialogue/see-item-3d-glasses.mp3",
+   "see-item-autograph-book": "dialogue/see-item-autograph-book.mp3",
+   "magnifying-glass-q1": "dialogue/magnifying-glass-q1.mp3",
+   "magnifying-glass-q1-right": "dialogue/magnifying-glass-q1-right.mp3",
+   "magnifying-glass-q1-wrong": "dialogue/magnifying-glass-q1-wrong.mp3",
+   "magnifying-glass-q2": "dialogue/magnifying-glass-q2.mp3",
+   "magnifying-glass-q2-right": "dialogue/magnifying-glass-q2-right.mp3",
+   "magnifying-glass-q2-wrong": "dialogue/magnifying-glass-q2-wrong.mp3",
+   "magnifying-glass-q3": "dialogue/magnifying-glass-q3.mp3",
+   "magnifying-glass-q3-right": "dialogue/magnifying-glass-q3-right.mp3",
+   "magnifying-glass-q3-wrong": "dialogue/magnifying-glass-q3-wrong.mp3",
+   "magnifying-glass-q4": "dialogue/magnifying-glass-q4.mp3",
+   "magnifying-glass-q4-right": "dialogue/magnifying-glass-q4-right.mp3",
+   "magnifying-glass-q4-wrong": "dialogue/magnifying-glass-q4-wrong.mp3",
+   "magnifying-glass-q5": "dialogue/magnifying-glass-q5.mp3",
+   "magnifying-glass-q5-right": "dialogue/magnifying-glass-q5-right.mp3",
+   "magnifying-glass-q5-wrong": "dialogue/magnifying-glass-q5-wrong.mp3",
+   "magnifying-glass-round-pass": "dialogue/magnifying-glass-round-pass.mp3",
+   "magnifying-glass-round-fail": "dialogue/magnifying-glass-round-fail.mp3",
+   "rubber-gloves-q1": "dialogue/rubber-gloves-q1.mp3",
+   "rubber-gloves-q1-right": "dialogue/rubber-gloves-q1-right.mp3",
+   "rubber-gloves-q1-wrong": "dialogue/rubber-gloves-q1-wrong.mp3",
+   "rubber-gloves-q2": "dialogue/rubber-gloves-q2.mp3",
+   "rubber-gloves-q2-right": "dialogue/rubber-gloves-q2-right.mp3",
+   "rubber-gloves-q2-wrong": "dialogue/rubber-gloves-q2-wrong.mp3",
+   "rubber-gloves-q3": "dialogue/rubber-gloves-q3.mp3",
+   "rubber-gloves-q3-right": "dialogue/rubber-gloves-q3-right.mp3",
+   "rubber-gloves-q3-wrong": "dialogue/rubber-gloves-q3-wrong.mp3",
+   "rubber-gloves-q4": "dialogue/rubber-gloves-q4.mp3",
+   "rubber-gloves-q4-right": "dialogue/rubber-gloves-q4-right.mp3",
+   "rubber-gloves-q4-wrong": "dialogue/rubber-gloves-q4-wrong.mp3",
+   "rubber-gloves-q5": "dialogue/rubber-gloves-q5.mp3",
+   "rubber-gloves-q5-right": "dialogue/rubber-gloves-q5-right.mp3",
+   "rubber-gloves-q5-wrong": "dialogue/rubber-gloves-q5-wrong.mp3",
+   "rubber-gloves-round-pass": "dialogue/rubber-gloves-round-pass.mp3",
+   "rubber-gloves-round-fail": "dialogue/rubber-gloves-round-fail.mp3",
+   "teddy-bear-q1": "dialogue/teddy-bear-q1.mp3",
+   "teddy-bear-q1-right": "dialogue/teddy-bear-q1-right.mp3",
+   "teddy-bear-q1-wrong": "dialogue/teddy-bear-q1-wrong.mp3",
+   "teddy-bear-q2": "dialogue/teddy-bear-q2.mp3",
+   "teddy-bear-q2-right": "dialogue/teddy-bear-q2-right.mp3",
+   "teddy-bear-q2-wrong": "dialogue/teddy-bear-q2-wrong.mp3",
+   "teddy-bear-q3": "dialogue/teddy-bear-q3.mp3",
+   "teddy-bear-q3-right": "dialogue/teddy-bear-q3-right.mp3",
+   "teddy-bear-q3-wrong": "dialogue/teddy-bear-q3-wrong.mp3",
+   "teddy-bear-q4": "dialogue/teddy-bear-q4.mp3",
+   "teddy-bear-q4-right": "dialogue/teddy-bear-q4-right.mp3",
+   "teddy-bear-q4-wrong": "dialogue/teddy-bear-q4-wrong.mp3",
+   "teddy-bear-q5": "dialogue/teddy-bear-q5.mp3",
+   "teddy-bear-q5-right": "dialogue/teddy-bear-q5-right.mp3",
+   "teddy-bear-q5-wrong": "dialogue/teddy-bear-q5-wrong.mp3",
+   "teddy-bear-round-pass": "dialogue/teddy-bear-round-pass.mp3",
+   "teddy-bear-round-fail": "dialogue/teddy-bear-round-fail.mp3",
+   "tennis-racket-q1": "dialogue/tennis-racket-q1.mp3",
+   "tennis-racket-q1-right": "dialogue/tennis-racket-q1-right.mp3",
+   "tennis-racket-q1-wrong": "dialogue/tennis-racket-q1-wrong.mp3",
+   "tennis-racket-q2": "dialogue/tennis-racket-q2.mp3",
+   "tennis-racket-q2-right": "dialogue/tennis-racket-q2-right.mp3",
+   "tennis-racket-q2-wrong": "dialogue/tennis-racket-q2-wrong.mp3",
+   "tennis-racket-q3": "dialogue/tennis-racket-q3.mp3",
+   "tennis-racket-q3-right": "dialogue/tennis-racket-q3-right.mp3",
+   "tennis-racket-q3-wrong": "dialogue/tennis-racket-q3-wrong.mp3",
+   "tennis-racket-q4": "dialogue/tennis-racket-q4.mp3",
+   "tennis-racket-q4-right": "dialogue/tennis-racket-q4-right.mp3",
+   "tennis-racket-q4-wrong": "dialogue/tennis-racket-q4-wrong.mp3",
+   "tennis-racket-q5": "dialogue/tennis-racket-q5.mp3",
+   "tennis-racket-q5-right": "dialogue/tennis-racket-q5-right.mp3",
+   "tennis-racket-q5-wrong": "dialogue/tennis-racket-q5-wrong.mp3",
+   "tennis-racket-round-pass": "dialogue/tennis-racket-round-pass.mp3",
+   "tennis-racket-round-fail": "dialogue/tennis-racket-round-fail.mp3",
+   "water-bottle-q1": "dialogue/water-bottle-q1.mp3",
+   "water-bottle-q1-right": "dialogue/water-bottle-q1-right.mp3",
+   "water-bottle-q1-wrong": "dialogue/water-bottle-q1-wrong.mp3",
+   "water-bottle-q2": "dialogue/water-bottle-q2.mp3",
+   "water-bottle-q2-right": "dialogue/water-bottle-q2-right.mp3",
+   "water-bottle-q2-wrong": "dialogue/water-bottle-q2-wrong.mp3",
+   "water-bottle-q3": "dialogue/water-bottle-q3.mp3",
+   "water-bottle-q3-right": "dialogue/water-bottle-q3-right.mp3",
+   "water-bottle-q3-wrong": "dialogue/water-bottle-q3-wrong.mp3",
+   "water-bottle-q4": "dialogue/water-bottle-q4.mp3",
+   "water-bottle-q4-right": "dialogue/water-bottle-q4-right.mp3",
+   "water-bottle-q4-wrong": "dialogue/water-bottle-q4-wrong.mp3",
+   "water-bottle-q5": "dialogue/water-bottle-q5.mp3",
+   "water-bottle-q5-right": "dialogue/water-bottle-q5-right.mp3",
+   "water-bottle-q5-wrong": "dialogue/water-bottle-q5-wrong.mp3",
+   "water-bottle-round-pass": "dialogue/water-bottle-round-pass.mp3",
+   "water-bottle-round-fail": "dialogue/water-bottle-round-fail.mp3",
+   "whistle-q1": "dialogue/whistle-q1.mp3",
+   "whistle-q1-right": "dialogue/whistle-q1-right.mp3",
+   "whistle-q1-wrong": "dialogue/whistle-q1-wrong.mp3",
+   "whistle-q2": "dialogue/whistle-q2.mp3",
+   "whistle-q2-right": "dialogue/whistle-q2-right.mp3",
+   "whistle-q2-wrong": "dialogue/whistle-q2-wrong.mp3",
+   "whistle-q3": "dialogue/whistle-q3.mp3",
+   "whistle-q3-right": "dialogue/whistle-q3-right.mp3",
+   "whistle-q3-wrong": "dialogue/whistle-q3-wrong.mp3",
+   "whistle-q4": "dialogue/whistle-q4.mp3",
+   "whistle-q4-right": "dialogue/whistle-q4-right.mp3",
+   "whistle-q4-wrong": "dialogue/whistle-q4-wrong.mp3",
+   "whistle-q5": "dialogue/whistle-q5.mp3",
+   "whistle-q5-right": "dialogue/whistle-q5-right.mp3",
+   "whistle-q5-wrong": "dialogue/whistle-q5-wrong.mp3",
+   "whistle-round-pass": "dialogue/whistle-round-pass.mp3",
+   "whistle-round-fail": "dialogue/whistle-round-fail.mp3",
+   "flashlight-q1": "dialogue/flashlight-q1.mp3",
+   "flashlight-q1-right": "dialogue/flashlight-q1-right.mp3",
+   "flashlight-q1-wrong": "dialogue/flashlight-q1-wrong.mp3",
+   "flashlight-q2": "dialogue/flashlight-q2.mp3",
+   "flashlight-q2-right": "dialogue/flashlight-q2-right.mp3",
+   "flashlight-q2-wrong": "dialogue/flashlight-q2-wrong.mp3",
+   "flashlight-q3": "dialogue/flashlight-q3.mp3",
+   "flashlight-q3-right": "dialogue/flashlight-q3-right.mp3",
+   "flashlight-q3-wrong": "dialogue/flashlight-q3-wrong.mp3",
+   "flashlight-q4": "dialogue/flashlight-q4.mp3",
+   "flashlight-q4-right": "dialogue/flashlight-q4-right.mp3",
+   "flashlight-q4-wrong": "dialogue/flashlight-q4-wrong.mp3",
+   "flashlight-q5": "dialogue/flashlight-q5.mp3",
+   "flashlight-q5-right": "dialogue/flashlight-q5-right.mp3",
+   "flashlight-q5-wrong": "dialogue/flashlight-q5-wrong.mp3",
+   "flashlight-round-pass": "dialogue/flashlight-round-pass.mp3",
+   "flashlight-round-fail": "dialogue/flashlight-round-fail.mp3",
+   "marshmallows-q1": "dialogue/marshmallows-q1.mp3",
+   "marshmallows-q1-right": "dialogue/marshmallows-q1-right.mp3",
+   "marshmallows-q1-wrong": "dialogue/marshmallows-q1-wrong.mp3",
+   "marshmallows-q2": "dialogue/marshmallows-q2.mp3",
+   "marshmallows-q2-right": "dialogue/marshmallows-q2-right.mp3",
+   "marshmallows-q2-wrong": "dialogue/marshmallows-q2-wrong.mp3",
+   "marshmallows-q3": "dialogue/marshmallows-q3.mp3",
+   "marshmallows-q3-right": "dialogue/marshmallows-q3-right.mp3",
+   "marshmallows-q3-wrong": "dialogue/marshmallows-q3-wrong.mp3",
+   "marshmallows-q4": "dialogue/marshmallows-q4.mp3",
+   "marshmallows-q4-right": "dialogue/marshmallows-q4-right.mp3",
+   "marshmallows-q4-wrong": "dialogue/marshmallows-q4-wrong.mp3",
+   "marshmallows-q5": "dialogue/marshmallows-q5.mp3",
+   "marshmallows-q5-right": "dialogue/marshmallows-q5-right.mp3",
+   "marshmallows-q5-wrong": "dialogue/marshmallows-q5-wrong.mp3",
+   "marshmallows-round-pass": "dialogue/marshmallows-round-pass.mp3",
+   "marshmallows-round-fail": "dialogue/marshmallows-round-fail.mp3",
+   "sleeping-bag-q1": "dialogue/sleeping-bag-q1.mp3",
+   "sleeping-bag-q1-right": "dialogue/sleeping-bag-q1-right.mp3",
+   "sleeping-bag-q1-wrong": "dialogue/sleeping-bag-q1-wrong.mp3",
+   "sleeping-bag-q2": "dialogue/sleeping-bag-q2.mp3",
+   "sleeping-bag-q2-right": "dialogue/sleeping-bag-q2-right.mp3",
+   "sleeping-bag-q2-wrong": "dialogue/sleeping-bag-q2-wrong.mp3",
+   "sleeping-bag-q3": "dialogue/sleeping-bag-q3.mp3",
+   "sleeping-bag-q3-right": "dialogue/sleeping-bag-q3-right.mp3",
+   "sleeping-bag-q3-wrong": "dialogue/sleeping-bag-q3-wrong.mp3",
+   "sleeping-bag-q4": "dialogue/sleeping-bag-q4.mp3",
+   "sleeping-bag-q4-right": "dialogue/sleeping-bag-q4-right.mp3",
+   "sleeping-bag-q4-wrong": "dialogue/sleeping-bag-q4-wrong.mp3",
+   "sleeping-bag-q5": "dialogue/sleeping-bag-q5.mp3",
+   "sleeping-bag-q5-right": "dialogue/sleeping-bag-q5-right.mp3",
+   "sleeping-bag-q5-wrong": "dialogue/sleeping-bag-q5-wrong.mp3",
+   "sleeping-bag-round-pass": "dialogue/sleeping-bag-round-pass.mp3",
+   "sleeping-bag-round-fail": "dialogue/sleeping-bag-round-fail.mp3",
+   "paint-brush-q1": "dialogue/paint-brush-q1.mp3",
+   "paint-brush-q1-right": "dialogue/paint-brush-q1-right.mp3",
+   "paint-brush-q1-wrong": "dialogue/paint-brush-q1-wrong.mp3",
+   "paint-brush-q2": "dialogue/paint-brush-q2.mp3",
+   "paint-brush-q2-right": "dialogue/paint-brush-q2-right.mp3",
+   "paint-brush-q2-wrong": "dialogue/paint-brush-q2-wrong.mp3",
+   "paint-brush-q3": "dialogue/paint-brush-q3.mp3",
+   "paint-brush-q3-right": "dialogue/paint-brush-q3-right.mp3",
+   "paint-brush-q3-wrong": "dialogue/paint-brush-q3-wrong.mp3",
+   "paint-brush-q4": "dialogue/paint-brush-q4.mp3",
+   "paint-brush-q4-right": "dialogue/paint-brush-q4-right.mp3",
+   "paint-brush-q4-wrong": "dialogue/paint-brush-q4-wrong.mp3",
+   "paint-brush-q5": "dialogue/paint-brush-q5.mp3",
+   "paint-brush-q5-right": "dialogue/paint-brush-q5-right.mp3",
+   "paint-brush-q5-wrong": "dialogue/paint-brush-q5-wrong.mp3",
+   "paint-brush-round-pass": "dialogue/paint-brush-round-pass.mp3",
+   "paint-brush-round-fail": "dialogue/paint-brush-round-fail.mp3",
+   "glitter-q1": "dialogue/glitter-q1.mp3",
+   "glitter-q1-right": "dialogue/glitter-q1-right.mp3",
+   "glitter-q1-wrong": "dialogue/glitter-q1-wrong.mp3",
+   "glitter-q2": "dialogue/glitter-q2.mp3",
+   "glitter-q2-right": "dialogue/glitter-q2-right.mp3",
+   "glitter-q2-wrong": "dialogue/glitter-q2-wrong.mp3",
+   "glitter-q3": "dialogue/glitter-q3.mp3",
+   "glitter-q3-right": "dialogue/glitter-q3-right.mp3",
+   "glitter-q3-wrong": "dialogue/glitter-q3-wrong.mp3",
+   "glitter-q4": "dialogue/glitter-q4.mp3",
+   "glitter-q4-right": "dialogue/glitter-q4-right.mp3",
+   "glitter-q4-wrong": "dialogue/glitter-q4-wrong.mp3",
+   "glitter-q5": "dialogue/glitter-q5.mp3",
+   "glitter-q5-right": "dialogue/glitter-q5-right.mp3",
+   "glitter-q5-wrong": "dialogue/glitter-q5-wrong.mp3",
+   "glitter-round-pass": "dialogue/glitter-round-pass.mp3",
+   "glitter-round-fail": "dialogue/glitter-round-fail.mp3",
+   "camera-q1": "dialogue/camera-q1.mp3",
+   "camera-q1-right": "dialogue/camera-q1-right.mp3",
+   "camera-q1-wrong": "dialogue/camera-q1-wrong.mp3",
+   "camera-q2": "dialogue/camera-q2.mp3",
+   "camera-q2-right": "dialogue/camera-q2-right.mp3",
+   "camera-q2-wrong": "dialogue/camera-q2-wrong.mp3",
+   "camera-q3": "dialogue/camera-q3.mp3",
+   "camera-q3-right": "dialogue/camera-q3-right.mp3",
+   "camera-q3-wrong": "dialogue/camera-q3-wrong.mp3",
+   "camera-q4": "dialogue/camera-q4.mp3",
+   "camera-q4-right": "dialogue/camera-q4-right.mp3",
+   "camera-q4-wrong": "dialogue/camera-q4-wrong.mp3",
+   "camera-q5": "dialogue/camera-q5.mp3",
+   "camera-q5-right": "dialogue/camera-q5-right.mp3",
+   "camera-q5-wrong": "dialogue/camera-q5-wrong.mp3",
+   "camera-round-pass": "dialogue/camera-round-pass.mp3",
+   "camera-round-fail": "dialogue/camera-round-fail.mp3",
+   "frying-pan-q1": "dialogue/frying-pan-q1.mp3",
+   "frying-pan-q1-right": "dialogue/frying-pan-q1-right.mp3",
+   "frying-pan-q1-wrong": "dialogue/frying-pan-q1-wrong.mp3",
+   "frying-pan-q2": "dialogue/frying-pan-q2.mp3",
+   "frying-pan-q2-right": "dialogue/frying-pan-q2-right.mp3",
+   "frying-pan-q2-wrong": "dialogue/frying-pan-q2-wrong.mp3",
+   "frying-pan-q3": "dialogue/frying-pan-q3.mp3",
+   "frying-pan-q3-right": "dialogue/frying-pan-q3-right.mp3",
+   "frying-pan-q3-wrong": "dialogue/frying-pan-q3-wrong.mp3",
+   "frying-pan-q4": "dialogue/frying-pan-q4.mp3",
+   "frying-pan-q4-right": "dialogue/frying-pan-q4-right.mp3",
+   "frying-pan-q4-wrong": "dialogue/frying-pan-q4-wrong.mp3",
+   "frying-pan-q5": "dialogue/frying-pan-q5.mp3",
+   "frying-pan-q5-right": "dialogue/frying-pan-q5-right.mp3",
+   "frying-pan-q5-wrong": "dialogue/frying-pan-q5-wrong.mp3",
+   "frying-pan-round-pass": "dialogue/frying-pan-round-pass.mp3",
+   "frying-pan-round-fail": "dialogue/frying-pan-round-fail.mp3",
+   "hot-sauce-q1": "dialogue/hot-sauce-q1.mp3",
+   "hot-sauce-q1-right": "dialogue/hot-sauce-q1-right.mp3",
+   "hot-sauce-q1-wrong": "dialogue/hot-sauce-q1-wrong.mp3",
+   "hot-sauce-q2": "dialogue/hot-sauce-q2.mp3",
+   "hot-sauce-q2-right": "dialogue/hot-sauce-q2-right.mp3",
+   "hot-sauce-q2-wrong": "dialogue/hot-sauce-q2-wrong.mp3",
+   "hot-sauce-q3": "dialogue/hot-sauce-q3.mp3",
+   "hot-sauce-q3-right": "dialogue/hot-sauce-q3-right.mp3",
+   "hot-sauce-q3-wrong": "dialogue/hot-sauce-q3-wrong.mp3",
+   "hot-sauce-q4": "dialogue/hot-sauce-q4.mp3",
+   "hot-sauce-q4-right": "dialogue/hot-sauce-q4-right.mp3",
+   "hot-sauce-q4-wrong": "dialogue/hot-sauce-q4-wrong.mp3",
+   "hot-sauce-q5": "dialogue/hot-sauce-q5.mp3",
+   "hot-sauce-q5-right": "dialogue/hot-sauce-q5-right.mp3",
+   "hot-sauce-q5-wrong": "dialogue/hot-sauce-q5-wrong.mp3",
+   "hot-sauce-round-pass": "dialogue/hot-sauce-round-pass.mp3",
+   "hot-sauce-round-fail": "dialogue/hot-sauce-round-fail.mp3",
+   "apron-q1": "dialogue/apron-q1.mp3",
+   "apron-q1-right": "dialogue/apron-q1-right.mp3",
+   "apron-q1-wrong": "dialogue/apron-q1-wrong.mp3",
+   "apron-q2": "dialogue/apron-q2.mp3",
+   "apron-q2-right": "dialogue/apron-q2-right.mp3",
+   "apron-q2-wrong": "dialogue/apron-q2-wrong.mp3",
+   "apron-q3": "dialogue/apron-q3.mp3",
+   "apron-q3-right": "dialogue/apron-q3-right.mp3",
+   "apron-q3-wrong": "dialogue/apron-q3-wrong.mp3",
+   "apron-q4": "dialogue/apron-q4.mp3",
+   "apron-q4-right": "dialogue/apron-q4-right.mp3",
+   "apron-q4-wrong": "dialogue/apron-q4-wrong.mp3",
+   "apron-q5": "dialogue/apron-q5.mp3",
+   "apron-q5-right": "dialogue/apron-q5-right.mp3",
+   "apron-q5-wrong": "dialogue/apron-q5-wrong.mp3",
+   "apron-round-pass": "dialogue/apron-round-pass.mp3",
+   "apron-round-fail": "dialogue/apron-round-fail.mp3",
+   "flip-flops-q1": "dialogue/flip-flops-q1.mp3",
+   "flip-flops-q1-right": "dialogue/flip-flops-q1-right.mp3",
+   "flip-flops-q1-wrong": "dialogue/flip-flops-q1-wrong.mp3",
+   "flip-flops-q2": "dialogue/flip-flops-q2.mp3",
+   "flip-flops-q2-right": "dialogue/flip-flops-q2-right.mp3",
+   "flip-flops-q2-wrong": "dialogue/flip-flops-q2-wrong.mp3",
+   "flip-flops-q3": "dialogue/flip-flops-q3.mp3",
+   "flip-flops-q3-right": "dialogue/flip-flops-q3-right.mp3",
+   "flip-flops-q3-wrong": "dialogue/flip-flops-q3-wrong.mp3",
+   "flip-flops-q4": "dialogue/flip-flops-q4.mp3",
+   "flip-flops-q4-right": "dialogue/flip-flops-q4-right.mp3",
+   "flip-flops-q4-wrong": "dialogue/flip-flops-q4-wrong.mp3",
+   "flip-flops-q5": "dialogue/flip-flops-q5.mp3",
+   "flip-flops-q5-right": "dialogue/flip-flops-q5-right.mp3",
+   "flip-flops-q5-wrong": "dialogue/flip-flops-q5-wrong.mp3",
+   "flip-flops-round-pass": "dialogue/flip-flops-round-pass.mp3",
+   "flip-flops-round-fail": "dialogue/flip-flops-round-fail.mp3",
+   "snorkel-q1": "dialogue/snorkel-q1.mp3",
+   "snorkel-q1-right": "dialogue/snorkel-q1-right.mp3",
+   "snorkel-q1-wrong": "dialogue/snorkel-q1-wrong.mp3",
+   "snorkel-q2": "dialogue/snorkel-q2.mp3",
+   "snorkel-q2-right": "dialogue/snorkel-q2-right.mp3",
+   "snorkel-q2-wrong": "dialogue/snorkel-q2-wrong.mp3",
+   "snorkel-q3": "dialogue/snorkel-q3.mp3",
+   "snorkel-q3-right": "dialogue/snorkel-q3-right.mp3",
+   "snorkel-q3-wrong": "dialogue/snorkel-q3-wrong.mp3",
+   "snorkel-q4": "dialogue/snorkel-q4.mp3",
+   "snorkel-q4-right": "dialogue/snorkel-q4-right.mp3",
+   "snorkel-q4-wrong": "dialogue/snorkel-q4-wrong.mp3",
+   "snorkel-q5": "dialogue/snorkel-q5.mp3",
+   "snorkel-q5-right": "dialogue/snorkel-q5-right.mp3",
+   "snorkel-q5-wrong": "dialogue/snorkel-q5-wrong.mp3",
+   "snorkel-round-pass": "dialogue/snorkel-round-pass.mp3",
+   "snorkel-round-fail": "dialogue/snorkel-round-fail.mp3",
+   "beach-ball-q1": "dialogue/beach-ball-q1.mp3",
+   "beach-ball-q1-right": "dialogue/beach-ball-q1-right.mp3",
+   "beach-ball-q1-wrong": "dialogue/beach-ball-q1-wrong.mp3",
+   "beach-ball-q2": "dialogue/beach-ball-q2.mp3",
+   "beach-ball-q2-right": "dialogue/beach-ball-q2-right.mp3",
+   "beach-ball-q2-wrong": "dialogue/beach-ball-q2-wrong.mp3",
+   "beach-ball-q3": "dialogue/beach-ball-q3.mp3",
+   "beach-ball-q3-right": "dialogue/beach-ball-q3-right.mp3",
+   "beach-ball-q3-wrong": "dialogue/beach-ball-q3-wrong.mp3",
+   "beach-ball-q4": "dialogue/beach-ball-q4.mp3",
+   "beach-ball-q4-right": "dialogue/beach-ball-q4-right.mp3",
+   "beach-ball-q4-wrong": "dialogue/beach-ball-q4-wrong.mp3",
+   "beach-ball-q5": "dialogue/beach-ball-q5.mp3",
+   "beach-ball-q5-right": "dialogue/beach-ball-q5-right.mp3",
+   "beach-ball-q5-wrong": "dialogue/beach-ball-q5-wrong.mp3",
+   "beach-ball-round-pass": "dialogue/beach-ball-round-pass.mp3",
+   "beach-ball-round-fail": "dialogue/beach-ball-round-fail.mp3",
+   "neck-tie-q1": "dialogue/neck-tie-q1.mp3",
+   "neck-tie-q1-right": "dialogue/neck-tie-q1-right.mp3",
+   "neck-tie-q1-wrong": "dialogue/neck-tie-q1-wrong.mp3",
+   "neck-tie-q2": "dialogue/neck-tie-q2.mp3",
+   "neck-tie-q2-right": "dialogue/neck-tie-q2-right.mp3",
+   "neck-tie-q2-wrong": "dialogue/neck-tie-q2-wrong.mp3",
+   "neck-tie-q3": "dialogue/neck-tie-q3.mp3",
+   "neck-tie-q3-right": "dialogue/neck-tie-q3-right.mp3",
+   "neck-tie-q3-wrong": "dialogue/neck-tie-q3-wrong.mp3",
+   "neck-tie-q4": "dialogue/neck-tie-q4.mp3",
+   "neck-tie-q4-right": "dialogue/neck-tie-q4-right.mp3",
+   "neck-tie-q4-wrong": "dialogue/neck-tie-q4-wrong.mp3",
+   "neck-tie-q5": "dialogue/neck-tie-q5.mp3",
+   "neck-tie-q5-right": "dialogue/neck-tie-q5-right.mp3",
+   "neck-tie-q5-wrong": "dialogue/neck-tie-q5-wrong.mp3",
+   "neck-tie-round-pass": "dialogue/neck-tie-round-pass.mp3",
+   "neck-tie-round-fail": "dialogue/neck-tie-round-fail.mp3",
+   "briefcase-q1": "dialogue/briefcase-q1.mp3",
+   "briefcase-q1-right": "dialogue/briefcase-q1-right.mp3",
+   "briefcase-q1-wrong": "dialogue/briefcase-q1-wrong.mp3",
+   "briefcase-q2": "dialogue/briefcase-q2.mp3",
+   "briefcase-q2-right": "dialogue/briefcase-q2-right.mp3",
+   "briefcase-q2-wrong": "dialogue/briefcase-q2-wrong.mp3",
+   "briefcase-q3": "dialogue/briefcase-q3.mp3",
+   "briefcase-q3-right": "dialogue/briefcase-q3-right.mp3",
+   "briefcase-q3-wrong": "dialogue/briefcase-q3-wrong.mp3",
+   "briefcase-q4": "dialogue/briefcase-q4.mp3",
+   "briefcase-q4-right": "dialogue/briefcase-q4-right.mp3",
+   "briefcase-q4-wrong": "dialogue/briefcase-q4-wrong.mp3",
+   "briefcase-q5": "dialogue/briefcase-q5.mp3",
+   "briefcase-q5-right": "dialogue/briefcase-q5-right.mp3",
+   "briefcase-q5-wrong": "dialogue/briefcase-q5-wrong.mp3",
+   "briefcase-round-pass": "dialogue/briefcase-round-pass.mp3",
+   "briefcase-round-fail": "dialogue/briefcase-round-fail.mp3",
+   "breath-mints-q1": "dialogue/breath-mints-q1.mp3",
+   "breath-mints-q1-right": "dialogue/breath-mints-q1-right.mp3",
+   "breath-mints-q1-wrong": "dialogue/breath-mints-q1-wrong.mp3",
+   "breath-mints-q2": "dialogue/breath-mints-q2.mp3",
+   "breath-mints-q2-right": "dialogue/breath-mints-q2-right.mp3",
+   "breath-mints-q2-wrong": "dialogue/breath-mints-q2-wrong.mp3",
+   "breath-mints-q3": "dialogue/breath-mints-q3.mp3",
+   "breath-mints-q3-right": "dialogue/breath-mints-q3-right.mp3",
+   "breath-mints-q3-wrong": "dialogue/breath-mints-q3-wrong.mp3",
+   "breath-mints-q4": "dialogue/breath-mints-q4.mp3",
+   "breath-mints-q4-right": "dialogue/breath-mints-q4-right.mp3",
+   "breath-mints-q4-wrong": "dialogue/breath-mints-q4-wrong.mp3",
+   "breath-mints-q5": "dialogue/breath-mints-q5.mp3",
+   "breath-mints-q5-right": "dialogue/breath-mints-q5-right.mp3",
+   "breath-mints-q5-wrong": "dialogue/breath-mints-q5-wrong.mp3",
+   "breath-mints-round-pass": "dialogue/breath-mints-round-pass.mp3",
+   "breath-mints-round-fail": "dialogue/breath-mints-round-fail.mp3",
+   "balloon-q1": "dialogue/balloon-q1.mp3",
+   "balloon-q1-right": "dialogue/balloon-q1-right.mp3",
+   "balloon-q1-wrong": "dialogue/balloon-q1-wrong.mp3",
+   "balloon-q2": "dialogue/balloon-q2.mp3",
+   "balloon-q2-right": "dialogue/balloon-q2-right.mp3",
+   "balloon-q2-wrong": "dialogue/balloon-q2-wrong.mp3",
+   "balloon-q3": "dialogue/balloon-q3.mp3",
+   "balloon-q3-right": "dialogue/balloon-q3-right.mp3",
+   "balloon-q3-wrong": "dialogue/balloon-q3-wrong.mp3",
+   "balloon-q4": "dialogue/balloon-q4.mp3",
+   "balloon-q4-right": "dialogue/balloon-q4-right.mp3",
+   "balloon-q4-wrong": "dialogue/balloon-q4-wrong.mp3",
+   "balloon-q5": "dialogue/balloon-q5.mp3",
+   "balloon-q5-right": "dialogue/balloon-q5-right.mp3",
+   "balloon-q5-wrong": "dialogue/balloon-q5-wrong.mp3",
+   "balloon-round-pass": "dialogue/balloon-round-pass.mp3",
+   "balloon-round-fail": "dialogue/balloon-round-fail.mp3",
+   "party-hat-q1": "dialogue/party-hat-q1.mp3",
+   "party-hat-q1-right": "dialogue/party-hat-q1-right.mp3",
+   "party-hat-q1-wrong": "dialogue/party-hat-q1-wrong.mp3",
+   "party-hat-q2": "dialogue/party-hat-q2.mp3",
+   "party-hat-q2-right": "dialogue/party-hat-q2-right.mp3",
+   "party-hat-q2-wrong": "dialogue/party-hat-q2-wrong.mp3",
+   "party-hat-q3": "dialogue/party-hat-q3.mp3",
+   "party-hat-q3-right": "dialogue/party-hat-q3-right.mp3",
+   "party-hat-q3-wrong": "dialogue/party-hat-q3-wrong.mp3",
+   "party-hat-q4": "dialogue/party-hat-q4.mp3",
+   "party-hat-q4-right": "dialogue/party-hat-q4-right.mp3",
+   "party-hat-q4-wrong": "dialogue/party-hat-q4-wrong.mp3",
+   "party-hat-q5": "dialogue/party-hat-q5.mp3",
+   "party-hat-q5-right": "dialogue/party-hat-q5-right.mp3",
+   "party-hat-q5-wrong": "dialogue/party-hat-q5-wrong.mp3",
+   "party-hat-round-pass": "dialogue/party-hat-round-pass.mp3",
+   "party-hat-round-fail": "dialogue/party-hat-round-fail.mp3",
+   "candles-q1": "dialogue/candles-q1.mp3",
+   "candles-q1-right": "dialogue/candles-q1-right.mp3",
+   "candles-q1-wrong": "dialogue/candles-q1-wrong.mp3",
+   "candles-q2": "dialogue/candles-q2.mp3",
+   "candles-q2-right": "dialogue/candles-q2-right.mp3",
+   "candles-q2-wrong": "dialogue/candles-q2-wrong.mp3",
+   "candles-q3": "dialogue/candles-q3.mp3",
+   "candles-q3-right": "dialogue/candles-q3-right.mp3",
+   "candles-q3-wrong": "dialogue/candles-q3-wrong.mp3",
+   "candles-q4": "dialogue/candles-q4.mp3",
+   "candles-q4-right": "dialogue/candles-q4-right.mp3",
+   "candles-q4-wrong": "dialogue/candles-q4-wrong.mp3",
+   "candles-q5": "dialogue/candles-q5.mp3",
+   "candles-q5-right": "dialogue/candles-q5-right.mp3",
+   "candles-q5-wrong": "dialogue/candles-q5-wrong.mp3",
+   "candles-round-pass": "dialogue/candles-round-pass.mp3",
+   "candles-round-fail": "dialogue/candles-round-fail.mp3",
+   "compass-q1": "dialogue/compass-q1.mp3",
+   "compass-q1-right": "dialogue/compass-q1-right.mp3",
+   "compass-q1-wrong": "dialogue/compass-q1-wrong.mp3",
+   "compass-q2": "dialogue/compass-q2.mp3",
+   "compass-q2-right": "dialogue/compass-q2-right.mp3",
+   "compass-q2-wrong": "dialogue/compass-q2-wrong.mp3",
+   "compass-q3": "dialogue/compass-q3.mp3",
+   "compass-q3-right": "dialogue/compass-q3-right.mp3",
+   "compass-q3-wrong": "dialogue/compass-q3-wrong.mp3",
+   "compass-q4": "dialogue/compass-q4.mp3",
+   "compass-q4-right": "dialogue/compass-q4-right.mp3",
+   "compass-q4-wrong": "dialogue/compass-q4-wrong.mp3",
+   "compass-q5": "dialogue/compass-q5.mp3",
+   "compass-q5-right": "dialogue/compass-q5-right.mp3",
+   "compass-q5-wrong": "dialogue/compass-q5-wrong.mp3",
+   "compass-round-pass": "dialogue/compass-round-pass.mp3",
+   "compass-round-fail": "dialogue/compass-round-fail.mp3",
+   "binoculars-q1": "dialogue/binoculars-q1.mp3",
+   "binoculars-q1-right": "dialogue/binoculars-q1-right.mp3",
+   "binoculars-q1-wrong": "dialogue/binoculars-q1-wrong.mp3",
+   "binoculars-q2": "dialogue/binoculars-q2.mp3",
+   "binoculars-q2-right": "dialogue/binoculars-q2-right.mp3",
+   "binoculars-q2-wrong": "dialogue/binoculars-q2-wrong.mp3",
+   "binoculars-q3": "dialogue/binoculars-q3.mp3",
+   "binoculars-q3-right": "dialogue/binoculars-q3-right.mp3",
+   "binoculars-q3-wrong": "dialogue/binoculars-q3-wrong.mp3",
+   "binoculars-q4": "dialogue/binoculars-q4.mp3",
+   "binoculars-q4-right": "dialogue/binoculars-q4-right.mp3",
+   "binoculars-q4-wrong": "dialogue/binoculars-q4-wrong.mp3",
+   "binoculars-q5": "dialogue/binoculars-q5.mp3",
+   "binoculars-q5-right": "dialogue/binoculars-q5-right.mp3",
+   "binoculars-q5-wrong": "dialogue/binoculars-q5-wrong.mp3",
+   "binoculars-round-pass": "dialogue/binoculars-round-pass.mp3",
+   "binoculars-round-fail": "dialogue/binoculars-round-fail.mp3",
+   "rope-q1": "dialogue/rope-q1.mp3",
+   "rope-q1-right": "dialogue/rope-q1-right.mp3",
+   "rope-q1-wrong": "dialogue/rope-q1-wrong.mp3",
+   "rope-q2": "dialogue/rope-q2.mp3",
+   "rope-q2-right": "dialogue/rope-q2-right.mp3",
+   "rope-q2-wrong": "dialogue/rope-q2-wrong.mp3",
+   "rope-q3": "dialogue/rope-q3.mp3",
+   "rope-q3-right": "dialogue/rope-q3-right.mp3",
+   "rope-q3-wrong": "dialogue/rope-q3-wrong.mp3",
+   "rope-q4": "dialogue/rope-q4.mp3",
+   "rope-q4-right": "dialogue/rope-q4-right.mp3",
+   "rope-q4-wrong": "dialogue/rope-q4-wrong.mp3",
+   "rope-q5": "dialogue/rope-q5.mp3",
+   "rope-q5-right": "dialogue/rope-q5-right.mp3",
+   "rope-q5-wrong": "dialogue/rope-q5-wrong.mp3",
+   "rope-round-pass": "dialogue/rope-round-pass.mp3",
+   "rope-round-fail": "dialogue/rope-round-fail.mp3",
+   "popcorn-q1": "dialogue/popcorn-q1.mp3",
+   "popcorn-q1-right": "dialogue/popcorn-q1-right.mp3",
+   "popcorn-q1-wrong": "dialogue/popcorn-q1-wrong.mp3",
+   "popcorn-q2": "dialogue/popcorn-q2.mp3",
+   "popcorn-q2-right": "dialogue/popcorn-q2-right.mp3",
+   "popcorn-q2-wrong": "dialogue/popcorn-q2-wrong.mp3",
+   "popcorn-q3": "dialogue/popcorn-q3.mp3",
+   "popcorn-q3-right": "dialogue/popcorn-q3-right.mp3",
+   "popcorn-q3-wrong": "dialogue/popcorn-q3-wrong.mp3",
+   "popcorn-q4": "dialogue/popcorn-q4.mp3",
+   "popcorn-q4-right": "dialogue/popcorn-q4-right.mp3",
+   "popcorn-q4-wrong": "dialogue/popcorn-q4-wrong.mp3",
+   "popcorn-q5": "dialogue/popcorn-q5.mp3",
+   "popcorn-q5-right": "dialogue/popcorn-q5-right.mp3",
+   "popcorn-q5-wrong": "dialogue/popcorn-q5-wrong.mp3",
+   "popcorn-round-pass": "dialogue/popcorn-round-pass.mp3",
+   "popcorn-round-fail": "dialogue/popcorn-round-fail.mp3",
+   "3d-glasses-q1": "dialogue/3d-glasses-q1.mp3",
+   "3d-glasses-q1-right": "dialogue/3d-glasses-q1-right.mp3",
+   "3d-glasses-q1-wrong": "dialogue/3d-glasses-q1-wrong.mp3",
+   "3d-glasses-q2": "dialogue/3d-glasses-q2.mp3",
+   "3d-glasses-q2-right": "dialogue/3d-glasses-q2-right.mp3",
+   "3d-glasses-q2-wrong": "dialogue/3d-glasses-q2-wrong.mp3",
+   "3d-glasses-q3": "dialogue/3d-glasses-q3.mp3",
+   "3d-glasses-q3-right": "dialogue/3d-glasses-q3-right.mp3",
+   "3d-glasses-q3-wrong": "dialogue/3d-glasses-q3-wrong.mp3",
+   "3d-glasses-q4": "dialogue/3d-glasses-q4.mp3",
+   "3d-glasses-q4-right": "dialogue/3d-glasses-q4-right.mp3",
+   "3d-glasses-q4-wrong": "dialogue/3d-glasses-q4-wrong.mp3",
+   "3d-glasses-q5": "dialogue/3d-glasses-q5.mp3",
+   "3d-glasses-q5-right": "dialogue/3d-glasses-q5-right.mp3",
+   "3d-glasses-q5-wrong": "dialogue/3d-glasses-q5-wrong.mp3",
+   "3d-glasses-round-pass": "dialogue/3d-glasses-round-pass.mp3",
+   "3d-glasses-round-fail": "dialogue/3d-glasses-round-fail.mp3",
+   "autograph-book-q1": "dialogue/autograph-book-q1.mp3",
+   "autograph-book-q1-right": "dialogue/autograph-book-q1-right.mp3",
+   "autograph-book-q1-wrong": "dialogue/autograph-book-q1-wrong.mp3",
+   "autograph-book-q2": "dialogue/autograph-book-q2.mp3",
+   "autograph-book-q2-right": "dialogue/autograph-book-q2-right.mp3",
+   "autograph-book-q2-wrong": "dialogue/autograph-book-q2-wrong.mp3",
+   "autograph-book-q3": "dialogue/autograph-book-q3.mp3",
+   "autograph-book-q3-right": "dialogue/autograph-book-q3-right.mp3",
+   "autograph-book-q3-wrong": "dialogue/autograph-book-q3-wrong.mp3",
+   "autograph-book-q4": "dialogue/autograph-book-q4.mp3",
+   "autograph-book-q4-right": "dialogue/autograph-book-q4-right.mp3",
+   "autograph-book-q4-wrong": "dialogue/autograph-book-q4-wrong.mp3",
+   "autograph-book-q5": "dialogue/autograph-book-q5.mp3",
+   "autograph-book-q5-right": "dialogue/autograph-book-q5-right.mp3",
+   "autograph-book-q5-wrong": "dialogue/autograph-book-q5-wrong.mp3",
+   "autograph-book-round-pass": "dialogue/autograph-book-round-pass.mp3",
+   "autograph-book-round-fail": "dialogue/autograph-book-round-fail.mp3"
+  }
+ },
+ "dangerWarnings": [
+  "Careful, one more wrong answer and you'll be deported! ",
+  "Watch out! Another mistake and it's straight back to Earth! ",
+  "Uh oh, you're on thin ice! One more slip and you're out! ",
+  "The officer is getting suspicious. One more wrong answer and it's game over! ",
+  "Yikes! You can't afford another mistake or you'll be sent packing! ",
+  "Warning! One more wrong move and they'll launch you back into space! ",
+  "Tread carefully! The next wrong answer means deportation! ",
+  "The customs officer is eyeing you. Don't mess up again! ",
+  "You're walking a tightrope! One more wrong answer and you're done! ",
+  "Danger zone! The next mistake will get you deported! ",
+  "The officer's pen is hovering over the DENIED stamp. Be careful! ",
+  "One strike left! Another wrong answer and you're back on the shuttle! ",
+  "Whoa, that was close! You can't get another one wrong! ",
+  "Alert! One more incorrect answer and you'll be escorted out! ",
+  "The escape pod is warming up. Don't give them a reason to use it! ",
+  "The officer just raised an eyebrow. One more wrong and you're outta here! ",
+  "Your boarding pass is hanging by a thread! Don't blow it! ",
+  "Last chance! Get the next one wrong and your trip is over! ",
+  "The deportation shuttle is on standby. Think carefully! ",
+  "You're one wrong answer away from a very long trip home! "
+ ],
+ "getters": {
+  "getAlienCustomsLose": {
+   "args": "",
+   "fields": [
+    "lose"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.lose);\n        return url;"
+  },
+  "getAlienCustomsWin": {
+   "args": "",
+   "fields": [
+    "win"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.win);\n        return url;"
+  },
+  "getAlienCustomsBackground": {
+   "args": "",
+   "fields": [
+    "background"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.background);\n        return url;"
+  },
+  "getAlienCustomsSong": {
+   "args": "",
+   "fields": [
+    "song"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.song);\n        return url;"
+  },
+  "getAlienCustomsBackground2": {
+   "args": "",
+   "fields": [
+    "background2"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.background2);\n        return url;"
+  },
+  "getAlienCustomsBusiness": {
+   "args": "",
+   "fields": [
+    "business"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.business);\n        return url;"
+  },
+  "getAlienCustomsClock": {
+   "args": "",
+   "fields": [
+    "clock"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.clock);\n        return url;"
+  },
+  "getAlienCustomsFail": {
+   "args": "",
+   "fields": [
+    "fail"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.fail);\n        return url;"
+  },
+  "getAlienCustomsItem": {
+   "args": "",
+   "fields": [
+    "item"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.item);\n        return url;"
+  },
+  "getAlienCustomsPass": {
+   "args": "",
+   "fields": [
+    "pass"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.pass);\n        return url;"
+  },
+  "getAlienCustomsRay": {
+   "args": "",
+   "fields": [
+    "ray"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.ray);\n        return url;"
+  },
+  "getAlienCustomsSocks": {
+   "args": "",
+   "fields": [
+    "socks"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.socks);\n        return url;"
+  },
+  "getAlienCustomsLevelComplete": {
+   "args": "",
+   "fields": [
+    "levelComplete"
+   ],
+   "random": true,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + getRandomElement(this.alienCustoms.levelComplete));\n        return url;"
+  },
+  "getAlienCustomsNextItem": {
+   "args": "",
+   "fields": [
+    "nextItem"
+   ],
+   "random": true,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + getRandomElement(this.alienCustoms.nextItem));\n        return url;"
+  },
+  "getAlienCustomsThinking": {
+   "args": "",
+   "fields": [
+    "thinking"
+   ],
+   "random": true,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + getRandomElement(this.alienCustoms.thinking));\n        return url;"
+  },
+  "getAlienCustomsTimeDenied": {
+   "args": "",
+   "fields": [
+    "timeDenied"
+   ],
+   "random": true,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + getRandomElement(this.alienCustoms.timeDenied));\n        return url;"
+  },
+  "getAlienCustomsTimeWarning": {
+   "args": "",
+   "fields": [
+    "timeWarning"
+   ],
+   "random": true,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + getRandomElement(this.alienCustoms.timeWarning));\n        return url;"
+  },
+  "getAlienCustomsToxicMain": {
+   "args": "",
+   "fields": [
+    "toxic"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.toxic.main);\n        return url;"
+  },
+  "getAlienCustomsToxicJupiterInsult": {
+   "args": "",
+   "fields": [
+    "toxic"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.toxic.jupiterInsult);\n        return url;"
+  },
+  "getAlienCustomsToxicLawInsult": {
+   "args": "",
+   "fields": [
+    "toxic"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.toxic.lawInsult);\n        return url;"
+  },
+  "getAlienCustomsToxicOfficerInsult": {
+   "args": "",
+   "fields": [
+    "toxic"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.toxic.officerInsult);\n        return url;"
+  },
+  "getAlienCustomsToxicSarcasm": {
+   "args": "",
+   "fields": [
+    "toxic"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.toxic.sarcasm);\n        return url;"
+  },
+  "getAlienCustomsDialogue": {
+   "args": "key",
+   "fields": [
+    "dialogue"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const file = this.alienCustoms.dialogue[key];\n        if (!file) return null;\n        const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + file);\n        return url;"
+  },
+  "getAlienCustomsDialogueIntro": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return this.getAlienCustomsDialogue(\"intro\");"
+  },
+  "getAlienCustomsDialogueWin": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return this.getAlienCustomsDialogue(\"win\");"
+  },
+  "getAlienCustomsDialogueDenied": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return this.getAlienCustomsDialogue(\"denied\");"
+  },
+  "getAlienCustomsDialogueDeported": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return this.getAlienCustomsDialogue(\"deported\");"
+  },
+  "getAlienCustomsDialogueSeeItem": {
+   "args": "itemId",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const suffix = { \"_SOCKS\": \"socks\", \"_CUKE\": \"cuke\", \"_RIZZ_BOOK\": \"rizz\", \"_PASSPORT\": \"passport\", \"_LAPTOP\": \"laptop\", \"_TOOTHBRUSH\": \"toothbrush\", \"_HELMET\": \"helmet\", \"_BASKETBALL\": \"basketball\", \"_PEANUTS\": \"peanuts\", \"_RUBBER_DUCK\": \"rubber-duck\", \"_SUNGLASSES\": \"sunglasses\", \"_UMBRELLA\": \"umbrella\", \"_PILLOW\": \"pillow\", \"_SANDWICH\": \"sandwich\", \"_YOYO\": \"yoyo\", \"_MAGNIFYING_GLASS\": \"magnifying-glass\", \"_RUBBER_GLOVES\": \"rubber-gloves\", \"_TEDDY_BEAR\": \"teddy-bear\", \"_TENNIS_RACKET\": \"tennis-racket\", \"_WATER_BOTTLE\": \"water-bottle\", \"_WHISTLE\": \"whistle\", \"_FLASHLIGHT\": \"flashlight\", \"_MARSHMALLOWS\": \"marshmallows\", \"_SLEEPING_BAG\": \"sleeping-bag\", \"_PAINT_BRUSH\": \"paint-brush\", \"_GLITTER\": \"glitter\", \"_CAMERA\": \"camera\", \"_FRYING_PAN\": \"frying-pan\", \"_HOT_SAUCE\": \"hot-sauce\", \"_APRON\": \"apron\", \"_FLIP_FLOPS\": \"flip-flops\", \"_SNORKEL\": \"snorkel\", \"_BEACH_BALL\": \"beach-ball\", \"_NECK_TIE\": \"neck-tie\", \"_BRIEFCASE\": \"briefcase\", \"_BREATH_MINTS\": \"breath-mints\", \"_BALLOON\": \"balloon\", \"_PARTY_HAT\": \"party-hat\", \"_CANDLES\": \"candles\", \"_COMPASS\": \"compass\", \"_BINOCULARS\": \"binoculars\", \"_ROPE\": \"rope\", \"_POPCORN\": \"popcorn\", \"_3D_GLASSES\": \"3d-glasses\", \"_AUTOGRAPH_BOOK\": \"autograph-book\" }[itemId];\n        return this.getAlienCustomsDialogue(\"see-item-\" + suffix);"
+  },
+  "getAlienCustomsOrdinal": {
+   "args": "index, total",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "let category;\n        if (index === 0) category = \"first\";\n        else if (index === total - 1) category = \"final\";\n        else category = \"middle\";\n        const n = Math.floor(Math.random() * 5) + 1;\n        return this.getAlienCustomsDialogue(`ordinal-${category}-${n}`);"
+  },
+  "getAlienCustomsQuestion": {
+   "args": "itemId, qIndex",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const suffix = this._getAlienCustomsSuffix(itemId);\n        return this.getAlienCustomsDialogue(`${suffix}-q${qIndex + 1}`);"
+  },
+  "getAlienCustomsQuestionRight": {
+   "args": "itemId, qIndex",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const suffix = this._getAlienCustomsSuffix(itemId);\n        return this.getAlienCustomsDialogue(`${suffix}-q${qIndex + 1}-right`);"
+  },
+  "getAlienCustomsQuestionWrong": {
+   "args": "itemId, qIndex",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const suffix = this._getAlienCustomsSuffix(itemId);\n        return this.getAlienCustomsDialogue(`${suffix}-q${qIndex + 1}-wrong`);"
+  },
+  "getAlienCustomsRoundPass": {
+   "args": "itemId",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const suffix = this._getAlienCustomsSuffix(itemId);\n        return this.getAlienCustomsDialogue(`${suffix}-round-pass`);"
+  },
+  "getAlienCustomsRoundFail": {
+   "args": "itemId",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const suffix = this._getAlienCustomsSuffix(itemId);\n        return this.getAlienCustomsDialogue(`${suffix}-round-fail`);"
+  },
+  "getAlienAdvertConnectMessage": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, this.petMyAlien.connectMessage);\n        return url;"
+  },
+  "getAlienAdvertPrompt": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, this.petMyAlien.advertPrompt);\n        return url;"
+  },
+  "getAlienAdvert": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, this.afAdvert);\n        return url;"
+  },
+  "getAlienHighScore": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.highScore);\n        return url;"
+  },
+  "getAlienJumpComment": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/jump/comments/\" + getRandomElement(this.petMyAlien.jumpComments));\n        return url;"
+  },
+  "getAlienBoing": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/jump/\" + getRandomElement(this.petMyAlien.jumps));\n        return url;"
+  },
+  "getAlienLoseHealth": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.loseHealth);\n        return url;"
+  },
+  "getAlienSong": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + getRandomElement(this.petMyAlien.songs));\n        return url;"
+  },
+  "getAlienPokeComment": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/poke/\" + getRandomElement(this.petMyAlien.pokes));\n        return url;"
+  },
+  "getAlienPoke": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/poke/\" + this.petMyAlien.push);\n        return url;"
+  },
+  "getAlienPoopSound": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/fart/\" + getRandomElement(this.petMyAlien.poop));\n        return url;"
+  },
+  "getAlienPoopComment": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/poop/\" + getRandomElement(this.petMyAlien.poopComments));\n        return url;"
+  },
+  "getAlienJuggleShort": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.juggleShort);\n        return url;"
+  },
+  "getAlienWalkingStory": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + getRandomElement(this.petMyAlien.walkingStories));\n        return url;"
+  },
+  "getAlienMeditate": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.meditate);\n        return url;"
+  },
+  "getAlienMeditateComment": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/meditate/\" + getRandomElement(this.petMyAlien.meditateComments));\n        return url;"
+  },
+  "getAlienOhLala": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.ohLala);\n        return url;"
+  },
+  "getAlienTango": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.tango);\n        return url;"
+  },
+  "getAlienIncrease": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.increaseHappiness);\n        return url;"
+  },
+  "getAlienMaxHealth": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.maxHealth);\n        return url;"
+  },
+  "getAlienActionPrompt": {
+   "args": "alienIndex",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/actions/\" + this.petMyAlien.actions[alienIndex]);\n        return url;"
+  },
+  "getAlienRepeatLq": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.alienRepeatLq);\n        return url;"
+  },
+  "getAlienRepeat": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.alienRepeat);\n        return url;"
+  },
+  "getAlienConvoModeDisabled": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.convoModeDisabled);\n        return url;"
+  },
+  "getAlienConvoModeEnabled": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.convoModeEnabled);\n        return url;"
+  },
+  "getAlienDanceBacker": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/dance-backers/\" + getRandomElement(this.petMyAlien.danceBackers));\n        return url;"
+  },
+  "getAlienFoundFunny": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.foundFunny);\n        return url;"
+  },
+  "getAlienRejected": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + getRandomElement(this.petMyAlien.rejected));\n        return url;"
+  },
+  "getAlienDancePrompt": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.danceMovePrompt);\n        return url;"
+  },
+  "getAlienJoke": {
+   "args": "ad",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const usedIds = ad.Session[SessionVars.Settings].pma.usedJokes;\n        const availableJoke = this.petMyAlien.jokes.find((x) => !usedIds.includes(x.id));\n\n        if (availableJoke) {\n            const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + availableJoke.audio);\n            return url;\n        } else {\n            ad.Session[SessionVars.Settings].pma.usedJokes = [];\n            return this.getAlienJoke(ad)\n        }"
+  },
+  "getAlienDancePromptLq": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.dancePromptLq);\n        return url;"
+  },
+  "getAlienJokePromptLq": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.jokePromptLq);\n        return url;"
+  },
+  "getAlienFriendIntroFx": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.introFx);\n        return url;"
+  },
+  "getAlienJokePrompt": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.jokePrompt);\n        return url;"
+  },
+  "getAlienFirstPlayWelcome": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + this.petMyAlien.firstPlayWelcome);\n        return url;"
+  },
+  "getAlienThinking": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + getRandomElement(this.petMyAlien.thinking));\n        return url;"
+  },
+  "getAlienWelcome": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + getRandomElement(this.petMyAlien.welcome));\n        return url;"
+  },
+  "getAlienWelcomeBack": {
+   "args": "",
+   "fields": [],
+   "random": true,
+   "folder": "my-alien-friend/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"my-alien-friend/\" + getRandomElement(this.petMyAlien.welcomeBack));\n        return url;"
+  },
+  "getAlienAnnouncement": {
+   "args": "",
+   "fields": [
+    "announcement"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.announcement);\n        return url;"
+  },
+  "getAlienInvasionScene": {
+   "args": "nodeId",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return getResource(this.locale, Resource.Audio, \"alien-invasion/v4/scenes/\" + nodeId + \".mp3\");"
+  },
+  "getAlienInvasionPrompt": {
+   "args": "nodeId",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return getResource(this.locale, Resource.Audio, \"alien-invasion/v4/prompts/\" + nodeId + \".mp3\");"
+  },
+  "getAlienInvasionCommon": {
+   "args": "slug",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return getResource(this.locale, Resource.Audio, \"alien-invasion/v4/common/\" + slug + \".mp3\");"
+  },
+  "getAlienFlyAway": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, this.alienFlyAway);\n        return url;"
+  },
+  "getAlienSwipe": {
+   "args": "",
+   "fields": [
+    "swipes"
+   ],
+   "random": true,
+   "folder": null,
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/swipes/\" + getRandomElement(this.alienCustoms.swipes));\n        return url;"
+  },
+  "getAlienCustomBacker": {
+   "args": "",
+   "fields": [
+    "background"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.background);\n        return url;"
+  },
+  "getAlienCustomGreeting": {
+   "args": "",
+   "fields": [
+    "business"
+   ],
+   "random": false,
+   "folder": "alien-customs/",
+   "body": "const url = getResource(this.locale, Resource.Audio, \"alien-customs/\" + this.alienCustoms.business);\n        return url;"
+  },
+  "getSlugSpeech": {
+   "args": "key",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return getResource(this.locale, Resource.Audio, `alien-customs/slug-audio/${key}.mp3`);"
+  },
+  "getSlugAnnouncementIntro": {
+   "args": "",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "return this.getSlugSpeech(\"announcement-intro\");"
+  },
+  "getSlugRulesIntro": {
+   "args": "itemId",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const suffix = this._getAlienCustomsSuffix(itemId);\n        return this.getSlugSpeech(`${suffix}-rules-intro`);"
+  },
+  "getSlugRule": {
+   "args": "itemId, ruleIndex",
+   "fields": [],
+   "random": false,
+   "folder": null,
+   "body": "const suffix = this._getAlienCustomsSuffix(itemId);\n        return this.getSlugSpeech(`${suffix}-rule-${ruleIndex + 1}`);"
+  }
+ }
+}
