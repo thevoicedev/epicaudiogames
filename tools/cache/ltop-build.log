@@ -1,0 +1,15 @@
+rendering 1124 lines in Jessica's voice (cached ones are skipped)...
+Traceback (most recent call last):
+  File "C:\Users\Korisnik\Documents\epicaudiogames\tools\games\ltop.py", line 147, in <module>
+    c.mix("say-lies", [{"step": throwing},
+  File "C:\Users\Korisnik\Documents\epicaudiogames\tools\content.py", line 239, in mix
+    ends = [l["at"] + l["step"]["dur"] for l, s in zip(layers, spec) if not s["trim"]]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Korisnik\Documents\epicaudiogames\tools\content.py", line 239, in <listcomp>
+    ends = [l["at"] + l["step"]["dur"] for l, s in zip(layers, spec) if not s["trim"]]
+            ~^^^^^^
+KeyError: 'at'
+
+real	4m51.918s
+user	0m0.000s
+sys	0m0.015s

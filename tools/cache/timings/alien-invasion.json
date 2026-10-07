@@ -1,0 +1,4215 @@
+{
+ "scenes": {
+  "ai-title": {
+   "dur": 17.4,
+   "lines": [
+    {
+     "at": 9.766,
+     "len": 3.507,
+     "who": "NARRATOR",
+     "text": "Alien Invasion. Signal Decoders."
+    },
+    {
+     "at": 13.624,
+     "len": 2.826,
+     "who": "NARRATOR",
+     "text": "Chapter one. The First Signal."
+    }
+   ]
+  },
+  "ai-open-1": {
+   "dur": 31.225,
+   "lines": [
+    {
+     "at": 1.15,
+     "len": 3.63,
+     "who": "NARRATOR",
+     "text": "December the twenty-fifth. Twenty thirty-two."
+    },
+    {
+     "at": 5.13,
+     "len": 1.741,
+     "who": "NARRATOR",
+     "text": "London has fallen."
+    },
+    {
+     "at": 7.221,
+     "len": 3.514,
+     "who": "NARRATOR",
+     "text": "A colossal attack fell on this once great city."
+    },
+    {
+     "at": 11.085,
+     "len": 5.627,
+     "who": "NARRATOR",
+     "text": "It erased every signal, every screen, every voice that once connected the city."
+    },
+    {
+     "at": 17.061,
+     "len": 2.08,
+     "who": "NARRATOR",
+     "text": "Power grids collapsed in seconds."
+    },
+    {
+     "at": 19.491,
+     "len": 2.48,
+     "who": "NARRATOR",
+     "text": "Satellites fell from the sky."
+    },
+    {
+     "at": 22.321,
+     "len": 5.567,
+     "who": "NARRATOR",
+     "text": "Communication, eradicated. And the people... lost."
+    },
+    {
+     "at": 28.239,
+     "len": 1.987,
+     "who": "NARRATOR",
+     "text": "The city went dark."
+    }
+   ]
+  },
+  "ai-open-2": {
+   "dur": 30.125,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.265,
+     "who": "NARRATOR",
+     "text": "On Christmas night, above the rooftops, a strange, luminous ripple hums through the clouds."
+    },
+    {
+     "at": 7.865,
+     "len": 3.34,
+     "who": "NARRATOR",
+     "text": "Too low to hear. Too powerful to ignore."
+    },
+    {
+     "at": 11.556,
+     "len": 7.084,
+     "who": "NARRATOR",
+     "text": "And beneath the streets, in forgotten tunnels and abandoned stations, the last survivors wait in the dark."
+    },
+    {
+     "at": 19.29,
+     "len": 1.344,
+     "who": "NARRATOR",
+     "text": "They call themselves..."
+    },
+    {
+     "at": 20.984,
+     "len": 1.021,
+     "who": "NARRATOR",
+     "text": "The Decoders."
+    },
+    {
+     "at": 22.855,
+     "len": 6.32,
+     "who": "NARRATOR",
+     "text": "Are you ready to join them, and help decode the signal? Say yes, or no."
+    }
+   ]
+  },
+  "ai-open-no": {
+   "dur": 10.797,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.558,
+     "who": "NARRATOR",
+     "text": "The Decoders can't do this alone. They need someone with sharp ears, and a brave heart."
+    },
+    {
+     "at": 6.158,
+     "len": 3.689,
+     "who": "NARRATOR",
+     "text": "Will you help them? Say yes, or no."
+    }
+   ]
+  },
+  "ai-exit": {
+   "dur": 5.039,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.839,
+     "who": "NARRATOR",
+     "text": "That's okay, Decoder. The radio will be waiting for you."
+    }
+   ]
+  },
+  "ai-s1a": {
+   "dur": 28.05,
+   "lines": [
+    {
+     "at": 2.05,
+     "len": 3.522,
+     "who": "ALEX",
+     "text": "I swear my legs are going to detach from my body."
+    },
+    {
+     "at": 5.922,
+     "len": 4.223,
+     "who": "ROBIN",
+     "text": "That would be efficient. At least one of us would escape!"
+    },
+    {
+     "at": 10.495,
+     "len": 3.763,
+     "who": "ALEX",
+     "text": "Do you always have to be so sarcastic? All the..."
+    },
+    {
+     "at": 14.756,
+     "len": 0.847,
+     "who": "ALEX",
+     "text": "Did you hear that?"
+    },
+    {
+     "at": 15.954,
+     "len": 0.601,
+     "who": "ROBIN",
+     "text": "Hear what?"
+    },
+    {
+     "at": 19.235,
+     "len": 1.368,
+     "who": "ALEX",
+     "text": "THAT! RIGHT THERE!"
+    },
+    {
+     "at": 20.953,
+     "len": 1.92,
+     "who": "ROBIN",
+     "text": "Oh. That's just static."
+    },
+    {
+     "at": 23.223,
+     "len": 1.84,
+     "who": "ALEX",
+     "text": "Robin... it's STATIC!"
+    },
+    {
+     "at": 25.413,
+     "len": 1.686,
+     "who": "ROBIN",
+     "text": "Yeah. Just static."
+    }
+   ]
+  },
+  "ai-s1b": {
+   "dur": 21.555,
+   "lines": [
+    {
+     "at": 0.62,
+     "len": 0.558,
+     "who": "ALEX",
+     "text": "Robin!"
+    },
+    {
+     "at": 1.527,
+     "len": 3.28,
+     "who": "ROBIN",
+     "text": "Oh my gosh, yes! STATIC!"
+    },
+    {
+     "at": 5.157,
+     "len": 1.616,
+     "who": "ALEX",
+     "text": "Ha ha! Yes!"
+    },
+    {
+     "at": 6.91,
+     "len": 1.141,
+     "who": "ROBIN",
+     "text": "Ha ha!"
+    },
+    {
+     "at": 8.4,
+     "len": 0.643,
+     "who": "ROBIN",
+     "text": "Where is it?"
+    },
+    {
+     "at": 9.394,
+     "len": 1.157,
+     "who": "ALEX",
+     "text": "It's somewhere here!"
+    },
+    {
+     "at": 10.9,
+     "len": 2.025,
+     "who": "ROBIN",
+     "text": "No, here! Over here!"
+    },
+    {
+     "at": 14.774,
+     "len": 1.491,
+     "who": "ALEX",
+     "text": "There! Under the debris!"
+    },
+    {
+     "at": 16.615,
+     "len": 3.99,
+     "who": "ROBIN",
+     "text": "Alex, watch out! The debris is more unstable than your posture!"
+    }
+   ]
+  },
+  "ai-s1c": {
+   "dur": 37.087,
+   "lines": [
+    {
+     "at": 2.375,
+     "len": 4.48,
+     "who": "ROBIN",
+     "text": "An old handheld radio... that's what survived the pulse?"
+    },
+    {
+     "at": 7.205,
+     "len": 4.88,
+     "who": "ALEX",
+     "text": "Nothing has worked since the pulse. NOTHING! Not even military gear!"
+    },
+    {
+     "at": 12.435,
+     "len": 2.792,
+     "who": "ROBIN",
+     "text": "It's analog. That's why it survived."
+    },
+    {
+     "at": 15.576,
+     "len": 1.605,
+     "who": "ALEX",
+     "text": "Oh!"
+    },
+    {
+     "at": 20.54,
+     "len": 1.568,
+     "who": "ROBIN",
+     "text": "Nothing but noise."
+    },
+    {
+     "at": 22.458,
+     "len": 1.5,
+     "who": "ALEX",
+     "text": "Try adjusting the frequency?"
+    },
+    {
+     "at": 30.806,
+     "len": 3.093,
+     "who": "ROBIN",
+     "text": "Hold on, hold on! That doesn't sound random..."
+    },
+    {
+     "at": 34.249,
+     "len": 1.887,
+     "who": "ALEX",
+     "text": "It almost sounds like music."
+    }
+   ]
+  },
+  "ai-s2": {
+   "dur": 30.974,
+   "lines": [
+    {
+     "at": 5.72,
+     "len": 4.569,
+     "who": "ALEX",
+     "text": "High. Low. High."
+    },
+    {
+     "at": 10.639,
+     "len": 1.12,
+     "who": "ROBIN",
+     "text": "That's deliberate."
+    },
+    {
+     "at": 12.109,
+     "len": 1.022,
+     "who": "ALEX",
+     "text": "You think it's a message?"
+    },
+    {
+     "at": 13.481,
+     "len": 2.372,
+     "who": "ROBIN",
+     "text": "Or it could be something else..."
+    },
+    {
+     "at": 16.203,
+     "len": 0.96,
+     "who": "ALEX",
+     "text": "Like what?"
+    },
+    {
+     "at": 17.514,
+     "len": 8.8,
+     "who": "NARRATOR",
+     "text": "The music is not just noise. It is a message... the only way the Decoders will get to the truth."
+    },
+    {
+     "at": 26.664,
+     "len": 3.36,
+     "who": "NARRATOR",
+     "text": "And now... you are part of the team."
+    }
+   ]
+  },
+  "ai-p1": {
+   "dur": 35.042,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.257,
+     "who": "NARRATOR",
+     "text": "Welcome, Decoder."
+    },
+    {
+     "at": 1.857,
+     "len": 9.067,
+     "who": "NARRATOR",
+     "text": "Your job is to help Alex and Robin interpret the signal. Spot patterns. Solve puzzles. Stay alive."
+    },
+    {
+     "at": 11.274,
+     "len": 2.8,
+     "who": "NARRATOR",
+     "text": "The radio is playing three repeating tones."
+    },
+    {
+     "at": 14.424,
+     "len": 0.96,
+     "who": "NARRATOR",
+     "text": "High."
+    },
+    {
+     "at": 15.804,
+     "len": 0.688,
+     "who": "NARRATOR",
+     "text": "Low."
+    },
+    {
+     "at": 16.913,
+     "len": 0.556,
+     "who": "NARRATOR",
+     "text": "High."
+    },
+    {
+     "at": 18.188,
+     "len": 3.2,
+     "who": "NARRATOR",
+     "text": "Robin believes the tones match musical notes."
+    },
+    {
+     "at": 21.738,
+     "len": 7.954,
+     "who": "NARRATOR",
+     "text": "If High equals the note C, and Low equals the note A... what three-letter pattern is the signal playing?"
+    },
+    {
+     "at": 30.042,
+     "len": 1.84,
+     "who": "NARRATOR",
+     "text": "Say your answer out loud."
+    }
+   ]
+  },
+  "ai-p1-hint": {
+   "dur": 15.144,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.148,
+     "who": "ROBIN",
+     "text": "Hmm. Not quite. Listen again."
+    },
+    {
+     "at": 5.958,
+     "len": 8.237,
+     "who": "ROBIN",
+     "text": "High is C. Low is A. So High... Low... High... spells what?"
+    }
+   ]
+  },
+  "ai-p1-again": {
+   "dur": 11.974,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.631,
+     "who": "NARRATOR",
+     "text": "Listen carefully."
+    },
+    {
+     "at": 4.441,
+     "len": 6.583,
+     "who": "NARRATOR",
+     "text": "If High is C, and Low is A, what three letters is the signal playing?"
+    }
+   ]
+  },
+  "ai-p1-reveal": {
+   "dur": 6.8,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.6,
+     "who": "ALEX",
+     "text": "Wait, wait, I've got it! High is C, and Low is A... so it's C, A, C!"
+    }
+   ]
+  },
+  "ai-p1-yes": {
+   "dur": 31.663,
+   "lines": [
+    {
+     "at": 5.737,
+     "len": 4.089,
+     "who": "ROBIN",
+     "text": "Yes! C, A, C. That is it!"
+    },
+    {
+     "at": 10.176,
+     "len": 2.027,
+     "who": "ALEX",
+     "text": "So the signal is a spelling?"
+    },
+    {
+     "at": 12.553,
+     "len": 9.098,
+     "who": "ROBIN",
+     "text": "Alex! Dude! ALEX! Someone is out there sending a signal, hoping for us to GET IT! We're not alone, buddy!"
+    },
+    {
+     "at": 22.0,
+     "len": 8.713,
+     "who": "ALEX",
+     "text": "Yes! So we... we keep this radio working! Somehow, every day. Wait for it... wait for the signal."
+    }
+   ]
+  },
+  "ai-s3a": {
+   "dur": 26.3,
+   "lines": [
+    {
+     "at": 2.45,
+     "len": 3.75,
+     "who": "ROBIN",
+     "text": "Yes. C. A. C. That's the pattern."
+    },
+    {
+     "at": 6.55,
+     "len": 2.773,
+     "who": "ALEX",
+     "text": "So... it's spelling? A word?"
+    },
+    {
+     "at": 9.673,
+     "len": 4.247,
+     "who": "ROBIN",
+     "text": "It's structured. Which means it was built to be understood."
+    },
+    {
+     "at": 14.271,
+     "len": 2.27,
+     "who": "ALEX",
+     "text": "That means someone out there is trying to talk to us!"
+    },
+    {
+     "at": 16.891,
+     "len": 2.28,
+     "who": "ROBIN",
+     "text": "Or trying to see who's still alive."
+    },
+    {
+     "at": 19.521,
+     "len": 2.88,
+     "who": "ALEX",
+     "text": "Why would they do that? Why not just hit us with another pulse?"
+    },
+    {
+     "at": 22.751,
+     "len": 2.599,
+     "who": "ROBIN",
+     "text": "I don't know! Maybe this is a trap!"
+    }
+   ]
+  },
+  "ai-s3b": {
+   "dur": 20.875,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.452,
+     "who": "ALEX",
+     "text": "You always go straight to the worst version."
+    },
+    {
+     "at": 3.052,
+     "len": 3.689,
+     "who": "ROBIN",
+     "text": "Because the worst version keeps you breathing!"
+    },
+    {
+     "at": 7.091,
+     "len": 7.137,
+     "who": "ALEX",
+     "text": "Dude! We're not alone! After days... there's finally something else! That has to mean something good, man!"
+    },
+    {
+     "at": 14.578,
+     "len": 1.637,
+     "who": "ROBIN",
+     "text": "I don't know, dude..."
+    },
+    {
+     "at": 16.565,
+     "len": 3.36,
+     "who": "ALEX",
+     "text": "Then we keep listening. We learn it. Every day."
+    }
+   ]
+  },
+  "ai-s3c": {
+   "dur": 33.749,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.513,
+     "who": "ROBIN",
+     "text": "And what if listening is exactly what it wants?"
+    },
+    {
+     "at": 4.113,
+     "len": 2.612,
+     "who": "ALEX",
+     "text": "What if NOT listening gets us caught faster?"
+    },
+    {
+     "at": 7.076,
+     "len": 7.36,
+     "who": "ROBIN",
+     "text": "Look, man. I don't know what's at the other end of this. But all we can do is keep going!"
+    },
+    {
+     "at": 14.786,
+     "len": 1.282,
+     "who": "ALEX",
+     "text": "Fine."
+    },
+    {
+     "at": 16.918,
+     "len": 5.784,
+     "who": "ROBIN",
+     "text": "We keep the radio alive. But we don't answer back. Not yet."
+    },
+    {
+     "at": 23.052,
+     "len": 0.556,
+     "who": "ALEX",
+     "text": "Deal."
+    },
+    {
+     "at": 23.958,
+     "len": 8.841,
+     "who": "NARRATOR",
+     "text": "The radio hisses softly in the dark. Decoder, should they keep listening tonight? Say yes, or no."
+    }
+   ]
+  },
+  "ai-s3-off": {
+   "dur": 12.012,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.104,
+     "who": "ROBIN",
+     "text": "Fine. I'll switch it off. Just for tonight."
+    },
+    {
+     "at": 5.912,
+     "len": 1.891,
+     "who": "ALEX",
+     "text": "Robin, wait. Listen!"
+    }
+   ]
+  },
+  "ai-warn-1": {
+   "dur": 19.32,
+   "lines": [
+    {
+     "at": 3.08,
+     "len": 1.594,
+     "who": "ROBIN",
+     "text": "The frequency just spiked."
+    },
+    {
+     "at": 5.024,
+     "len": 2.85,
+     "who": "ALEX",
+     "text": "That sound... that's the sky."
+    },
+    {
+     "at": 8.224,
+     "len": 2.353,
+     "who": "ROBIN",
+     "text": "No. It's coming from everywhere."
+    },
+    {
+     "at": 10.927,
+     "len": 1.382,
+     "who": "ALEX",
+     "text": "It's getting louder..."
+    },
+    {
+     "at": 13.99,
+     "len": 1.794,
+     "who": "ROBIN",
+     "text": "It's matching the pulse pattern."
+    },
+    {
+     "at": 16.134,
+     "len": 2.236,
+     "who": "ALEX",
+     "text": "The one that SHUT DOWN THE WHOLE CITY?!"
+    }
+   ]
+  },
+  "ai-warn-2": {
+   "dur": 29.904,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.143,
+     "who": "ALEX",
+     "text": "Robin! Robin! This is the sound from that night! From Christmas!"
+    },
+    {
+     "at": 4.743,
+     "len": 2.435,
+     "who": "ROBIN",
+     "text": "It's similar. But not identical."
+    },
+    {
+     "at": 7.528,
+     "len": 0.852,
+     "who": "ALEX",
+     "text": "What do you mean?!"
+    },
+    {
+     "at": 8.73,
+     "len": 2.16,
+     "who": "ROBIN",
+     "text": "Something is trying to copy it."
+    },
+    {
+     "at": 11.24,
+     "len": 3.28,
+     "who": "ALEX",
+     "text": "WHAT? How do you know? And when did you become an expert?!"
+    },
+    {
+     "at": 14.87,
+     "len": 4.64,
+     "who": "ROBIN",
+     "text": "Because we're still awake! We haven't passed out like last time!"
+    },
+    {
+     "at": 19.86,
+     "len": 3.52,
+     "who": "ALEX",
+     "text": "Dude! If the ground keeps shaking like this, we might just pass out!"
+    },
+    {
+     "at": 23.73,
+     "len": 2.173,
+     "who": "ROBIN",
+     "text": "Just hold on!"
+    }
+   ]
+  },
+  "ai-warn-3": {
+   "dur": 28.943,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.4,
+     "who": "NARRATOR",
+     "text": "The sound fades. And the city is just as it was, mere seconds ago."
+    },
+    {
+     "at": 7.0,
+     "len": 5.176,
+     "who": "NARRATOR",
+     "text": "This time, it does not destroy them. It does not silence them."
+    },
+    {
+     "at": 12.526,
+     "len": 7.52,
+     "who": "NARRATOR",
+     "text": "So what changed? And what does it mean, when the sound that ended the world... no longer can?"
+    },
+    {
+     "at": 20.796,
+     "len": 7.197,
+     "who": "NARRATOR",
+     "text": "Decoder, what do you think? Is the signal trying to help them? Say yes, or no."
+    }
+   ]
+  },
+  "ai-think-yes": {
+   "dur": 4.706,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.506,
+     "who": "ALEX",
+     "text": "Me too, Decoder! Something out there is looking out for us."
+    }
+   ]
+  },
+  "ai-think-no": {
+   "dur": 5.344,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.144,
+     "who": "ROBIN",
+     "text": "I'm with you, Decoder. Something about this doesn't add up."
+    }
+   ]
+  },
+  "ai-s5": {
+   "dur": 25.788,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.52,
+     "who": "NARRATOR",
+     "text": "The sound is gone. But the question remains."
+    },
+    {
+     "at": 4.12,
+     "len": 7.325,
+     "who": "NARRATOR",
+     "text": "Why did the signal not destroy them like before? Why did it fade, instead of finishing what it started?"
+    },
+    {
+     "at": 11.796,
+     "len": 5.932,
+     "who": "NARRATOR",
+     "text": "Two days pass in silence. No hum. No tones. No answers."
+    },
+    {
+     "at": 18.078,
+     "len": 2.41,
+     "who": "NARRATOR",
+     "text": "Only the radio... waiting."
+    },
+    {
+     "at": 20.98,
+     "len": 0.843,
+     "who": "ALEX",
+     "text": "It's back!"
+    },
+    {
+     "at": 21.883,
+     "len": 0.912,
+     "who": "ROBIN",
+     "text": "It's back!"
+    },
+    {
+     "at": 23.145,
+     "len": 1.694,
+     "who": "ALEX",
+     "text": "Okay, okay! Let's listen now!"
+    }
+   ]
+  },
+  "ai-s5b": {
+   "dur": 25.115,
+   "lines": [
+    {
+     "at": 2.1,
+     "len": 7.583,
+     "who": "NARRATOR",
+     "text": "The music returns. Changed. Careful. As if it is trying again... differently."
+    },
+    {
+     "at": 10.033,
+     "len": 3.131,
+     "who": "NARRATOR",
+     "text": "And now... you are part of the team."
+    },
+    {
+     "at": 13.514,
+     "len": 10.651,
+     "who": "NARRATOR",
+     "text": "Welcome back, Decoder. Your job is to help Alex and Robin interpret the signal. Spot patterns. Solve puzzles. Stay alive."
+    }
+   ]
+  },
+  "ai-p2-intro": {
+   "dur": 23.421,
+   "lines": [
+    {
+     "at": 7.2,
+     "len": 2.535,
+     "who": "ROBIN",
+     "text": "It's using the same notes as before."
+    },
+    {
+     "at": 10.085,
+     "len": 7.166,
+     "who": "ALEX",
+     "text": "So... C, C, C, C. A, A. C, C. A. C."
+    },
+    {
+     "at": 17.601,
+     "len": 3.436,
+     "who": "ROBIN",
+     "text": "But it's not making any sense! This is not a word!"
+    },
+    {
+     "at": 21.387,
+     "len": 1.084,
+     "who": "ALEX",
+     "text": "Maybe it's a pattern!"
+    }
+   ]
+  },
+  "ai-p2": {
+   "dur": 27.623,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 13.316,
+     "who": "NARRATOR",
+     "text": "If High equals C, and Low equals A... the signal is no longer asking what the notes are... but how many of them there are."
+    },
+    {
+     "at": 20.866,
+     "len": 5.807,
+     "who": "NARRATOR",
+     "text": "What does the new signal mean? Count each group of notes, and say the numbers out loud."
+    }
+   ]
+  },
+  "ai-p2-hint": {
+   "dur": 17.238,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.858,
+     "who": "ALEX",
+     "text": "Hmm, not quite. Let's count each group together."
+    },
+    {
+     "at": 10.408,
+     "len": 5.88,
+     "who": "ALEX",
+     "text": "The first group has four high notes. So that's four. How many notes are in each group after that?"
+    }
+   ]
+  },
+  "ai-p2-again": {
+   "dur": 12.525,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.56,
+     "who": "NARRATOR",
+     "text": "Listen again, and count each group."
+    },
+    {
+     "at": 10.11,
+     "len": 1.465,
+     "who": "NARRATOR",
+     "text": "How many notes are in each group?"
+    }
+   ]
+  },
+  "ai-p2-reveal": {
+   "dur": 15.173,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 13.973,
+     "who": "ROBIN",
+     "text": "Let me count. Four highs... two lows... two highs... one low... and one high. Four, two, two, one, one!"
+    }
+   ]
+  },
+  "ai-p2-yes": {
+   "dur": 43.667,
+   "lines": [
+    {
+     "at": 5.737,
+     "len": 4.64,
+     "who": "ROBIN",
+     "text": "Four. Two. Two. One. One."
+    },
+    {
+     "at": 10.727,
+     "len": 3.534,
+     "who": "ALEX",
+     "text": "So it stopped spelling... and started counting?"
+    },
+    {
+     "at": 14.611,
+     "len": 1.705,
+     "who": "ROBIN",
+     "text": "It added another layer."
+    },
+    {
+     "at": 16.666,
+     "len": 2.483,
+     "who": "ALEX",
+     "text": "It's not a layer... maybe it's a code!"
+    },
+    {
+     "at": 19.498,
+     "len": 3.715,
+     "who": "ROBIN",
+     "text": "Okay, great! What do we do with this... code?"
+    },
+    {
+     "at": 23.564,
+     "len": 1.12,
+     "who": "ALEX",
+     "text": "I don't know..."
+    },
+    {
+     "at": 25.034,
+     "len": 6.8,
+     "who": "ROBIN",
+     "text": "C, A, C... and four, two, two, one, one."
+    },
+    {
+     "at": 32.184,
+     "len": 5.384,
+     "who": "ALEX",
+     "text": "Look, I know it doesn't make any sense. But we need to keep solving the codes, the music, until it does!"
+    },
+    {
+     "at": 37.918,
+     "len": 4.799,
+     "who": "ROBIN",
+     "text": "Well, whatever this is, we can at least confirm it isn't something random!"
+    }
+   ]
+  },
+  "ai-s6a": {
+   "dur": 24.699,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.337,
+     "who": "ALEX",
+     "text": "So let's assume the signal is guiding us."
+    },
+    {
+     "at": 2.937,
+     "len": 1.074,
+     "who": "ROBIN",
+     "text": "Or watching us."
+    },
+    {
+     "at": 4.361,
+     "len": 1.68,
+     "who": "ALEX",
+     "text": "We didn't send anything back."
+    },
+    {
+     "at": 6.391,
+     "len": 2.125,
+     "who": "ROBIN",
+     "text": "No. But we heard it!"
+    },
+    {
+     "at": 8.866,
+     "len": 1.84,
+     "who": "ALEX",
+     "text": "That doesn't mean it knows we exist."
+    },
+    {
+     "at": 11.056,
+     "len": 2.164,
+     "who": "ROBIN",
+     "text": "It changed when we understood it."
+    },
+    {
+     "at": 13.57,
+     "len": 2.796,
+     "who": "ALEX",
+     "text": "Maybe we're picking up a message that's meant for someone else?"
+    },
+    {
+     "at": 16.716,
+     "len": 2.382,
+     "who": "ROBIN",
+     "text": "Oh, great! Now we're eavesdropping!"
+    },
+    {
+     "at": 19.448,
+     "len": 4.301,
+     "who": "ALEX",
+     "text": "Think about it! If this were the Choir, wouldn't they just attack, or drag us out of here?"
+    }
+   ]
+  },
+  "ai-s6b": {
+   "dur": 28.857,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.236,
+     "who": "ROBIN",
+     "text": "I don't even want to think that it's the Choir!"
+    },
+    {
+     "at": 2.836,
+     "len": 1.569,
+     "who": "ALEX",
+     "text": "How can you be scared to THINK?"
+    },
+    {
+     "at": 4.755,
+     "len": 6.847,
+     "who": "ROBIN",
+     "text": "Because in the span of minutes, they wiped out an ENTIRE CITY! Are you forgetting who the Choir are?"
+    },
+    {
+     "at": 11.953,
+     "len": 10.084,
+     "who": "ROBIN",
+     "text": "They're not a band. They're an alien sentinel, from somewhere beyond! They didn't come with ships or soldiers. They came with one frequency."
+    },
+    {
+     "at": 22.387,
+     "len": 5.52,
+     "who": "ROBIN",
+     "text": "One sound shut down everything. Power grids. Satellites. People."
+    }
+   ]
+  },
+  "ai-s6c": {
+   "dur": 24.271,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.093,
+     "who": "NARRATOR",
+     "text": "The radio crackles."
+    },
+    {
+     "at": 3.543,
+     "len": 4.649,
+     "who": "NARRATOR",
+     "text": "The pattern fractures into static. A distorted voice slips through the noise."
+    },
+    {
+     "at": 8.542,
+     "len": 3.75,
+     "who": "VOICE",
+     "text": "Not... alone..."
+    },
+    {
+     "at": 13.993,
+     "len": 2.417,
+     "who": "ALEX",
+     "text": "Did it just... speak?"
+    },
+    {
+     "at": 16.76,
+     "len": 0.573,
+     "who": "ROBIN",
+     "text": "Umm..."
+    },
+    {
+     "at": 17.683,
+     "len": 1.336,
+     "who": "ALEX",
+     "text": "But we didn't speak."
+    },
+    {
+     "at": 19.369,
+     "len": 1.122,
+     "who": "ROBIN",
+     "text": "We listened."
+    },
+    {
+     "at": 20.841,
+     "len": 2.48,
+     "who": "ALEX",
+     "text": "How does it know?"
+    }
+   ]
+  },
+  "ai-choice": {
+   "dur": 19.401,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.857,
+     "who": "NARRATOR",
+     "text": "The Decoders must decide their next move."
+    },
+    {
+     "at": 3.457,
+     "len": 3.422,
+     "who": "NARRATOR",
+     "text": "Option one. Follow the signal toward its source."
+    },
+    {
+     "at": 7.229,
+     "len": 5.722,
+     "who": "NARRATOR",
+     "text": "Option two. Shut down the radio, and remain hidden underground."
+    },
+    {
+     "at": 13.301,
+     "len": 2.16,
+     "who": "NARRATOR",
+     "text": "Say follow, or hide."
+    }
+   ]
+  },
+  "ai-end": {
+   "dur": 15.952,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.15,
+     "who": "ALEX",
+     "text": "Whoever that was..."
+    },
+    {
+     "at": 1.75,
+     "len": 2.912,
+     "who": "ROBIN",
+     "text": "It may, or may not, know that we're here."
+    },
+    {
+     "at": 5.012,
+     "len": 5.105,
+     "who": "ALEX",
+     "text": "Maybe there's a way... we can make them know... about us?"
+    },
+    {
+     "at": 10.468,
+     "len": 2.664,
+     "who": "ROBIN",
+     "text": "No! That's WAY too risky!"
+    },
+    {
+     "at": 13.482,
+     "len": 1.52,
+     "who": "ALEX",
+     "text": "Then what do you suggest we do..."
+    }
+   ]
+  },
+  "ai-fin-follow": {
+   "dur": 17.389,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.769,
+     "who": "NARRATOR",
+     "text": "You chose to follow the signal."
+    },
+    {
+     "at": 2.369,
+     "len": 4.32,
+     "who": "NARRATOR",
+     "text": "This is only the beginning. Your choice will shape what happens next."
+    },
+    {
+     "at": 14.438,
+     "len": 2.0,
+     "who": "NARRATOR",
+     "text": "End of chapter one."
+    }
+   ]
+  },
+  "ai-fin-hide": {
+   "dur": 23.049,
+   "lines": [
+    {
+     "at": 0.658,
+     "len": 6.243,
+     "who": "NARRATOR",
+     "text": "You chose to stay hidden. The radio falls silent... for now."
+    },
+    {
+     "at": 7.251,
+     "len": 5.1,
+     "who": "NARRATOR",
+     "text": "This is only the beginning. Your choice will shape what happens next."
+    },
+    {
+     "at": 20.1,
+     "len": 1.999,
+     "who": "NARRATOR",
+     "text": "End of chapter one."
+    }
+   ]
+  },
+  "ai2-title": {
+   "dur": 40.477,
+   "lines": [
+    {
+     "at": 9.766,
+     "len": 4.093,
+     "who": "NARRATOR",
+     "text": "Alien Invasion. Signal Decoders."
+    },
+    {
+     "at": 14.209,
+     "len": 3.28,
+     "who": "NARRATOR",
+     "text": "Chapter two. The Map in the Music."
+    },
+    {
+     "at": 18.239,
+     "len": 13.868,
+     "who": "NARRATOR",
+     "text": "Previously... a strange signal crackled out of an old radio. It spelled C, A, C. Then it counted: four, two, two, one, one."
+    },
+    {
+     "at": 32.457,
+     "len": 3.04,
+     "who": "NARRATOR",
+     "text": "And then, a voice slipped through the static..."
+    },
+    {
+     "at": 35.847,
+     "len": 3.68,
+     "who": "VOICE",
+     "text": "Not... alone..."
+    }
+   ]
+  },
+  "ai2-s1f": {
+   "dur": 10.67,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.64,
+     "who": "ALEX",
+     "text": "Right! We said we'd follow the signal. So... where is it actually coming from?"
+    },
+    {
+     "at": 5.24,
+     "len": 4.48,
+     "who": "ROBIN",
+     "text": "Oh, sure. Let me just check the giant glowing arrow in the sky."
+    }
+   ]
+  },
+  "ai2-s1h": {
+   "dur": 16.027,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.28,
+     "who": "NARRATOR",
+     "text": "For two nights, the Decoders kept the radio switched off. But on the third night..."
+    },
+    {
+     "at": 6.022,
+     "len": 6.145,
+     "who": "ROBIN",
+     "text": "It switched itself on. Alex... it switched itself ON."
+    },
+    {
+     "at": 12.517,
+     "len": 2.56,
+     "who": "ALEX",
+     "text": "Then it really, really wants us to listen."
+    }
+   ]
+  },
+  "ai2-s1b": {
+   "dur": 37.953,
+   "lines": [
+    {
+     "at": 7.2,
+     "len": 3.459,
+     "who": "ALEX",
+     "text": "Four, two, two, one, one. Again!"
+    },
+    {
+     "at": 11.009,
+     "len": 5.603,
+     "who": "ROBIN",
+     "text": "It keeps playing the same numbers. It's like a song that's stuck."
+    },
+    {
+     "at": 16.962,
+     "len": 6.075,
+     "who": "ALEX",
+     "text": "Unless... they're not just numbers. What if they're... turns?"
+    },
+    {
+     "at": 23.387,
+     "len": 0.552,
+     "who": "ROBIN",
+     "text": "Turns?"
+    },
+    {
+     "at": 24.29,
+     "len": 3.857,
+     "who": "ALEX",
+     "text": "Like directions! Four junctions, then two, then two..."
+    },
+    {
+     "at": 28.497,
+     "len": 5.923,
+     "who": "ROBIN",
+     "text": "The old maintenance tunnels! They're full of junctions! If you count them..."
+    },
+    {
+     "at": 34.769,
+     "len": 2.233,
+     "who": "ALEX",
+     "text": "...the music is a map! Grab the radio!"
+    }
+   ]
+  },
+  "ai2-s2": {
+   "dur": 34.36,
+   "lines": [
+    {
+     "at": 5.1,
+     "len": 4.429,
+     "who": "NARRATOR",
+     "text": "The Decoders creep deeper into the tunnels than they have ever dared to go."
+    },
+    {
+     "at": 9.879,
+     "len": 7.469,
+     "who": "ROBIN",
+     "text": "Junction four, two, two, one, one. This is where the counting stops."
+    },
+    {
+     "at": 17.698,
+     "len": 0.918,
+     "who": "ALEX",
+     "text": "So which way now?"
+    },
+    {
+     "at": 23.996,
+     "len": 4.56,
+     "who": "ROBIN",
+     "text": "Four notes this time. High, low, low, high."
+    },
+    {
+     "at": 28.906,
+     "len": 4.503,
+     "who": "ALEX",
+     "text": "Directions! What if High means left... and Low means right?"
+    }
+   ]
+  },
+  "ai2-p1": {
+   "dur": 20.011,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.385,
+     "who": "NARRATOR",
+     "text": "Decoder, the tunnels split again and again. The signal plays four notes."
+    },
+    {
+     "at": 10.165,
+     "len": 8.896,
+     "who": "NARRATOR",
+     "text": "If High means left, and Low means right... which four ways should they turn? Say the four turns out loud."
+    }
+   ]
+  },
+  "ai2-p1-hint": {
+   "dur": 17.455,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.952,
+     "who": "ROBIN",
+     "text": "Hmm, not quite. The first note is High... so the first turn is left. Listen again."
+    },
+    {
+     "at": 11.732,
+     "len": 4.773,
+     "who": "ROBIN",
+     "text": "High means left. Low means right. What are the four turns?"
+    }
+   ]
+  },
+  "ai2-p1-again": {
+   "dur": 11.987,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.44,
+     "who": "NARRATOR",
+     "text": "Listen carefully."
+    },
+    {
+     "at": 5.22,
+     "len": 5.817,
+     "who": "NARRATOR",
+     "text": "If High means left, and Low means right, which four ways do they turn?"
+    }
+   ]
+  },
+  "ai2-p1-reveal": {
+   "dur": 11.691,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 10.491,
+     "who": "ALEX",
+     "text": "Wait, I've got it! High, left. Low, right. Low, right. High, left! Left, right, right, left!"
+    }
+   ]
+  },
+  "ai2-p1-yes": {
+   "dur": 28.792,
+   "lines": [
+    {
+     "at": 6.187,
+     "len": 4.48,
+     "who": "ROBIN",
+     "text": "Left, right, right, left. That's it!"
+    },
+    {
+     "at": 15.867,
+     "len": 11.976,
+     "who": "NARRATOR",
+     "text": "Left. Right. Right. Left. The tunnels twist and turn... until they end at a heavy green door."
+    }
+   ]
+  },
+  "ai2-s3": {
+   "dur": 24.538,
+   "lines": [
+    {
+     "at": 1.68,
+     "len": 1.82,
+     "who": "ALEX",
+     "text": "Hello? Is anybody in there?"
+    },
+    {
+     "at": 4.186,
+     "len": 4.8,
+     "who": "ADA",
+     "text": "Who's there? If you're from Halcyon, you can turn RIGHT back around!"
+    },
+    {
+     "at": 9.336,
+     "len": 2.573,
+     "who": "ROBIN",
+     "text": "Halcyon? The satellite company?"
+    },
+    {
+     "at": 12.259,
+     "len": 4.16,
+     "who": "ALEX",
+     "text": "We're not Halcyon! We're... Decoders! We followed the music!"
+    },
+    {
+     "at": 16.769,
+     "len": 2.46,
+     "who": "ADA",
+     "text": "Anyone can say that. Prove it."
+    },
+    {
+     "at": 19.579,
+     "len": 4.009,
+     "who": "ADA",
+     "text": "What did the signal spell... the very first time?"
+    }
+   ]
+  },
+  "ai2-p2": {
+   "dur": 14.45,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.653,
+     "who": "NARRATOR",
+     "text": "Decoder, do you remember? High was C, and Low was A."
+    },
+    {
+     "at": 7.463,
+     "len": 6.037,
+     "who": "NARRATOR",
+     "text": "What did the signal spell, the very first time? Say the three letters."
+    }
+   ]
+  },
+  "ai2-p2-hint": {
+   "dur": 12.127,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.108,
+     "who": "ROBIN",
+     "text": "Think back! High was C, and Low was A. Listen."
+    },
+    {
+     "at": 7.918,
+     "len": 3.259,
+     "who": "ROBIN",
+     "text": "High, Low, High spells what?"
+    }
+   ]
+  },
+  "ai2-p2-again": {
+   "dur": 11.076,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.092,
+     "who": "NARRATOR",
+     "text": "Listen again."
+    },
+    {
+     "at": 3.902,
+     "len": 6.224,
+     "who": "NARRATOR",
+     "text": "High is C, and Low is A. What did the signal spell?"
+    }
+   ]
+  },
+  "ai2-p2-reveal": {
+   "dur": 4.08,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.88,
+     "who": "ALEX",
+     "text": "C, A, C! It spelled C, A, C!"
+    }
+   ]
+  },
+  "ai2-p2-yes": {
+   "dur": 13.659,
+   "lines": [
+    {
+     "at": 6.187,
+     "len": 3.821,
+     "who": "ADA",
+     "text": "C, A, C. You really did hear it."
+    }
+   ]
+  },
+  "ai2-s4": {
+   "dur": 57.924,
+   "lines": [
+    {
+     "at": 0.45,
+     "len": 6.793,
+     "who": "ADA",
+     "text": "Sorry about that. You can't be too careful. Halcyon drones have been sniffing around these tunnels for weeks."
+    },
+    {
+     "at": 7.593,
+     "len": 2.88,
+     "who": "ALEX",
+     "text": "Whoa. Is this... a radio studio?"
+    },
+    {
+     "at": 10.823,
+     "len": 6.72,
+     "who": "ADA",
+     "text": "An old emergency broadcast room. Built so somebody could talk to all of London, if everything else failed."
+    },
+    {
+     "at": 17.893,
+     "len": 4.67,
+     "who": "ADA",
+     "text": "Well. Everything else failed. I'm Ada."
+    },
+    {
+     "at": 22.913,
+     "len": 5.864,
+     "who": "ROBIN",
+     "text": "Robin. And this is Alex. He gets excited about rocks."
+    },
+    {
+     "at": 29.127,
+     "len": 2.725,
+     "who": "ALEX",
+     "text": "That was ONE rock. And it was shaped like a duck!"
+    },
+    {
+     "at": 32.203,
+     "len": 2.64,
+     "who": "ROBIN",
+     "text": "Ada... what's that writing on the wall?"
+    },
+    {
+     "at": 35.193,
+     "len": 7.125,
+     "who": "ADA",
+     "text": "The Choir is not the enemy. It was already here when I found this place. I don't know who wrote it."
+    },
+    {
+     "at": 42.668,
+     "len": 3.876,
+     "who": "ROBIN",
+     "text": "Not the enemy? The Choir shut down the whole city!"
+    },
+    {
+     "at": 46.894,
+     "len": 10.08,
+     "who": "ADA",
+     "text": "That's what everyone says. But I used to build antennas for Halcyon, the company that ran London's satellites. And some things... never added up."
+    }
+   ]
+  },
+  "ai2-q1": {
+   "dur": 10.926,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.726,
+     "who": "NARRATOR",
+     "text": "Ada knows things about Halcyon. But can she be trusted? Decoder, should they trust Ada? Say yes, or no."
+    }
+   ]
+  },
+  "ai2-trust-yes": {
+   "dur": 9.64,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.0,
+     "who": "ALEX",
+     "text": "I trust her! She has a secret radio room. Secret radio room people are always good."
+    },
+    {
+     "at": 6.6,
+     "len": 2.09,
+     "who": "ADA",
+     "text": "I'll take that."
+    }
+   ]
+  },
+  "ai2-trust-no": {
+   "dur": 8.044,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.734,
+     "who": "ROBIN",
+     "text": "I'm with you, Decoder. We keep one eye on her."
+    },
+    {
+     "at": 3.334,
+     "len": 3.76,
+     "who": "ADA",
+     "text": "That's... fair. I'd do exactly the same."
+    }
+   ]
+  },
+  "ai2-s5": {
+   "dur": 36.858,
+   "lines": [
+    {
+     "at": 2.1,
+     "len": 3.44,
+     "who": "STERLING",
+     "text": "Citizens of London. This is Director Sterling, of Halcyon."
+    },
+    {
+     "at": 5.89,
+     "len": 12.396,
+     "who": "STERLING",
+     "text": "The Choir still hunts above. Stay underground. Stay quiet. And do not, under any circumstances, listen to strange signals."
+    },
+    {
+     "at": 18.636,
+     "len": 2.0,
+     "who": "STERLING",
+     "text": "Halcyon will keep you safe."
+    },
+    {
+     "at": 21.217,
+     "len": 3.44,
+     "who": "ADA",
+     "text": "Sterling. My old boss."
+    },
+    {
+     "at": 25.007,
+     "len": 3.831,
+     "who": "ROBIN",
+     "text": "Wait. Why is a satellite company telling everyone what to do?"
+    },
+    {
+     "at": 29.188,
+     "len": 3.68,
+     "who": "ADA",
+     "text": "That... is exactly the right question."
+    },
+    {
+     "at": 33.218,
+     "len": 2.69,
+     "who": "ALEX",
+     "text": "And why doesn't he want anybody listening to signals?"
+    }
+   ]
+  },
+  "ai2-fin": {
+   "dur": 14.707,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.92,
+     "who": "NARRATOR",
+     "text": "Somewhere above the tunnels, a secret is waiting to be decoded."
+    },
+    {
+     "at": 11.919,
+     "len": 1.838,
+     "who": "NARRATOR",
+     "text": "End of chapter two."
+    }
+   ]
+  },
+  "ai3-title": {
+   "dur": 36.008,
+   "lines": [
+    {
+     "at": 9.766,
+     "len": 3.869,
+     "who": "NARRATOR",
+     "text": "Alien Invasion. Signal Decoders."
+    },
+    {
+     "at": 13.985,
+     "len": 2.469,
+     "who": "NARRATOR",
+     "text": "Chapter three. Halcyon."
+    },
+    {
+     "at": 17.204,
+     "len": 8.0,
+     "who": "NARRATOR",
+     "text": "Previously... the Decoders followed the map in the music to a secret radio room, and met Ada, who used to work for Halcyon."
+    },
+    {
+     "at": 25.554,
+     "len": 9.504,
+     "who": "NARRATOR",
+     "text": "On the wall, someone had written: the Choir is not the enemy. And then, Director Sterling's voice came over the speakers."
+    }
+   ]
+  },
+  "ai3-s1": {
+   "dur": 44.266,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.16,
+     "who": "ADA",
+     "text": "Okay. Let me show you something."
+    },
+    {
+     "at": 4.09,
+     "len": 6.96,
+     "who": "ADA",
+     "text": "This is the Lattice. Four hundred Halcyon satellites, all the way around the Earth."
+    },
+    {
+     "at": 11.4,
+     "len": 6.88,
+     "who": "ADA",
+     "text": "Sterling used to brag that the Lattice could talk to every single phone in London... all at the same time."
+    },
+    {
+     "at": 18.63,
+     "len": 3.498,
+     "who": "ROBIN",
+     "text": "One sound... shut down everything."
+    },
+    {
+     "at": 22.478,
+     "len": 5.987,
+     "who": "ALEX",
+     "text": "Wait. What if the pulse didn't come from the Choir? What if it came from... the Lattice?"
+    },
+    {
+     "at": 28.815,
+     "len": 2.64,
+     "who": "ADA",
+     "text": "That's what I've been too scared to say out loud."
+    },
+    {
+     "at": 31.805,
+     "len": 5.04,
+     "who": "ADA",
+     "text": "If there's any proof, it'll be in the Halcyon depot. Under the old power station, by the river."
+    },
+    {
+     "at": 37.195,
+     "len": 6.121,
+     "who": "ROBIN",
+     "text": "Of course it's under a power station. It's never under a nice bakery."
+    }
+   ]
+  },
+  "ai3-s2": {
+   "dur": 29.41,
+   "lines": [
+    {
+     "at": 5.1,
+     "len": 4.48,
+     "who": "NARRATOR",
+     "text": "After a long, dark walk, they reach a giant steel door."
+    },
+    {
+     "at": 9.93,
+     "len": 3.366,
+     "who": "ADA",
+     "text": "A keypad lock. It needs a three-number code."
+    },
+    {
+     "at": 13.646,
+     "len": 0.888,
+     "who": "ALEX",
+     "text": "Can you hack it?"
+    },
+    {
+     "at": 14.883,
+     "len": 5.2,
+     "who": "ADA",
+     "text": "Hack it? I can LISTEN to it. Every number makes the lock beep."
+    },
+    {
+     "at": 21.45,
+     "len": 2.0,
+     "who": "ADA",
+     "text": "Shh! Listen!"
+    }
+   ]
+  },
+  "ai3-p1": {
+   "dur": 13.2,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.88,
+     "who": "NARRATOR",
+     "text": "Decoder, the lock beeps in three groups."
+    },
+    {
+     "at": 8.49,
+     "len": 3.76,
+     "who": "NARRATOR",
+     "text": "Count the beeps in each group, and say the three numbers."
+    }
+   ]
+  },
+  "ai3-p1-hint": {
+   "dur": 18.051,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.04,
+     "who": "ADA",
+     "text": "Not quite! The first group has three beeps, so the first number is three. Listen again."
+    },
+    {
+     "at": 14.65,
+     "len": 2.451,
+     "who": "ADA",
+     "text": "How many beeps are in the other two groups?"
+    }
+   ]
+  },
+  "ai3-p1-again": {
+   "dur": 11.68,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.2,
+     "who": "NARRATOR",
+     "text": "Listen again."
+    },
+    {
+     "at": 6.81,
+     "len": 3.92,
+     "who": "NARRATOR",
+     "text": "Count the beeps in each group. What are the three numbers?"
+    }
+   ]
+  },
+  "ai3-p1-reveal": {
+   "dur": 7.356,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.156,
+     "who": "ROBIN",
+     "text": "Three beeps... one beep... four beeps. Three, one, four!"
+    }
+   ]
+  },
+  "ai3-p1-yes": {
+   "dur": 13.028,
+   "lines": [
+    {
+     "at": 7.203,
+     "len": 2.4,
+     "who": "ADA",
+     "text": "Three, one, four. We're in!"
+    }
+   ]
+  },
+  "ai3-s3": {
+   "dur": 15.738,
+   "lines": [
+    {
+     "at": 0.55,
+     "len": 2.251,
+     "who": "ALEX",
+     "text": "Whoa. This place is HUGE."
+    },
+    {
+     "at": 3.151,
+     "len": 6.136,
+     "who": "ROBIN",
+     "text": "And full of satellites. Why does a satellite company need a secret basement?"
+    },
+    {
+     "at": 9.638,
+     "len": 2.64,
+     "who": "ADA",
+     "text": "Drone! A Halcyon security drone!"
+    }
+   ]
+  },
+  "ai3-q1": {
+   "dur": 8.896,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.696,
+     "who": "NARRATOR",
+     "text": "The drone's red searchlight sweeps closer. Decoder, should they hide behind the crates? Say yes, or no."
+    }
+   ]
+  },
+  "ai3-hide": {
+   "dur": 8.37,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.795,
+     "who": "NARRATOR",
+     "text": "They dive behind the crates. The searchlight slides over their heads... and moves on."
+    }
+   ]
+  },
+  "ai3-freeze": {
+   "dur": 11.76,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.946,
+     "who": "NARRATOR",
+     "text": "They freeze, as still as statues. The red light sweeps right across Robin's boots..."
+    },
+    {
+     "at": 6.546,
+     "len": 1.914,
+     "who": "ROBIN",
+     "text": "Don't. Sneeze."
+    },
+    {
+     "at": 8.81,
+     "len": 2.0,
+     "who": "NARRATOR",
+     "text": "...and the drone floats away."
+    }
+   ]
+  },
+  "ai3-s4": {
+   "dur": 23.748,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.673,
+     "who": "ALEX",
+     "text": "That was close."
+    },
+    {
+     "at": 2.273,
+     "len": 2.478,
+     "who": "ADA",
+     "text": "Over here! A Halcyon terminal!"
+    },
+    {
+     "at": 6.431,
+     "len": 2.731,
+     "who": "ADA",
+     "text": "It's locked. It wants a password..."
+    },
+    {
+     "at": 13.682,
+     "len": 7.76,
+     "who": "ROBIN",
+     "text": "Listen! It's beeping. Short, short, short. Long, long, long. Short, short, short."
+    },
+    {
+     "at": 21.792,
+     "len": 1.005,
+     "who": "ALEX",
+     "text": "That's Morse code!"
+    }
+   ]
+  },
+  "ai3-p2": {
+   "dur": 19.974,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.214,
+     "who": "NARRATOR",
+     "text": "Decoder, this is Morse code. Three short beeps make the letter S. Three long beeps make the letter O."
+    },
+    {
+     "at": 13.984,
+     "len": 5.04,
+     "who": "NARRATOR",
+     "text": "What three letters is the terminal asking for? Say them out loud."
+    }
+   ]
+  },
+  "ai3-p2-hint": {
+   "dur": 13.414,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.257,
+     "who": "ALEX",
+     "text": "Not quite! Short, short, short is S. Long, long, long is O. Listen again."
+    },
+    {
+     "at": 11.027,
+     "len": 1.436,
+     "who": "ALEX",
+     "text": "What three letters is that?"
+    }
+   ]
+  },
+  "ai3-p2-again": {
+   "dur": 15.36,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.12,
+     "who": "NARRATOR",
+     "text": "Listen again."
+    },
+    {
+     "at": 5.89,
+     "len": 8.52,
+     "who": "NARRATOR",
+     "text": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?"
+    }
+   ]
+  },
+  "ai3-p2-reveal": {
+   "dur": 7.733,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.533,
+     "who": "ROBIN",
+     "text": "S... O... S! It's S, O, S! The signal for help!"
+    }
+   ]
+  },
+  "ai3-p2-yes": {
+   "dur": 11.85,
+   "lines": [
+    {
+     "at": 6.187,
+     "len": 3.314,
+     "who": "ADA",
+     "text": "S, O, S! Of course. The emergency code."
+    }
+   ]
+  },
+  "ai3-s5": {
+   "dur": 49.443,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.775,
+     "who": "NARRATOR",
+     "text": "On the screen, a secret file opens. Its name... Project Hush."
+    },
+    {
+     "at": 7.308,
+     "len": 7.2,
+     "who": "STERLING",
+     "text": "Project Hush. Log one. On Christmas night, the Lattice will sing a single note."
+    },
+    {
+     "at": 14.858,
+     "len": 7.674,
+     "who": "STERLING",
+     "text": "Every phone, every screen, every radio will go silent. London will go quiet."
+    },
+    {
+     "at": 22.882,
+     "len": 6.988,
+     "who": "STERLING",
+     "text": "And when the people wake up, frightened and confused... we'll tell them it was the sky."
+    },
+    {
+     "at": 30.221,
+     "len": 2.033,
+     "who": "STERLING",
+     "text": "And they will need Halcyon more than ever."
+    },
+    {
+     "at": 32.604,
+     "len": 3.04,
+     "who": "ADA",
+     "text": "He did it. Sterling made the pulse."
+    },
+    {
+     "at": 35.994,
+     "len": 1.789,
+     "who": "ALEX",
+     "text": "And he blamed the Choir!"
+    },
+    {
+     "at": 38.133,
+     "len": 2.96,
+     "who": "ROBIN",
+     "text": "So the Choir... was never the enemy."
+    },
+    {
+     "at": 42.773,
+     "len": 1.92,
+     "who": "ADA",
+     "text": "The drone! It's seen us!"
+    },
+    {
+     "at": 45.043,
+     "len": 1.43,
+     "who": "ROBIN",
+     "text": "RUN!"
+    }
+   ]
+  },
+  "ai3-fin": {
+   "dur": 14.896,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.967,
+     "who": "NARRATOR",
+     "text": "Can the Decoders escape Halcyon... and tell the world the truth?"
+    },
+    {
+     "at": 11.966,
+     "len": 1.98,
+     "who": "NARRATOR",
+     "text": "End of chapter three."
+    }
+   ]
+  },
+  "ai4-title": {
+   "dur": 30.513,
+   "lines": [
+    {
+     "at": 9.766,
+     "len": 3.085,
+     "who": "NARRATOR",
+     "text": "Alien Invasion. Signal Decoders."
+    },
+    {
+     "at": 13.201,
+     "len": 2.694,
+     "who": "NARRATOR",
+     "text": "Chapter four. The Choir."
+    },
+    {
+     "at": 16.645,
+     "len": 9.608,
+     "who": "NARRATOR",
+     "text": "Previously... deep in the Halcyon depot, the Decoders uncovered Project Hush. Director Sterling made the pulse himself, and blamed the sky."
+    },
+    {
+     "at": 26.603,
+     "len": 2.96,
+     "who": "NARRATOR",
+     "text": "And then, a Halcyon drone spotted them..."
+    }
+   ]
+  },
+  "ai4-s1": {
+   "dur": 35.61,
+   "lines": [
+    {
+     "at": 4.1,
+     "len": 4.939,
+     "who": "NARRATOR",
+     "text": "Up and up they run, out of the tunnels, until cold air hits their faces."
+    },
+    {
+     "at": 9.389,
+     "len": 5.017,
+     "who": "ALEX",
+     "text": "We're... outside! We haven't been outside since Christmas!"
+    },
+    {
+     "at": 14.757,
+     "len": 3.47,
+     "who": "ADA",
+     "text": "Out in the open. Not my favourite place."
+    },
+    {
+     "at": 18.576,
+     "len": 2.205,
+     "who": "ROBIN",
+     "text": "Guys. Look. Up."
+    },
+    {
+     "at": 21.132,
+     "len": 3.004,
+     "who": "NARRATOR",
+     "text": "Above the river, the clouds begin to glow."
+    },
+    {
+     "at": 24.486,
+     "len": 2.364,
+     "who": "ROBIN",
+     "text": "It's the Choir. It's the CHOIR!"
+    },
+    {
+     "at": 27.199,
+     "len": 2.711,
+     "who": "VOICE",
+     "text": "Not... alone..."
+    },
+    {
+     "at": 30.26,
+     "len": 4.4,
+     "who": "ALEX",
+     "text": "It's... singing. It's singing our music!"
+    }
+   ]
+  },
+  "ai4-s2": {
+   "dur": 50.823,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.046,
+     "who": "ADA",
+     "text": "Alex. Robin. There's something I need to tell you."
+    },
+    {
+     "at": 4.646,
+     "len": 6.732,
+     "who": "ADA",
+     "text": "The signal. The music on your radio... I've been passing it on. Every night, from my antenna."
+    },
+    {
+     "at": 11.728,
+     "len": 0.936,
+     "who": "ROBIN",
+     "text": "YOU sent it?"
+    },
+    {
+     "at": 13.013,
+     "len": 7.36,
+     "who": "ADA",
+     "text": "Not exactly. The song isn't mine. It's the Choir's. I just... made it loud enough for people to hear."
+    },
+    {
+     "at": 20.724,
+     "len": 3.246,
+     "who": "ALEX",
+     "text": "So the signal comes from the Choir... and you!"
+    },
+    {
+     "at": 24.319,
+     "len": 6.367,
+     "who": "ADA",
+     "text": "Halcyon hunts anyone who sends signals. I was scared. I'm sorry."
+    },
+    {
+     "at": 31.036,
+     "len": 9.232,
+     "who": "ROBIN",
+     "text": "Ada, you ran a secret pirate radio station for aliens. That's the coolest thing anyone has ever done."
+    },
+    {
+     "at": 40.618,
+     "len": 1.755,
+     "who": "ADA",
+     "text": "Really?"
+    },
+    {
+     "at": 42.723,
+     "len": 6.916,
+     "who": "NARRATOR",
+     "text": "Above them, the Choir sings again. The same notes as before... but the other way round."
+    }
+   ]
+  },
+  "ai4-p1": {
+   "dur": 21.873,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.253,
+     "who": "NARRATOR",
+     "text": "Decoder, the Choir is singing the old code backwards."
+    },
+    {
+     "at": 11.803,
+     "len": 9.12,
+     "who": "NARRATOR",
+     "text": "The code was four, two, two, one, one. What are those numbers backwards? Say the five numbers."
+    }
+   ]
+  },
+  "ai4-p1-hint": {
+   "dur": 20.136,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.473,
+     "who": "ALEX",
+     "text": "Not quite! Start at the end. Four, two, two, one, ONE. So backwards, it starts with one, one..."
+    },
+    {
+     "at": 17.023,
+     "len": 2.163,
+     "who": "ALEX",
+     "text": "What are all five numbers backwards?"
+    }
+   ]
+  },
+  "ai4-p1-again": {
+   "dur": 16.779,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.124,
+     "who": "NARRATOR",
+     "text": "Listen again."
+    },
+    {
+     "at": 8.674,
+     "len": 7.155,
+     "who": "NARRATOR",
+     "text": "The code was four, two, two, one, one. What is it backwards?"
+    }
+   ]
+  },
+  "ai4-p1-reveal": {
+   "dur": 6.48,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.28,
+     "who": "ROBIN",
+     "text": "One, one, two, two, four! It's our code backwards!"
+    }
+   ]
+  },
+  "ai4-p1-yes": {
+   "dur": 21.8,
+   "lines": [
+    {
+     "at": 6.187,
+     "len": 7.04,
+     "who": "ADA",
+     "text": "Backwards! Of course! A backwards signal... cancels out the forwards one!"
+    },
+    {
+     "at": 13.577,
+     "len": 5.163,
+     "who": "ADA",
+     "text": "That's why the second pulse didn't knock you out. The Choir was singing against it!"
+    },
+    {
+     "at": 19.09,
+     "len": 1.76,
+     "who": "ALEX",
+     "text": "The Choir PROTECTED us!"
+    }
+   ]
+  },
+  "ai4-q1": {
+   "dur": 8.606,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.406,
+     "who": "NARRATOR",
+     "text": "The Choir hums gently above the river. Decoder, do you trust the Choir? Say yes, or no."
+    }
+   ]
+  },
+  "ai4-trust-yes": {
+   "dur": 5.393,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.193,
+     "who": "ROBIN",
+     "text": "Okay. Okay. I... trust you, giant glowing alien."
+    }
+   ]
+  },
+  "ai4-trust-no": {
+   "dur": 6.0,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.8,
+     "who": "ROBIN",
+     "text": "Me neither! But... it did save us. Twice."
+    }
+   ]
+  },
+  "ai4-s3": {
+   "dur": 13.854,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.494,
+     "who": "NARRATOR",
+     "text": "The Choir sings three notes... and then falls silent. Waiting."
+    },
+    {
+     "at": 9.304,
+     "len": 3.6,
+     "who": "ADA",
+     "text": "It wants us to answer! We have to sing its notes back!"
+    }
+   ]
+  },
+  "ai4-p2": {
+   "dur": 10.894,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.694,
+     "who": "NARRATOR",
+     "text": "Decoder, the Choir sang three notes."
+    },
+    {
+     "at": 6.504,
+     "len": 3.44,
+     "who": "NARRATOR",
+     "text": "Sing them back! Say high, or low, for each note."
+    }
+   ]
+  },
+  "ai4-p2-hint": {
+   "dur": 11.743,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.503,
+     "who": "ADA",
+     "text": "Almost! Listen to each note."
+    },
+    {
+     "at": 6.313,
+     "len": 4.48,
+     "who": "ADA",
+     "text": "The first two notes are both high. What's the last one?"
+    }
+   ]
+  },
+  "ai4-p2-again": {
+   "dur": 7.98,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 0.946,
+     "who": "NARRATOR",
+     "text": "Listen again."
+    },
+    {
+     "at": 3.756,
+     "len": 3.274,
+     "who": "NARRATOR",
+     "text": "Say high or low for each of the three notes."
+    }
+   ]
+  },
+  "ai4-p2-reveal": {
+   "dur": 5.373,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.173,
+     "who": "ALEX",
+     "text": "High... high... low! High, high, low!"
+    }
+   ]
+  },
+  "ai4-p2-yes": {
+   "dur": 16.002,
+   "lines": [
+    {
+     "at": 6.187,
+     "len": 5.399,
+     "who": "NARRATOR",
+     "text": "The Choir glows brighter than ever, and its song fills the sky."
+    },
+    {
+     "at": 11.935,
+     "len": 2.0,
+     "who": "VOICE",
+     "text": "Not alone."
+    },
+    {
+     "at": 14.285,
+     "len": 0.767,
+     "who": "ALEX",
+     "text": "Never alone."
+    }
+   ]
+  },
+  "ai4-s4": {
+   "dur": 32.038,
+   "lines": [
+    {
+     "at": 2.1,
+     "len": 4.32,
+     "who": "STERLING",
+     "text": "Citizens of London. Good evening. Tonight is New Year's Eve."
+    },
+    {
+     "at": 6.77,
+     "len": 6.0,
+     "who": "STERLING",
+     "text": "At the stroke of midnight, Halcyon will switch the Lattice back on... from the great wheel by the river."
+    },
+    {
+     "at": 13.12,
+     "len": 2.531,
+     "who": "STERLING",
+     "text": "A new beginning. A quiet one."
+    },
+    {
+     "at": 16.232,
+     "len": 7.899,
+     "who": "ADA",
+     "text": "The great wheel... the London Eye. It's not just a big wheel. It's a giant transmitter!"
+    },
+    {
+     "at": 24.481,
+     "len": 4.0,
+     "who": "ROBIN",
+     "text": "He's going to pulse the whole city again. At midnight!"
+    },
+    {
+     "at": 28.831,
+     "len": 2.08,
+     "who": "ALEX",
+     "text": "Not if the Decoders get there first."
+    }
+   ]
+  },
+  "ai4-fin": {
+   "dur": 13.925,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.06,
+     "who": "NARRATOR",
+     "text": "The race to save London has begun."
+    },
+    {
+     "at": 11.059,
+     "len": 1.916,
+     "who": "NARRATOR",
+     "text": "End of chapter four."
+    }
+   ]
+  },
+  "ai5-title": {
+   "dur": 36.143,
+   "lines": [
+    {
+     "at": 9.766,
+     "len": 3.104,
+     "who": "NARRATOR",
+     "text": "Alien Invasion. Signal Decoders."
+    },
+    {
+     "at": 13.221,
+     "len": 2.96,
+     "who": "NARRATOR",
+     "text": "Chapter five. The Last Note."
+    },
+    {
+     "at": 16.931,
+     "len": 9.741,
+     "who": "NARRATOR",
+     "text": "Previously... the Decoders met the Choir, and learned the truth. The Choir protected London. Director Sterling made the pulse."
+    },
+    {
+     "at": 27.021,
+     "len": 8.172,
+     "who": "NARRATOR",
+     "text": "Now it's New Year's Eve. And at midnight, Sterling will pulse the whole city again... from the London Eye."
+    }
+   ]
+  },
+  "ai5-s1": {
+   "dur": 30.435,
+   "lines": [
+    {
+     "at": 4.1,
+     "len": 4.125,
+     "who": "NARRATOR",
+     "text": "Eleven forty-five. Fifteen minutes to midnight."
+    },
+    {
+     "at": 8.575,
+     "len": 1.217,
+     "who": "ALEX",
+     "text": "Come on, come on!"
+    },
+    {
+     "at": 10.141,
+     "len": 9.506,
+     "who": "ADA",
+     "text": "The Eye's control cabin is right by the river. If I can plug my antenna into the transmitter, we can send the Choir's backwards song to the whole city!"
+    },
+    {
+     "at": 19.997,
+     "len": 1.083,
+     "who": "ROBIN",
+     "text": "And if we can't?"
+    },
+    {
+     "at": 21.43,
+     "len": 5.909,
+     "who": "ADA",
+     "text": "Then at midnight... London goes quiet. For good."
+    },
+    {
+     "at": 27.689,
+     "len": 1.796,
+     "who": "ROBIN",
+     "text": "Great. No pressure."
+    }
+   ]
+  },
+  "ai5-s2": {
+   "dur": 15.054,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 8.354,
+     "who": "NARRATOR",
+     "text": "They burst out onto the riverside. Above them, the London Eye towers into the dark, its centre glowing red."
+    },
+    {
+     "at": 8.954,
+     "len": 2.609,
+     "who": "ALEX",
+     "text": "Drones! Two of them, guarding the cabin!"
+    }
+   ]
+  },
+  "ai5-q1": {
+   "dur": 8.495,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.295,
+     "who": "NARRATOR",
+     "text": "Decoder, should they wait for the drones to fly to the other side, before they run for the cabin? Say yes, or no."
+    }
+   ]
+  },
+  "ai5-wait": {
+   "dur": 10.023,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.04,
+     "who": "NARRATOR",
+     "text": "They wait... and wait... The drones turn away."
+    },
+    {
+     "at": 5.64,
+     "len": 0.72,
+     "who": "ADA",
+     "text": "Now!"
+    }
+   ]
+  },
+  "ai5-dash": {
+   "dur": 10.729,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 1.59,
+     "who": "ALEX",
+     "text": "No time to wait! GO!"
+    },
+    {
+     "at": 4.902,
+     "len": 4.877,
+     "who": "NARRATOR",
+     "text": "They sprint across the snow. A drone spins round... but too late!"
+    }
+   ]
+  },
+  "ai5-s3": {
+   "dur": 28.313,
+   "lines": [
+    {
+     "at": 0.259,
+     "len": 6.585,
+     "who": "NARRATOR",
+     "text": "They tumble into the control cabin. Screens glow red, and a countdown blinks: eleven fifty-five."
+    },
+    {
+     "at": 7.193,
+     "len": 7.116,
+     "who": "ADA",
+     "text": "Antenna in! Okay, okay. To set the counter-song, the machine needs to know how many notes are in it."
+    },
+    {
+     "at": 21.61,
+     "len": 5.753,
+     "who": "ROBIN",
+     "text": "Four, two, two, one, one... the code from the very beginning!"
+    }
+   ]
+  },
+  "ai5-p1": {
+   "dur": 11.31,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.36,
+     "who": "NARRATOR",
+     "text": "Decoder, the code is four, two, two, one, one."
+    },
+    {
+     "at": 5.96,
+     "len": 4.4,
+     "who": "NARRATOR",
+     "text": "How many notes is that, altogether? Add them up, and say the number."
+    }
+   ]
+  },
+  "ai5-p1-hint": {
+   "dur": 14.097,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.379,
+     "who": "ROBIN",
+     "text": "Let's count together. Four, plus two, is six. Plus two more is..."
+    },
+    {
+     "at": 6.979,
+     "len": 6.167,
+     "who": "ROBIN",
+     "text": "Keep going! Add the one, and the other one. How many altogether?"
+    }
+   ]
+  },
+  "ai5-p1-again": {
+   "dur": 10.16,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 8.96,
+     "who": "NARRATOR",
+     "text": "Four, plus two, plus two, plus one, plus one. How many notes is that, altogether?"
+    }
+   ]
+  },
+  "ai5-p1-reveal": {
+   "dur": 10.701,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.501,
+     "who": "ALEX",
+     "text": "Four plus two is six. Plus two is eight. Plus one is nine. Plus one is TEN! Ten notes!"
+    }
+   ]
+  },
+  "ai5-p1-yes": {
+   "dur": 11.196,
+   "lines": [
+    {
+     "at": 6.187,
+     "len": 4.059,
+     "who": "ADA",
+     "text": "Ten! Setting it to ten... and... it's ready!"
+    }
+   ]
+  },
+  "ai5-s4": {
+   "dur": 30.869,
+   "lines": [
+    {
+     "at": 2.1,
+     "len": 3.44,
+     "who": "STERLING",
+     "text": "Well, well. Children. In my control cabin."
+    },
+    {
+     "at": 5.89,
+     "len": 1.517,
+     "who": "STERLING",
+     "text": "Step away from my wheel."
+    },
+    {
+     "at": 7.757,
+     "len": 2.672,
+     "who": "ALEX",
+     "text": "No way! We know all about Project Hush!"
+    },
+    {
+     "at": 10.779,
+     "len": 3.68,
+     "who": "STERLING",
+     "text": "Nobody will believe you. Nobody can even hear you."
+    },
+    {
+     "at": 14.809,
+     "len": 2.0,
+     "who": "ADA",
+     "text": "They will in a minute."
+    },
+    {
+     "at": 21.009,
+     "len": 3.52,
+     "who": "NARRATOR",
+     "text": "Across the river, Big Ben begins to chime midnight."
+    },
+    {
+     "at": 24.879,
+     "len": 5.04,
+     "who": "STERLING",
+     "text": "Too late. When the last bell rings, London goes quiet."
+    }
+   ]
+  },
+  "ai5-q2": {
+   "dur": 8.15,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.95,
+     "who": "NARRATOR",
+     "text": "Decoder, this is it. Will you help the Decoders broadcast the truth to all of London? Say yes!"
+    }
+   ]
+  },
+  "ai5-nudge": {
+   "dur": 6.111,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.911,
+     "who": "ROBIN",
+     "text": "We can't do this without you, Decoder! Please... say yes!"
+    }
+   ]
+  },
+  "ai5-climax": {
+   "dur": 39.927,
+   "lines": [
+    {
+     "at": 1.059,
+     "len": 2.422,
+     "who": "ADA",
+     "text": "Broadcasting... NOW!"
+    },
+    {
+     "at": 3.831,
+     "len": 5.291,
+     "who": "NARRATOR",
+     "text": "From the top of the London Eye, the Choir's backwards song pours out over the city."
+    },
+    {
+     "at": 16.422,
+     "len": 2.64,
+     "who": "NARRATOR",
+     "text": "And then, Ada plays one more recording."
+    },
+    {
+     "at": 20.346,
+     "len": 8.747,
+     "who": "STERLING",
+     "text": "Project Hush. On Christmas night, the Lattice will sing a single note... and we'll tell them it was the sky."
+    },
+    {
+     "at": 29.443,
+     "len": 5.535,
+     "who": "NARRATOR",
+     "text": "Every radio in London hears it. Every survivor, in every tunnel."
+    },
+    {
+     "at": 35.328,
+     "len": 2.319,
+     "who": "STERLING",
+     "text": "No! No, no, no! Switch that off!"
+    }
+   ]
+  },
+  "ai5-end": {
+   "dur": 35.833,
+   "lines": [
+    {
+     "at": 4.1,
+     "len": 3.347,
+     "who": "NARRATOR",
+     "text": "The last bell rings out. Twelve o'clock."
+    },
+    {
+     "at": 11.647,
+     "len": 4.8,
+     "who": "NARRATOR",
+     "text": "And all across London... the lights come back on."
+    },
+    {
+     "at": 16.797,
+     "len": 5.12,
+     "who": "NARRATOR",
+     "text": "Out of the tunnels and stations, the people of London climb up into the new year, cheering."
+    },
+    {
+     "at": 22.267,
+     "len": 1.84,
+     "who": "VOICE",
+     "text": "Not alone."
+    },
+    {
+     "at": 24.457,
+     "len": 1.602,
+     "who": "ALEX",
+     "text": "Never alone."
+    },
+    {
+     "at": 26.409,
+     "len": 5.805,
+     "who": "ROBIN",
+     "text": "I'm not crying. It's the fireworks. They're very... smoky."
+    },
+    {
+     "at": 32.563,
+     "len": 2.32,
+     "who": "ADA",
+     "text": "Happy New Year, Decoders."
+    }
+   ]
+  },
+  "ai5-fin": {
+   "dur": 34.445,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 10.48,
+     "who": "NARRATOR",
+     "text": "So the signal was never a threat. It was a friend, trying to help... and a team of Decoders, brave enough to listen."
+    },
+    {
+     "at": 11.08,
+     "len": 11.382,
+     "who": "NARRATOR",
+     "text": "And Director Sterling? He was last seen running across Tower Bridge... chased by a very cross crowd, and one small Halcyon drone with a mind of its own."
+    },
+    {
+     "at": 30.733,
+     "len": 2.762,
+     "who": "NARRATOR",
+     "text": "The end... of season one."
+    }
+   ]
+  }
+ },
+ "prompts": {
+  "ai-open-2": {
+   "dur": 4.791,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.241,
+     "who": "NARRATOR",
+     "text": "Are you ready to join the Decoders? Say yes, or no."
+    }
+   ]
+  },
+  "ai-open-no": {
+   "dur": 4.63,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.08,
+     "who": "NARRATOR",
+     "text": "Will you help the Decoders? Say yes, or no."
+    }
+   ]
+  },
+  "ai-p1": {
+   "dur": 11.96,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 11.41,
+     "who": "NARRATOR",
+     "text": "If High is the note C, and Low is the note A, what three letters is the signal playing? High, Low, High."
+    }
+   ]
+  },
+  "ai-p1-hint": {
+   "dur": 10.395,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.845,
+     "who": "NARRATOR",
+     "text": "If High is C, and Low is A, what three letters is the signal playing? High, Low, High."
+    }
+   ]
+  },
+  "ai-p1-again": {
+   "dur": 10.536,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.986,
+     "who": "NARRATOR",
+     "text": "If High is the note C, and Low is the note A, what three letters is the signal playing? High, Low, High."
+    }
+   ]
+  },
+  "ai-s3c": {
+   "dur": 6.15,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.6,
+     "who": "NARRATOR",
+     "text": "Should Alex and Robin keep listening to the radio tonight? Say yes, or no."
+    }
+   ]
+  },
+  "ai-warn-3": {
+   "dur": 6.95,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.4,
+     "who": "NARRATOR",
+     "text": "Do you think the signal is trying to help Alex and Robin? Say yes, or no."
+    }
+   ]
+  },
+  "ai-p2": {
+   "dur": 5.67,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.12,
+     "who": "NARRATOR",
+     "text": "Count the notes in each group of the signal. What numbers do you hear?"
+    }
+   ]
+  },
+  "ai-p2-hint": {
+   "dur": 7.379,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.829,
+     "who": "NARRATOR",
+     "text": "Count the notes in each group. The first group has four. What numbers come next?"
+    }
+   ]
+  },
+  "ai-p2-again": {
+   "dur": 5.796,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.246,
+     "who": "NARRATOR",
+     "text": "Count the notes in each group of the signal. What numbers do you hear?"
+    }
+   ]
+  },
+  "ai-choice": {
+   "dur": 6.47,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.92,
+     "who": "NARRATOR",
+     "text": "Should the Decoders follow the signal, or hide? Say follow, or hide."
+    }
+   ]
+  },
+  "ai2-p1": {
+   "dur": 6.79,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.24,
+     "who": "NARRATOR",
+     "text": "If High means left, and Low means right, which four ways should they turn?"
+    }
+   ]
+  },
+  "ai2-p1-hint": {
+   "dur": 6.469,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.919,
+     "who": "NARRATOR",
+     "text": "If High means left, and Low means right, which four ways should they turn?"
+    }
+   ]
+  },
+  "ai2-p1-again": {
+   "dur": 6.428,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.878,
+     "who": "NARRATOR",
+     "text": "If High means left, and Low means right, which four ways should they turn?"
+    }
+   ]
+  },
+  "ai2-p2": {
+   "dur": 4.87,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.32,
+     "who": "NARRATOR",
+     "text": "What three letters did the signal spell, the very first time?"
+    }
+   ]
+  },
+  "ai2-p2-hint": {
+   "dur": 4.71,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.16,
+     "who": "NARRATOR",
+     "text": "What three letters did the signal spell, the very first time?"
+    }
+   ]
+  },
+  "ai2-p2-again": {
+   "dur": 4.286,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.736,
+     "who": "NARRATOR",
+     "text": "What three letters did the signal spell, the very first time?"
+    }
+   ]
+  },
+  "ai2-q1": {
+   "dur": 5.43,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.88,
+     "who": "NARRATOR",
+     "text": "Should Alex and Robin trust Ada? Say yes, or no."
+    }
+   ]
+  },
+  "ai3-p1": {
+   "dur": 4.132,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.582,
+     "who": "NARRATOR",
+     "text": "Count the beeps in each group. What are the three numbers?"
+    }
+   ]
+  },
+  "ai3-p1-hint": {
+   "dur": 4.177,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.627,
+     "who": "NARRATOR",
+     "text": "Count the beeps in each group. What are the three numbers?"
+    }
+   ]
+  },
+  "ai3-p1-again": {
+   "dur": 4.403,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.853,
+     "who": "NARRATOR",
+     "text": "Count the beeps in each group. What are the three numbers?"
+    }
+   ]
+  },
+  "ai3-q1": {
+   "dur": 4.182,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.632,
+     "who": "NARRATOR",
+     "text": "Should they hide behind the crates? Say yes, or no."
+    }
+   ]
+  },
+  "ai3-p2": {
+   "dur": 9.03,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 8.48,
+     "who": "NARRATOR",
+     "text": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?"
+    }
+   ]
+  },
+  "ai3-p2-hint": {
+   "dur": 9.03,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 8.48,
+     "who": "NARRATOR",
+     "text": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?"
+    }
+   ]
+  },
+  "ai3-p2-again": {
+   "dur": 8.71,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 8.16,
+     "who": "NARRATOR",
+     "text": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?"
+    }
+   ]
+  },
+  "ai4-p1": {
+   "dur": 8.245,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.695,
+     "who": "NARRATOR",
+     "text": "The code was four, two, two, one, one. What is it backwards?"
+    }
+   ]
+  },
+  "ai4-p1-hint": {
+   "dur": 7.91,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.36,
+     "who": "NARRATOR",
+     "text": "The code was four, two, two, one, one. What is it backwards?"
+    }
+   ]
+  },
+  "ai4-p1-again": {
+   "dur": 7.35,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.8,
+     "who": "NARRATOR",
+     "text": "The code was four, two, two, one, one. What is it backwards?"
+    }
+   ]
+  },
+  "ai4-q1": {
+   "dur": 4.39,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.84,
+     "who": "NARRATOR",
+     "text": "Do you trust the Choir? Say yes, or no."
+    }
+   ]
+  },
+  "ai4-p2": {
+   "dur": 5.318,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.768,
+     "who": "NARRATOR",
+     "text": "The Choir sang three notes. Say high or low for each one."
+    }
+   ]
+  },
+  "ai4-p2-hint": {
+   "dur": 5.27,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.72,
+     "who": "NARRATOR",
+     "text": "The Choir sang three notes. Say high or low for each one."
+    }
+   ]
+  },
+  "ai4-p2-again": {
+   "dur": 5.68,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.13,
+     "who": "NARRATOR",
+     "text": "The Choir sang three notes. Say high or low for each one."
+    }
+   ]
+  },
+  "ai5-q1": {
+   "dur": 4.55,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.0,
+     "who": "NARRATOR",
+     "text": "Should they wait for the drones to turn away? Say yes, or no."
+    }
+   ]
+  },
+  "ai5-p1": {
+   "dur": 10.31,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.76,
+     "who": "NARRATOR",
+     "text": "Four plus two plus two plus one plus one. How many notes is that, altogether?"
+    }
+   ]
+  },
+  "ai5-p1-hint": {
+   "dur": 7.91,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.36,
+     "who": "NARRATOR",
+     "text": "Four plus two plus two plus one plus one. How many notes is that, altogether?"
+    }
+   ]
+  },
+  "ai5-p1-again": {
+   "dur": 7.224,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.674,
+     "who": "NARRATOR",
+     "text": "Four plus two plus two plus one plus one. How many notes is that, altogether?"
+    }
+   ]
+  },
+  "ai5-q2": {
+   "dur": 5.941,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 5.391,
+     "who": "NARRATOR",
+     "text": "Will you help broadcast the truth to all of London? Say yes!"
+    }
+   ]
+  },
+  "ai5-nudge": {
+   "dur": 4.584,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.034,
+     "who": "NARRATOR",
+     "text": "Will you help them broadcast the truth? Say yes!"
+    }
+   ]
+  }
+ },
+ "common": {
+  "restart": {
+   "dur": 4.0,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 2.8,
+     "who": "NARRATOR",
+     "text": "Let's tune in again, from the very beginning."
+    }
+   ]
+  },
+  "resume": {
+   "dur": 5.415,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 4.215,
+     "who": "NARRATOR",
+     "text": "Welcome back, Decoder. Let's pick up the signal where we left off."
+    }
+   ]
+  },
+  "unhandled": {
+   "dur": 5.12,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.92,
+     "who": "NARRATOR",
+     "text": "Sorry, Decoder, the signal's a bit fuzzy. Can you say that again?"
+    }
+   ]
+  },
+  "help": {
+   "dur": 8.155,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 6.955,
+     "who": "NARRATOR",
+     "text": "Listen carefully to the signal, and answer out loud. You can say repeat to hear it again."
+    }
+   ]
+  },
+  "upsell": {
+   "dur": 8.234,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.034,
+     "who": "NARRATOR",
+     "text": "To keep decoding the signal every day, you need Unlimited Mini Games. Do you want to unlock Unlimited Mini Games?"
+    }
+   ]
+  },
+  "upsell-reprompt": {
+   "dur": 4.27,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.07,
+     "who": "NARRATOR",
+     "text": "Do you want to unlock Unlimited Mini Games?"
+    }
+   ]
+  },
+  "outro-1": {
+   "dur": 8.931,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.731,
+     "who": "NARRATOR",
+     "text": "You finished chapter one of Alien Invasion, and earned twenty coins! Would you like to play chapter two, or play a different game?"
+    }
+   ]
+  },
+  "outro-2": {
+   "dur": 8.472,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.272,
+     "who": "NARRATOR",
+     "text": "You finished chapter two of Alien Invasion, and earned twenty coins! Would you like to play chapter three, or play a different game?"
+    }
+   ]
+  },
+  "outro-3": {
+   "dur": 9.082,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 7.882,
+     "who": "NARRATOR",
+     "text": "You finished chapter three of Alien Invasion, and earned twenty coins! Would you like to play chapter four, or play a different game?"
+    }
+   ]
+  },
+  "outro-4": {
+   "dur": 9.51,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 8.31,
+     "who": "NARRATOR",
+     "text": "You finished chapter four of Alien Invasion, and earned twenty coins! Would you like to play chapter five, or play a different game?"
+    }
+   ]
+  },
+  "outro-5": {
+   "dur": 10.873,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 9.673,
+     "who": "NARRATOR",
+     "text": "You finished the whole season of Alien Invasion, and earned twenty more coins! Well done, Decoder! Would you like to play again from the very beginning, or play a different game?"
+    }
+   ]
+  },
+  "outro-reprompt": {
+   "dur": 4.694,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.494,
+     "who": "NARRATOR",
+     "text": "Would you like to play the next chapter, or play a different game?"
+    }
+   ]
+  },
+  "outro-reprompt-end": {
+   "dur": 4.499,
+   "lines": [
+    {
+     "at": 0.25,
+     "len": 3.299,
+     "who": "NARRATOR",
+     "text": "Would you like to play again, or play a different game?"
+    }
+   ]
+  }
+ },
+ "nodes": [
+  {
+   "id": "ai-title",
+   "slug": "ai-title",
+   "reprompt": null
+  },
+  {
+   "id": "ai-open-1",
+   "slug": "ai-open-1",
+   "reprompt": null
+  },
+  {
+   "id": "ai-open-2",
+   "slug": "ai-open-2",
+   "reprompt": "Are you ready to join the Decoders? Say yes, or no."
+  },
+  {
+   "id": "ai-open-no",
+   "slug": "ai-open-no",
+   "reprompt": "Will you help the Decoders? Say yes, or no."
+  },
+  {
+   "id": "ai-exit",
+   "slug": "ai-exit",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s1a",
+   "slug": "ai-s1a",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s1b",
+   "slug": "ai-s1b",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s1c",
+   "slug": "ai-s1c",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s2",
+   "slug": "ai-s2",
+   "reprompt": null
+  },
+  {
+   "id": "ai-p1",
+   "slug": "ai-p1",
+   "reprompt": "If High is the note C, and Low is the note A, what three letters is the signal playing? High, Low, High."
+  },
+  {
+   "id": "ai-p1-hint",
+   "slug": "ai-p1-hint",
+   "reprompt": "If High is C, and Low is A, what three letters is the signal playing? High, Low, High."
+  },
+  {
+   "id": "ai-p1-again",
+   "slug": "ai-p1-again",
+   "reprompt": "If High is the note C, and Low is the note A, what three letters is the signal playing? High, Low, High."
+  },
+  {
+   "id": "ai-p1-reveal",
+   "slug": "ai-p1-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai-p1-yes",
+   "slug": "ai-p1-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s3a",
+   "slug": "ai-s3a",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s3b",
+   "slug": "ai-s3b",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s3c",
+   "slug": "ai-s3c",
+   "reprompt": "Should Alex and Robin keep listening to the radio tonight? Say yes, or no."
+  },
+  {
+   "id": "ai-s3-off",
+   "slug": "ai-s3-off",
+   "reprompt": null
+  },
+  {
+   "id": "ai-warn-1",
+   "slug": "ai-warn-1",
+   "reprompt": null
+  },
+  {
+   "id": "ai-warn-2",
+   "slug": "ai-warn-2",
+   "reprompt": null
+  },
+  {
+   "id": "ai-warn-3",
+   "slug": "ai-warn-3",
+   "reprompt": "Do you think the signal is trying to help Alex and Robin? Say yes, or no."
+  },
+  {
+   "id": "ai-think-yes",
+   "slug": "ai-think-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai-think-no",
+   "slug": "ai-think-no",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s5",
+   "slug": "ai-s5",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s5b",
+   "slug": "ai-s5b",
+   "reprompt": null
+  },
+  {
+   "id": "ai-p2-intro",
+   "slug": "ai-p2-intro",
+   "reprompt": null
+  },
+  {
+   "id": "ai-p2",
+   "slug": "ai-p2",
+   "reprompt": "Count the notes in each group of the signal. What numbers do you hear?"
+  },
+  {
+   "id": "ai-p2-hint",
+   "slug": "ai-p2-hint",
+   "reprompt": "Count the notes in each group. The first group has four. What numbers come next?"
+  },
+  {
+   "id": "ai-p2-again",
+   "slug": "ai-p2-again",
+   "reprompt": "Count the notes in each group of the signal. What numbers do you hear?"
+  },
+  {
+   "id": "ai-p2-reveal",
+   "slug": "ai-p2-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai-p2-yes",
+   "slug": "ai-p2-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s6a",
+   "slug": "ai-s6a",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s6b",
+   "slug": "ai-s6b",
+   "reprompt": null
+  },
+  {
+   "id": "ai-s6c",
+   "slug": "ai-s6c",
+   "reprompt": null
+  },
+  {
+   "id": "ai-choice",
+   "slug": "ai-choice",
+   "reprompt": "Should the Decoders follow the signal, or hide? Say follow, or hide."
+  },
+  {
+   "id": "ai-end",
+   "slug": "ai-end",
+   "reprompt": null
+  },
+  {
+   "id": "ai-fin-follow",
+   "slug": "ai-fin-follow",
+   "reprompt": null
+  },
+  {
+   "id": "ai-fin-hide",
+   "slug": "ai-fin-hide",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-title",
+   "slug": "ai2-title",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-s1f",
+   "slug": "ai2-s1f",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-s1h",
+   "slug": "ai2-s1h",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-s1b",
+   "slug": "ai2-s1b",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-s2",
+   "slug": "ai2-s2",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-p1",
+   "slug": "ai2-p1",
+   "reprompt": "If High means left, and Low means right, which four ways should they turn?"
+  },
+  {
+   "id": "ai2-p1-hint",
+   "slug": "ai2-p1-hint",
+   "reprompt": "If High means left, and Low means right, which four ways should they turn?"
+  },
+  {
+   "id": "ai2-p1-again",
+   "slug": "ai2-p1-again",
+   "reprompt": "If High means left, and Low means right, which four ways should they turn?"
+  },
+  {
+   "id": "ai2-p1-reveal",
+   "slug": "ai2-p1-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-p1-yes",
+   "slug": "ai2-p1-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-s3",
+   "slug": "ai2-s3",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-p2",
+   "slug": "ai2-p2",
+   "reprompt": "What three letters did the signal spell, the very first time?"
+  },
+  {
+   "id": "ai2-p2-hint",
+   "slug": "ai2-p2-hint",
+   "reprompt": "What three letters did the signal spell, the very first time?"
+  },
+  {
+   "id": "ai2-p2-again",
+   "slug": "ai2-p2-again",
+   "reprompt": "What three letters did the signal spell, the very first time?"
+  },
+  {
+   "id": "ai2-p2-reveal",
+   "slug": "ai2-p2-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-p2-yes",
+   "slug": "ai2-p2-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-s4",
+   "slug": "ai2-s4",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-q1",
+   "slug": "ai2-q1",
+   "reprompt": "Should Alex and Robin trust Ada? Say yes, or no."
+  },
+  {
+   "id": "ai2-trust-yes",
+   "slug": "ai2-trust-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-trust-no",
+   "slug": "ai2-trust-no",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-s5",
+   "slug": "ai2-s5",
+   "reprompt": null
+  },
+  {
+   "id": "ai2-fin",
+   "slug": "ai2-fin",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-title",
+   "slug": "ai3-title",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-s1",
+   "slug": "ai3-s1",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-s2",
+   "slug": "ai3-s2",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-p1",
+   "slug": "ai3-p1",
+   "reprompt": "Count the beeps in each group. What are the three numbers?"
+  },
+  {
+   "id": "ai3-p1-hint",
+   "slug": "ai3-p1-hint",
+   "reprompt": "Count the beeps in each group. What are the three numbers?"
+  },
+  {
+   "id": "ai3-p1-again",
+   "slug": "ai3-p1-again",
+   "reprompt": "Count the beeps in each group. What are the three numbers?"
+  },
+  {
+   "id": "ai3-p1-reveal",
+   "slug": "ai3-p1-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-p1-yes",
+   "slug": "ai3-p1-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-s3",
+   "slug": "ai3-s3",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-q1",
+   "slug": "ai3-q1",
+   "reprompt": "Should they hide behind the crates? Say yes, or no."
+  },
+  {
+   "id": "ai3-hide",
+   "slug": "ai3-hide",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-freeze",
+   "slug": "ai3-freeze",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-s4",
+   "slug": "ai3-s4",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-p2",
+   "slug": "ai3-p2",
+   "reprompt": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?"
+  },
+  {
+   "id": "ai3-p2-hint",
+   "slug": "ai3-p2-hint",
+   "reprompt": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?"
+  },
+  {
+   "id": "ai3-p2-again",
+   "slug": "ai3-p2-again",
+   "reprompt": "Three short beeps are S. Three long beeps are O. What three letters is it asking for?"
+  },
+  {
+   "id": "ai3-p2-reveal",
+   "slug": "ai3-p2-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-p2-yes",
+   "slug": "ai3-p2-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-s5",
+   "slug": "ai3-s5",
+   "reprompt": null
+  },
+  {
+   "id": "ai3-fin",
+   "slug": "ai3-fin",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-title",
+   "slug": "ai4-title",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-s1",
+   "slug": "ai4-s1",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-s2",
+   "slug": "ai4-s2",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-p1",
+   "slug": "ai4-p1",
+   "reprompt": "The code was four, two, two, one, one. What is it backwards?"
+  },
+  {
+   "id": "ai4-p1-hint",
+   "slug": "ai4-p1-hint",
+   "reprompt": "The code was four, two, two, one, one. What is it backwards?"
+  },
+  {
+   "id": "ai4-p1-again",
+   "slug": "ai4-p1-again",
+   "reprompt": "The code was four, two, two, one, one. What is it backwards?"
+  },
+  {
+   "id": "ai4-p1-reveal",
+   "slug": "ai4-p1-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-p1-yes",
+   "slug": "ai4-p1-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-q1",
+   "slug": "ai4-q1",
+   "reprompt": "Do you trust the Choir? Say yes, or no."
+  },
+  {
+   "id": "ai4-trust-yes",
+   "slug": "ai4-trust-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-trust-no",
+   "slug": "ai4-trust-no",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-s3",
+   "slug": "ai4-s3",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-p2",
+   "slug": "ai4-p2",
+   "reprompt": "The Choir sang three notes. Say high or low for each one."
+  },
+  {
+   "id": "ai4-p2-hint",
+   "slug": "ai4-p2-hint",
+   "reprompt": "The Choir sang three notes. Say high or low for each one."
+  },
+  {
+   "id": "ai4-p2-again",
+   "slug": "ai4-p2-again",
+   "reprompt": "The Choir sang three notes. Say high or low for each one."
+  },
+  {
+   "id": "ai4-p2-reveal",
+   "slug": "ai4-p2-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-p2-yes",
+   "slug": "ai4-p2-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-s4",
+   "slug": "ai4-s4",
+   "reprompt": null
+  },
+  {
+   "id": "ai4-fin",
+   "slug": "ai4-fin",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-title",
+   "slug": "ai5-title",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-s1",
+   "slug": "ai5-s1",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-s2",
+   "slug": "ai5-s2",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-q1",
+   "slug": "ai5-q1",
+   "reprompt": "Should they wait for the drones to turn away? Say yes, or no."
+  },
+  {
+   "id": "ai5-wait",
+   "slug": "ai5-wait",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-dash",
+   "slug": "ai5-dash",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-s3",
+   "slug": "ai5-s3",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-p1",
+   "slug": "ai5-p1",
+   "reprompt": "Four plus two plus two plus one plus one. How many notes is that, altogether?"
+  },
+  {
+   "id": "ai5-p1-hint",
+   "slug": "ai5-p1-hint",
+   "reprompt": "Four plus two plus two plus one plus one. How many notes is that, altogether?"
+  },
+  {
+   "id": "ai5-p1-again",
+   "slug": "ai5-p1-again",
+   "reprompt": "Four plus two plus two plus one plus one. How many notes is that, altogether?"
+  },
+  {
+   "id": "ai5-p1-reveal",
+   "slug": "ai5-p1-reveal",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-p1-yes",
+   "slug": "ai5-p1-yes",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-s4",
+   "slug": "ai5-s4",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-q2",
+   "slug": "ai5-q2",
+   "reprompt": "Will you help broadcast the truth to all of London? Say yes!"
+  },
+  {
+   "id": "ai5-nudge",
+   "slug": "ai5-nudge",
+   "reprompt": "Will you help them broadcast the truth? Say yes!"
+  },
+  {
+   "id": "ai5-climax",
+   "slug": "ai5-climax",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-end",
+   "slug": "ai5-end",
+   "reprompt": null
+  },
+  {
+   "id": "ai5-fin",
+   "slug": "ai5-fin",
+   "reprompt": null
+  }
+ ],
+ "voices": [
+  "ADA",
+  "ALEX",
+  "NARRATOR",
+  "ROBIN",
+  "STERLING",
+  "VOICE"
+ ]
+}
