@@ -13,6 +13,8 @@ android/build/
 android/**/build/
 android/.idea/
 android/.kotlin/
+# copies of the sources that VS Code's Java extension writes
+android/**/bin/
 *.iml
 captures/
 
