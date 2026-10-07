@@ -11,3 +11,7 @@ gradlew text eol=lf
 *.opus binary
 *.wav binary
 *.zip binary
+*.caf binary
+*.sh text eol=lf
+*.pbxproj text eol=lf
+fixtures/engine/** linguist-generated=true

@@ -61,6 +61,48 @@ class MapsTest {
         }
     }
 
+    @Test
+    fun okayAndNotNowAnswerAsYesAndNoDo() {
+        // fixed: "okay", "ok" and "not now" weren't understood in Alien Customs, Pirate Quest, The Werewolf and others
+        for (map in maps()) {
+            for (n in map.nodes.values) {
+                val ask = n.ask ?: continue
+                if (ask.answers.none { it.match is Match.Yes } || ask.answers.none { it.match is Match.No }) continue
+                val vars = map.vars + mapOf("tries" to 0.0)
+                fun action(said: String) = Matcher.match(map, ask, vars, said).index?.let { ask.answers[it].go }
+                for ((said, like) in listOf("okay" to "yes", "ok" to "yes", "not now" to "no")) {
+                    assertEquals("${map.id} ${n.id}: \"$said\"", action(like), action(said))
+                }
+            }
+        }
+    }
+
+    @Test
+    fun noPatternHasAControlCharacter() {
+        // fixed: Signal Decoders had 54 patterns with a backspace where "\b" was meant, so they never matched
+        for (map in maps()) {
+            for (n in map.nodes.values) {
+                for (a in n.ask?.answers.orEmpty()) {
+                    val re = (a.match as? Match.Re)?.pattern ?: continue
+                    assertTrue("${map.id} ${n.id}: a control character in $re", re.none { it < ' ' || it == '\u007f' })
+                }
+            }
+        }
+    }
+
+    @Test
+    fun aSignalDecodersAnswerWithAgainInItIsATry() {
+        // fixed: "esos again" played the puzzle again (its catcher never matched) instead of counting a try
+        val map = GameMap.load(File(gamesDir, "signal-decoders/map.json"))
+        val s = Session(map)
+        s.restore(Saved("ai-p1", map.vars, false))
+        val t = s.answer("esos again")
+        assertEquals(1.0, s.vars["tries"])
+        assertEquals("ai-p1-hint", t.node)
+        s.answer("say that again")
+        assertEquals("a plain repeat isn't a try", 1.0, s.vars["tries"])
+    }
+
     /**
      * Explores the states (node and variables, decks aside) with every kind of answer and the first random branches,
      * up to a limit; then random walks reach what that missed (questions drawn from big decks, long streaks).

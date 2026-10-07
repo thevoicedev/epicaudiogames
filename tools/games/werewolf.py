@@ -33,7 +33,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from content import Content, HOST  # noqa: E402
-from skill import words  # noqa: E402
+from skill import NO, YES, words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 GAME = "the-werewolf"
@@ -528,7 +528,7 @@ game_map = {
     "keep": [f"sv{k}" for k in range(1, N + 1)] + [f"us{k}" for k in range(1, N + 1)] + ["plays"],
     "repeat": "reprompt",
     "who": {HOST: "", "NARRATOR": "Narrator", **{key.upper(): CH[key]["display"] for key in KEYS}},
-    "words": words(["yes", "yeah", "yep", "yup", "sure"], ["no", "nope", "nah"],
+    "words": words(YES, NO,
                    ["repeat", "repeat that", "say that again", "say it again", "what did you say", "come again",
                     "pardon", "one more time"]),
     "nodes": nodes,

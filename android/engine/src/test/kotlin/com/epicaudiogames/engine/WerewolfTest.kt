@@ -175,4 +175,44 @@ class WerewolfTest {
         assertEquals("You chose villager 3, the farmer.", third.said().first())
         assertTrue(third.said().contains("You chuck the farmer in jail!"))
     }
+
+    @Test
+    fun theGuessIsSaidOrTyped() {
+        // reverted: no villager buttons; the villagers are listed in the chat and named by voice or typing
+        val s = storyOne()
+        var t = s.answer("yes")
+        while (t.node != "ga") t = s.answer("next")
+        assertEquals(listOf("List villagers"), t.ask!!.buttons.map { it.label })
+        assertTrue(s.answer("the barmaid").said().contains("You chuck the barmaid in jail!"))
+    }
+
+    @Test
+    fun oneMoreTimeIsARepeatNotANumber() {
+        // fixed: "one more time" was read as a 1: story 1 at the offer, the baker jailed at the guess
+        val offer = Session(map) { 0 }
+        offer.start()
+        offer.answer("yes")
+        offer.answer("3")
+        val again = offer.answer("one more time")
+        assertEquals(3.0, offer.vars["off"])
+        assertFalse(again.said().any { it.contains("The Midnight Hunger") })
+        val s = storyOne()
+        var t = s.answer("yes")
+        while (t.node != "ga") t = s.answer("next")
+        val guess = s.answer("one more time")
+        assertEquals("ga", guess.node)
+        assertFalse(guess.said().any { it.contains("in jail") })
+        assertEquals("You chose villager 1, the baker.", s.answer("1").said().first())
+    }
+
+    @Test
+    fun okayAndNotNowAtTheStart() {
+        // fixed: "okay" and "not now" weren't understood
+        val s = Session(map) { 0 }
+        s.start()
+        assertTrue(s.answer("okay").said().last().startsWith("Time to choose a mystery."))
+        val leave = Session(map) { 0 }
+        leave.start()
+        assertTrue(leave.answer("not now").quit)
+    }
 }

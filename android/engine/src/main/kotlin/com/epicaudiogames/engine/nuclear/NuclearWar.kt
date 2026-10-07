@@ -42,7 +42,9 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
             "definitely", "absolutely", "please", "go on", "go ahead", "do it", "let's do it", "pick up", "answer",
             "answer it", "why not", "i do", "i would", "yes please")
         private val NO = listOf("no", "nope", "nah", "no thanks", "no thank you", "not now", "never", "no way",
-            "not really", "neither", "ignore", "ignore it", "hang up", "don't", "i don't", "nothing", "no more")
+            "not really", "neither", "ignore", "ignore it", "hang up", "don't", "i don't", "nothing", "no more",
+            // (a yes word with "not" isn't a yes: these say it's a no)
+            "i do not", "i would not", "absolutely not", "definitely not", "of course not", "not at all")
         private val REPEAT = listOf("repeat", "say that again", "say it again", "what", "pardon")
         private val NUMBER_WORDS = mapOf(
             "zero" to 0, "one" to 1, "two" to 2, "three" to 3, "four" to 4, "five" to 5, "six" to 6, "seven" to 7,
@@ -50,17 +52,21 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
             "fifteen" to 15, "sixteen" to 16, "seventeen" to 17, "eighteen" to 18, "nineteen" to 19,
         )
         private val TENS = mapOf("twenty" to 20, "thirty" to 30, "forty" to 40, "fifty" to 50)
-        private val NUMBER = Regex("\\b(\\d+|" + (NUMBER_WORDS.keys + TENS.keys + "couple").joinToString("|") + ")\\b")
+        private val SCALES = mapOf("hundred" to 100, "thousand" to 1000)
+        private val NUMBER =
+            Regex("\\b(\\d+|" + (NUMBER_WORDS.keys + TENS.keys + SCALES.keys + "couple").joinToString("|") + ")\\b")
 
         private val COUNTRY_WORDS = mapOf(
             "France" to listOf("france", "french"),
             "USA" to listOf("usa", "u s a", "the usa", "america", "american", "united states", "the united states",
-                "united states of america", "the us"),
+                "united states of america", "the us", "u s"),
             "UK" to listOf("uk", "u k", "the uk", "united kingdom", "the united kingdom", "britain", "great britain",
                 "england", "british"),
             "China" to listOf("china", "chinese"),
             "Russia" to listOf("russia", "russian"),
         )
+        /** Words that are a country only said alone: "us" is also the pronoun ("yes, tell us"). */
+        private val COUNTRY_ALONE = mapOf("USA" to listOf("us"))
         private val CITY_WORDS = mapOf(
             "Marseille" to listOf("marseilles"), "Lyon" to listOf("lyons", "leon"), "New York" to listOf("new york city"),
             "Los Angeles" to listOf("la", "l a"), "Wuhan" to listOf("woohan", "wu han"),
@@ -101,12 +107,19 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
         return turn(o)
     }
 
+    /** Settings or a state that can't be read (a save from another version, say) are left out: it starts afresh. */
     override fun open(saved: Saved?): Turn {
-        (saved?.vars?.get("settings") as? String)?.let { st.takeSettings(Json.parseToJsonElement(it).jsonObject) }
+        (saved?.vars?.get("settings") as? String)?.let {
+            runCatching { st.takeSettings(Json.parseToJsonElement(it).jsonObject) }
+        }
         return if (saved != null && canResume(saved)) resume(saved) else start()
     }
 
-    override fun canResume(saved: Saved) = !saved.ended && saved.vars["state"] is String && saved.node != Q.GAME_OVER.name
+    override fun canResume(saved: Saved) =
+        !saved.ended && saved.node != Q.GAME_OVER.name && (saved.vars["state"] as? String)?.let { readable(it) } == true
+
+    private fun readable(state: String) =
+        runCatching { State.fromJson(Json.parseToJsonElement(state).jsonObject) }.isSuccess
 
     override fun resume(saved: Saved): Turn {
         st = State.fromJson(Json.parseToJsonElement(saved.vars["state"] as String).jsonObject)
@@ -147,7 +160,7 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
     override fun understands(said: String): Boolean {
         val pairs = answers()
         return Matcher.match(words, Ask(reprompt, pairs.map { it.first }, null, emptyList()), emptyMap(), said)
-            .let { it.index != null || it.repeat }
+            .let { it.index != null || it.repeat || it.aside }     // set aside (unsure, negated): heard, as in Session
     }
 
     // ----- Turns -----
@@ -251,7 +264,9 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
             add(words(listOf("all of them", "all", "all three", "every city", "all the cities", "all of it")),
                 Intent.Name("all of them"))
         }
-        for ((ref, list) in COUNTRY_WORDS) add(words(list), Intent.Name(ref))
+        for ((ref, list) in COUNTRY_WORDS) {
+            add(Match.Words(phrases(list) + COUNTRY_ALONE[ref].orEmpty().map { Phrase(it, true) }), Intent.Name(ref))
+        }
         for (city in World.CITIES) add(words(listOf(city) + CITY_WORDS[city].orEmpty()), Intent.Name(city))
         add(words(listOf("shield", "shields", "a shield", "build a shield")), Intent.Name("shield"))
         add(words(listOf("research", "do research")), Intent.Name("research"))
@@ -269,6 +284,8 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
             Q.CHOOSE_BOMB_CITY -> {
                 val c = st.countries.find { it.ref == st.countryToBomb }
                 val cities = c?.let { targetCities(it) }.orEmpty()
+                // One city left is asked as a yes or no ("Would you like to attack Paris?").
+                if (cities.size == 1) return yesNo
                 cities.map { Button(it, it) } + if (cities.size == 3 && us().bombs >= 3) listOf(Button("All of them", "all of them")) else emptyList()
             }
             Q.SANCTION_COUNTRY -> countries(st.countries.filter { !it.sanctioned }.map { it.ref })
@@ -282,14 +299,30 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
         }
     }
 
-    /** The number said: "3", "three", "twenty two" (not "to", "for" or "won", which say other things). */
+    /**
+     * The number said: "3", "three", "twenty two", "one hundred", "a hundred" (not "to", "for" or "won", which say
+     * other things). One said with "not", "don't" or "never" before it ("not one", "I don't want one") is 0, a no.
+     */
     private fun number(said: String): Int? {
-        val t = Text.normalise(said.replace('-', ' ')).split(' ')
+        val text = Text.normalise(said.replace('-', ' '))
+        val t = text.split(' ')
         for ((i, w) in t.withIndex()) {
-            w.toIntOrNull()?.let { return it }
-            TENS[w]?.let { tens -> return tens + (t.getOrNull(i + 1)?.let { NUMBER_WORDS[it] }?.takeIf { it < 10 } ?: 0) }
-            NUMBER_WORDS[w]?.let { return it }
-            if (w == "couple") return 2
+            var next = i + 1
+            val n = when {
+                w.toIntOrNull() != null -> w.toInt()
+                w in TENS -> {
+                    val ones = t.getOrNull(i + 1)?.let { NUMBER_WORDS[it] }?.takeIf { it < 10 }
+                    if (ones != null) next++
+                    TENS.getValue(w) + (ones ?: 0)
+                }
+                w in NUMBER_WORDS -> NUMBER_WORDS.getValue(w)
+                w == "couple" -> 2
+                w in SCALES -> return if (Text.negated(text, w)) 0 else SCALES.getValue(w)
+                else -> continue
+            }
+            if (Text.negated(text, w)) return 0
+            val scale = t.getOrNull(next)?.let { SCALES[it] } ?: 1
+            return (n.toLong() * scale).coerceAtMost(Int.MAX_VALUE.toLong()).toInt()
         }
         return null
     }
@@ -437,14 +470,15 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
             o.don(Lines.ENV_BACK)
         } else {
             o.don(Lines.envAt((percent / 5 * 5).coerceIn(0, World.PERCENT_MAX)))
-            if (st.round == 1 && !st.rundown) o.don(Lines.ENV_EXTRA)
+            // The tip's "extra 500K" is 5 points: only true after nuclear tech (-10, then +15).
+            if (st.round == 1 && !st.rundown && st.environment == 5) o.don(Lines.ENV_EXTRA)
         }
         moneyLeft(o)
         afterEnvironment(o)
     }
 
     private fun afterEnvironment(o: Out) {
-        if (us().balance > World.RESEARCH) {
+        if (us().balance >= World.RESEARCH) {
             st.cityIndex = 0
             cityUpgradePrompt(o)
         } else {
@@ -567,8 +601,7 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
             }
             enoughForShield -> shieldPrompt(o)
             else -> {
-                st.cityIndex++
-                moneyLeft(o)
+                st.cityIndex++      // (the money left was just said)
                 nextCityPrompt(o)
             }
         }
@@ -1082,7 +1115,8 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
     /** A country, a city, "shield" or "research" said (doAnswerNuclearWar). */
     private fun answerWith(o: Out, value: String) {
         when (st.q) {
-            Q.PHONE_COUNTRY -> if (value == "next round") callsComplete(o) else continueWar(o)
+            // "next round" skips the calls, not what they'd do (as when each is ignored).
+            Q.PHONE_COUNTRY -> if (value == "next round") callsUnheard(o) else continueWar(o)
             Q.CHOOSE_COUNTRY -> if (value in World.REFS) chooseCountry(o, value) else continueWar(o)
             Q.CHOOSE_BOMB_COUNTRY, Q.USE_BOMBS, Q.CHOOSE_BOMB_CITY, Q.BOMB_INDIVIDUAL -> aimAt(o, value)
             Q.UPGRADE_PROMPT, Q.SHIELD_PROMPT, Q.RESEARCH_PROMPT, Q.CITY_PROMPT -> upgradeWith(o, value)
@@ -1362,22 +1396,33 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
         nextCall(o)
     }
 
-    /** doAngryCountryCall: countries that want to attack you don't call (two or three in a row are said together). */
+    /**
+     * doAngryCountryCall: countries that want to attack you don't call (two or three in a row are said together).
+     * "No one calls" only when no one has and no one will: the skill also said it with a fourth country still to ring.
+     */
     private fun angryCountryCall(o: Out) {
         val cur = current()
         if (cur.attackUs == 0) return phoneCountryPrompt(o)
+        val first = st.countryIndex
         st.countryIndex++
         val next = st.countries.getOrNull(st.countryIndex)
         if (next != null && next.attackUs != 0) {
             st.countryIndex++
             val nextNext = st.countries.getOrNull(st.countryIndex)
-            if (nextNext != null && nextNext.attackUs != 0) {
-                o.bed(sfx("crickets"), 0.5)
-                o.don(Lines.NO_CALLS.random(random))
-                o.stopBeds()
-                return callsComplete(o)
-            }
             val pair = World.ordered(listOf(cur.ref, next.ref))
+            if (nextNext != null && nextNext.attackUs != 0) {
+                st.countryIndex++
+                val after = st.countries.getOrNull(st.countryIndex)
+                if (first == 0 && (after == null || after.attackUs != 0)) {
+                    o.bed(sfx("crickets"), 0.5)
+                    o.don(Lines.NO_CALLS.random(random))
+                    o.stopBeds()
+                    return callsComplete(o)
+                }
+                o.don(Lines.twoNoTalk(pair[0], pair[1]).random(random))
+                o.don(Lines.singleNoTalk(nextNext.ref).random(random))
+                return if (after == null) callsComplete(o) else phoneCountryPrompt(o)
+            }
             o.don(Lines.twoNoTalk(pair[0], pair[1]).random(random))
             if (nextNext == null) callsComplete(o) else phoneCountryPrompt(o)
         } else {
@@ -1427,7 +1472,13 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
 
     /** doFinalRoundStart: nobody calls, but what the calls would do happens. */
     private fun finalRoundStart(o: Out) {
-        for (i in st.countries.indices) {
+        st.countryIndex = 0
+        callsUnheard(o)
+    }
+
+    /** The calls left aren't heard (the final round, or "next round"), but what they would do happens. */
+    private fun callsUnheard(o: Out) {
+        for (i in st.countryIndex until st.countries.size) {
             st.countryIndex = i
             if (st.countries[i].attackUs == 0) phoneCountry(o, false)
         }
@@ -1464,8 +1515,8 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
             st.countries.forEach { it.destroyed = true }
         }
         // Every other country gone (the skill counts four, so a country knocked out in an earlier round kept the
-        // game going with nobody left to call; here it's over).
-        val allDestroyed = st.countries.all { c -> c.cities.all { it.destroyed } }
+        // game going with nobody left to call; here it's over). The environment's collapse destroys them all too.
+        val allDestroyed = st.countries.all { c -> c.destroyed || c.cities.all { it.destroyed } }
         when {
             allDestroyed -> if (us().destroyed) everyCountryDestroyed(o) else destroyEveryOneGameOver(o)
             us().destroyed -> weGotDestroyedGameOver(o)
@@ -1946,8 +1997,8 @@ class NuclearWar(private val audio: NuclearAudio, private val random: Random = R
 
     /** The place said for a group: "last", "first", or its ordinal counting the ties above it. */
     private fun placeOf(groups: List<List<Rank>>, x: Int): String {
+        if (x == 0) return "first"      // before "last": everyone tied is joint first
         if (x == groups.size - 1) return "last"
-        if (x == 0) return "first"
         var place = x + 1
         val above = groups.take(x).sumOf { it.size }
         if (place in 2..4 && above > x) place += above - x

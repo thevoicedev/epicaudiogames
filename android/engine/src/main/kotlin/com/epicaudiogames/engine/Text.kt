@@ -22,9 +22,25 @@ object Text {
     fun longest(text: String, phrases: List<Phrase>): Phrase? =
         phrases.filter { phraseLength(text, it) >= 0 }.maxByOrNull { it.text.length }
 
-    /** Whether the phrase is negated: "don't", "dont", "not" or "never" up to three words before it. */
-    fun negated(text: String, phrase: String): Boolean =
-        Regex("""\b(don't|dont|not|never)( [a-z0-9']+){0,3} ${Regex.escape(phrase)}( |$)""").containsMatchIn(text)
+    /**
+     * Whether the phrase is negated: "don't", "dont", "not" or "never" up to three words before it, or a "not" right
+     * after it that ends the answer ("of course not", "I would not").
+     */
+    fun negated(text: String, phrase: String): Boolean {
+        val before = negations.getOrPut(phrase) {
+            Regex("""\b(don't|dont|not|never)( [a-z0-9']+){0,3} ${Regex.escape(phrase)}( |$)""")
+        }
+        return before.containsMatchIn(text) || " $text".endsWith(" $phrase not")
+    }
+
+    /** Each phrase's negation pattern, made once (every answer's phrases are checked). */
+    private val negations = java.util.concurrent.ConcurrentHashMap<String, Regex>()
+
+    /** Phrases that say the player isn't sure. */
+    private val UNSURE = listOf("not sure", "unsure", "dunno", "no idea", "don't know", "dont know", "do not know")
+
+    /** Whether the (normalised) text says the player isn't sure: "I'm not sure", "I don't know". */
+    fun unsure(text: String): Boolean = UNSURE.any { " $text ".contains(" $it ") }
 
     private val ONES = mapOf(
         "zero" to 0, "oh" to 0, "one" to 1, "won" to 1, "two" to 2, "to" to 2, "too" to 2, "three" to 3, "four" to 4,
@@ -37,14 +53,24 @@ object Text {
         "eighty" to 80, "ninety" to 90,
     )
 
+    /** Words that sound like a number but are mostly something else. */
+    private val HOMOPHONES = setOf("oh", "won", "to", "too", "for", "fore")
+
     private fun isNumber(t: String) = t.isNotEmpty() && t.all { it in '0'..'9' }
+
+    private fun isNumberWord(t: String?) =
+        t != null && (isNumber(t) || t in ONES || t in TENS || t == "hundred" || t == "thousand")
 
     /**
      * The digits said, in order: "four two two one one", "4 2 2 1 1", "four twenty-two eleven" and
-     * "forty two thousand two hundred and eleven" all give "42211".
+     * "forty two thousand two hundred and eleven" all give "42211". "To", "for", "won" and "oh" count only next to
+     * another number ("for to to one one"), so "I want to play" says none.
      */
     fun digits(said: String): String {
-        val tokens = normalise(said.replace('-', ' ')).split(' ').filter { it.isNotEmpty() }
+        val words = normalise(said.replace('-', ' ')).split(' ').filter { it.isNotEmpty() }
+        val tokens = words.filterIndexed { i, t ->
+            t !in HOMOPHONES || isNumberWord(words.getOrNull(i - 1)) || isNumberWord(words.getOrNull(i + 1))
+        }
         if ("hundred" in tokens || "thousand" in tokens) {
             var total = 0L
             var current = 0L

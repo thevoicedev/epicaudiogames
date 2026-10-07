@@ -24,7 +24,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from content import Content, HOST  # noqa: E402
-from skill import words  # noqa: E402
+from skill import NO, YES, words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 GAME = "alien-customs"
@@ -244,7 +244,8 @@ for k, lv in enumerate(LEVELS):
                     c.mix(f"deported-{x}", [{"step": denied, "volume": 2.0},
                                             {"step": fail, "at": denied["dur"], "volume": 1.05},
                                             {"step": deported, "at": denied["dur"] + fail["dur"], "volume": 1.2}])],
-            "end": {"kind": "gameover", "title": "Deported!", "retry": "level_intro"},
+            # Try again: this item's level (not level_intro: `level` can point elsewhere after a PLAY AGAIN).
+            "end": {"kind": "gameover", "title": "Deported!", "retry": f"L{k}_intro"},
         }
 
     # doAlienCustomsGameOver, won: the next level. After the free levels, the next one is in the pack; after the
@@ -256,8 +257,9 @@ for k, lv in enumerate(LEVELS):
         end = {"kind": "chapter", "title": title, "next": f"L{k + 1}_intro", "locked": "alien-customs-levels"}
     else:
         end = {"kind": "chapter", "title": f"All {len(LEVELS)} levels cleared!", "next": "level_intro"}
+    # The level won, by number: "+1" drifted once `level` wasn't k (PLAY AGAIN at a locked end replays level 1).
     nodes[f"L{k}_win"] = {
-        "set": {"level": "+1" if k + 1 < len(F["levels"]) else 0},
+        "set": {"level": k + 1 if k + 1 < len(F["levels"]) else 0},
         "say": [bed("background", 0.20), c.bed(A["win"], 1.0), {"pause": 0.8}, dialogue("win")],
         "end": end,
     }
@@ -271,7 +273,7 @@ game_map = {
     "keep": ["level"],
     "repeat": "reprompt",
     "who": {HOST: "", "OFFICER": "Officer", "SLUG": "Slug"},
-    "words": words(["yes", "yeah", "yep", "yup", "sure"], ["no", "nope", "nah"],
+    "words": words(YES, NO,
                    ["repeat", "repeat that", "say that again", "say it again", "what did you say", "come again",
                     "pardon", "one more time"]),
     "nodes": nodes,

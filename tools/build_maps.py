@@ -136,6 +136,16 @@ def targets_of(node):
 
 # ----- Noodle Rush -----
 
+# Whole answers that are a yes or a no beyond the skill's lists, which left out "okay", "I do", "not now"...
+NOODLE_YES = ["okay", "ok", "alright", "all right", "sure thing", "i do", "yes i do", "i would", "yes i would",
+              "i want to", "yes i want to", "let's do it", "lets do it"]
+NOODLE_NO = ["not now", "no way", "no thank you", "i don't", "no i don't", "i don't want to", "i wouldn't",
+             "no i wouldn't"]
+# And at the title's "Are you ready to play?": being ready, or wanting to play.
+NOODLE_READY = ["ready", "i'm ready", "im ready", "yes i'm ready", "yeah i'm ready", "let's play", "lets play",
+                "yes let's play", "let's go", "lets go", "yes let's go", "yeah let's go"]
+
+
 def noodle_rush(cached):
     g = Game("noodle-rush", "noodle-rush", cached)
     f = g.flow
@@ -158,7 +168,8 @@ def noodle_rush(cached):
         # doNoodleYes: a node without a "yes" takes its one forward option, if it has exactly one.
         yes = choices.get("yes") or (choices[forward[0]] if len(forward) == 1 else None)
         if yes:
-            answers.append({"yes": True, "go": pick(yes)})
+            ready = {"words": [f"={x}" for x in NOODLE_READY]} if nid == "Page1" else {}
+            answers.append({"yes": True, **ready, "go": pick(yes)})
         # doNoodleNo: "no" on the title leaves; on a one-option question it gives up.
         if choices.get("no"):
             answers.append({"no": True, "go": pick(choices["no"])})
@@ -177,8 +188,10 @@ def noodle_rush(cached):
         "id": "noodle-rush", "title": "Noodle Rush", "start": "Page1",
         # The skill has no repeat intent: "repeat" is an answer it doesn't know, which plays the question again.
         "vars": {"nana": False}, "repeat": "reprompt",
-        # doNoodleAnswer only takes a yes or a no that is the whole answer ("I'm not sure" isn't a yes).
-        "words": {"yes": [f"={x}" for x in f["words"]["yes"]], "no": [f"={x}" for x in f["words"]["no"]], "repeat": REPEAT_WORDS},
+        # doNoodleAnswer only takes a yes or a no that is the whole answer ("I'm not sure" isn't a yes); the app takes
+        # a few more whole answers (NOODLE_YES, NOODLE_NO).
+        "words": {"yes": [f"={x}" for x in f["words"]["yes"] + NOODLE_YES],
+                  "no": [f"={x}" for x in f["words"]["no"] + NOODLE_NO], "repeat": REPEAT_WORDS},
         "nodes": nodes,
     }
 
@@ -287,13 +300,14 @@ PUZZLE_ANSWERS = {
 }
 # answerPuzzle counts anything that looks like an answer (p1OrP2Answer: two or more letters, digits, turns or notes,
 # or an SOS) as a try, even with "again" in it; only other answers with a repeat word play the question again.
+# Their "\b" (a word boundary) was once a backspace character in this file, so the map's patterns never matched.
 LOOKS_LIKE_AN_ANSWER = [
     {"seq": "", "symbols": "letters", "spelled": True, "least": 2},
-    {"re": r"(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)"},
+    {"re": r"\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"},
     {"digits": "", "least": 2},
     {"seq": "", "symbols": "turns", "least": 2},
     {"seq": "", "symbols": "notes", "least": 2},
-    {"re": r"(sos|s o s|esos|s0s|essoess)"},
+    {"re": r"\b(sos|s o s|esos|s0s|essoess)\b"},
     {"seq": "sos", "symbols": "sos"},
 ]
 CHOICE_FN = re.compile(r'aiState\(ad\)\.(\w+) === "(\w+)" \? "([\w-]+)" : "([\w-]+)"')

@@ -1,0 +1,65 @@
+{
+  "identifier" : "E1C0A7D2",
+  "nonRenewingSubscriptions" : [],
+  "products" : [
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : true,
+      "internalID" : "6740000001",
+      "localizations" : [
+        {
+          "description" : "The Stowaway, The Mould Moon, The Edge of Everything and The Last Star.",
+          "displayName" : "Stories 2 to 5",
+          "locale" : "en_GB"
+        }
+      ],
+      "productID" : "frootopia_stories",
+      "referenceName" : "The Kingdom of Frootopia: Stories 2 to 5",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : true,
+      "internalID" : "6740000002",
+      "localizations" : [
+        {
+          "description" : "Levels 6 to 15: 30 more items to talk past the officer.",
+          "displayName" : "10 more levels",
+          "locale" : "en_GB"
+        }
+      ],
+      "productID" : "alien_customs_levels",
+      "referenceName" : "Alien Customs: 10 more levels",
+      "type" : "NonConsumable"
+    },
+    {
+      "displayPrice" : "1.99",
+      "familyShareable" : true,
+      "internalID" : "6740000003",
+      "localizations" : [
+        {
+          "description" : "Stories 6 to 50: 45 more villages, each with two werewolves.",
+          "displayName" : "45 more mysteries",
+          "locale" : "en_GB"
+        }
+      ],
+      "productID" : "the_werewolf_stories",
+      "referenceName" : "The Werewolf: 45 more mysteries",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "0000000000",
+    "_developerTeamID" : "",
+    "_failTransactionsEnabled" : false,
+    "_lastSynchronizedDate" : 0,
+    "_locale" : "en_GB",
+    "_storefront" : "GBR",
+    "_storeKitErrors" : []
+  },
+  "subscriptionGroups" : [],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}

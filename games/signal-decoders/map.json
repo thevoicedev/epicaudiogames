@@ -862,7 +862,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -879,7 +879,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -974,7 +974,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -991,7 +991,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -1086,7 +1086,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -1103,7 +1103,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -1870,7 +1870,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -1887,7 +1887,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -1982,7 +1982,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -1999,7 +1999,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -2094,7 +2094,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -2111,7 +2111,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -2929,7 +2929,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -2946,7 +2946,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -3043,7 +3043,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -3060,7 +3060,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -3157,7 +3157,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -3174,7 +3174,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -3365,7 +3365,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -3382,7 +3382,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -3477,7 +3477,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -3494,7 +3494,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -3589,7 +3589,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -3606,7 +3606,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -4169,7 +4169,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -4186,7 +4186,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -4281,7 +4281,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -4298,7 +4298,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -4393,7 +4393,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -4410,7 +4410,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -4753,7 +4753,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -4770,7 +4770,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -4864,7 +4864,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -4881,7 +4881,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -4975,7 +4975,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -4992,7 +4992,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -5393,7 +5393,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -5410,7 +5410,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -5511,7 +5511,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -5528,7 +5528,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -5629,7 +5629,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -5646,7 +5646,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -5948,7 +5948,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -5965,7 +5965,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -6062,7 +6062,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -6079,7 +6079,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -6176,7 +6176,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -6193,7 +6193,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -6681,7 +6681,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -6698,7 +6698,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -6787,7 +6787,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -6804,7 +6804,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",
@@ -6887,7 +6887,7 @@
       "least": 2
      },
      {
-      "re": "\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\b"
+      "re": "\\b(cac|kak|cack|kack|cak|kac|caac|cacc|kaka?k)\\b"
      },
      {
       "digits": "",
@@ -6904,7 +6904,7 @@
       "least": 2
      },
      {
-      "re": "\b(sos|s o s|esos|s0s|essoess)\b"
+      "re": "\\b(sos|s o s|esos|s0s|essoess)\\b"
      },
      {
       "seq": "sos",

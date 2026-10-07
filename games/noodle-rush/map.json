@@ -29,6 +29,19 @@
    "=of course",
    "=definitely",
    "=yes please",
+   "=okay",
+   "=ok",
+   "=alright",
+   "=all right",
+   "=sure thing",
+   "=i do",
+   "=yes i do",
+   "=i would",
+   "=yes i would",
+   "=i want to",
+   "=yes i want to",
+   "=let's do it",
+   "=lets do it",
    "=yes i am",
    "=i'm ready to play",
    "=yes i'm ready to play",
@@ -39,7 +52,15 @@
    "=nope",
    "=nah",
    "=no thanks",
-   "=not really"
+   "=not really",
+   "=not now",
+   "=no way",
+   "=no thank you",
+   "=i don't",
+   "=no i don't",
+   "=i don't want to",
+   "=i wouldn't",
+   "=no i wouldn't"
   ],
   "repeat": [
    "repeat",
@@ -128,6 +149,20 @@
     "answers": [
      {
       "yes": true,
+      "words": [
+       "=ready",
+       "=i'm ready",
+       "=im ready",
+       "=yes i'm ready",
+       "=yeah i'm ready",
+       "=let's play",
+       "=lets play",
+       "=yes let's play",
+       "=let's go",
+       "=lets go",
+       "=yes let's go",
+       "=yeah let's go"
+      ],
       "go": "Page2"
      },
      {

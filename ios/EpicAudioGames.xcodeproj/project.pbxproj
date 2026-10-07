@@ -1,0 +1,474 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EA0000000000000000000060 /* EpicEngine in Frameworks */ = {isa = PBXBuildFile; productRef = EA0000000000000000000071 /* EpicEngine */; };
+		EA0000000000000000000061 /* EpicAppCore in Frameworks */ = {isa = PBXBuildFile; productRef = EA0000000000000000000072 /* EpicAppCore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		EA0000000000000000000080 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA00000000000000000000A0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA0000000000000000000040;
+			remoteInfo = EpicAudioGames;
+		};
+		EA0000000000000000000081 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EA00000000000000000000A0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = EA0000000000000000000040;
+			remoteInfo = EpicAudioGames;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		EA0000000000000000000010 /* EpicAudioGames.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EpicAudioGames.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA0000000000000000000011 /* EpicAudioGamesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EpicAudioGamesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA0000000000000000000012 /* EpicAudioGamesUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EpicAudioGamesUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		EA0000000000000000000020 /* Base.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Base.xcconfig; sourceTree = "<group>"; };
+		EA0000000000000000000021 /* Debug.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
+		EA0000000000000000000022 /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
+		EA0000000000000000000023 /* App.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = App.xcconfig; sourceTree = "<group>"; };
+		EA0000000000000000000024 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EA0000000000000000000025 /* Local.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text; path = Local.xcconfig.example; sourceTree = "<group>"; };
+		EA0000000000000000000026 /* bundle_content.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = bundle_content.sh; sourceTree = "<group>"; };
+		EA0000000000000000000027 /* placeholder_content.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = placeholder_content.py; sourceTree = "<group>"; };
+		EA0000000000000000000028 /* render_icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = render_icon.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		EA0000000000000000000030 /* EpicAudioGames */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = EpicAudioGames;
+			sourceTree = "<group>";
+		};
+		EA0000000000000000000031 /* EpicAudioGamesTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = EpicAudioGamesTests;
+			sourceTree = "<group>";
+		};
+		EA0000000000000000000032 /* EpicAudioGamesUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = EpicAudioGamesUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EA0000000000000000000051 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EA0000000000000000000060 /* EpicEngine in Frameworks */,
+				EA0000000000000000000061 /* EpicAppCore in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA0000000000000000000055 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA0000000000000000000058 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EA00000000000000000000A1 = {
+			isa = PBXGroup;
+			children = (
+				EA0000000000000000000030 /* EpicAudioGames */,
+				EA0000000000000000000031 /* EpicAudioGamesTests */,
+				EA0000000000000000000032 /* EpicAudioGamesUITests */,
+				EA00000000000000000000A3 /* Config */,
+				EA00000000000000000000A4 /* scripts */,
+				EA00000000000000000000A2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EA00000000000000000000A2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EA0000000000000000000010 /* EpicAudioGames.app */,
+				EA0000000000000000000011 /* EpicAudioGamesTests.xctest */,
+				EA0000000000000000000012 /* EpicAudioGamesUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		EA00000000000000000000A3 /* Config */ = {
+			isa = PBXGroup;
+			children = (
+				EA0000000000000000000020 /* Base.xcconfig */,
+				EA0000000000000000000021 /* Debug.xcconfig */,
+				EA0000000000000000000022 /* Release.xcconfig */,
+				EA0000000000000000000023 /* App.xcconfig */,
+				EA0000000000000000000024 /* Info.plist */,
+				EA0000000000000000000025 /* Local.xcconfig.example */,
+			);
+			path = Config;
+			sourceTree = "<group>";
+		};
+		EA00000000000000000000A4 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				EA0000000000000000000026 /* bundle_content.sh */,
+				EA0000000000000000000027 /* placeholder_content.py */,
+				EA0000000000000000000028 /* render_icon.swift */,
+			);
+			path = scripts;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		EA0000000000000000000040 /* EpicAudioGames */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA0000000000000000000091 /* Build configuration list for PBXNativeTarget "EpicAudioGames" */;
+			buildPhases = (
+				EA0000000000000000000050 /* Sources */,
+				EA0000000000000000000051 /* Frameworks */,
+				EA0000000000000000000052 /* Resources */,
+				EA0000000000000000000053 /* Bundle game content */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				EA0000000000000000000030 /* EpicAudioGames */,
+			);
+			name = EpicAudioGames;
+			packageProductDependencies = (
+				EA0000000000000000000071 /* EpicEngine */,
+				EA0000000000000000000072 /* EpicAppCore */,
+			);
+			productName = EpicAudioGames;
+			productReference = EA0000000000000000000010 /* EpicAudioGames.app */;
+			productType = "com.apple.product-type.application";
+		};
+		EA0000000000000000000041 /* EpicAudioGamesTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA0000000000000000000092 /* Build configuration list for PBXNativeTarget "EpicAudioGamesTests" */;
+			buildPhases = (
+				EA0000000000000000000054 /* Sources */,
+				EA0000000000000000000055 /* Frameworks */,
+				EA0000000000000000000056 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA0000000000000000000082 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EA0000000000000000000031 /* EpicAudioGamesTests */,
+			);
+			name = EpicAudioGamesTests;
+			packageProductDependencies = (
+			);
+			productName = EpicAudioGamesTests;
+			productReference = EA0000000000000000000011 /* EpicAudioGamesTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		EA0000000000000000000042 /* EpicAudioGamesUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EA0000000000000000000093 /* Build configuration list for PBXNativeTarget "EpicAudioGamesUITests" */;
+			buildPhases = (
+				EA0000000000000000000057 /* Sources */,
+				EA0000000000000000000058 /* Frameworks */,
+				EA0000000000000000000059 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				EA0000000000000000000083 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				EA0000000000000000000032 /* EpicAudioGamesUITests */,
+			);
+			name = EpicAudioGamesUITests;
+			packageProductDependencies = (
+			);
+			productName = EpicAudioGamesUITests;
+			productReference = EA0000000000000000000012 /* EpicAudioGamesUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EA00000000000000000000A0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 2630;
+				LastUpgradeCheck = 2630;
+				TargetAttributes = {
+					EA0000000000000000000040 = {
+						CreatedOnToolsVersion = 26.3;
+					};
+					EA0000000000000000000041 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = EA0000000000000000000040;
+					};
+					EA0000000000000000000042 = {
+						CreatedOnToolsVersion = 26.3;
+						TestTargetID = EA0000000000000000000040;
+					};
+				};
+			};
+			buildConfigurationList = EA0000000000000000000090 /* Build configuration list for PBXProject "EpicAudioGames" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = EA00000000000000000000A1;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				EA0000000000000000000070 /* XCLocalSwiftPackageReference "EpicEngine" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = EA00000000000000000000A2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EA0000000000000000000040 /* EpicAudioGames */,
+				EA0000000000000000000041 /* EpicAudioGamesTests */,
+				EA0000000000000000000042 /* EpicAudioGamesUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EA0000000000000000000052 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA0000000000000000000056 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA0000000000000000000059 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		EA0000000000000000000053 /* Bundle game content */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Bundle game content";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/bash;
+			shellScript = "\"$SRCROOT/scripts/bundle_content.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EA0000000000000000000050 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA0000000000000000000054 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EA0000000000000000000057 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		EA0000000000000000000082 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA0000000000000000000040 /* EpicAudioGames */;
+			targetProxy = EA0000000000000000000080 /* PBXContainerItemProxy */;
+		};
+		EA0000000000000000000083 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = EA0000000000000000000040 /* EpicAudioGames */;
+			targetProxy = EA0000000000000000000081 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		EA0000000000000000000094 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA0000000000000000000021 /* Debug.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		EA0000000000000000000095 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA0000000000000000000022 /* Release.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		EA0000000000000000000096 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA0000000000000000000023 /* App.xcconfig */;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		EA0000000000000000000097 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = EA0000000000000000000023 /* App.xcconfig */;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		EA0000000000000000000098 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(EPIC_BUNDLE_ID).tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EpicAudioGames.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EpicAudioGames";
+			};
+			name = Debug;
+		};
+		EA0000000000000000000099 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				PRODUCT_BUNDLE_IDENTIFIER = "$(EPIC_BUNDLE_ID).tests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EpicAudioGames.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/EpicAudioGames";
+			};
+			name = Release;
+		};
+		EA000000000000000000009A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_BUNDLE_IDENTIFIER = "$(EPIC_BUNDLE_ID).uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_TARGET_NAME = EpicAudioGames;
+			};
+			name = Debug;
+		};
+		EA000000000000000000009B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_BUNDLE_IDENTIFIER = "$(EPIC_BUNDLE_ID).uitests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				TEST_TARGET_NAME = EpicAudioGames;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EA0000000000000000000090 /* Build configuration list for PBXProject "EpicAudioGames" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA0000000000000000000094 /* Debug */,
+				EA0000000000000000000095 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA0000000000000000000091 /* Build configuration list for PBXNativeTarget "EpicAudioGames" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA0000000000000000000096 /* Debug */,
+				EA0000000000000000000097 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA0000000000000000000092 /* Build configuration list for PBXNativeTarget "EpicAudioGamesTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA0000000000000000000098 /* Debug */,
+				EA0000000000000000000099 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EA0000000000000000000093 /* Build configuration list for PBXNativeTarget "EpicAudioGamesUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EA000000000000000000009A /* Debug */,
+				EA000000000000000000009B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		EA0000000000000000000070 /* XCLocalSwiftPackageReference "EpicEngine" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = EpicEngine;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		EA0000000000000000000071 /* EpicEngine */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA0000000000000000000070 /* XCLocalSwiftPackageReference "EpicEngine" */;
+			productName = EpicEngine;
+		};
+		EA0000000000000000000072 /* EpicAppCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = EA0000000000000000000070 /* XCLocalSwiftPackageReference "EpicEngine" */;
+			productName = EpicAppCore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = EA00000000000000000000A0 /* Project object */;
+}

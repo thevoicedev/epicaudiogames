@@ -21,7 +21,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from content import Content, HOST  # noqa: E402
-from skill import words  # noqa: E402
+from skill import NO, YES, words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 GAME = "leaning-tower-of-pizza"
@@ -174,9 +174,13 @@ for pool, q in QUESTIONS:
         "say": question,
         "ask": {
             "reprompt": [say(TOF)],
+            # "not true" is a false and "not false" a true (each answer's opposite); a mishear said with "not" is
+            # neither ("not too sure").
             "answers": [
-                {"words": TRUE_WORDS, "rank": 2, "go": "lie" if lie_if_true else "honest"},
-                {"words": FALSE_WORDS, "rank": 1, "go": "honest" if lie_if_true else "lie"},
+                {"words": TRUE_WORDS[:1], "rank": 2, "opposite": 2, "go": "lie" if lie_if_true else "honest"},
+                {"words": TRUE_WORDS[1:], "rank": 2, "go": "lie" if lie_if_true else "honest"},
+                {"words": FALSE_WORDS[:1], "rank": 1, "opposite": 0, "go": "honest" if lie_if_true else "lie"},
+                {"words": FALSE_WORDS[1:], "rank": 1, "go": "honest" if lie_if_true else "lie"},
                 {"yes": True, "go": "lie" if lie_if_true else "honest"},
                 {"no": True, "go": "honest" if lie_if_true else "lie"},
                 {"repeat": True, "go": q_id[q["id"]]},
@@ -347,7 +351,7 @@ game_map = {
     "repeat": "reprompt",
     "who": {HOST: "", "GEPETTO": "Gepetto", "ROBOT": "Pizza Robot"},
     # Alexa's own yes and no (the skill's Yes and No intents), and the skill-wide yes/no rules.
-    "words": words(["yes", "yeah", "yep", "yup", "sure", "ok", "okay"], ["no", "nope", "nah"],
+    "words": words(YES, NO,
                    ["repeat", "repeat that", "say that again", "say it again", "what did you say", "come again",
                     "pardon", "one more time"]),
     "nodes": nodes,

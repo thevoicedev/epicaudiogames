@@ -21,7 +21,7 @@ data class Turn(
 /** How an answer was understood: the index of the answer taken (null: not understood) and why. */
 data class Heard(val said: String, val answer: Int?, val how: String)
 
-/** What the app saves to pick a game up again. */
+/** What the app saves to pick a game up again. [ended]: at an end, or left with a plain quit. */
 data class Saved(val node: String, val vars: Map<String, Any>, val ended: Boolean)
 
 /**
@@ -59,11 +59,33 @@ class Session(
     }
 
     /**
+     * Whether a save can be picked up again: it waits at a question, or it is at a chapter's end whose next chapter
+     * is in this map (the end screen comes back, with NEXT CHAPTER).
+     */
+    override fun canResume(saved: Saved): Boolean {
+        val n = map.nodes[saved.node] ?: return false
+        if (!saved.ended) return n.ask != null
+        val e = n.end ?: return false
+        return e.kind == "chapter" && e.next != null && hasChapter(e.next)
+    }
+
+    /**
+     * The game from a save: picked up again where it can be. Any other save (a game over or a last end, a plain quit,
+     * a place no longer in the map) starts again with its "keep" variables, as PLAY AGAIN does.
+     */
+    override fun open(saved: Saved?): Turn {
+        if (saved == null) return start()
+        if (canResume(saved)) return resume(saved)
+        vars.clear()
+        vars.putAll(map.vars)
+        for (k in map.keep) saved.vars[k]?.let { vars[k] = it }
+        return restart()
+    }
+
+    /**
      * Back at a saved place: the end screen, or the node's say again and its question. A question whose node says
      * nothing itself (the turn before it did the talking) plays its reprompt.
      */
-    override fun canResume(saved: Saved): Boolean = !saved.ended && map.nodes[saved.node]?.ask != null
-
     override fun resume(saved: Saved): Turn {
         val n = map.nodes[saved.node]
         if (n == null || (n.ask == null && n.end == null)) return start()
@@ -85,7 +107,8 @@ class Session(
         keep = false
     }
 
-    override fun save() = Saved(node, vars.toMap(), end != null)
+    /** A plain quit saves as ended: it isn't picked up again, but its "keep" variables carry over ([open]). */
+    override fun save() = Saved(node, vars.toMap(), end != null || (quit && !keep))
 
     override fun answer(said: String): Turn {
         val ask = this.ask ?: throw IllegalStateException("the game isn't waiting for an answer (at $node)")
@@ -120,7 +143,7 @@ class Session(
 
     override fun understands(said: String): Boolean {
         val a = ask ?: return false
-        return Matcher.match(map, a, vars, said).let { it.index != null || it.repeat }
+        return Matcher.match(map, a, vars, said).let { it.index != null || it.repeat || it.aside }
     }
 
     override fun nextChapter(): Turn {

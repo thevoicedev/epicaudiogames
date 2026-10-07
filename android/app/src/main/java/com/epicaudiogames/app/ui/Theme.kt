@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
@@ -30,9 +31,13 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.semantics.clearAndSetSemantics
+import androidx.compose.ui.semantics.heading
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -60,10 +65,13 @@ object Palette {
     val reply = Color(0xFFFFF3C4)
 }
 
-/** Speaker name colours, picked by name so each character keeps theirs. */
+/**
+ * Speaker name colours, picked by name so each character keeps theirs. Each is at least 4.5:1 on white (the names
+ * are small).
+ */
 private val SPEAKERS = listOf(
-    Color(0xFF2F72B9), Color(0xFFD9480F), Color(0xFF2B8A3E), Color(0xFF862E9C), Color(0xFFC2255C),
-    Color(0xFF1098AD), Color(0xFFE67700), Color(0xFF5F3DC4),
+    Color(0xFF2F72B9), Color(0xFFC23D0A), Color(0xFF237A36), Color(0xFF862E9C), Color(0xFFC2255C),
+    Color(0xFF0B7285), Color(0xFFA85600), Color(0xFF5F3DC4),
 )
 
 fun speakerColor(who: String): Color =
@@ -81,6 +89,7 @@ fun EpicTheme(content: @Composable () -> Unit) {
             titleMedium = base.copy(fontSize = 18.sp),
             bodyLarge = base.copy(fontSize = 17.sp, lineHeight = 23.sp),
             bodyMedium = base.copy(fontSize = 15.sp, lineHeight = 20.sp),
+            bodySmall = base.copy(fontSize = 13.sp, lineHeight = 17.sp),
             labelLarge = base.copy(fontSize = 17.sp),
             labelMedium = base.copy(fontSize = 13.sp),
         ),
@@ -105,7 +114,10 @@ fun Backdrop(modifier: Modifier = Modifier, content: @Composable BoxScope.() -> 
     )
 }
 
-/** Text drawn twice: a dark outline, then the fill (the Mini Games titles). */
+/**
+ * Text drawn twice: a dark outline, then the fill (the Mini Games titles). [textAlign]: for text on two lines.
+ * TalkBack reads it once (the fill).
+ */
 @Composable
 fun OutlinedText(
     text: String,
@@ -114,16 +126,17 @@ fun OutlinedText(
     fill: Color = Color.White,
     outline: Color = Palette.ink,
     maxLines: Int = 1,
+    textAlign: TextAlign? = null,
 ) {
-    val style = TextStyle(fontFamily = Lilita, fontSize = size)
+    val style = TextStyle(fontFamily = Lilita, fontSize = size, textAlign = textAlign ?: TextAlign.Unspecified)
     Box(modifier) {
-        Text(text, style = style.copy(color = outline, drawStyle = Stroke(width = size.value / 4)), maxLines = maxLines,
-            overflow = TextOverflow.Ellipsis)
+        Text(text, Modifier.clearAndSetSemantics {}, maxLines = maxLines, overflow = TextOverflow.Ellipsis,
+            style = style.copy(color = outline, drawStyle = Stroke(width = size.value / 4)))
         Text(text, style = style.copy(color = fill), maxLines = maxLines, overflow = TextOverflow.Ellipsis)
     }
 }
 
-/** The header bar, under the status bar. */
+/** The header bar, under the status bar. A long title takes two lines, and the bar grows for it. */
 @Composable
 fun HeaderBar(title: String, onBack: (() -> Unit)? = null, actions: @Composable RowScope.() -> Unit = {}) {
     Box(
@@ -133,7 +146,7 @@ fun HeaderBar(title: String, onBack: (() -> Unit)? = null, actions: @Composable 
             .windowInsetsPadding(WindowInsets.statusBars),
     ) {
         Row(
-            Modifier.fillMaxWidth().height(60.dp).padding(horizontal = 6.dp),
+            Modifier.fillMaxWidth().heightIn(min = 60.dp).padding(horizontal = 6.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             if (onBack != null) {
@@ -143,7 +156,8 @@ fun HeaderBar(title: String, onBack: (() -> Unit)? = null, actions: @Composable 
             } else {
                 Spacer(Modifier.width(10.dp))
             }
-            OutlinedText(title, Modifier.weight(1f), size = 24.sp)
+            OutlinedText(title, Modifier.weight(1f).semantics(mergeDescendants = true) { heading() }, size = 24.sp,
+                maxLines = 2)
             actions()
         }
         Box(Modifier.align(Alignment.BottomCenter).fillMaxWidth().height(2.dp).background(Palette.headerLine))

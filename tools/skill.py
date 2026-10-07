@@ -8,6 +8,11 @@ MIXED = {"yes": ["yes", "yeah", "yep", "yup", "ya", "yah", "sure", "why not"], "
          "filler": ["alexa", "sir", "please", "ok", "okay", "thank", "thanks", "you", "hell", "i", "said"]}
 YES_PHRASES = ["=yes i am", "=i'm ready to play", "=yes i'm ready to play", "=yes i did"]
 
+# Alexa's own Yes and No intents, for the games whose skill used them (Alien Customs, Pirate Quest, The Werewolf,
+# Leaning Tower of Pizza), with "ok", "okay" and "not now" on purpose: players say them, and other games take them.
+YES = ["yes", "yeah", "yep", "yup", "sure", "ok", "okay"]
+NO = ["no", "nope", "nah", "not now"]
+
 
 def words(yes, no, repeat):
     """A map's "words": its yes, no and repeat lists, with the skill's yes phrases and mixed rule."""

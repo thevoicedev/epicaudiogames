@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Answers can be spoken; the games also work by typing and with the answer buttons. -->
+    <!-- Answers can be spoken; the games also work by typing and with the answer buttons, so a device with no
+         microphone (or a screen that doesn't turn to portrait) can still play them. -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-feature android:name="android.hardware.microphone" android:required="false" />
+    <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
+    <!-- Packs are downloaded from the pack server. -->
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <!-- Android 11+: lets the app find the device's speech recogniser. -->
     <queries>

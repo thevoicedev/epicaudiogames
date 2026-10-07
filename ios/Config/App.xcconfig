@@ -1,0 +1,31 @@
+// The app target only (the test targets don't use it): android/app's manifest and theme, as Info.plist keys.
+
+// Code is main-actor isolated unless it says otherwise. AVAudioEngine, AVAudioSession and SFSpeech callbacks
+// run on other threads: they live in nonisolated types and hop to the main actor themselves.
+SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor
+
+PRODUCT_NAME = $(TARGET_NAME)
+LD_RUNPATH_SEARCH_PATHS = $(inherited) @executable_path/Frameworks
+ENABLE_PREVIEWS = YES
+
+ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
+ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor
+// Colour sets are reached as ColorResource (Color(.backdrop)), without Color.backdrop extensions that could
+// clash with UI/Theme.swift.
+ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES
+ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO
+
+// Info.plist: these keys are generated; Config/Info.plist has the dictionaries and arrays (it is outside the
+// EpicAudioGames folder, so it isn't copied into the app as a resource).
+INFOPLIST_FILE = Config/Info.plist
+INFOPLIST_PREPROCESS = YES
+INFOPLIST_KEY_CFBundleDisplayName = Epic Audio Games
+INFOPLIST_KEY_NSMicrophoneUsageDescription = When it's your turn, the game listens so you can say your answer out loud. You can always tap or type instead.
+INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = Speech recognition turns what you say into words the game understands. Where your iPhone supports it, this happens on the device itself.
+INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES
+INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES
+// Portrait only and light only, as on Android; white status bar icons over the dark header bar.
+INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait
+INFOPLIST_KEY_UIUserInterfaceStyle = Light
+INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent
+INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO

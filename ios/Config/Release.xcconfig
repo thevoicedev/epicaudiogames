@@ -1,0 +1,12 @@
+// The project's Release configuration.
+#include "Base.xcconfig"
+
+DEBUG_INFORMATION_FORMAT = dwarf-with-dsym
+ENABLE_NS_ASSERTIONS = NO
+MTL_ENABLE_DEBUG_INFO = NO
+SWIFT_COMPILATION_MODE = wholemodule
+SWIFT_OPTIMIZATION_LEVEL = -O
+VALIDATE_PRODUCT = YES
+
+// A release without the game audio is no use: scripts/bundle_content.sh fails the build.
+EPIC_CONTENT_REQUIRED = YES

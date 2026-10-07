@@ -32,7 +32,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from content import Content, HOST  # noqa: E402
-from skill import words  # noqa: E402
+from skill import NO, YES, words  # noqa: E402
 
 ROOT = Path(__file__).resolve().parents[2]
 GAME = "pirate-quest"
@@ -288,7 +288,7 @@ game_map = {
     "vars": variables,
     "repeat": "say",
     "who": {HOST: "", CREW: ""},
-    "words": words(["yes", "yeah", "yep", "yup", "sure"], ["no", "nope", "nah"],
+    "words": words(YES, NO,
                    ["repeat", "repeat that", "say that again", "say it again", "what did you say", "come again",
                     "pardon", "one more time"]),
     "nodes": nodes,

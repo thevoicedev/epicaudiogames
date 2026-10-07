@@ -4,6 +4,8 @@ import android.graphics.BitmapFactory
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.indication
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,16 +17,19 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBars
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -35,15 +40,20 @@ import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.epicaudiogames.app.GameInfo
 import com.epicaudiogames.app.PackInfo
 
-/** The game list: a card per game, with its cover, its description, what's free, and its packs. */
+/**
+ * The game list: a card per game, with its cover, its description, what's free, and its packs. [listState] is kept by
+ * the app's model, so the list is where it was after a game, and after it's drawn again for a pack installed.
+ */
 @Composable
 fun HomeScreen(
+    listState: LazyListState,
     games: List<GameInfo>,
     inProgress: (String) -> Boolean,
     installed: (PackInfo) -> Boolean,
@@ -55,6 +65,7 @@ fun HomeScreen(
             HeaderBar("EPIC AUDIO GAMES")
             LazyColumn(
                 Modifier.fillMaxSize().windowInsetsPadding(WindowInsets.navigationBars),
+                state = listState,
                 contentPadding = PaddingValues(16.dp, 14.dp, 16.dp, 28.dp),
                 verticalArrangement = Arrangement.spacedBy(16.dp),
             ) {
@@ -105,16 +116,23 @@ private fun GameCard(
             Text(game.title, style = MaterialTheme.typography.titleLarge, color = Palette.title)
             Spacer(Modifier.height(4.dp))
             Text(game.blurb, style = MaterialTheme.typography.bodyMedium, color = Palette.ink.copy(alpha = 0.85f))
-            Spacer(Modifier.height(10.dp))
-            // Its packs: one to get (it opens the store), or all of them in.
+            // Its packs: one to get (it opens the store), or all of them in. It's 48 dp to touch (the space around the
+            // pill counts, and spaces it as before), though the pill is smaller.
             val toGet = game.packs.firstOrNull { !installed(it) }
             if (game.packs.isNotEmpty()) {
-                Pill(if (toGet != null) "+ ${toGet.title.uppercase()}" else "ALL PACKS INSTALLED", Palette.gold, Palette.ink,
-                    Modifier.clickable(onClick = onStore))
-                Spacer(Modifier.height(8.dp))
+                val touches = remember { MutableInteractionSource() }
+                Box(
+                    Modifier.heightIn(min = 48.dp).clickable(touches, indication = null, role = Role.Button, onClick = onStore),
+                    contentAlignment = Alignment.CenterStart,
+                ) {
+                    Pill(if (toGet != null) "+ ${toGet.title.uppercase()}" else "ALL PACKS INSTALLED", Palette.gold,
+                        Palette.ink, touches = touches)
+                }
+            } else {
+                Spacer(Modifier.height(10.dp))
             }
             Row(verticalAlignment = Alignment.CenterVertically) {
-                if (game.free.isNotEmpty()) Pill(game.free.uppercase(), Palette.headerLine, Palette.title)
+                if (game.free.isNotEmpty()) Pill(game.free.uppercase(), Palette.headerLine, Palette.ink)
                 Spacer(Modifier.weight(1f))
                 Pill(if (continuing) "CARRY ON" else "PLAY", Palette.yes, Color.White, big = true)
             }
@@ -122,8 +140,16 @@ private fun GameCard(
     }
 }
 
+/** A label in a pill. [touches]: the taps of what it's in, whose ripple it shows. */
 @Composable
-fun Pill(text: String, background: Color, color: Color, modifier: Modifier = Modifier, big: Boolean = false) {
+fun Pill(
+    text: String,
+    background: Color,
+    color: Color,
+    modifier: Modifier = Modifier,
+    big: Boolean = false,
+    touches: MutableInteractionSource? = null,
+) {
     Text(
         text,
         color = color,
@@ -133,6 +159,7 @@ fun Pill(text: String, background: Color, color: Color, modifier: Modifier = Mod
         modifier = modifier
             .clip(RoundedCornerShape(50))
             .background(background)
+            .then(if (touches != null) Modifier.indication(touches, ripple()) else Modifier)
             .padding(horizontal = if (big) 22.dp else 12.dp, vertical = if (big) 8.dp else 5.dp),
     )
 }

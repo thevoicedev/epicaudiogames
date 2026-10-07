@@ -1,0 +1,12 @@
+// This machine's settings: copy to Local.xcconfig (not in git; Base.xcconfig includes it if it's there).
+
+// The Apple team that signs device builds (simulator builds need none).
+DEVELOPMENT_TEAM = 8667597XM3
+
+// The pack server: packs download from <url>/<pack>-<version>.zip, the website's /packs (README, "The website").
+// "//" starts a comment in an xcconfig, so the slashes are written with $() between them. Left empty, buying packs
+// is hidden.
+EPIC_PACKS_URL = https:/$()/epicaudiogames.com/packs
+
+// Simulator only, with the packs served from this Mac (PACKS_DIR=dist/packs PORT=8765 node web/server.js):
+// EPIC_PACKS_URL = http:/$()/localhost:8765/packs

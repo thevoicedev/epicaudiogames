@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The keys Xcode does not generate from INFOPLIST_KEY_* settings (App.xcconfig has the rest). This file goes
+	     through the C preprocessor (INFOPLIST_PREPROCESS), for the Debug-only keys. -->
+	<key>UILaunchScreen</key>
+	<dict>
+		<key>UIColorName</key>
+		<string>LaunchBackground</string>
+	</dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Fonts/lilita_one.ttf</string>
+	</array>
+	<key>EpicPacksURL</key>
+	<string>$(EPIC_PACKS_URL)</string>
+	<!-- White status bar icons everywhere (UIStatusBarStyle), as on Android. -->
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
+#if EPIC_DEBUG
+	<!-- Debug: the Documents folder of the app shows in the Files app, to put a pack zip in Documents/incoming. -->
+	<key>UIFileSharingEnabled</key>
+	<true/>
+	<key>LSSupportsOpeningDocumentsInPlace</key>
+	<true/>
+#endif
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsLocalNetworking</key>
+		<true/>
+	</dict>
+</dict>
+</plist>

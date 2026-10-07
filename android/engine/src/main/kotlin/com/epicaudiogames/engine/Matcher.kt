@@ -6,8 +6,11 @@ package com.epicaudiogames.engine
  * then phrases (yes, no, words, repeat); then the map's own repeat words; then "any".
  */
 object Matcher {
-    /** [index]: the answer taken (null: none); [repeat]: the map's own "repeat" words; [how]: for logs and tests. */
-    data class Result(val index: Int?, val repeat: Boolean, val how: String)
+    /**
+     * [index]: the answer taken (null: none); [repeat]: the map's own "repeat" words; [how]: for logs and tests;
+     * [aside]: none taken, but the answer was heard: it isn't sure, or a phrase in it doesn't count (negated).
+     */
+    data class Result(val index: Int?, val repeat: Boolean, val how: String, val aside: Boolean = false)
 
     private class Hit(val index: Int, val phrase: Phrase, val start: Int, val negated: Boolean) {
         val end get() = start + phrase.text.length
@@ -23,18 +26,19 @@ object Matcher {
             if (answer != null) return Result(answer.index, false, "mixed: ${if (yes) "yes" else "no"}")
             if (live.any { (_, a) -> a.match is Match.Yes || a.match is Match.No }) return Result(null, false, "mixed, no such answer")
         }
+        var aside = Text.unsure(text)
         for (rank in live.map { it.value.rank }.distinct().sortedDescending()) {
             val group = live.filter { it.value.rank == rank }
             for ((i, a) in group) {
                 if (exact(map, a.match, text)) return Result(i, false, a.match::class.simpleName!!.lowercase())
             }
-            phrases(map, ask, group, text)?.let { return it }
+            phrases(map, ask, group, text) { aside = true }?.let { return it }
         }
         if (ask.answers.none { it.match == Match.Repeat }) {
             Text.longest(text, map.words.repeat)?.let { return Result(null, true, "repeat \"${it.text}\"") }
         }
         live.firstOrNull { it.value.match == Match.AnyText }?.let { return Result(it.index, false, "any") }
-        return Result(null, false, "not understood")
+        return Result(null, false, "not understood", aside)
     }
 
     /**
@@ -65,7 +69,8 @@ object Matcher {
             }
         }
         is Match.Digits -> {
-            val got = Text.digits(text)
+            // The map's repeat words aren't numbers: "one more time" is a repeat, not a 1.
+            val got = Text.digits(withoutRepeats(map, text))
             when {
                 m.least != null -> got.length >= m.least
                 m.exact -> got == m.digits
@@ -76,12 +81,30 @@ object Matcher {
         else -> false
     }
 
+    /** The (normalised) text without the map's repeat words in it, in their order (an exact one: all of it, or none). */
+    private fun withoutRepeats(map: GameMap, text: String): String {
+        var t = " $text "
+        for (p in map.words.repeat) {
+            if (p.exact) {
+                if (text == p.text) return ""
+            } else {
+                while (t.contains(" ${p.text} ")) t = t.replace(" ${p.text} ", " ")
+            }
+        }
+        return t.trim()
+    }
+
     /**
      * The phrase answer given in this rank, or null. The longest phrase wins over the phrases inside it ("no
      * rehearsal" over "rehearsal"); two answers that would do different things, said apart ("follow or hide"),
-     * are unclear, and the next rank is tried. A negated phrase ("don't follow") counts for its "opposite".
+     * are unclear, and the next rank is tried. A negated phrase ("don't follow", "of course not") counts for its
+     * "opposite", or else not at all. An answer that isn't sure ("I'm not sure", "I don't know") counts only for a
+     * phrase that says so itself, so it is never a yes or a no. [setAside] hears of a phrase said that doesn't count.
      */
-    private fun phrases(map: GameMap, ask: Ask, group: List<IndexedValue<Answer>>, text: String): Result? {
+    private fun phrases(
+        map: GameMap, ask: Ask, group: List<IndexedValue<Answer>>, text: String, setAside: () -> Unit,
+    ): Result? {
+        val unsure = Text.unsure(text)
         val hits = mutableListOf<Hit>()
         for ((i, a) in group) {
             val phrases = when (val m = a.match) {
@@ -91,8 +114,16 @@ object Matcher {
                 Match.Repeat -> map.words.repeat
                 else -> continue
             }
-            val phrase = Text.longest(text, phrases) ?: continue
             val opposite = a.opposite
+            val said = phrases.filter { Text.phraseLength(text, it) >= 0 }
+            val counted = said.filter {
+                (!unsure || Text.unsure(it.text)) && (opposite != null || it.exact || !Text.negated(text, it.text))
+            }
+            val phrase = counted.maxByOrNull { it.text.length }
+            if (phrase == null) {
+                if (said.isNotEmpty()) setAside()
+                continue
+            }
             val negated = opposite != null && !phrase.exact && Text.negated(text, phrase.text)
             hits += Hit(if (negated) opposite!! else i, phrase, if (phrase.exact) 0 else " $text ".indexOf(" ${phrase.text} "), negated)
         }

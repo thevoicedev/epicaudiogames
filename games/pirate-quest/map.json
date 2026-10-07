@@ -66,6 +66,8 @@
    "yep",
    "yup",
    "sure",
+   "ok",
+   "okay",
    "=yes i am",
    "=i'm ready to play",
    "=yes i'm ready to play",
@@ -74,7 +76,8 @@
   "no": [
    "no",
    "nope",
-   "nah"
+   "nah",
+   "not now"
   ],
   "repeat": [
    "repeat",

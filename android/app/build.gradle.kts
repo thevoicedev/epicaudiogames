@@ -44,13 +44,17 @@ android {
     }
 
     // The games ship inside the app for now: games/ (catalog.json and each game's map.json) and content/ (each
-    // game's audio and cover, built by the tools) merge into assets/<id>/.
-    sourceSets["main"].assets.srcDirs(File(repoRoot, "games"), File(repoRoot, "content"))
+    // game's audio and cover, built by the tools) merge into assets/<id>/. The audio can come from another folder
+    // (gradle property epicContentDir, -PepicContentDir=...; as iOS's EPIC_CONTENT_DIR), e.g. placeholder audio.
+    val contentDir = project.findProperty("epicContentDir")?.toString()?.let(::File) ?: File(repoRoot, "content")
+    sourceSets["main"].assets.srcDirs(File(repoRoot, "games"), contentDir)
     androidResources {
         noCompress += listOf("m4a", "mp3", "opus")
         // A game's packs (games/<id>/packs/) come in their own downloads, not in the app; Nuclear War's lines.json
-        // is what its clips were made from (the app reads clips.json).
-        ignoreAssetsPatterns += listOf("<dir>packs", "<file>lines.json")
+        // is what its clips were made from (the app reads clips.json). Setting any pattern replaces aapt's own list,
+        // so that comes first: no dotfiles, _folders, Thumbs.db or the like.
+        ignoreAssetsPatterns += "!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~".split(":") +
+            listOf("<dir>packs", "<file>lines.json")
     }
     packaging {
         resources {

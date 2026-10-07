@@ -24,6 +24,13 @@ class AlienCustomsTest {
 
     private fun Turn.said() = steps.filterIsInstance<Step.Play>().flatMap { p -> p.lines.map { it.text } }
 
+    /** Plays the level from its intro to its end, every answer to the officer right (or every one wrong). */
+    private fun Session.playLevel(right: Boolean): Turn {
+        var t = answer("yes")
+        while (t.end == null) t = if (node.endsWith("_ann")) answer("play") else answer(reply(right))
+        return t
+    }
+
     /** The answer the officer wants at the current question (or the wrong one). */
     private fun Session.reply(right: Boolean): String {
         val ask = map.node(node).ask!!
@@ -59,10 +66,10 @@ class AlienCustomsTest {
 
         val deported = s.answer(s.reply(false))
         assertEquals("gameover", deported.end?.kind)
-        assertEquals("level_intro", deported.end?.retry)
+        assertEquals("fixed: try again is the item's own level, not level_intro", "L0_intro", deported.end?.retry)
         assertTrue(deported.said().containsAll(listOf("Access denied", "You have been deported back to Earth")))
 
-        assertEquals("the same level again", "L0_intro", s.restart("level_intro").node)
+        assertEquals("the same level again", "L0_intro", s.restart(deported.end?.retry).node)
     }
 
     @Test
@@ -105,5 +112,51 @@ class AlienCustomsTest {
         assertEquals("The officer needs a yes or no answer.", huh.said().last())
         val forgiving = s.answer("yes it is")
         assertTrue(forgiving.visited.isNotEmpty())
+    }
+
+    @Test
+    fun okayIsAYesAndNotNowANo() {
+        // fixed: "okay", "ok" and "not now" weren't understood
+        val s = Session(map)
+        s.start()
+        assertTrue(s.answer("okay").node.endsWith("_ann"))
+        val leave = Session(map)
+        leave.start()
+        assertTrue(leave.answer("not now").quit)
+    }
+
+    @Test
+    fun playAgainAfterTheLastFreeLevelKeepsTheLevelInStep() {
+        // fixed: a win added 1 to level, so after PLAY AGAIN at "Level 5 cleared" it drifted (level 1 won made it 6)
+        val s = Session(map)
+        s.restore(Saved("L1_intro", mapOf("level" to 4.0), false))
+        assertEquals("L4_intro", s.restart("level_intro").node)
+        val five = s.playLevel(true)
+        assertEquals("alien-customs-levels", five.end?.locked)
+        assertEquals(5.0, s.vars["level"])
+
+        assertEquals("level 6 is in the pack: level 1 again", "L0_intro", s.restart().node)
+        val one = s.playLevel(true)
+        assertEquals("L1_intro", one.end?.next)
+        assertEquals(1.0, s.vars["level"])
+
+        assertEquals("L1_intro", s.nextChapter().node)
+        val deported = s.playLevel(false)
+        assertEquals("gameover", deported.end?.kind)
+        assertEquals("try again is level 2", "L1_intro", s.restart(deported.end?.retry).node)
+    }
+
+    @Test
+    fun withThePackEachWinSetsItsOwnLevel() {
+        // fixed: the pack's wins added 1 too, so a level that had drifted stayed off
+        val packs = File(gamesDir, "alien-customs/packs").listFiles { f -> f.extension == "json" }.orEmpty().toList()
+        val full = GameMap.load(File(gamesDir, "alien-customs/map.json"), packs)
+        for (k in 0 until 15) {
+            val s = Session(full)
+            s.restore(Saved("L${k}_win", mapOf("level" to 9.0), false))
+            val won = s.restart("L${k}_win")
+            assertEquals("L${k}_win", if (k < 14) k + 1.0 else 0.0, s.vars["level"])
+            assertEquals(if (k < 14) "L${k + 1}_intro" else "level_intro", won.end?.next)
+        }
     }
 }

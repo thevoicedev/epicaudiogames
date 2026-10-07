@@ -28,6 +28,16 @@ class AlexaReplayTest {
             "the skill does when its series is switched on (FROOTOPIA_SERIES)") { _, _, alexa, ours ->
             ours == alexa + "scenes/fr-sting"
         },
+        // fixed: the skills took "of course not" and "I'm not sure" as a yes, and "I don't know" as a no
+        Known("A negated phrase without an opposite (\"of course not\", \"probably not\", \"let's not hide\") doesn't " +
+            "count, and an answer that isn't sure (\"I'm not sure\", \"I don't know\") is neither yes nor no") { _, said, _, _ ->
+            val t = Text.normalise(said)
+            Text.unsure(t) || t.split(' ').any { it in setOf("don't", "dont", "not", "never") }
+        },
+        // fixed: the skills' digit reader took "to", "for", "won" and "oh" for numbers anywhere ("I want to play" was 2)
+        Known("\"To\", \"too\", \"for\", \"fore\", \"won\" and \"oh\" are numbers only next to another number") { _, said, _, _ ->
+            Text.normalise(said).split(' ').any { it in setOf("to", "too", "for", "fore", "won", "oh") }
+        },
     )
 
     private val gamesDir = File(System.getProperty("games.dir") ?: "../../games")

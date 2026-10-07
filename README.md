@@ -1,6 +1,7 @@
 # Epic Audio Games
 
-Voice-only audio games for Android: put on headphones, listen, and answer out loud, by typing, or with a tap.
+Voice-only audio games for Android and iPhone: put on headphones, listen, and answer out loud, by typing, or by
+tapping one of the options shown in the chat.
 Every word is shown on screen as it's spoken. Everything plays offline. Website: epicaudiogames.com.
 
 ## How it fits together
@@ -13,6 +14,8 @@ Every word is shown on screen as it's spoken. Everything plays offline. Website:
 | `tools/` | build tools: turn the Mini Games radio plays into maps, fetch the audio, check everything |
 | `android/` | the app: `engine` (pure Kotlin: maps, answers, saves, and Nuclear War; tested on the JVM) and, from phase 2, `app` |
 | `web/` | the website, epicaudiogames.com: one page, served by a dependency-free Node server on Railway (see below) |
+| `ios/` | the iPhone app, in Swift: the engine ported from Kotlin and checked against it, and the SwiftUI app (`docs/IOS.md`) |
+| `fixtures/engine/` | what the Kotlin engine does, written by its tests and replayed by the Swift engine (`docs/IOS_PARITY.md`) |
 
 The games come from Mini Games (the `all-minigames-sites` repo next to this one, or `MINIGAMES_DIR`), which the
 tools read at build time only. Nothing from it runs in the app, and the tools never write to it.
@@ -111,8 +114,9 @@ assets, so run the content tools first. The app needs Android 7 (API 24) or late
 - **Game screen:** the talking circle (the game's picture: it pulses while the game speaks, rings while it
   listens, and a tap skips). The transcript appears line by line as it is spoken, with the words still to come
   paler; a line that carries on a sentence (the speaker's line before it ends with a comma or is marked to carry
-  on, as in a list of names read one clip per name) joins that bubble. The answers: buttons, typing or the mic.
-  Answers work while the voice is still talking, and stop it.
+  on, as in a list of names read one clip per name) joins that bubble. The answers: the mic or typing, or a tap on
+  one of the question's options, shown as chips at the end of the chat. Answers work while the voice is still
+  talking, and stop it.
 - **Listening:** after each question the mic opens by itself, as on Alexa. Silence plays the question again; a
   second silence, or "stop", pauses the game until a tap.
 - **Saves:** each game's place is saved at every question, and "Welcome back!" picks it up.
@@ -138,6 +142,34 @@ railway up web --path-as-root --service web      # deploy; `railway link` first 
 
 `CANONICAL_HOST=epicaudiogames.com` on the service makes `www.` redirect to the bare domain.
 
+**The pack server** is the same server: `https://epicaudiogames.com/packs/<pack>-<version>.zip`, from the folder
+`PACKS_DIR` (default `web/packs/`), with ranges (a broken-off download carries on) and a year's caching (Cloudflare,
+in front of Railway, keeps them too). Both apps are built with `https://epicaudiogames.com/packs`: Android's
+`epicPacksUrl` (`-PepicPacksUrl=https://epicaudiogames.com/packs`, or in `~/.gradle/gradle.properties`) and iOS's
+`EPIC_PACKS_URL` (`ios/Config/Local.xcconfig`). The apps install a zip only if its size and SHA-256 are the ones in
+the `games/catalog.json` they were built with, so a published zip is never replaced: a changed pack is a new version
+(`make_pack.py --version 2`), and the old zip stays for the builds that still ask for it.
+
+`railway up` leaves the zips out (`web/.railwayignore`: they are 173 MB, and it turns big uploads away with "File too
+large"), so on Railway they live on a volume. Once, after `railway link`:
+
+```
+railway volume --service web add --mount-path /data     # a volume on the web service, at /data
+railway variable set PACKS_DIR=/data/packs --service web
+railway up web --path-as-root --service web             # the server that serves /packs/
+```
+
+Then, for each new zip in `dist/packs/` (no deploy needed; `railway volume list` gives the volume's name; without
+`--overwrite`, a zip already there isn't replaced, as it shouldn't be):
+
+```
+for f in dist/packs/*.zip; do railway volume files --volume <name> upload "$f" "/data/packs/${f##*/}"; done
+railway volume files --volume <name> list /data/packs
+curl -sI https://epicaudiogames.com/packs/the-werewolf-stories-1.zip     # 200, Content-Length as in the catalog
+```
+
+To try packs locally: `PACKS_DIR=dist/packs node web/server.js`, and point the simulator at `http://localhost:3000/packs`.
+
 ## Phases
 
 1. The map format, the engine, and the three radio plays: King of Frootopia (story 1), Noodle Rush and Signal
@@ -152,3 +184,6 @@ railway up web --path-as-root --service web      # deploy; `railway link` first 
    to come: the pack server, and the products in the Play Console.
 5. Nuclear War, a size pass, and the release build. **Running:** Nuclear War is done (the whole game, in Don's
    voice; see above). Still to come: the size pass and the release build (it needs the upload signing key).
+6. The iPhone app (`docs/IOS.md`). **Running:** every game, speech, saves, packs (StoreKit 2) and VoiceOver work in
+   the simulator, and the Swift engine replays the Kotlin one exactly. A bug hunt on both apps fixed 99 bugs in
+   both. Still to come: trying it on a phone with the real audio, the products in App Store Connect, and the release.

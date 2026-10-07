@@ -123,7 +123,7 @@ An **answer** matches in one way:
 | `"words": [...]` | one of these phrases |
 | `"repeat": true` | a phrase from `words.repeat` |
 | `"seq": "cac", "symbols": "letters"` | the words, turned into symbols with the named table, contain this sequence. Options: `"exact": true` (they are exactly this sequence); `"spelled": true` (a word made only of symbol letters, such as "ac", counts letter by letter); `"least": 2` (at least this many symbols, whatever they are: "it looks like an answer") |
-| `"digits": "42211"` | the digits said, in order, contain these. Options: `"exact": true` (they are exactly these); `"least": 2` (at least this many digits). "four two two one one", "4 2 2 1 1" and "forty two thousand two hundred and eleven" all give 42211 |
+| `"digits": "42211"` | the digits said, in order, contain these. Options: `"exact": true` (they are exactly these); `"least": 2` (at least this many digits). "four two two one one", "4 2 2 1 1" and "forty two thousand two hundred and eleven" all give 42211. "To", "too", "for", "fore", "won" and "oh" count as numbers only next to another number: "for to to one one" gives 42211, "I want to play" nothing |
 | `"re": "\\bsos\\b"` | a regular expression that finds a match in the normalised text |
 | `"any": true` | anything at all |
 
@@ -138,7 +138,7 @@ An answer can also have:
 | `set` | variables to change first |
 | `when` | a condition: the answer only counts while it is true |
 | `rank` | a whole number, 0 if left out: answers of a higher rank are tried first (see Matching). "No" answers ranked above "yes" make "yeah no" a no |
-| `opposite` | for "don't follow"-style answers: the index of the answer to take instead when the matched phrase is negated ("don't", "dont", "not" or "never" up to three words before it) |
+| `opposite` | for "don't follow"-style answers: the index of the answer to take instead when the matched phrase is negated (see Matching). Without it, a negated phrase doesn't count |
 
 **`else`** is either a `go` target or an object `{ "say": [...], "set": {...}, "go": ... }`.
 - With a `go`, the game moves on.
@@ -156,6 +156,7 @@ An answer can also have:
   When all of them have been drawn, the deck starts again. The draws are kept in the variable `deck_<deck>`, so
   declare it in `vars`, and list it in `keep` to carry the deck over to the next play;
 - `{ "end": "quit" }`: leave the game (the player said no to starting, or gave up). The app goes back to its list.
+  Next time the game starts again, with the variables listed in `keep` kept.
 - `{ "end": "leave" }`: leave the game for now, keeping the player's place: the game is saved at the question just
   answered, and picks up there next time (as an Alexa game did after "no, not now" ended the session).
 
@@ -214,9 +215,14 @@ Speech, typed text and buttons are matched the same way:
 4. **Rank by rank,** highest first (answers without a `rank` are rank 0):
    1. **exact checks:** `seq`, `digits` and `re` answers, in the order listed. The first that matches wins;
    2. **phrases:** `yes`, `no`, `words` and `repeat` answers. The longest phrase found wins over phrases inside it:
-      "no rehearsal" beats "rehearsal". If the winner has `opposite` and its phrase is negated, the opposite answer
-      is taken instead. Two answers that would do different things, said apart ("follow or hide"), are unclear:
-      this rank gives no answer, and the next rank is tried.
+      "no rehearsal" beats "rehearsal". Two answers that would do different things, said apart ("follow or hide"),
+      are unclear: this rank gives no answer, and the next rank is tried.
+      - A phrase is **negated** when "don't", "dont", "not" or "never" comes up to three words before it, or a
+        "not" right after it ends the answer ("of course not", "I would not"). A negated phrase counts for the
+        answer's `opposite` if it has one, and otherwise doesn't count: "I'm not ready" isn't a yes.
+      - An answer that says the player **isn't sure** ("not sure", "unsure", "dunno", "no idea", "don't know",
+        "dont know", "do not know") counts only for a phrase that says so itself, so it is never a yes or a no:
+        "I don't know" is asked again, unless the question has its own answer for it.
 5. **The map's repeat words**, if the question has no `repeat` answer: they do what the map's `repeat` says.
 6. **`any`** answers.
 7. **Nothing matched:** `else`.
@@ -255,7 +261,14 @@ the download. `tools/make_pack.py` makes all three from a build of the whole gam
 
 ## Saving
 
-The app saves, per game: the current node, the variables, and the end the player reached. A game picked up again
-plays its question's node again (or, when that node says nothing itself because the turn before it did the
-talking, its reprompt). A game that starts again (from its end screen, or `go: { "restart" }`) starts with the
+The app saves, per game: the current node, the variables, and the end the player reached (or that the player
+left with `{ "end": "quit" }`). Opening the game again:
+- at a question, picks it up: its node plays again (or, when that node says nothing itself because the turn before
+  it did the talking, its reprompt);
+- at a chapter's end whose `next` is in the map (its pack installed), shows that end screen again, with NEXT
+  CHAPTER;
+- anywhere else (another end, a quit, a place no longer in the map), starts the game again with the variables
+  listed in `keep`, as PLAY AGAIN does.
+
+A game that starts again (from its end screen, on opening as above, or `go: { "restart" }`) starts with the
 starting variables, except those listed in `keep`. A chapter's `next` keeps all of them.

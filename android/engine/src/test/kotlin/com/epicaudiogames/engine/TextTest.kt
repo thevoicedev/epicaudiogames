@@ -34,6 +34,15 @@ class TextTest {
         assertEquals("100", Text.digits("one hundred"))
         assertEquals("", Text.digits("a hundred"))          // as in the skill: no number word, no digits
         assertEquals("", Text.digits("no idea"))
+        assertEquals("42211", Text.digits("for to to one one"))
+        assertEquals("11224", Text.digits("won won to to for"))
+        assertEquals("400", Text.digits("for hundred"))
+        // fixed: "to", "for", "won" and "oh" on their own were numbers ("I want to play" said 2)
+        assertEquals("", Text.digits("I want to play"))
+        assertEquals("", Text.digits("go for it"))
+        assertEquals("", Text.digits("I need to listen to it again"))
+        assertEquals("", Text.digits("oh yes I won"))
+        assertEquals("1", Text.digits("I want to play this one"))
     }
 
     @Test
@@ -53,6 +62,20 @@ class TextTest {
         assertTrue(Text.negated("let's not hide", "hide"))
         assertFalse(Text.negated("follow it", "follow"))
         assertFalse(Text.negated("don't you want to go on and follow", "follow"))
+        assertTrue(Text.negated("of course not", "of course"))
+        assertTrue(Text.negated("i would not", "i would"))
+        assertFalse(Text.negated("follow not hide", "follow"))      // a "not" after it only when it ends the answer
+        assertFalse(Text.negated("not", "not"))
+    }
+
+    @Test
+    fun findsUnsureAnswers() {
+        assertTrue(Text.unsure("i'm not sure"))
+        assertTrue(Text.unsure("i don't know"))
+        assertTrue(Text.unsure("dunno"))
+        assertFalse(Text.unsure("sure"))
+        assertFalse(Text.unsure("i know"))
+        assertFalse(Text.unsure("not surely"))
     }
 }
 

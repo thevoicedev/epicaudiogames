@@ -3,8 +3,8 @@
 Errors (the exit code is 1 if there are any):
   - a node without exactly one of ask / go / end, or a go, redirect, answer or end pointing at a missing node;
   - a condition that doesn't parse or names an unknown variable, or a set of an unknown variable;
-  - an answer with no way to match (or two), an unknown symbol table, a regular expression that doesn't compile,
-    an "opposite" pointing nowhere;
+  - an answer with no way to match (or two), an unknown symbol table, a regular expression that doesn't compile
+    or has a control character in it, an "opposite" pointing nowhere;
   - a clip without a transcript, or a transcript line outside its clip or with an unknown speaker;
   - a node the start can't reach, or one from which no end can be reached (the player would be stuck);
   - a missing audio file, or one whose length differs from the map's "dur".
@@ -184,6 +184,9 @@ class Checker:
                     re.compile(a["re"])
                 except re.error as e:
                     self.err(here, f"bad regular expression: {e}")
+                if re.search(r"[\x00-\x1f\x7f]", a["re"]):
+                    # Spoken text never has one: most likely a "\b" that lost its backslash.
+                    self.err(here, f"a control character in the regular expression {a['re']!r}")
             if "words" in a and not all(isinstance(w, str) and w.strip("=").strip() for w in a["words"]):
                 self.err(here, "an empty phrase")
             for w in a.get("words", []):

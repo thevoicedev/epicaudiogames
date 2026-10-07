@@ -23,3 +23,38 @@ node_modules/
 # pack zips for the pack server: tools/make_pack.py remakes them from build/packs/ (and the Werewolf one is over
 # GitHub's 100 MB file limit)
 dist/
+
+# placeholder audio and packs for the simulator and emulator (ios/scripts/placeholder_content.py makes them)
+/build/placeholder-content/
+/build/placeholder-packs/
+
+# iOS / Swift
+ios/build/
+.build/
+.swiftpm/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+ios/Config/Local.xcconfig
+*.ipa
+*.dSYM.zip
+*.mobileprovision
+*.p12
+AuthKey_*.p8
+.DS_Store
+
+# fastlane (ios/fastlane, android/fastlane). The Fastfiles read every key's path from an environment variable and
+# the keys belong outside the repo; these catch one dropped in by mistake. The .json files the lanes upload
+# (ios/fastlane/app_rating_config.json, app_privacy_details.json) are not keys and stay in git.
+*.p8
+*service-account*.json
+android/fastlane/*.json
+# Google Cloud names a downloaded key <project-id>-<hash>.json: none of these folders has JSON of its own.
+/*.json
+/ios/*.json
+/android/*.json
+.env.*
+!.env.example
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/test_output/

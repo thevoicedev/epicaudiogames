@@ -1,0 +1,20 @@
+// The project's Debug configuration.
+#include "Base.xcconfig"
+
+DEBUG_INFORMATION_FORMAT = dwarf
+ENABLE_TESTABILITY = YES
+GCC_DYNAMIC_NO_PIC = NO
+GCC_OPTIMIZATION_LEVEL = 0
+GCC_PREPROCESSOR_DEFINITIONS = DEBUG=1 $(inherited)
+MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE
+ONLY_ACTIVE_ARCH = YES
+SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG $(inherited)
+SWIFT_OPTIMIZATION_LEVEL = -Onone
+
+// Debug builds: the app's Documents folder shows in the Files app, so a pack zip can be dropped into
+// Documents/incoming (Android's external "incoming" folder). Xcode has no INFOPLIST_KEY_ setting for
+// UIFileSharingEnabled, so Config/Info.plist has both keys under #if EPIC_DEBUG.
+INFOPLIST_PREPROCESSOR_DEFINITIONS = EPIC_DEBUG=1 $(inherited)
+
+// The game audio to bundle: Debug warns when there is none (scripts/bundle_content.sh).
+EPIC_CONTENT_REQUIRED = NO

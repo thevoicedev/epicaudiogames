@@ -3,6 +3,8 @@ package com.epicaudiogames.app
 import android.content.Context
 import android.os.Handler
 import android.os.Looper
+import android.os.SystemClock
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -10,10 +12,13 @@ import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import com.epicaudiogames.engine.Ask
+import com.epicaudiogames.engine.Button
 import com.epicaudiogames.engine.Commands
 import com.epicaudiogames.engine.End
 import com.epicaudiogames.engine.Line
 import com.epicaudiogames.engine.Play
+import com.epicaudiogames.engine.Saved
+import com.epicaudiogames.engine.Session
 import com.epicaudiogames.engine.Step
 import com.epicaudiogames.engine.Turn
 import kotlinx.coroutines.Job
@@ -39,17 +44,20 @@ sealed interface FeedItem {
  * One game being played: the engine's game (a map's session, or Nuclear War), the audio, the listening, and what the
  * screen shows. A turn plays its clips while their lines appear in the feed; then the game waits for an answer
  * (listening by itself, as Alexa does), shows its end, or leaves.
+ *
+ * An engine error doesn't crash the app: the feed gets a note and the game goes back to the list ([failure]).
  */
 class GameController(
     context: Context,
     val info: GameInfo,
     private val game: Play,
     private val saves: Saves,
-    packs: List<File>,
+    /** The installed packs this game was opened with (their folders). */
+    val packs: List<File>,
     private val onLeave: () -> Unit,
 ) {
     private val scope = MainScope()
-    private val audio = AudioPlayer(context, info.id, packs) { finishTurn() }
+    private val audio = AudioPlayer(context, info.id, packs, onFinished = { finishTurn() }, onInterrupted = { pause() })
     private val listener = Listener(
         context,
         onPartial = { partial = it },
@@ -57,6 +65,7 @@ class GameController(
         onSilence = ::silence,
         onLevel = { level = it },
         onUnavailable = { listening = false; micWorks = false },
+        onTrouble = ::stopped,
     )
 
     val feed = mutableStateListOf<FeedItem>()
@@ -81,6 +90,19 @@ class GameController(
         private set
     var micWorks by mutableStateOf(Listener.available(context))
     var micAllowed by mutableStateOf(false)
+    /** What went wrong, when an engine error ended the game; the list tells the player. */
+    var failure by mutableStateOf<String?>(null)
+        private set
+
+    /**
+     * The player is typing an answer (the text box has the focus): the mic doesn't open by itself, and stops if it's
+     * listening, as typing is the answer coming.
+     */
+    var typing = false
+        set(value) {
+            field = value
+            if (value) typed()
+        }
 
     private var turn: Turn? = null
     private var clipLines: List<List<Line>> = emptyList()
@@ -93,11 +115,50 @@ class GameController(
     private var carryOn = false
     private var ticker: Job? = null
     private var silences = 0
+    /** When the latest turn began: a tap on an option this soon after is the last tap's double (see [tap]). */
+    private var askedAt = 0L
+
+    /** Where a save is kept aside while its place isn't in the map (its pack missing, or not updated yet). */
+    private val parked = "${info.id}.parked"
 
     fun open() {
+        val saved = savedPlace()
+        val t = try {
+            game.open(saved).also { t ->
+                if (saved != null && (game.canResume(saved) || (saved.ended && t.end != null))) {
+                    feed += FeedItem.Note("Welcome back!")
+                }
+            }
+        } catch (e: Exception) {
+            // A save the game can't open: it's cleared, and the game starts afresh.
+            feed.clear()
+            saves.clear(info.id)
+            try {
+                game.start()
+            } catch (e2: Exception) {
+                fail(e2)
+                return
+            }
+        }
+        play(t)
+    }
+
+    /**
+     * The save to open. In a map game, a save at a place the map doesn't have is kept aside rather than overwritten
+     * by the game starting again; once the map has its place again (the pack back), it's picked up.
+     */
+    private fun savedPlace(): Saved? {
         val saved = saves.load(info.id)
-        if (saved != null && game.canResume(saved)) feed += FeedItem.Note("Welcome back!")
-        play(game.open(saved))
+        val nodes = (game as? Session)?.map?.nodes ?: return saved
+        if (saved != null && !saved.ended && saved.node !in nodes) {
+            saves.store(parked, saved)
+            return saved
+        }
+        val back = saves.load(parked) ?: return saved
+        if (back.node !in nodes) return saved
+        saves.store(info.id, back)
+        saves.clear(parked)
+        return back
     }
 
     fun close() {
@@ -111,7 +172,8 @@ class GameController(
 
     private fun play(t: Turn) {
         turn = t
-        ask = t.ask         // its buttons show at once: an answer can cut the voice short
+        ask = t.ask         // its options show at once: an answer can cut the voice short
+        askedAt = SystemClock.uptimeMillis()
         end = null
         partial = ""
         stopListening()
@@ -131,6 +193,34 @@ class GameController(
                 delay(50)
             }
         }
+    }
+
+    /** Plays what the game says next; an engine error ends the game. */
+    private fun perform(next: () -> Turn) {
+        play(attempt(next) ?: return)
+    }
+
+    /** What the game says next, or null when an engine error has ended the game. */
+    private fun attempt(next: () -> Turn): Turn? = try {
+        next()
+    } catch (e: Exception) {
+        fail(e)
+        null
+    }
+
+    /**
+     * The engine couldn't go on: a note, and back to the list, which tells the player plainly (what went wrong goes to
+     * the log). The save is the last turn's.
+     */
+    private fun fail(e: Exception) {
+        ticker?.cancel()
+        audio.stop()
+        speaking = false
+        activeEntry = -1
+        Log.w("GameController", "${info.id} went wrong", e)
+        feed += FeedItem.Note("Sorry, the game went wrong.")
+        failure = "${info.title} went wrong and had to stop."
+        leave()
     }
 
     /** Shows each line as its time comes, and how far into the line the voice is. */
@@ -186,8 +276,10 @@ class GameController(
         val t = turn ?: return
         when {
             t.quit -> {
-                // "Leave" keeps the player's place (the question they answered), as an ended Alexa session did.
-                if (t.keep) saves.store(info.id, game.save()) else saves.clear(info.id)
+                // "Leave" keeps the player's place (the question they answered), as an ended Alexa session did. A
+                // plain quit isn't picked up again, but its save keeps the map's "keep" variables for next time.
+                val s = game.save()
+                saves.store(info.id, if (t.keep) s else s.copy(ended = true))
                 leave()
             }
             t.end != null -> {
@@ -197,20 +289,24 @@ class GameController(
             t.ask != null -> {
                 ask = t.ask
                 saves.store(info.id, game.save())
-                if (!paused) listen()
+                if (!paused && !typing) listen()
             }
         }
     }
 
     // ----- Answers -----
 
-    /** A typed answer or a tapped button (also while the voice is still talking: it stops). */
-    fun answer(text: String) {
+    /**
+     * A typed answer or a tapped option (also while the voice is still talking: it stops). [shown] is what the reply
+     * shows: an option's label. Answering while paused carries on.
+     */
+    fun answer(text: String, shown: String = text) {
         if (text.isBlank() || ask == null) return
         if (Commands.isPause(text)) {
             pause()
             return
         }
+        paused = false
         stopListening()
         if (speaking) {
             audio.stop()
@@ -219,39 +315,73 @@ class GameController(
             speaking = false
             activeEntry = -1
         }
-        feed += FeedItem.Reply(text.trim())
+        feed += FeedItem.Reply(shown.trim())
         silences = 0
-        play(game.answer(text))
+        perform { game.answer(text) }
+    }
+
+    /**
+     * A tapped option (a chip at the end of the chat): it sends its value, and the reply shows its label. A tap this
+     * soon after a new question is the last tap's double (its options show at once, often where the last ones were),
+     * so it's let go.
+     */
+    fun tap(button: Button) {
+        if (SystemClock.uptimeMillis() - askedAt < DOUBLE_TAP_MS) return
+        answer(button.value, button.label)
     }
 
     /** The recogniser's guesses, best first: the first that the question takes, else the best. */
     private fun heard(guesses: List<String>) {
+        if (!listening) return          // a listen that's over
         listening = false
         partial = ""
         if (ask == null) return
         if (guesses.isEmpty()) {
             // Speech it couldn't make out: "sorry?" (the game's else); twice running, the game waits for a tap.
             feed += FeedItem.Reply("…")
-            if (++silences >= 2) pause() else play(game.answer(""))
+            if (++silences >= 2) {
+                pause()
+                return
+            }
+            val at = turn?.node
+            val t = attempt { game.answer("") } ?: return
+            // Only at the same question do they run on: a new one gets its own "say it again".
+            if (t.ask == null || t.node != at) silences = 0
+            play(t)
             return
         }
-        val best = guesses.firstOrNull { g -> Commands.isPause(g) || game.understands(g) } ?: guesses.first()
+        val best = guesses.firstOrNull { g -> Commands.isPause(g) || understands(g) } ?: guesses.first()
         answer(best)
+    }
+
+    private fun understands(said: String) = try {
+        game.understands(said)
+    } catch (e: Exception) {
+        false
     }
 
     /** Nobody answered: the question again; after a second silence, the game waits for a tap. */
     private fun silence() {
+        if (!listening) return          // a listen that's over
         listening = false
         partial = ""
         if (ask == null) return
         silences++
-        if (silences >= 2) pause() else play(game.silence())
+        if (silences >= 2) pause() else perform { game.silence() }
+    }
+
+    /** Passing trouble with the recogniser, nothing to do with the player: the listen just ends (the mic tries again). */
+    private fun stopped() {
+        listening = false
+        partial = ""
+        level = 0f
     }
 
     // ----- Listening -----
 
+    /** Listens for an answer. Calling it while listening does nothing. */
     fun listen() {
-        if (!micAllowed || !micWorks || ask == null || speaking) return
+        if (!micAllowed || !micWorks || ask == null || speaking || listening) return
         partial = ""
         listening = true
         listener.start()
@@ -263,13 +393,25 @@ class GameController(
         level = 0f
     }
 
+    /** The mic allowed now (the player said yes, or turned it on in Settings): the game listens if it's waiting. */
+    fun allowMic() {
+        micAllowed = true
+        if (!paused && !typing) listen()
+    }
+
+    /** A key typed in the text box: listening stops, and the silences count from nothing again. */
+    fun typed() {
+        if (listening) stopListening()
+        silences = 0
+    }
+
     /** The mic button: listen now (cutting the voice short), or stop listening. After a failure, it tries again. */
     fun mic() {
         micWorks = true
         when {
             listening -> stopListening()
             speaking -> {
-                skip()
+                skip()              // which listens, unless the player is typing
                 listen()
             }
             else -> listen()
@@ -298,7 +440,8 @@ class GameController(
     fun carryOn() {
         paused = false
         silences = 0
-        if (ask != null) play(game.silence())
+        if (speaking) return
+        if (ask != null) perform { game.silence() }
     }
 
     // ----- Ends -----
@@ -307,8 +450,9 @@ class GameController(
         feed.clear()
         feed += FeedItem.Note("Starting again!")
         paused = false
+        silences = 0
         val e = end
-        play(if (e?.kind == "gameover" && e.retry != null) game.restart(e.retry) else game.restart())
+        perform { if (e?.kind == "gameover" && e.retry != null) game.restart(e.retry) else game.restart() }
     }
 
     /** The menu's "Start again": the game from its very beginning. */
@@ -318,7 +462,7 @@ class GameController(
         feed += FeedItem.Note("Starting again!")
         paused = false
         silences = 0
-        play(game.restart())
+        perform { game.restart() }
     }
 
     val canGoOn: Boolean
@@ -326,7 +470,9 @@ class GameController(
 
     fun nextChapter() {
         feed += FeedItem.Note("Next chapter")
-        play(game.nextChapter())
+        paused = false
+        silences = 0
+        perform { game.nextChapter() }
     }
 
     /** Back to the game list (posted, as it closes this game's player from inside its own callbacks). */
@@ -334,5 +480,10 @@ class GameController(
         stopListening()
         audio.stop()
         Handler(Looper.getMainLooper()).post(onLeave)
+    }
+
+    private companion object {
+        /** A second tap this soon after a new question is a double tap. */
+        const val DOUBLE_TAP_MS = 500L
     }
 }

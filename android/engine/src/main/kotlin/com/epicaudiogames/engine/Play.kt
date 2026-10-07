@@ -13,7 +13,7 @@ interface Play {
 
     fun start(): Turn
 
-    /** Whether a save can be picked up again: it waits at a question. */
+    /** Whether a save can be picked up again: it waits at a question (or, in a map game, at a chapter end). */
     fun canResume(saved: Saved): Boolean
 
     fun resume(saved: Saved): Turn
@@ -37,6 +37,9 @@ interface Play {
 
     fun save(): Saved
 
-    /** Whether the question takes this answer (to choose among the recogniser's guesses). */
+    /**
+     * Whether the question takes this answer, or hears it as one that doesn't count ("I'm not sure", "of course
+     * not"): to choose among the recogniser's guesses.
+     */
     fun understands(said: String): Boolean
 }
