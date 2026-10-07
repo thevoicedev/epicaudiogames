@@ -1,0 +1,5 @@
+# `railway up web --path-as-root` uploads this folder (as well as leaving out what .gitignore does). The packs' zips
+# never go with it: they're 173 MB, past what `railway up` takes, and on Railway they live on the service's volume
+# (PACKS_DIR; see the README's "The website"). web/packs/ is only PACKS_DIR's default, for trying them locally.
+packs/
+*.zip

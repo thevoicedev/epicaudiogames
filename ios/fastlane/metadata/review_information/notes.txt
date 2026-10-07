@@ -1,0 +1,32 @@
+Epic Audio Games is eight voice-first audio games. No account, login or demo account is needed.
+
+HOW TO PLAY
+- Headphones are best, but the speaker works too.
+- Tap a game on the list to open it. The game talks, and every line appears in the chat as it is spoken.
+- When a question comes, the mic opens by itself. Answer by speaking, by typing in the text box, or by tapping one of the options shown as chips at the end of the chat. Tapping is the quickest way to test.
+- In The Werewolf, accuse a villager by typing or saying their name ("List villagers" reads them out).
+- Tap the big circle to skip the voice. The menu (three dots, top right) has "Start again", and "Help" and "Privacy policy", which open our support and privacy pages in Safari.
+- If nobody answers, the question plays again. A second silence pauses the game until you tap.
+- Noodle Rush is the shortest game: a few minutes to an ending.
+
+PERMISSIONS
+The first time a game opens, iOS asks for the microphone, then for speech recognition. Both are used only to hear answers while a game is open. Speech is recognised on the iPhone where it supports it, and otherwise by Apple's speech service. The app doesn't store or send recordings. If you decline, the games still work by typing and tapping.
+
+IN-APP PURCHASES
+Three non-consumable packs, each adding more of one game:
+- frootopia_stories: The Kingdom of Frootopia, stories 2 to 5 (15 MB download)
+- alien_customs_levels: Alien Customs, levels 6 to 15 (26 MB download)
+- the_werewolf_stories: The Werewolf, stories 6 to 50 (133 MB download)
+
+To reach a purchase:
+- On the game list, tap the yellow pill on a game's card ("+ STORIES 2 TO 5" on The Kingdom of Frootopia, "+ 10 MORE LEVELS" on Alien Customs, "+ 45 MORE MYSTERIES" on The Werewolf). It opens the store sheet with the pack, its price and "Restore purchases".
+- Or finish story 1 of The Kingdom of Frootopia. The chapter end offers the pack.
+- Inside a game, the menu (three dots) also has "More stories and levels".
+
+After a purchase, the pack downloads from our pack server over HTTPS, is checked against the checksum built into the app, and unpacked. The game then carries on at NEXT CHAPTER. "Restore purchases" in the store sheet brings back packs bought before. A download the app starts by itself (for example at launch, for a pack bought on another device) waits for Wi-Fi unless you tap DOWNLOAD NOW.
+
+OFFLINE
+All eight games are inside the app and play with no connection. Only buying and downloading packs needs one (and speech recognition on iPhones that can't do it on the device).
+
+CONTENT
+Nuclear War is a light-hearted strategy game for one player. The player picks any of five countries (France, the USA, the UK, China or Russia); the other four are run by the game, and any country can be a target, so no single real country or government is singled out. Their leaders have fictional parody names. Each round they spend money on shields, sanctions and bombs, and the announcer says when a city has been destroyed. It's all spoken, with no images of violence and nothing graphic. Pirate Quest has a dice game played for in-game coins only, with no real money. The app has no ads, no analytics, no web views, no chat or messaging with other people, and no user accounts.

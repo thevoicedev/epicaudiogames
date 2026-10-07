@@ -1,0 +1,1 @@
+interactive,adventure,drama,mystery,werewolf,pirate,speak,talk,offline,trivia,alien,quiz,detective

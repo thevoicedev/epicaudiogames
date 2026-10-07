@@ -1,0 +1,4 @@
+# The app on Google Play. The service account's JSON key stays outside the repo: PLAY_JSON_KEY is its path
+# (README.md here says how to make one).
+package_name("com.epicaudiogames.app")
+json_key_file(File.expand_path(ENV["PLAY_JSON_KEY"])) if ENV["PLAY_JSON_KEY"].to_s.strip != ""

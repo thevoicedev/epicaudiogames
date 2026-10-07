@@ -1,0 +1,593 @@
+# Epic Audio Games on Google Play: the store listing, signed release builds on the internal testing track, and the
+# three packs as one-time products. README.md here has the one-time Play Console steps and what each lane needs.
+#
+# What gets uploaded lives next to this file, in supply's layout:
+#   metadata/android/en-US/title.txt, short_description.txt, full_description.txt
+#   metadata/android/en-US/images/icon.png, featureGraphic.png, phoneScreenshots/*.png
+#   metadata/android/en-US/changelogs/<versionCode>.txt   (optional: a build's "what's new"; default.txt otherwise)
+# The packs' product ids come from games/catalog.json; their Play names and descriptions are PLAY_PRODUCTS below.
+#
+# Keys come from the environment, never from this repo:
+#   PLAY_JSON_KEY                  the path of the Google Cloud service account's JSON key
+#   EAG_UPLOAD_KEYSTORE            the path of the upload keystore, and its passwords and alias:
+#   EAG_UPLOAD_KEYSTORE_PASSWORD, EAG_UPLOAD_KEY_ALIAS, EAG_UPLOAD_KEY_PASSWORD
+
+skip_docs # README.md is written by hand: without this, fastlane replaces it with a list of lanes
+
+require "json"
+require "open3"
+
+default_platform(:android)
+
+# Fastfile code runs in this folder; actions run in android/. Every path here is absolute, so neither matters.
+FASTLANE_DIR = File.expand_path(__dir__)
+ANDROID_DIR = File.dirname(FASTLANE_DIR)
+REPO_DIR = File.dirname(ANDROID_DIR)
+
+PACKAGE_NAME = "com.epicaudiogames.app"
+CATALOG = File.join(REPO_DIR, "games", "catalog.json")
+APP_GRADLE = File.join(ANDROID_DIR, "app", "build.gradle.kts")
+IOS_BASE_XCCONFIG = File.join(REPO_DIR, "ios", "Config", "Base.xcconfig")
+METADATA_DIR = File.join(FASTLANE_DIR, "metadata", "android")
+BUNDLE = File.join(ANDROID_DIR, "app", "build", "outputs", "bundle", "release", "app-release.aab")
+MAPPING = File.join(ANDROID_DIR, "app", "build", "outputs", "mapping", "release", "mapping.txt")
+
+# Google Play's limits (characters).
+TEXT_LIMITS = { "title.txt" => 30, "short_description.txt" => 80, "full_description.txt" => 4000 }.freeze
+CHANGELOG_LIMIT = 500
+PRODUCT_TITLE_LIMIT = 55
+PRODUCT_DESCRIPTION_LIMIT = 200
+
+# Each pack's price in US dollars. Google converts it for every other country, with its local price patterns.
+PACK_PRICE_USD = "1.99"
+# A one-time product's way to buy it. Legacy-compatible, so the app's Play Billing Library 7 (which predates
+# purchase options) sees an ordinary in-app product.
+PURCHASE_OPTION_ID = "buy"
+
+# Each pack's name and description on Google Play. The names are the App Store Connect ones, so both stores match;
+# the descriptions are the packs' own (games/catalog.json, which the app's store sheet shows). docs/STORE_LISTING.md
+# has the same table. Google's limits: 55 and 200 characters.
+PLAY_PRODUCTS = {
+  "frootopia_stories" => {
+    title: "Frootopia: Stories 2 to 5",
+    description: "The Stowaway, The Mould Moon, The Edge of Everything and The Last Star: the rest of Cosmo, Gribbo and " \
+                 "Pip's adventure."
+  },
+  "alien_customs_levels" => {
+    title: "Alien Customs: 10 More Levels",
+    description: "Levels 6 to 15, from a sports tournament to a business trip: 30 more items to talk past the officer, " \
+                 "from marshmallows to rizz books."
+  },
+  "the_werewolf_stories" => {
+    title: "The Werewolf: 45 Mysteries",
+    description: "Stories 6 to 50, from The Haunted Mill to The Cursed Well: 45 more villages, each with two werewolves " \
+                 "hiding among the villagers."
+  }
+}.freeze
+
+# PNG colour types (byte 25 of the file): 2 is RGB, 6 is RGB with alpha, 4 is grey with alpha.
+PNG_RGBA = 6
+PNG_ALPHA_TYPES = [4, 6].freeze
+
+UPLOAD_KEY_VARIABLES = %w[EAG_UPLOAD_KEYSTORE EAG_UPLOAD_KEYSTORE_PASSWORD EAG_UPLOAD_KEY_ALIAS EAG_UPLOAD_KEY_PASSWORD].freeze
+
+platform :android do
+  desc "Check everything the upload lanes send, offline (nothing leaves this Mac): the listing's texts and"
+  desc "images, the packs' names, and what a release build needs (keys, audio, version)"
+  lane :check do
+    errors = []
+    warnings = []
+    check_listing(errors, warnings)
+    check_products(errors)
+    check_release_setup(warnings)
+    check_key_paths(warnings)
+    report!(errors, warnings)
+    UI.success(warnings.empty? ? "Everything the lanes upload looks right" : "Nothing that stops an upload (warnings above)")
+  end
+
+  desc "Upload the store listing: the texts and images in metadata/android/. No build, no release notes; images"
+  desc "Google already has are skipped, so it's safe to run again. Options: validate_only:true (Google checks it"
+  desc "and nothing changes); track:<name> (default internal: Google files the listing against a release there)"
+  lane :metadata do |options|
+    errors = []
+    warnings = []
+    check_listing(errors, warnings)
+    report!(errors, warnings)
+
+    key = play_key!
+    track = (options[:track] || "internal").to_s
+    version_code = options[:version_code] ? options[:version_code].to_i : latest_version_code!(key, track)
+
+    upload_to_play_store(
+      package_name: PACKAGE_NAME,
+      json_key: key,
+      track: track,
+      version_code: version_code,
+      metadata_path: METADATA_DIR,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_changelogs: true,
+      sync_image_upload: true,
+      validate_only: truthy?(options[:validate_only])
+    )
+  end
+
+  desc "Build the release bundle, signed with the upload key, without uploading it: Google takes an app's first"
+  desc "build only in the Play Console. Options: content_dir:<path> (another content folder, as -PepicContentDir);"
+  desc "allow_no_packs:true (build without a pack server: that build can't sell packs)"
+  lane :build do |options|
+    bundle = build_bundle!(options[:content_dir], allow_no_packs: truthy?(options[:allow_no_packs]))
+    UI.success("#{bundle} (versionCode #{gradle_value('versionCode')}, versionName #{gradle_value('versionName')})")
+  end
+
+  desc "Build the signed bundle and upload it to a testing track (internal unless track: says otherwise), with its R8"
+  desc "mapping and changelogs/<versionCode>.txt (or default.txt). versionCode (android/app/build.gradle.kts) has to"
+  desc "be higher than any build Google has, on any track. Options: track:<name> (alpha is closed testing, or a"
+  desc "custom closed track's name); status:draft (while Google still calls the app a draft); validate_only:true;"
+  desc "content_dir:<path>; allow_no_packs:true"
+  lane :internal do |options|
+    key = play_key!
+    track = (options[:track] || "internal").to_s
+    UI.user_error!("This lane uploads to testing tracks only; promote to production in the Play Console") if track == "production"
+    version_code = gradle_value("versionCode").to_i
+    ensure_unused_version_code!(key, version_code)
+    bundle = build_bundle!(options[:content_dir], allow_no_packs: truthy?(options[:allow_no_packs]))
+
+    changelog = Dir.glob(File.join(METADATA_DIR, "*", "changelogs", "{#{version_code},default}.txt")).any?
+    params = {
+      package_name: PACKAGE_NAME,
+      json_key: key,
+      track: track,
+      aab: bundle,
+      release_status: (options[:status] || "completed").to_s,
+      metadata_path: METADATA_DIR,
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+      skip_upload_changelogs: !changelog,
+      validate_only: truthy?(options[:validate_only])
+    }
+    params[:mapping] = MAPPING if File.exist?(MAPPING)
+    upload_to_play_store(params)
+  end
+
+  desc "Create or update the packs as one-time products: the names and descriptions in PLAY_PRODUCTS, and"
+  desc "$#{PACK_PRICE_USD} with Google's price for every other country; then put them on sale. Safe to run again."
+  desc "Options: dry_run:true (prints what would be sent; no key needed, nothing sent); only:<product id>"
+  lane :iaps do |options|
+    errors = []
+    check_products(errors)
+    report!(errors, [])
+
+    products = catalog_products
+    products = products.select { |product| product[:id] == options[:only].to_s } if options[:only]
+    UI.user_error!("No pack sells as #{options[:only]} in games/catalog.json") if products.empty?
+
+    if truthy?(options[:dry_run])
+      prices = { regions: { "US" => usd_price }, usd: usd_price, eur: nil, version: "(Google's, when it runs)" }
+      products.each do |product|
+        UI.header("#{product[:id]} (monetization.onetimeproducts.patch, allowMissing)")
+        puts(JSON.pretty_generate(JSON.parse(one_time_product(product, prices, PURCHASE_OPTION_ID).to_json)))
+      end
+      UI.important("Dry run: nothing was sent. For real, every country's price comes from Google's conversion of " \
+                   "$#{PACK_PRICE_USD}, and each product's purchase option is then activated.")
+      next
+    end
+
+    service = play_service(play_key!)
+    if service.respond_to?(:patch_monetization_onetimeproduct)
+      UI.message("Using monetization.onetimeproducts (google-apis-androidpublisher_v3 #{api_gem_version})")
+      prices = converted_prices(service)
+      products.each { |product| save_one_time_product(service, product, prices) }
+    else
+      # Older client libraries only know the in-app products API that one-time products replaced in 2025.
+      UI.important("google-apis-androidpublisher_v3 #{api_gem_version} has no one-time products API: using inappproducts")
+      products.each { |product| save_legacy_product(service, product) }
+    end
+  end
+end
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Helpers
+
+def truthy?(value)
+  value == true || %w[true yes 1].include?(value.to_s.strip.downcase)
+end
+
+def rel(path)
+  path.sub("#{REPO_DIR}/", "")
+end
+
+def read_text(path)
+  File.exist?(path) ? File.read(path).strip : ""
+end
+
+# A text exactly as supply sends it (it doesn't strip anything): a trailing newline counts.
+def sent_text(path)
+  File.exist?(path) ? File.read(path, encoding: "UTF-8") : ""
+end
+
+def report!(errors, warnings)
+  warnings.each { |warning| UI.important(warning) }
+  return if errors.empty?
+
+  errors.each { |error| UI.error(error) }
+  UI.user_error!("#{errors.count} problem#{errors.count == 1 ? '' : 's'} to fix first (above). Nothing was uploaded.")
+end
+
+# A setting in android/app/build.gradle.kts, such as versionCode or versionName.
+def gradle_value(name)
+  match = File.read(APP_GRADLE).match(/^\s*#{Regexp.escape(name)}\s*=\s*"?([^"\s]+)"?/)
+  match ? match[1] : UI.user_error!("No #{name} in #{rel(APP_GRADLE)}")
+end
+
+def catalog_product_ids
+  JSON.parse(File.read(CATALOG))["games"].flat_map { |game| (game["packs"] || []).map { |pack| pack["product"] } }
+end
+
+# The packs on sale (ids from games/catalog.json), with their Play names: [{ id:, title:, description: }]
+def catalog_products
+  catalog_product_ids.map do |id|
+    listing = PLAY_PRODUCTS[id] || {}
+    { id: id, title: listing[:title].to_s, description: listing[:description].to_s.strip }
+  end
+end
+
+def api_gem_version
+  require "google/apis/androidpublisher_v3"
+  Google::Apis::AndroidpublisherV3::GEM_VERSION
+end
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Offline checks
+
+def image_size(path)
+  require "fastimage"
+  FastImage.size(path)
+end
+
+def check_listing(errors, warnings)
+  languages = Dir.exist?(METADATA_DIR) ? Dir.children(METADATA_DIR).select { |name| File.directory?(File.join(METADATA_DIR, name)) } : []
+  if languages.empty?
+    errors << "#{rel(METADATA_DIR)}/en-US/ is missing (the listing's texts and images)"
+    return
+  end
+  errors << "#{rel(METADATA_DIR)}/en-US/ is missing: en-US is the listing's default language" unless languages.include?("en-US")
+
+  languages.sort.each do |language|
+    dir = File.join(METADATA_DIR, language)
+    TEXT_LIMITS.each do |name, limit|
+      path = File.join(dir, name)
+      text = sent_text(path)
+      if text.strip.empty?
+        errors << "#{rel(path)} is missing or empty"
+      elsif text.length > limit
+        errors << "#{rel(path)} is #{text.length} characters as supply sends it (a trailing newline counts); the limit is #{limit}"
+      end
+    end
+    Dir.glob(File.join(dir, "changelogs", "*.txt")).each do |path|
+      length = sent_text(path).length
+      errors << "#{rel(path)} is #{length} characters as supply sends it; the limit is #{CHANGELOG_LIMIT}" if length > CHANGELOG_LIMIT
+    end
+    check_images(File.join(dir, "images"), errors, warnings, required: language == "en-US")
+  end
+end
+
+# A PNG's colour type, or nil for anything else (a JPEG has no alpha).
+def png_colour_type(path)
+  return nil unless File.binread(path, 8) == "\x89PNG\r\n\x1A\n".b
+
+  File.binread(path, 1, 25).ord
+end
+
+def check_images(dir, errors, warnings, required:)
+  icon = Dir.glob(File.join(dir, "icon.png")).first
+  if icon
+    errors << "#{rel(icon)} should be 512 x 512" unless image_size(icon) == [512, 512]
+    errors << "#{rel(icon)} is over 1 MB" if File.size(icon) > 1024 * 1024
+    errors << "#{rel(icon)} should be a 32-bit PNG, with alpha (Google's spec)" unless png_colour_type(icon) == PNG_RGBA
+  elsif required
+    errors << "#{rel(File.join(dir, 'icon.png'))} is missing (512 x 512 PNG)"
+  end
+
+  feature = Dir.glob(File.join(dir, "featureGraphic.{png,jpg,jpeg}")).first
+  if feature
+    errors << "#{rel(feature)} should be 1024 x 500" unless image_size(feature) == [1024, 500]
+    errors << "#{rel(feature)} is over 15 MB" if File.size(feature) > 15 * 1024 * 1024
+    errors << "#{rel(feature)} has an alpha channel; Google wants it without" if PNG_ALPHA_TYPES.include?(png_colour_type(feature))
+  elsif required
+    errors << "#{rel(File.join(dir, 'featureGraphic.png'))} is missing (1024 x 500 PNG or JPEG)"
+  end
+
+  shots = Dir.glob(File.join(dir, "phoneScreenshots", "*.{png,jpg,jpeg}")).sort
+  if shots.empty?
+    warnings << "no phone screenshots in #{rel(File.join(dir, 'phoneScreenshots'))}/ yet (2 to 8)" if required
+  elsif shots.count < 2 || shots.count > 8
+    errors << "#{rel(File.join(dir, 'phoneScreenshots'))}/ has #{shots.count} screenshots; Google takes 2 to 8"
+  end
+  shots.each do |path|
+    width, height = image_size(path)
+    if width.nil?
+      errors << "#{rel(path)} isn't a PNG or JPEG image"
+    elsif [width, height].min < 320 || [width, height].max > 3840 || [width, height].max > 2 * [width, height].min
+      errors << "#{rel(path)} is #{width} x #{height}: each side 320 to 3840, the long side at most twice the short"
+    elsif height * 9 != width * 16 || width < 1080
+      # Google features a game in its recommendations only with three or more 9:16 portrait shots, 1080 x 1920 or more.
+      warnings << "#{rel(path)} is #{width} x #{height}, not 9:16 portrait of at least 1080 x 1920: it won't count " \
+                  "towards Google Play's promotion of games"
+    end
+    errors << "#{rel(path)} is over 8 MB" if File.size(path) > 8 * 1024 * 1024
+    errors << "#{rel(path)} has an alpha channel; Google wants screenshots without" if PNG_ALPHA_TYPES.include?(png_colour_type(path))
+  end
+end
+
+def check_products(errors)
+  ids = catalog_product_ids
+  (ids - PLAY_PRODUCTS.keys).each { |id| errors << "#{id} is a pack in games/catalog.json but has no Play name: add it to PLAY_PRODUCTS" }
+  (PLAY_PRODUCTS.keys - ids).each { |id| errors << "PLAY_PRODUCTS has #{id}, which games/catalog.json doesn't sell" }
+  catalog_products.each do |product|
+    errors << "#{product[:id]}: the name is empty" if product[:title].empty?
+    errors << "#{product[:id]}: the name is over #{PRODUCT_TITLE_LIMIT} characters: #{product[:title]}" if product[:title].length > PRODUCT_TITLE_LIMIT
+    errors << "#{product[:id]}: the description is empty" if product[:description].empty?
+    if product[:description].length > PRODUCT_DESCRIPTION_LIMIT
+      errors << "#{product[:id]}: the description is #{product[:description].length} characters; Google takes #{PRODUCT_DESCRIPTION_LIMIT}"
+    end
+  end
+end
+
+def check_release_setup(warnings)
+  key = ENV["PLAY_JSON_KEY"].to_s
+  if key.empty?
+    warnings << "PLAY_JSON_KEY isn't set (the service account key every upload needs)"
+  elsif !File.exist?(File.expand_path(key))
+    warnings << "PLAY_JSON_KEY: there's no file at #{File.expand_path(key)}"
+  end
+
+  missing = UPLOAD_KEY_VARIABLES.select { |name| ENV[name].to_s.empty? }
+  warnings << "#{missing.join(', ')} not set (the upload key that signs release builds)" unless missing.empty?
+  warnings << "content/ is missing: a release build without the audio is no use (README, Building the content)" unless File.directory?(File.join(REPO_DIR, "content"))
+  warnings << "no pack server (epicPacksUrl): release builds won't sell packs" unless packs_url_set?
+
+  ios_version = File.exist?(IOS_BASE_XCCONFIG) ? File.read(IOS_BASE_XCCONFIG)[/^\s*MARKETING_VERSION\s*=\s*(\S+)/, 1] : nil
+  version_name = gradle_value("versionName")
+  if ios_version && version_name != ios_version
+    warnings << "versionName is #{version_name} (android/app/build.gradle.kts) but the iPhone app is #{ios_version}"
+  end
+end
+
+# A key kept inside the repo could be committed: warn.
+def check_key_paths(warnings)
+  %w[PLAY_JSON_KEY EAG_UPLOAD_KEYSTORE].each do |name|
+    path = ENV[name].to_s.strip
+    next if path.empty?
+
+    full = File.expand_path(path)
+    warnings << "#{name} is inside this repo (#{rel(full)}): keep it outside" if full.start_with?("#{REPO_DIR}/")
+  end
+end
+
+def packs_url_set?
+  return true if ENV["ORG_GRADLE_PROJECT_epicPacksUrl"].to_s != ""
+
+  [File.join(Dir.home, ".gradle", "gradle.properties"), File.join(ANDROID_DIR, "gradle.properties")].any? do |path|
+    File.exist?(path) && File.read(path).match?(/^\s*epicPacksUrl\s*=\s*\S/)
+  end
+end
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Release builds
+
+def play_key!
+  key = ENV["PLAY_JSON_KEY"].to_s.strip
+  UI.user_error!("Set PLAY_JSON_KEY to the service account's JSON key first (android/fastlane/README.md)") if key.empty?
+  path = File.expand_path(key)
+  UI.user_error!("PLAY_JSON_KEY: there's no file at #{path}") unless File.exist?(path)
+  path
+end
+
+def upload_key!
+  missing = UPLOAD_KEY_VARIABLES.select { |name| ENV[name].to_s.empty? }
+  UI.user_error!("Set #{missing.join(', ')} first: the upload key (android/fastlane/README.md)") unless missing.empty?
+  store = File.expand_path(ENV["EAG_UPLOAD_KEYSTORE"])
+  UI.user_error!("EAG_UPLOAD_KEYSTORE: there's no file at #{store}") unless File.exist?(store)
+  store
+end
+
+# gradlew :app:bundleRelease, signed with the upload key through Android Gradle Plugin's injected signing
+# properties (what Android Studio's "Generate Signed Bundle" passes), so build.gradle.kts keeps no key settings.
+# The command isn't printed, since it carries the passwords.
+def build_bundle!(content_dir = nil, allow_no_packs: false)
+  store = upload_key!
+  content = content_dir ? File.expand_path(content_dir.to_s, REPO_DIR) : File.join(REPO_DIR, "content")
+  unless File.directory?(content) && !Dir.empty?(content)
+    UI.user_error!("No audio at #{content}: a release build needs the real content (README, Building the content)")
+  end
+  unless packs_url_set?
+    message = "No pack server (epicPacksUrl in ~/.gradle/gradle.properties or ORG_GRADLE_PROJECT_epicPacksUrl): this " \
+              "build would hide buying packs"
+    UI.user_error!("#{message}. Set it, or pass allow_no_packs:true for a build that doesn't sell packs") unless allow_no_packs
+    UI.important(message)
+  end
+
+  arguments = [
+    "sh", "./gradlew", ":app:bundleRelease",
+    "-Pandroid.injected.signing.store.file=#{store}",
+    "-Pandroid.injected.signing.store.password=#{ENV['EAG_UPLOAD_KEYSTORE_PASSWORD']}",
+    "-Pandroid.injected.signing.key.alias=#{ENV['EAG_UPLOAD_KEY_ALIAS']}",
+    "-Pandroid.injected.signing.key.password=#{ENV['EAG_UPLOAD_KEY_PASSWORD']}"
+  ]
+  arguments << "-PepicContentDir=#{content}" if content_dir
+  File.delete(BUNDLE) if File.exist?(BUNDLE)
+
+  UI.message("Building the release bundle (gradlew :app:bundleRelease), signed with #{store}...")
+  UI.user_error!("The Gradle build failed (above)") unless system(*arguments, chdir: ANDROID_DIR)
+  UI.user_error!("The build made no bundle at #{BUNDLE}") unless File.exist?(BUNDLE)
+
+  ensure_upload_signed!(BUNDLE)
+  BUNDLE
+end
+
+# build.gradle.kts signs release builds with the debug key, which Google refuses: make sure the upload key took.
+def ensure_upload_signed!(bundle)
+  output, status = Open3.capture2e("keytool", "-printcert", "-jarfile", bundle)
+  UI.user_error!("keytool couldn't read #{bundle}'s signature: #{output.lines.first}") unless status.success?
+  UI.user_error!("#{bundle} is signed with the debug key, not the upload key") if output.include?("CN=Android Debug")
+  UI.message("Signed by #{output[/Owner: (.*)/, 1]}")
+end
+
+def version_codes(key, track)
+  google_play_track_version_codes(package_name: PACKAGE_NAME, json_key: key, track: track).map(&:to_i)
+end
+
+def latest_version_code!(key, track)
+  codes = version_codes(key, track)
+  return codes.max unless codes.empty?
+
+  UI.user_error!("The #{track} track has no build yet, and Google files the listing against one. Google takes an " \
+                 "app's first build only in the Play Console: run `fastlane android build`, upload the bundle there " \
+                 "(README.md), then run this again.")
+end
+
+# Every versionCode on every track, custom closed tracks included (read-only: the edit is thrown away).
+def all_version_codes(key)
+  require "supply"
+  client = Supply::Client.make_from_config(params: { json_key: key, timeout: 300 })
+  client.begin_edit(package_name: PACKAGE_NAME)
+  client.tracks.flat_map { |track| (track.releases || []).flat_map { |release| release.version_codes || [] } }.map(&:to_i)
+ensure
+  begin
+    client&.abort_current_edit
+  rescue StandardError
+    nil
+  end
+end
+
+def ensure_unused_version_code!(key, version_code)
+  used = all_version_codes(key)
+  return if used.empty? || version_code > used.max
+
+  UI.user_error!("versionCode #{version_code} isn't new: Google already has #{used.max}. Raise versionCode in " \
+                 "#{rel(APP_GRADLE)} first.")
+end
+
+# ---------------------------------------------------------------------------------------------------------------------
+# One-time products (the Play Developer API, through the client library fastlane bundles)
+
+def play_service(key)
+  require "supply"
+  Supply::Client.make_from_config(params: { json_key: key, timeout: 300 }).client
+end
+
+def money(currency, amount)
+  require "google/apis/androidpublisher_v3"
+  whole, fraction = amount.split(".")
+  Google::Apis::AndroidpublisherV3::Money.new(
+    currency_code: currency,
+    units: whole.to_i,
+    nanos: (fraction.to_s + "000000000")[0, 9].to_i
+  )
+end
+
+def usd_price
+  money("USD", PACK_PRICE_USD)
+end
+
+# Google's price for every country from the US price, and the version of its country list they belong to.
+def converted_prices(service)
+  api = Google::Apis::AndroidpublisherV3
+  response = service.convert_monetization_region_prices(PACKAGE_NAME, api::ConvertRegionPricesRequest.new(price: usd_price))
+  regions = {}
+  (response.converted_region_prices || {}).each { |code, converted| regions[code.to_s] = converted.price }
+  regions["US"] = usd_price
+  other = response.converted_other_regions_price
+  {
+    regions: regions,
+    usd: other&.usd_price || usd_price,
+    eur: other&.eur_price,
+    version: response.region_version&.version
+  }
+end
+
+def one_time_product(product, prices, purchase_option_id)
+  api = Google::Apis::AndroidpublisherV3
+  option = api::OneTimeProductPurchaseOption.new(
+    purchase_option_id: purchase_option_id,
+    buy_option: api::OneTimeProductBuyPurchaseOption.new(legacy_compatible: true, multi_quantity_enabled: false),
+    regional_pricing_and_availability_configs: prices[:regions].sort.map do |code, price|
+      api::OneTimeProductPurchaseOptionRegionalPricingAndAvailabilityConfig.new(
+        region_code: code, price: price, availability: "AVAILABLE"
+      )
+    end
+  )
+  if prices[:usd] && prices[:eur]
+    option.new_regions_config = api::OneTimeProductPurchaseOptionNewRegionsConfig.new(
+      usd_price: prices[:usd], eur_price: prices[:eur], availability: "AVAILABLE"
+    )
+  end
+
+  api::OneTimeProduct.new(
+    package_name: PACKAGE_NAME,
+    product_id: product[:id],
+    listings: [api::OneTimeProductListing.new(language_code: "en-US", title: product[:title], description: product[:description])],
+    purchase_options: [option]
+  )
+end
+
+def save_one_time_product(service, product, prices)
+  api = Google::Apis::AndroidpublisherV3
+  existing = begin
+    service.get_monetization_onetimeproduct(PACKAGE_NAME, product[:id])
+  rescue Google::Apis::ClientError => e
+    raise unless e.status_code == 404
+
+    nil
+  end
+  # Keep the purchase option a product already has (one made in the Play Console has its own id).
+  options = existing&.purchase_options || []
+  current = options.find { |option| option.buy_option&.legacy_compatible } || options.find(&:buy_option)
+  option_id = current&.purchase_option_id || PURCHASE_OPTION_ID
+
+  saved = service.patch_monetization_onetimeproduct(
+    PACKAGE_NAME, product[:id], one_time_product(product, prices, option_id),
+    allow_missing: true,
+    regions_version_version: prices[:version],
+    update_mask: "listings,purchaseOptions"
+  )
+  verb = existing ? "updated" : "created"
+
+  state = (saved.purchase_options || []).find { |option| option.purchase_option_id == option_id }&.state
+  if state == "ACTIVE"
+    UI.success("#{product[:id]}: #{verb}, on sale")
+    return
+  end
+  request = api::UpdatePurchaseOptionStateRequest.new(
+    activate_purchase_option_request: api::ActivatePurchaseOptionRequest.new(
+      package_name: PACKAGE_NAME, product_id: product[:id], purchase_option_id: option_id
+    )
+  )
+  service.batch_monetization_onetimeproduct_purchase_option_update_states(
+    PACKAGE_NAME, product[:id], api::BatchUpdatePurchaseOptionStatesRequest.new(requests: [request])
+  )
+  UI.success("#{product[:id]}: #{verb}, and put on sale")
+rescue Google::Apis::Error => e
+  UI.user_error!("#{product[:id]}: Google said #{e.message} #{e.respond_to?(:body) ? e.body : ''}")
+end
+
+def save_legacy_product(service, product)
+  api = Google::Apis::AndroidpublisherV3
+  price = usd_price
+  item = api::InAppProduct.new(
+    package_name: PACKAGE_NAME,
+    sku: product[:id],
+    purchase_type: "managedUser",
+    status: "active",
+    default_language: "en-US",
+    default_price: api::Price.new(currency: "USD", price_micros: (price.units * 1_000_000 + price.nanos / 1000).to_s),
+    listings: { "en-US" => api::InAppProductListing.new(title: product[:title], description: product[:description]) }
+  )
+  service.update_inappproduct(PACKAGE_NAME, product[:id], item, allow_missing: true, auto_convert_missing_prices: true)
+  UI.success("#{product[:id]}: saved, $#{PACK_PRICE_USD} and Google's prices elsewhere")
+rescue Google::Apis::Error => e
+  UI.user_error!("#{product[:id]}: Google said #{e.message} #{e.respond_to?(:body) ? e.body : ''}")
+end

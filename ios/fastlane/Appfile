@@ -1,0 +1,7 @@
+# The app in App Store Connect (app id 6820105215) and the Apple team that signs it (Local.xcconfig.example has the
+# same team). The API key that most lanes use comes from the environment: see README.md here.
+app_identifier("com.epicaudiogames.app")
+team_id("8667597XM3")
+
+# Only the privacy lane logs in with an Apple ID (Apple keeps the App Privacy answers away from API keys).
+apple_id(ENV["FASTLANE_USER"]) if ENV["FASTLANE_USER"].to_s.strip != ""

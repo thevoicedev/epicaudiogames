@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Support - Epic Audio Games</title>
+  <meta name="description" content="Help with Epic Audio Games: how to play, speaking your answers, packs and purchases, saves and accessibility. Email james@hugo.fm for anything else.">
+  <meta name="theme-color" content="#0b1430">
+  <link rel="canonical" href="https://epicaudiogames.com/support">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Epic Audio Games">
+  <meta property="og:title" content="Support - Epic Audio Games">
+  <meta property="og:description" content="How to play, speaking your answers, packs and purchases, saves and accessibility.">
+  <meta property="og:url" content="https://epicaudiogames.com/support">
+  <meta property="og:image" content="https://epicaudiogames.com/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* The same tokens and footer as index.html; the page parts below are shared with support.html. */
+    :root {
+      --bg: #0b1430;
+      --bg-2: #16275e;
+      --bg-3: #1e3a8a;
+      --ink: #f6f8ff;
+      --muted: #b9c5ea;
+      --faint: #7f8db8;
+      --accent: #ffd54f;
+      --accent-ink: #2a1f00;
+      --blue: #5fa3d6;
+      --blue-deep: #3e7fc3;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-hover: rgba(255, 255, 255, 0.10);
+      --line: rgba(255, 255, 255, 0.12);
+      --radius: 20px;
+      --gutter: 16px;
+      --measure: 68ch;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--bg);
+      background-image:
+        radial-gradient(900px 500px at 50% -120px, rgba(95, 163, 214, 0.30), transparent 70%),
+        radial-gradient(600px 400px at 90% 30%, rgba(109, 40, 217, 0.18), transparent 70%),
+        linear-gradient(180deg, var(--bg) 0%, #0d1a40 60%, var(--bg) 100%);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: "Fredoka", "Nunito", system-ui, sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0;
+      letter-spacing: 0.005em;
+    }
+
+    p { margin: 0; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    .wrap {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    .sky {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        radial-gradient(1.5px 1.5px at 12% 18%, #fff 60%, transparent),
+        radial-gradient(1px 1px at 28% 66%, #fff 60%, transparent),
+        radial-gradient(1.5px 1.5px at 44% 32%, #dfe9ff 60%, transparent),
+        radial-gradient(1px 1px at 61% 12%, #fff 60%, transparent),
+        radial-gradient(2px 2px at 73% 48%, #ffe9a6 60%, transparent),
+        radial-gradient(1px 1px at 84% 22%, #fff 60%, transparent),
+        radial-gradient(1.5px 1.5px at 92% 72%, #fff 60%, transparent),
+        radial-gradient(1px 1px at 8% 84%, #dfe9ff 60%, transparent),
+        radial-gradient(1.5px 1.5px at 52% 88%, #fff 60%, transparent),
+        radial-gradient(1px 1px at 36% 8%, #fff 60%, transparent);
+      opacity: 0.45;
+    }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 8px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-weight: 800;
+      text-decoration: none;
+      z-index: 10;
+    }
+    .skip:focus { left: var(--gutter); }
+
+    /* ---------- top bar ---------- */
+    .top { padding: 18px 0; }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 20px;
+      flex-wrap: wrap;
+    }
+
+    .home {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-family: "Fredoka", "Nunito", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .home .disc {
+      width: 42px;
+      height: 42px;
+      flex: none;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #7dbbe9, var(--blue-deep) 65%, #2f6aab);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), inset 0 3px 8px rgba(255, 255, 255, 0.18);
+      display: grid;
+      place-items: center;
+    }
+
+    .home .disc svg { width: 28px; height: 28px; }
+
+    .top nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .top nav a { color: var(--muted); text-decoration: none; }
+    .top nav a:hover { color: var(--ink); text-decoration: underline; }
+    .top nav a[aria-current="page"] { color: var(--accent); }
+
+    /* ---------- page ---------- */
+    .page-head {
+      text-align: center;
+      max-width: 60ch;
+      margin: 24px auto 32px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 213, 79, 0.45);
+      background: rgba(255, 213, 79, 0.10);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .page-head h1 {
+      font-size: clamp(2.3rem, 7vw, 3.6rem);
+      margin: 16px 0 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #cfe3ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .page-head p { color: var(--muted); font-size: 1.05rem; }
+
+    .doc {
+      max-width: var(--measure);
+      margin: 0 auto;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 26px 26px 24px;
+    }
+
+    .summary {
+      border-color: rgba(255, 213, 79, 0.35);
+      background:
+        radial-gradient(500px 220px at 0% 0%, rgba(255, 213, 79, 0.10), transparent 70%),
+        var(--card);
+      margin-bottom: 36px;
+    }
+
+    .summary h2 { font-size: 1.4rem; margin-bottom: 14px; color: var(--accent); }
+
+    .doc .checks {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .checks li {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .checks li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+    }
+
+    .checks li::after {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      width: 8px;
+      height: 5px;
+      border-left: 2.5px solid #fff;
+      border-bottom: 2.5px solid #fff;
+      transform: rotate(-45deg);
+    }
+
+    .doc section { margin: 0 0 34px; }
+    .doc section:last-child { margin-bottom: 0; }
+
+    .doc h2 {
+      font-size: clamp(1.4rem, 4vw, 1.7rem);
+      margin-bottom: 12px;
+    }
+
+    .doc h3 {
+      font-size: 1.15rem;
+      margin: 20px 0 6px;
+    }
+
+    .doc p + p, .doc p + ul, .doc ul + p { margin-top: 12px; }
+
+    .doc section > p, .doc section > ul { color: #dde4fa; }
+
+    .doc ul { padding-left: 22px; margin: 0; }
+    .doc ul li + li { margin-top: 6px; }
+
+    .doc a { color: var(--accent); font-weight: 700; text-underline-offset: 2px; overflow-wrap: anywhere; }
+    .doc a:hover { color: #ffe58a; }
+
+    .doc strong { color: var(--ink); }
+
+    .note { color: var(--muted); font-size: 0.95rem; }
+
+    main { padding-bottom: 24px; }
+
+    /* ---------- footer (as index.html) ---------- */
+    footer {
+      margin-top: 56px;
+      padding: 44px 0 36px;
+      border-top: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px 32px;
+    }
+
+    .foot .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .foot .brand a { display: inline-block; opacity: 0.95; transition: opacity 0.2s; }
+    .foot .brand a:hover { opacity: 1; }
+
+    .foot .brand img {
+      height: 26px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .foot .brand span {
+      color: var(--faint);
+      font-size: 0.92rem;
+      padding-left: 16px;
+      border-left: 1px solid var(--line);
+    }
+
+    .foot nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .foot nav a { color: var(--muted); text-decoration: none; }
+    .foot nav a:hover { color: var(--ink); text-decoration: underline; }
+
+    .copy {
+      margin-top: 22px;
+      color: var(--faint);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 760px) {
+      .foot { flex-direction: column; align-items: flex-start; }
+      .card { padding: 22px 18px 20px; }
+    }
+
+    @media (max-width: 460px) {
+      .top nav { width: 100%; }
+      .foot .brand { flex-wrap: wrap; }
+      .foot .brand span { padding-left: 0; border-left: 0; }
+    }
+
+    /* ---------- support page ---------- */
+    .contact {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px 24px;
+      flex-wrap: wrap;
+      margin-bottom: 22px;
+      border-color: rgba(255, 213, 79, 0.35);
+      background:
+        radial-gradient(500px 220px at 0% 0%, rgba(255, 213, 79, 0.10), transparent 70%),
+        var(--card);
+    }
+
+    .contact h2 { font-size: 1.4rem; margin-bottom: 6px; color: var(--accent); }
+    .contact p { color: var(--muted); }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 10px 22px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+      overflow-wrap: anywhere;
+    }
+    .doc .button, .doc .button:hover { color: var(--accent-ink); }
+    .button:hover { background: #ffe58a; }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 0 0 36px;
+    }
+
+    .toc a {
+      padding: 7px 14px;
+      border-radius: 999px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.92rem;
+      text-decoration: none;
+    }
+    .toc a:hover { background: var(--card-hover); }
+
+    .doc section { scroll-margin-top: 16px; }
+
+    .table {
+      margin: 14px 0;
+      overflow-x: auto;
+      border-radius: 14px;
+      border: 1px solid var(--line);
+      background: var(--card);
+    }
+
+    table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    th, td { text-align: left; padding: 10px 14px; vertical-align: top; }
+    th { color: var(--accent); font-weight: 800; font-size: 0.82rem; letter-spacing: 0.04em; text-transform: uppercase; }
+    tbody tr { border-top: 1px solid var(--line); }
+    td small { display: block; color: var(--muted); font-size: 0.82rem; }
+    td:first-child { font-weight: 700; }
+
+    @media (max-width: 460px) {
+      .contact .button { width: 100%; }
+      th, td { padding: 9px 10px; }
+      td:nth-child(2), td:nth-child(3) { white-space: nowrap; }
+      td small { white-space: normal; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the help</a>
+  <div class="sky" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="wrap bar">
+      <a class="home" href="/">
+        <span class="disc" aria-hidden="true">
+          <svg viewBox="22 36 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M33 60 L33 54 A21 21 0 0 1 75 54 L75 60" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+            <rect x="24" y="58" width="16" height="20" rx="3" fill="#fff"/>
+            <rect x="68" y="58" width="16" height="20" rx="3" fill="#fff"/>
+            <g stroke="#ffd54f" stroke-width="4" stroke-linecap="round">
+              <path d="M48 63 L48 73"/>
+              <path d="M54 59 L54 77"/>
+              <path d="M60 63 L60 73"/>
+            </g>
+          </svg>
+        </span>
+        Epic Audio Games
+      </a>
+      <nav aria-label="Site">
+        <a href="/#games">Games</a>
+        <a href="/support" aria-current="page">Support</a>
+        <a href="/privacy">Privacy</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <div class="page-head">
+        <span class="eyebrow">Help</span>
+        <h1>Support</h1>
+        <p>Answers to the questions players ask most. If yours isn't here, email us.</p>
+      </div>
+
+      <div class="doc">
+        <div class="card contact">
+          <div>
+            <h2>Email us</h2>
+            <p>Tell us your phone model, which game, and what happened. We read every email.</p>
+          </div>
+          <a class="button" href="mailto:james@hugo.fm?subject=Epic%20Audio%20Games">james@hugo.fm</a>
+        </div>
+
+        <nav class="toc" aria-label="On this page">
+          <a href="#playing">Playing</a>
+          <a href="#speaking">Speaking</a>
+          <a href="#packs">Packs</a>
+          <a href="#saves">Saves</a>
+          <a href="#access">Accessibility</a>
+        </nav>
+
+        <section aria-labelledby="playing">
+          <h2 id="playing">Playing</h2>
+
+          <h3>How do I play?</h3>
+          <p>
+            Put on your headphones and tap a game. The game talks, and every word appears in the chat as it's spoken.
+            When it asks you something, the mic opens by itself. Say your answer, type it, or tap one of the options
+            at the end of the chat. You can answer while the voice is still talking. Tap the big circle to skip the
+            voice.
+          </p>
+
+          <h3>The game paused by itself.</h3>
+          <p>
+            If nobody answers, the question plays again. After a second silence, or if you say "stop", the game
+            pauses. Tap to carry on.
+          </p>
+
+          <h3>How do I start a game again?</h3>
+          <p>
+            Open the menu (the three dots at the top right of a game) and tap <strong>Start again</strong>. At an
+            ending, tap <strong>Play again</strong> or <strong>Try again</strong>.
+          </p>
+
+          <h3>Does it work offline?</h3>
+          <p>
+            Yes. All eight games are inside the app. You only need a connection to buy and download packs, and on
+            some phones for speech recognition (see below). Typing and tapping always work offline.
+          </p>
+        </section>
+
+        <section aria-labelledby="speaking">
+          <h2 id="speaking">Speaking your answers</h2>
+
+          <h3>The game can't hear me.</h3>
+          <ul>
+            <li>
+              <strong>iPhone:</strong> open Settings, then Epic Audio Games, and turn on
+              <strong>Microphone</strong> and <strong>Speech Recognition</strong>.
+            </li>
+            <li>
+              <strong>Android:</strong> open Settings, then Apps, Epic Audio Games, Permissions, and allow
+              <strong>Microphone</strong>.
+            </li>
+          </ul>
+          <p>
+            Wait for the circle to ring before you speak. In a noisy place, headphones with a mic help. You can also
+            tap the mic button to listen again.
+          </p>
+
+          <h3>The mic button is grey, with a line through it.</h3>
+          <p>
+            Either the app isn't allowed to use the microphone (see above), or your phone's speech recognition isn't
+            available to it. Your phone's own speech recognition does the listening. On iPhone, it needs a connection if your iPhone
+            can't recognise English on the device. On Android, it needs a speech recognition service for English,
+            usually Google's. Some phones need a connection for it, or English downloaded for offline use in the
+            phone's voice typing settings. Until then, you can type or tap your answers.
+          </p>
+
+          <h3>Is my voice recorded?</h3>
+          <p>
+            No. What you say is turned into words by Apple's or Google's speech recognition, used to answer the game,
+            and never sent to us. The <a href="/privacy">privacy policy</a> has the details.
+          </p>
+        </section>
+
+        <section aria-labelledby="packs">
+          <h2 id="packs">Packs and purchases</h2>
+
+          <h3>What's in the packs?</h3>
+          <p>Five games are free in full. Three have a free part and a pack with more:</p>
+          <div class="table" role="region" aria-label="Packs" tabindex="0">
+            <table>
+              <thead>
+                <tr><th scope="col">Game</th><th scope="col">Free</th><th scope="col">Pack adds</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>The Kingdom of Frootopia</td><td>Story 1</td><td>Stories 2&ndash;5<small>15 MB download</small></td></tr>
+                <tr><td>Alien Customs</td><td>Levels 1&ndash;5</td><td>Levels 6&ndash;15<small>26 MB download</small></td></tr>
+                <tr><td>The Werewolf</td><td>Stories 1&ndash;5</td><td>Stories 6&ndash;50<small>133 MB download</small></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Each pack is a one-time purchase. There are no subscriptions and no ads.</p>
+
+          <h3>How do I buy a pack?</h3>
+          <p>
+            Tap the yellow pill on a game's card in the game list. You can also open a game's menu and tap
+            <strong>More stories and levels</strong>, or wait for the end of the free part, which offers the pack.
+            The pack downloads straight after you buy it.
+          </p>
+
+          <h3>I bought a pack, but it isn't there.</h3>
+          <p>
+            Open a game's store (the yellow pill) and tap <strong>Restore purchases</strong>. Use the same Apple
+            Account or Google account you bought it with. The app also checks by itself each time it starts. On
+            iPhone, packs work with Family Sharing.
+          </p>
+
+          <h3>The download stopped or failed.</h3>
+          <p>
+            Check your connection and your free space: a pack needs room to download and unpack. Then tap
+            <strong>Download</strong> in the game's store to try again. On iPhone, a download the app starts by
+            itself waits for Wi-Fi. Tap <strong>Download now</strong> to use mobile data instead.
+          </p>
+
+          <h3>Can I get a refund?</h3>
+          <p>
+            Apple and Google handle payments, so they handle refunds too. For the App Store, go to
+            <a href="https://reportaproblem.apple.com/">reportaproblem.apple.com</a>. For Google Play, see
+            <a href="https://support.google.com/googleplay/answer/2479637">Google Play's refund help</a>.
+          </p>
+        </section>
+
+        <section aria-labelledby="saves">
+          <h2 id="saves">Saves</h2>
+
+          <h3>Where is my progress?</h3>
+          <p>
+            On your phone. Each game saves your place at every question. Games you left part-way show
+            <strong>Continue</strong> on the game list, and the game picks up with "Welcome back!". Deleting the app
+            deletes your saves.
+          </p>
+
+          <h3>I've got a new phone.</h3>
+          <p>
+            Install the app and tap <strong>Restore purchases</strong> to get your packs back. Your saves move across
+            only if your phone's own backup brings the app's data with it.
+          </p>
+        </section>
+
+        <section aria-labelledby="access">
+          <h2 id="access">Accessibility</h2>
+          <p>
+            Every line the games speak is also shown as text, and every question can be answered by typing or tapping
+            instead of speaking.
+          </p>
+          <p>
+            If you use VoiceOver on iPhone: with VoiceOver on, the mic doesn't open by itself. Use Magic Tap (a
+            two-finger double-tap) to skip the voice, start listening, or carry on.
+          </p>
+        </section>
+
+        <section aria-labelledby="more">
+          <h2 id="more">Still stuck?</h2>
+          <p>
+            Email <a href="mailto:james@hugo.fm?subject=Epic%20Audio%20Games">james@hugo.fm</a> and we'll help.
+            Epic Audio Games is made by <a href="https://hugo.fm/">Hugo FM</a>.
+          </p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div class="brand">
+          <a href="https://hugo.fm/" aria-label="Hugo FM"><img src="/hugo-fm.png" alt="Hugo FM" width="1186" height="216"></a>
+          <span>Epic Audio Games is made by Hugo FM</span>
+        </div>
+        <nav aria-label="Legal">
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/support">Support</a>
+          <a href="https://hugo.fm/">hugo.fm</a>
+          <a href="https://hugo.fm/privacy">Hugo FM Privacy</a>
+          <a href="https://hugo.fm/terms">Terms</a>
+        </nav>
+      </div>
+      <p class="copy">&copy; 2026 Hugo FM. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

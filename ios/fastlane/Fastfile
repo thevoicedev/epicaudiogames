@@ -1,0 +1,817 @@
+# Epic Audio Games on the App Store: the listing, the screenshots, each in-app purchase's review screenshot, the
+# App Privacy answers and TestFlight builds. README.md here says what each lane needs and what stays on the website.
+#
+# What gets uploaded lives next to this file:
+#   metadata/                  the listing, in deliver's layout (en-US/*.txt, copyright.txt, primary_category.txt,
+#                              review_information/*.txt)
+#   app_rating_config.json     the age rating answers
+#   screenshots/en-US/         the App Store screenshots
+#   iap_review/<product>.png   each in-app purchase's screenshot for App Review
+#   app_privacy_details.json   the App Privacy answers
+#   metadata/review_information/attachment.<mov|mp4|pdf|png|jpg>   optional: a file for App Review (a demo video)
+# Nothing here submits anything for review.
+#
+# The App Store Connect API key comes from the environment, never from this repo:
+#   ASC_KEY_ID, ASC_ISSUER_ID, and ASC_KEY_PATH (the AuthKey_<id>.p8 file)
+
+skip_docs # README.md is written by hand: without this, fastlane replaces it with a list of lanes
+
+require "digest"
+require "json"
+
+default_platform(:ios)
+
+# Fastfile code runs in this folder; actions run in ios/. Every path here is absolute, so neither matters.
+FASTLANE_DIR = File.expand_path(__dir__)
+IOS_DIR = File.dirname(FASTLANE_DIR)
+REPO_DIR = File.dirname(IOS_DIR)
+
+BUNDLE_ID = "com.epicaudiogames.app"
+PROJECT = File.join(IOS_DIR, "EpicAudioGames.xcodeproj")
+SCHEME = "EpicAudioGames"
+BASE_XCCONFIG = File.join(IOS_DIR, "Config", "Base.xcconfig")
+LOCAL_XCCONFIG = File.join(IOS_DIR, "Config", "Local.xcconfig")
+CATALOG = File.join(REPO_DIR, "games", "catalog.json")
+
+METADATA_DIR = File.join(FASTLANE_DIR, "metadata")
+SCREENSHOTS_DIR = File.join(FASTLANE_DIR, "screenshots")
+IAP_REVIEW_DIR = File.join(FASTLANE_DIR, "iap_review")
+RATING_CONFIG = File.join(FASTLANE_DIR, "app_rating_config.json")
+PRIVACY_DETAILS = File.join(FASTLANE_DIR, "app_privacy_details.json")
+PRIVACY_MANIFEST = File.join(IOS_DIR, "EpicAudioGames", "Resources", "PrivacyInfo.xcprivacy")
+REVIEW_NOTES = File.join(METADATA_DIR, "review_information", "notes.txt")
+REVIEW_NOTES_LIMIT = 4000
+REVIEW_ATTACHMENT_TYPES = %w[mov mp4 m4v pdf png jpg jpeg].freeze
+
+# Age rating questions in App Store Connect's API (AgeRatingDeclaration) that fastlane 2.232.2 doesn't list yet.
+# deliver sends them as they are, so they're answered; true or false.
+ASC_ONLY_RATING_BOOLEANS = %w[socialMedia].freeze
+
+# Apple's required-reason APIs the app's own code calls (Release builds: the Debug/ folder is left out), and the
+# category PrivacyInfo.xcprivacy has to declare for each. App Store Connect refuses a build without it (ITMS-91053).
+REQUIRED_REASON_APIS = {
+  "NSPrivacyAccessedAPICategorySystemBootTime" => /\b(mach_absolute_time|systemUptime)\b/,
+  "NSPrivacyAccessedAPICategoryDiskSpace" => /\b(volumeAvailableCapacity\w*|systemFreeSize|systemSize|statfs|fstatfs|statvfs)\b/,
+  "NSPrivacyAccessedAPICategoryFileTimestamp" =>
+    /\b(creationDate|modificationDate|fileModificationDate|contentModificationDateKey|creationDateKey|getattrlist\w*|fstatat|lstat)\b/,
+  "NSPrivacyAccessedAPICategoryUserDefaults" => /\b(UserDefaults|NSUserDefaults)\b|@AppStorage\b/,
+  "NSPrivacyAccessedAPICategoryActiveKeyboards" => /\bactiveInputModes\b/
+}.freeze
+SWIFT_SOURCES = [File.join(IOS_DIR, "EpicAudioGames"), File.join(IOS_DIR, "EpicEngine", "Sources", "EpicAppCore"),
+                 File.join(IOS_DIR, "EpicEngine", "Sources", "EpicEngine")].freeze
+
+# The listing's files: each language folder needs these, and App Store Connect's limits (characters).
+REQUIRED_PER_LANGUAGE = %w[name.txt description.txt keywords.txt support_url.txt privacy_url.txt].freeze
+TEXT_LIMITS = {
+  "name.txt" => 30,
+  "subtitle.txt" => 30,
+  "keywords.txt" => 100,
+  "promotional_text.txt" => 170,
+  "description.txt" => 4000,
+  "release_notes.txt" => 4000
+}.freeze
+URL_FILES = %w[support_url.txt privacy_url.txt marketing_url.txt].freeze
+REQUIRED_SHARED = %w[
+  copyright.txt
+  primary_category.txt
+  review_information/first_name.txt
+  review_information/last_name.txt
+  review_information/email_address.txt
+  review_information/phone_number.txt
+].freeze
+NOT_LANGUAGES = %w[review_information trade_representative_contact_information].freeze
+
+# Apple's smallest review screenshot for an iOS in-app purchase.
+IAP_REVIEW_MIN_SIZE = [640, 920].freeze
+
+platform :ios do
+  desc "Check everything the upload lanes send, offline (nothing leaves this Mac): the listing's files and limits,"
+  desc "the age rating and privacy answers, the screenshots' sizes and each in-app purchase's review screenshot"
+  lane :check do
+    errors = []
+    warnings = []
+    check_metadata(errors, warnings)
+    check_rating(errors, warnings)
+    check_privacy(errors, warnings)
+    check_privacy_manifest(errors)
+    check_screenshots(errors, warnings, required: false)
+    check_iap_review(errors, warnings, required: false)
+    check_key_paths(warnings)
+    report!(errors, warnings)
+    UI.success(warnings.empty? ? "Everything the lanes upload looks right" : "Nothing that stops an upload (warnings above)")
+  end
+
+  desc "Upload the listing: every text in metadata/, the categories, copyright, App Review contact and notes, the"
+  desc "age rating, the price (free) and manual release. No build, no screenshots, never submits. Safe to run again:"
+  desc "it sets the same values, and the version it edits must be MARKETING_VERSION (ios/Config/Base.xcconfig)."
+  desc "App Review's attachment is metadata/review_information/attachment.* if there is one; without it, deliver"
+  desc "removes any attachment added on the website"
+  lane :metadata do
+    errors = []
+    warnings = []
+    check_metadata(errors, warnings)
+    check_rating(errors, warnings)
+    report!(errors, warnings)
+
+    asc_api_key!
+    app = asc_app
+    editable_version!(app)
+
+    attachment = review_attachment
+    if attachment
+      UI.message("App Review attachment: #{rel(attachment)}")
+    else
+      UI.important("No #{rel(METADATA_DIR)}/review_information/attachment.*: deliver removes any App Review " \
+                   "attachment added on the website")
+    end
+
+    params = {
+      app_identifier: BUNDLE_ID,
+      platform: "ios",
+      metadata_path: METADATA_DIR,
+      app_rating_config_path: RATING_CONFIG,
+      skip_binary_upload: true,
+      skip_screenshots: true,
+      skip_app_version_update: true, # edit the version that's being prepared; never create or rename one
+      automatic_release: false, # approval doesn't publish: "Release This Version" stays a click in App Store Connect
+      force: true, # no HTML preview to confirm
+      submit_for_review: false,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false
+    }
+    params[:app_review_attachment_file] = attachment if attachment
+    deliver(params)
+
+    # deliver's price_tier sets Apple's old price tiers, which App Store Connect no longer takes: the price schedule
+    # is set here instead.
+    ensure_free!(app)
+    warn_if_unavailable(app)
+  end
+
+  desc "Upload the App Store screenshots in screenshots/<language>/, replacing the ones there now"
+  lane :screenshots do
+    errors = []
+    warnings = []
+    check_screenshots(errors, warnings, required: true)
+    report!(errors, warnings)
+
+    asc_api_key!
+    editable_version!(asc_app)
+
+    deliver(
+      app_identifier: BUNDLE_ID,
+      platform: "ios",
+      metadata_path: METADATA_DIR,
+      screenshots_path: SCREENSHOTS_DIR,
+      skip_metadata: true,
+      skip_binary_upload: true,
+      skip_app_version_update: true,
+      overwrite_screenshots: true,
+      force: true,
+      submit_for_review: false,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
+  desc "Upload each in-app purchase's App Review screenshot from iap_review/<product id>.png. One that's already"
+  desc "there unchanged is left alone. Option: only:<product id>"
+  lane :iap_review_screenshots do |options|
+    products = catalog_products.map { |product| product[:id] }
+    products &= [options[:only].to_s] if options[:only]
+    UI.user_error!("No in-app purchase called #{options[:only]} in games/catalog.json") if products.empty?
+
+    errors = []
+    warnings = []
+    check_iap_review(errors, warnings, required: true, only: products)
+    report!(errors, warnings)
+
+    asc_api_key!
+    app = asc_app
+    iaps = in_app_purchases(app)
+    products.each do |product_id|
+      iap = iaps[product_id]
+      UI.user_error!("App Store Connect has no in-app purchase #{product_id}: create it there first") unless iap
+      upload_review_screenshot(product_id, iap, review_screenshot_path(product_id))
+    end
+  end
+
+  desc "Upload the App Privacy answers in app_privacy_details.json and publish them. Apple only takes these from an"
+  desc "Apple ID login, not the API key: set FASTLANE_USER (it asks for the password and a 2FA code)."
+  desc "Option: publish:false to leave them unpublished"
+  lane :privacy do |options|
+    errors = []
+    warnings = []
+    check_privacy(errors, warnings)
+    errors << "#{rel(PRIVACY_DETAILS)} is missing" unless File.exist?(PRIVACY_DETAILS)
+    report!(errors, warnings)
+
+    params = {
+      app_identifier: BUNDLE_ID,
+      json_path: PRIVACY_DETAILS,
+      skip_publish: options.key?(:publish) && !truthy?(options[:publish])
+    }
+    params[:username] = options[:apple_id].to_s if options[:apple_id]
+    upload_app_privacy_details_to_app_store(params)
+  end
+
+  desc "Build for the App Store and upload to TestFlight. The build number is the time, yyyymmddHHMM, given to"
+  desc "xcodebuild (no file changes). Needs content/ (the real audio), the pack server (EPIC_PACKS_URL) and the API"
+  desc "key. Options: dry_run:true prints what it would do; cloud_signing:true signs with the API key, for a Mac"
+  desc "where Xcode isn't signed in; allow_no_packs:true builds without a pack server (it can't sell packs)"
+  lane :beta do |options|
+    version = marketing_version
+    build = Time.now.strftime("%Y%m%d%H%M")
+    team = development_team
+    content = content_dir
+    output = File.join(IOS_DIR, "build", "testflight")
+
+    summary = {
+      "Version" => version,
+      "Build" => build,
+      "Team" => team,
+      "Content" => content,
+      "Packs URL" => packs_url || "(none: buying packs is hidden)",
+      "Output" => output
+    }
+    FastlaneCore::PrintTable.print_values(config: summary, title: "TestFlight build")
+    next if truthy?(options[:dry_run])
+
+    unless File.directory?(content) && !Dir.empty?(content)
+      UI.user_error!("No audio at #{content}: a Release build needs the real content/ (README, Building the content)")
+    end
+    unless packs_url
+      message = "No pack server (EPIC_PACKS_URL in ios/Config/Local.xcconfig): this build would hide buying packs, " \
+                "and App Review couldn't find the in-app purchases"
+      UI.user_error!("#{message}. Set it, or pass allow_no_packs:true for a build that doesn't sell packs") unless truthy?(options[:allow_no_packs])
+      UI.important(message)
+    end
+
+    asc_api_key!
+    signing = ["-allowProvisioningUpdates"]
+    signing += xcode_key_arguments if truthy?(options[:cloud_signing])
+
+    ipa = build_app(
+      project: PROJECT,
+      scheme: SCHEME,
+      configuration: "Release",
+      destination: "generic/platform=iOS",
+      clean: true,
+      output_directory: output,
+      output_name: "EpicAudioGames-#{version}-#{build}",
+      buildlog_path: File.join(output, "logs"),
+      xcargs: (["CURRENT_PROJECT_VERSION=#{build}", "DEVELOPMENT_TEAM=#{team}"] + signing).join(" "),
+      export_xcargs: signing.join(" "),
+      export_method: "app-store",
+      export_options: {
+        signingStyle: "automatic",
+        teamID: team,
+        uploadSymbols: true,
+        manageAppVersionAndBuildNumber: false # keep the build number above; Xcode would pick its own
+      }
+    )
+
+    upload_to_testflight(
+      ipa: ipa,
+      skip_waiting_for_build_processing: true,
+      distribute_external: false
+    )
+    UI.success("Uploaded #{version} (#{build}). It shows in TestFlight once Apple has processed it.")
+  end
+end
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Helpers
+
+def truthy?(value)
+  value == true || %w[true yes 1].include?(value.to_s.strip.downcase)
+end
+
+def rel(path)
+  path.sub("#{REPO_DIR}/", "")
+end
+
+def read_text(path)
+  File.exist?(path) ? File.read(path).strip : ""
+end
+
+# The last assignment of a key in an xcconfig file, without a trailing // comment.
+def xcconfig_value(path, key)
+  return nil unless File.exist?(path)
+
+  value = nil
+  File.foreach(path) do |line|
+    match = line.match(/^\s*#{Regexp.escape(key)}\s*=\s*(.*)$/)
+    value = match[1].sub(%r{\s*//.*$}, "").strip if match
+  end
+  value
+end
+
+def marketing_version
+  xcconfig_value(BASE_XCCONFIG, "MARKETING_VERSION") || UI.user_error!("No MARKETING_VERSION in #{rel(BASE_XCCONFIG)}")
+end
+
+# This Mac's team (Local.xcconfig, as Xcode builds use), else the Appfile's.
+def development_team
+  team = xcconfig_value(LOCAL_XCCONFIG, "DEVELOPMENT_TEAM").to_s
+  team = CredentialsManager::AppfileConfig.try_fetch_value(:team_id).to_s if team.empty?
+  UI.user_error!("No Apple team: set DEVELOPMENT_TEAM in ios/Config/Local.xcconfig") if team.empty?
+  team
+end
+
+# Where the build takes the audio from, as ios/scripts/bundle_content.sh decides it.
+def content_dir
+  dir = ENV["EPIC_CONTENT_DIR"].to_s
+  dir = "content" if dir.empty?
+  File.expand_path(dir, REPO_DIR)
+end
+
+# Local.xcconfig writes the URL as https:/$()/host, since // starts a comment there.
+def packs_url
+  url = xcconfig_value(LOCAL_XCCONFIG, "EPIC_PACKS_URL").to_s.gsub("$()", "")
+  url.empty? || url.include?("example.com") ? nil : url
+end
+
+# The packs on sale, from games/catalog.json: [{ id:, game:, title:, description: }]
+def catalog_products
+  JSON.parse(File.read(CATALOG))["games"].flat_map do |game|
+    (game["packs"] || []).map do |pack|
+      { id: pack["product"], game: game["title"], title: pack["title"], description: pack["description"] }
+    end
+  end
+end
+
+def report!(errors, warnings)
+  warnings.each { |warning| UI.important(warning) }
+  return if errors.empty?
+
+  errors.each { |error| UI.error(error) }
+  UI.user_error!("#{errors.count} problem#{errors.count == 1 ? '' : 's'} to fix first (above). Nothing was uploaded.")
+end
+
+# ---------------------------------------------------------------------------------------------------------------------
+# Offline checks
+
+def check_metadata(errors, warnings)
+  unless File.directory?(METADATA_DIR)
+    errors << "#{rel(METADATA_DIR)}/ is missing (the listing's text files)"
+    return
+  end
+
+  languages = Dir.children(METADATA_DIR).select { |name| File.directory?(File.join(METADATA_DIR, name)) }
+  languages = (languages - NOT_LANGUAGES).sort
+  errors << "#{rel(METADATA_DIR)}/en-US/ is missing: en-US is the app's primary language" unless languages.include?("en-US")
+
+  languages.each do |language|
+    dir = File.join(METADATA_DIR, language)
+    REQUIRED_PER_LANGUAGE.each do |name|
+      errors << "#{rel(File.join(dir, name))} is missing or empty" if read_text(File.join(dir, name)).empty?
+    end
+    TEXT_LIMITS.each do |name, limit|
+      length = read_text(File.join(dir, name)).length
+      errors << "#{rel(File.join(dir, name))} is #{length} characters; the limit is #{limit}" if length > limit
+    end
+    URL_FILES.each do |name|
+      url = read_text(File.join(dir, name))
+      errors << "#{rel(File.join(dir, name))} isn't an https:// address: #{url}" unless url.empty? || url.start_with?("https://")
+    end
+    if File.exist?(File.join(dir, "release_notes.txt"))
+      warnings << "#{rel(File.join(dir, 'release_notes.txt'))}: a first version has no release notes (deliver skips them)"
+    end
+  end
+
+  REQUIRED_SHARED.each do |name|
+    errors << "#{rel(File.join(METADATA_DIR, name))} is missing or empty" if read_text(File.join(METADATA_DIR, name)).empty?
+  end
+
+  notes = read_text(REVIEW_NOTES).length
+  errors << "#{rel(REVIEW_NOTES)} is #{notes} characters; the limit is #{REVIEW_NOTES_LIMIT}" if notes > REVIEW_NOTES_LIMIT
+  check_categories(errors)
+  attachments = review_attachments
+  errors << "more than one App Review attachment: #{attachments.map { |path| rel(path) }.join(', ')}" if attachments.count > 1
+end
+
+# The category files against App Store Connect's ids (offline: the names Spaceship maps deliver's values to).
+def check_categories(errors)
+  require "spaceship"
+  category = Spaceship::ConnectAPI::AppCategory
+  categories = category::LEGACY_CATEGORY_ITC_MAP.values
+  subcategories = category::LEGACY_SUBCATEGORY_ITC_MAP.values
+  {
+    "primary_category.txt" => categories,
+    "secondary_category.txt" => categories,
+    "primary_first_sub_category.txt" => subcategories,
+    "primary_second_sub_category.txt" => subcategories,
+    "secondary_first_sub_category.txt" => subcategories,
+    "secondary_second_sub_category.txt" => subcategories
+  }.each do |name, allowed|
+    path = File.join(METADATA_DIR, name)
+    value = read_text(path)
+    next if value.empty?
+
+    id = name.include?("sub_category") ? category.map_subcategory_from_itc(value) : category.map_category_from_itc(value)
+    examples = allowed.select { |known| known.start_with?("GAMES") || known == "ENTERTAINMENT" }.first(3)
+    errors << "#{rel(path)}: #{value} isn't an App Store category (for example #{examples.join(', ')})" unless allowed.include?(id)
+  end
+  primary = category.map_category_from_itc(read_text(File.join(METADATA_DIR, "primary_category.txt")).then { |v| v.empty? ? "-" : v })
+  %w[primary_first_sub_category.txt primary_second_sub_category.txt].each do |name|
+    next if read_text(File.join(METADATA_DIR, name)).empty? || %w[GAMES STICKERS].include?(primary)
+
+    errors << "#{rel(File.join(METADATA_DIR, name))}: only Games and Stickers have subcategories"
+  end
+end
+
+def review_attachments
+  dir = File.join(METADATA_DIR, "review_information")
+  REVIEW_ATTACHMENT_TYPES.flat_map { |ext| Dir.glob(File.join(dir, "attachment.#{ext}")) }.uniq.sort
+end
+
+def review_attachment
+  review_attachments.first
+end
+
+def check_rating(errors, warnings)
+  unless File.exist?(RATING_CONFIG)
+    errors << "#{rel(RATING_CONFIG)} is missing (the age rating answers)"
+    return
+  end
+  begin
+    answers = JSON.parse(File.read(RATING_CONFIG))
+  rescue JSON::ParserError => e
+    errors << "#{rel(RATING_CONFIG)} isn't valid JSON: #{e.message}"
+    return
+  end
+  unless answers.kind_of?(Hash)
+    errors << "#{rel(RATING_CONFIG)} should be one JSON object of answers"
+    return
+  end
+
+  require "spaceship"
+  declaration = Spaceship::ConnectAPI::AgeRatingDeclaration
+  booleans = %w[advertising ageAssurance gambling healthOrWellnessTopics lootBox messagingAndChat parentalControls
+                unrestrictedWebAccess userGeneratedContent]
+  ratings = declaration::Rating.constants.map { |name| declaration::Rating.const_get(name) }
+  known = declaration.reverse_attr_map.values
+
+  # The same mapping deliver applies (old iTunes Connect names and 0/1/2 values), then the checks Apple would make.
+  mapped = {}
+  answers.each do |key, value|
+    new_key = declaration.map_key_from_itc(key.to_s)
+    mapped[new_key] = declaration.map_value_from_itc(new_key, value)
+  end
+  mapped, _messages, mapping_errors = declaration.map_deprecation_if_possible(mapped)
+  mapping_errors.each { |message| errors << "#{rel(RATING_CONFIG)}: #{message}" }
+
+  mapped.each do |key, value|
+    if ASC_ONLY_RATING_BOOLEANS.include?(key)
+      # In App Store Connect's API, not yet in fastlane's list: deliver sends it as it is.
+      errors << "#{rel(RATING_CONFIG)}: #{key} should be true or false" unless [true, false].include?(value)
+    elsif !known.include?(key)
+      # Apple adds questions before fastlane knows them; deliver sends them as they are, so Apple has the last word.
+      warnings << "#{rel(RATING_CONFIG)}: neither fastlane #{Fastlane::VERSION} nor this Fastfile knows the age " \
+                  "rating question #{key}; it's sent as it is, and App Store Connect rejects it if Apple doesn't " \
+                  "know it either (check Apple's AgeRatingDeclaration attributes, then add it to ASC_ONLY_RATING_BOOLEANS)"
+    elsif booleans.include?(key)
+      errors << "#{rel(RATING_CONFIG)}: #{key} should be true or false" unless [true, false].include?(value)
+    elsif key == "kidsAgeBand"
+      warnings << "#{rel(RATING_CONFIG)}: kidsAgeBand puts the app in the Kids category, which it isn't" unless value.nil?
+    elsif key == "ageRatingOverrideV2"
+      allowed = declaration::AgeRating.constants.map { |name| declaration::AgeRating.const_get(name) }
+      errors << "#{rel(RATING_CONFIG)}: ageRatingOverrideV2 should be one of #{allowed.join(', ')}" unless allowed.include?(value)
+    elsif !%w[koreaAgeRatingOverride developerAgeRatingInfoUrl].include?(key) && !ratings.include?(value)
+      errors << "#{rel(RATING_CONFIG)}: #{key} should be one of #{ratings.join(', ')}, not #{value.inspect}"
+    end
+  end
+
+  questions = known - %w[ageRatingOverrideV2 koreaAgeRatingOverride kidsAgeBand developerAgeRatingInfoUrl gamblingAndContests]
+  unanswered = questions - mapped.keys
+  warnings << "#{rel(RATING_CONFIG)} doesn't answer #{unanswered.join(', ')}" unless unanswered.empty?
+end
+
+def check_privacy(errors, _warnings)
+  return unless File.exist?(PRIVACY_DETAILS) # the privacy lane insists on it; the other lanes don't need it
+
+  begin
+    usages = JSON.parse(File.read(PRIVACY_DETAILS))
+  rescue JSON::ParserError => e
+    errors << "#{rel(PRIVACY_DETAILS)} isn't valid JSON: #{e.message}"
+    return
+  end
+  unless usages.kind_of?(Array) && !usages.empty?
+    errors << "#{rel(PRIVACY_DETAILS)} should be a list of data uses (or one DATA_NOT_COLLECTED entry)"
+    return
+  end
+
+  require "spaceship"
+  ids = lambda do |klass|
+    klass::ID.constants.map { |name| klass::ID.const_get(name) }
+  end
+  categories = ids.call(Spaceship::ConnectAPI::AppDataUsageCategory)
+  purposes = ids.call(Spaceship::ConnectAPI::AppDataUsagePurpose)
+  protections = ids.call(Spaceship::ConnectAPI::AppDataUsageDataProtection)
+  not_collected = Spaceship::ConnectAPI::AppDataUsageDataProtection::ID::DATA_NOT_COLLECTED
+
+  usages.each_with_index do |usage, index|
+    where = "#{rel(PRIVACY_DETAILS)} entry #{index + 1}"
+    unless usage.kind_of?(Hash) && usage["data_protections"].kind_of?(Array) && !usage["data_protections"].empty?
+      errors << "#{where}: needs data_protections"
+      next
+    end
+    if usage["data_protections"].include?(not_collected)
+      errors << "#{where}: DATA_NOT_COLLECTED has to be the only entry" if usages.count > 1
+      next
+    end
+    errors << "#{where}: unknown category #{usage['category'].inspect}" unless categories.include?(usage["category"])
+    (usage["purposes"] || []).each do |purpose|
+      errors << "#{where}: unknown purpose #{purpose}" unless purposes.include?(purpose)
+    end
+    errors << "#{where}: needs purposes" if (usage["purposes"] || []).empty?
+    usage["data_protections"].each do |protection|
+      errors << "#{where}: unknown data protection #{protection}" unless protections.include?(protection)
+    end
+  end
+end
+
+# Swift source without comments and #if DEBUG code: what a Release build compiles.
+def release_source(path)
+  text = File.read(path).gsub(%r{/\*.*?\*/}m, "")
+  kept = []
+  stack = [] # for each #if: is this branch left out?
+  text.each_line do |line|
+    directive = line.strip
+    if directive.start_with?("#if ")
+      stack << (directive == "#if DEBUG" || stack.last == true)
+      next
+    elsif directive.start_with?("#else") && !stack.empty?
+      outer = stack.length > 1 && stack[-2] == true
+      stack[-1] = outer || !stack[-1]
+      next
+    elsif directive.start_with?("#endif") && !stack.empty?
+      stack.pop
+      next
+    end
+    kept << line.sub(%r{//.*$}, "") unless stack.last == true
+  end
+  kept.join
+end
+
+def check_privacy_manifest(errors)
+  unless File.exist?(PRIVACY_MANIFEST)
+    errors << "#{rel(PRIVACY_MANIFEST)} is missing (the app's privacy manifest)"
+    return
+  end
+  require "plist"
+  manifest = Plist.parse_xml(PRIVACY_MANIFEST) || {}
+  declared = (manifest["NSPrivacyAccessedAPITypes"] || []).each_with_object({}) do |entry, found|
+    found[entry["NSPrivacyAccessedAPIType"]] = entry["NSPrivacyAccessedAPITypeReasons"] || []
+  end
+  declared.each do |type, reasons|
+    errors << "#{rel(PRIVACY_MANIFEST)}: #{type} has no reason" if reasons.empty?
+  end
+
+  files = SWIFT_SOURCES.flat_map { |dir| Dir.glob(File.join(dir, "**", "*.swift")) }
+  files.reject! { |path| path.include?("/Debug/") }
+  sources = files.to_h { |path| [path, release_source(path)] }
+  REQUIRED_REASON_APIS.each do |type, pattern|
+    next if declared.key?(type)
+
+    hits = sources.select { |_, text| text.match?(pattern) }.keys
+    next if hits.empty?
+
+    errors << "#{rel(PRIVACY_MANIFEST)} doesn't declare #{type}, which #{hits.first(3).map { |path| rel(path) }.join(', ')} " \
+              "use#{hits.count == 1 ? 's' : ''}: App Store Connect refuses the build (ITMS-91053)"
+  end
+end
+
+# A key kept inside the repo could be committed: warn.
+def check_key_paths(warnings)
+  path = ENV["ASC_KEY_PATH"].to_s.strip
+  return if path.empty?
+
+  full = File.expand_path(path)
+  warnings << "ASC_KEY_PATH is inside this repo (#{rel(full)}): keep the .p8 file outside it" if full.start_with?("#{REPO_DIR}/")
+end
+
+def check_screenshots(errors, warnings, required:)
+  files = Dir.glob(File.join(SCREENSHOTS_DIR, "*", "*.{png,jpg,jpeg,PNG,JPG,JPEG}"))
+  if files.empty?
+    (required ? errors : warnings) << "no screenshots in #{rel(SCREENSHOTS_DIR)}/en-US/ yet"
+    return
+  end
+
+  require "deliver"
+  begin
+    screenshots = Deliver::Loader.load_app_screenshots(SCREENSHOTS_DIR, false)
+  rescue FastlaneCore::Interface::FastlaneError => e
+    errors << "screenshots: #{e.message}"
+    return
+  end
+
+  big_iphones = [Deliver::AppScreenshot::DisplayType::APP_IPHONE_67, Deliver::AppScreenshot::DisplayType::APP_IPHONE_65]
+  screenshots.group_by(&:language).each do |language, list|
+    by_type = list.group_by(&:display_type)
+    if (by_type.keys & big_iphones).empty?
+      errors << "#{rel(SCREENSHOTS_DIR)}/#{language}: an iPhone app needs 6.9-inch (1320 x 2868) or 6.5-inch (1284 x 2778) screenshots"
+    end
+    by_type.each do |type, shots|
+      errors << "#{rel(SCREENSHOTS_DIR)}/#{language}: #{shots.count} #{type} screenshots; at most 10" if shots.count > 10
+    end
+  end
+end
+
+def review_screenshot_path(product_id)
+  %w[png jpg jpeg].map { |ext| File.join(IAP_REVIEW_DIR, "#{product_id}.#{ext}") }.find { |path| File.exist?(path) }
+end
+
+def check_iap_review(errors, warnings, required:, only: nil)
+  require "fastimage"
+  (only || catalog_products.map { |product| product[:id] }).each do |product_id|
+    path = review_screenshot_path(product_id)
+    unless path
+      (required ? errors : warnings) << "#{rel(IAP_REVIEW_DIR)}/#{product_id}.png is missing (the in-app purchase's " \
+                                        "screenshot for App Review)"
+      next
+    end
+    width, height = FastImage.size(path)
+    if width.nil?
+      errors << "#{rel(path)} isn't a PNG or JPEG image"
+    elsif [width, height].min < IAP_REVIEW_MIN_SIZE.min || [width, height].max < IAP_REVIEW_MIN_SIZE.max
+      errors << "#{rel(path)} is #{width} x #{height}; Apple wants at least #{IAP_REVIEW_MIN_SIZE.join(' x ')}"
+    end
+  end
+end
+
+# ---------------------------------------------------------------------------------------------------------------------
+# App Store Connect
+
+def asc_api_key!
+  missing = %w[ASC_KEY_ID ASC_ISSUER_ID ASC_KEY_PATH].select { |name| ENV[name].to_s.strip.empty? }
+  UI.user_error!("Set #{missing.join(', ')} first (ios/fastlane/README.md)") unless missing.empty?
+  path = File.expand_path(ENV["ASC_KEY_PATH"])
+  UI.user_error!("ASC_KEY_PATH: there's no file at #{path}") unless File.exist?(path)
+
+  app_store_connect_api_key(
+    key_id: ENV["ASC_KEY_ID"],
+    issuer_id: ENV["ASC_ISSUER_ID"],
+    key_filepath: path,
+    duration: 1200 # the longest Apple allows; Spaceship renews it when it runs out
+  )
+end
+
+# Arguments that let xcodebuild sign with the API key instead of the Xcode account.
+def xcode_key_arguments
+  require "shellwords"
+  [
+    "-authenticationKeyPath #{File.expand_path(ENV['ASC_KEY_PATH']).shellescape}",
+    "-authenticationKeyID #{ENV['ASC_KEY_ID'].shellescape}",
+    "-authenticationKeyIssuerID #{ENV['ASC_ISSUER_ID'].shellescape}"
+  ]
+end
+
+# Plain App Store Connect API requests (v1/..., v2/...), with the token app_store_connect_api_key set.
+def asc
+  Spaceship::ConnectAPI.client.tunes_request_client
+end
+
+def asc_app
+  Spaceship::ConnectAPI::App.find(BUNDLE_ID) || UI.user_error!("App Store Connect has no app #{BUNDLE_ID}")
+end
+
+# The version being prepared, which deliver edits. It has to be the one this repo builds, and out of review.
+def editable_version!(app)
+  version = app.get_edit_app_store_version(platform: Spaceship::ConnectAPI::Platform::IOS)
+  UI.user_error!("App Store Connect has no iOS version being prepared: add one there first") unless version
+
+  state = version.app_version_state || version.app_store_state
+  if %w[WAITING_FOR_REVIEW IN_REVIEW].include?(state)
+    UI.user_error!("Version #{version.version_string} is #{state}: remove it from review in App Store Connect to change it")
+  end
+  expected = marketing_version
+  unless version.version_string == expected
+    UI.user_error!("App Store Connect is preparing version #{version.version_string}, but MARKETING_VERSION in " \
+                   "#{rel(BASE_XCCONFIG)} is #{expected}. Make them the same first.")
+  end
+  UI.message("Editing version #{version.version_string} (#{state})")
+  version
+end
+
+# The app's price now (the manual price in its base country), or nil if it has none yet.
+def current_price(app)
+  schedule = asc.get("v1/apps/#{app.id}/appPriceSchedule")&.body&.dig("data")
+  return nil unless schedule
+
+  body = asc.get("v1/appPriceSchedules/#{schedule['id']}/manualPrices", { include: "appPricePoint", limit: 200 })&.body || {}
+  today = Time.now.utc.strftime("%Y-%m-%d")
+  current = (body["data"] || []).select do |price|
+    starts = price.dig("attributes", "startDate")
+    ends = price.dig("attributes", "endDate")
+    (starts.nil? || starts <= today) && (ends.nil? || ends > today)
+  end
+  point_ids = current.map { |price| price.dig("relationships", "appPricePoint", "data", "id") }
+  points = (body["included"] || []).select { |item| item["type"] == "appPricePoints" && point_ids.include?(item["id"]) }
+  points.map { |point| point.dig("attributes", "customerPrice") }.max_by(&:to_f)
+rescue StandardError => e
+  UI.verbose("No price schedule yet: #{e.message}")
+  nil
+end
+
+def ensure_free!(app)
+  price = current_price(app)
+  if price && price.to_f.zero?
+    UI.success("Price: free already")
+    return
+  end
+
+  points = asc.get("v1/apps/#{app.id}/appPricePoints", { filter: { territory: "USA" }, limit: 200 })&.body&.dig("data") || []
+  free = points.find { |point| point.dig("attributes", "customerPrice").to_f.zero? }
+  UI.user_error!("App Store Connect offered no free price point for the US") unless free
+
+  asc.post("v1/appPriceSchedules", {
+    data: {
+      type: "appPriceSchedules",
+      relationships: {
+        app: { data: { type: "apps", id: app.id } },
+        baseTerritory: { data: { type: "territories", id: "USA" } },
+        manualPrices: { data: [{ type: "appPrices", id: "${price1}" }] }
+      }
+    },
+    included: [{
+      type: "appPrices",
+      id: "${price1}",
+      attributes: { startDate: nil },
+      relationships: { appPricePoint: { data: { type: "appPricePoints", id: free["id"] } } }
+    }]
+  })
+  UI.success("Price: free (it was #{price ? "#{price} USD" : 'not set'})")
+end
+
+def warn_if_unavailable(app)
+  availability = begin
+    asc.get("v1/apps/#{app.id}/appAvailabilityV2")&.body&.dig("data")
+  rescue StandardError => e
+    UI.verbose("No availability: #{e.message}")
+    nil
+  end
+  if availability
+    UI.message("Availability: set")
+  else
+    UI.important("The app isn't available in any country yet: set that once in App Store Connect, under Pricing " \
+                 "and Availability (README.md)")
+  end
+end
+
+def in_app_purchases(app)
+  body = asc.get("v1/apps/#{app.id}/inAppPurchasesV2", { limit: 200 })&.body || {}
+  (body["data"] || []).map { |iap| [iap.dig("attributes", "productId"), iap] }.to_h
+end
+
+def existing_review_screenshot(iap_id)
+  asc.get("v2/inAppPurchases/#{iap_id}/appStoreReviewScreenshot")&.body&.dig("data")
+rescue StandardError => e
+  UI.verbose("No review screenshot yet: #{e.message}")
+  nil
+end
+
+# Apple's three steps: reserve the file, upload its parts where Apple says, then commit it with its checksum.
+def upload_review_screenshot(product_id, iap, path)
+  bytes = File.binread(path)
+  checksum = Digest::MD5.hexdigest(bytes)
+  type = "inAppPurchaseAppStoreReviewScreenshots"
+
+  existing = existing_review_screenshot(iap["id"])
+  if existing
+    attributes = existing["attributes"] || {}
+    if attributes["sourceFileChecksum"] == checksum && attributes.dig("assetDeliveryState", "state") == "COMPLETE"
+      UI.success("#{product_id}: its review screenshot is up to date")
+      return
+    end
+    UI.message("#{product_id}: replacing its review screenshot")
+    asc.delete("v1/#{type}/#{existing['id']}")
+  end
+
+  reservation = asc.post("v1/#{type}", {
+    data: {
+      type: type,
+      attributes: { fileName: File.basename(path), fileSize: bytes.bytesize },
+      relationships: { inAppPurchaseV2: { data: { type: "inAppPurchases", id: iap["id"] } } }
+    }
+  }).body["data"]
+  Spaceship::ConnectAPI::FileUploader.upload(reservation.dig("attributes", "uploadOperations"), bytes)
+  asc.patch("v1/#{type}/#{reservation['id']}", {
+    data: { type: type, id: reservation["id"], attributes: { uploaded: true, sourceFileChecksum: checksum } }
+  })
+
+  20.times do
+    delivery = asc.get("v1/#{type}/#{reservation['id']}").body.dig("data", "attributes", "assetDeliveryState") || {}
+    case delivery["state"]
+    when "COMPLETE"
+      UI.success("#{product_id}: review screenshot uploaded (#{File.basename(path)})")
+      return
+    when "FAILED"
+      reasons = (delivery["errors"] || []).map { |error| error["description"] || error["code"] }.join("; ")
+      UI.user_error!("#{product_id}: Apple couldn't process #{File.basename(path)}: #{reasons}")
+    end
+    sleep(3)
+  end
+  UI.important("#{product_id}: uploaded; Apple is still processing it (check App Store Connect)")
+end
