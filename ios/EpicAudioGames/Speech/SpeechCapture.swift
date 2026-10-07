@@ -1,15 +1,15 @@
-// Listener.kt's SpeechRecognizer session (startListening to its results): the mic and the recogniser for one answer.
+// Listener.kt's SpeechRecognizer session (startListening to its results): the recogniser for one answer.
 
 import AVFoundation
 import os
 import Speech
 
 /**
- * The mic and the recogniser for one answer: an input-only AVAudioEngine of its own (the mic is on only while
- * listening, apart from the engine the turns play on), its tap feeding an SFSpeechAudioBufferRecognitionRequest.
+ * The recogniser for one answer: an SFSpeechAudioBufferRecognitionRequest fed by the game's mic (MicInput, which
+ * stays running between answers, so the game can listen with the phone locked), and its task.
  *
- * Nonisolated: the tap runs on an audio thread and the recogniser calls back on its own queue, and a closure made in
- * main-actor code traps there (Swift 6 checks its isolation when it runs). So they are made here, and every event
+ * Nonisolated: the mic's tap runs on an audio thread and the recogniser calls back on its own queue, and a closure made
+ * in main-actor code traps there (Swift 6 checks its isolation when it runs). So they are made here, and every event
  * reaches the main actor through DispatchQueue.main.
  */
 nonisolated final class SpeechCapture: @unchecked Sendable {
@@ -23,46 +23,31 @@ nonisolated final class SpeechCapture: @unchecked Sendable {
         case level(Float)
     }
 
-    /// No mic to listen with (an input with no channels or sample rate).
-    struct NoInput: Error {}
-
     static let log = Logger(subsystem: "com.epicaudiogames.app", category: "speech")
 
-    let engine = AVAudioEngine()
+    private let input: MicInput
     private let request = SFSpeechAudioBufferRecognitionRequest()
     private var task: SFSpeechRecognitionTask?
-    private let micOn = OSAllocatedUnfairLock(initialState: false)
 
-    /// Starts listening with [recognizer], on the device when [onDevice]. [onEvent] is called on the main actor.
+    /**
+     * Starts listening with [recognizer] to [input] (started first if it isn't running: in the foreground it can be,
+     * in the background it throws), on the device when [onDevice]. [onEvent] is called on the main actor.
+     */
     init(
-        recognizer: SFSpeechRecognizer, hints: [String], onDevice: Bool,
+        input: MicInput, recognizer: SFSpeechRecognizer, hints: [String], onDevice: Bool,
         onEvent: @escaping @MainActor @Sendable (Event) -> Void
     ) throws {
+        self.input = input
         request.shouldReportPartialResults = true
         request.addsPunctuation = false
         request.requiresOnDeviceRecognition = onDevice
         request.contextualStrings = hints
-        let input = engine.inputNode
-        let format = input.outputFormat(forBus: 0)
-        guard format.sampleRate > 0, format.channelCount > 0 else { throw NoInput() }
+        try input.start()
 
         @Sendable func send(_ event: Event) {
             DispatchQueue.main.async { MainActor.assumeIsolated { onEvent(event) } }
         }
-        let request = request
-        let meter = LevelMeter()
-        input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in
-            request.append(buffer)
-            if let level = meter.level(buffer) { send(.level(level)) }
-        }
-        engine.prepare()
-        do {
-            try engine.start()
-        } catch {
-            input.removeTap(onBus: 0)
-            throw error
-        }
-        micOn.withLock { $0 = true }
+        input.feed(request) { send(.level($0)) }
         task = recognizer.recognitionTask(with: request) { result, error in
             if let result {
                 if result.isFinal {
@@ -78,31 +63,22 @@ nonisolated final class SpeechCapture: @unchecked Sendable {
     }
 
     deinit {
-        stopMic()
+        input.unfeed(request)
         task?.cancel()
     }
 
-    /// The answer is over: the mic goes off, and the recogniser finishes what it has (its final result comes next).
+    /// The answer is over: the mic stops feeding it (it stays on), and the recogniser finishes what it has (its final
+    /// result comes next).
     func endAudio() {
-        stopMic()
+        input.unfeed(request)
         request.endAudio()
     }
 
     /// Stops listening, reporting nothing more (the recogniser's cancellation error is the caller's to drop).
     func cancel() {
-        stopMic()
+        input.unfeed(request)
         task?.cancel()
         task = nil
-    }
-
-    private func stopMic() {
-        let wasOn = micOn.withLock { on in
-            defer { on = false }
-            return on
-        }
-        guard wasOn else { return }
-        engine.stop()
-        engine.inputNode.removeTap(onBus: 0)
     }
 
     /// The best guess, then the others (Listener.kt's RESULTS_RECOGNITION, best first), each once, none blank.

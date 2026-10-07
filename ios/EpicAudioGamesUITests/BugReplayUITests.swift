@@ -352,18 +352,18 @@ final class BugReplayUITests: XCTestCase {
         XCTAssertFalse(keyboard.exists, "B003: the keyboard stays up over the pause after a typed stop")
         p.carryOnPaused(answering: "yes", expecting: "You step inside.")
 
-        // Typing, then the background.
+        // Typing, then the background: the game doesn't pause (it plays on with the phone locked), and the question
+        // still waits for its answer.
         XCTAssertEqual(p.settle(), .ask)
         p.app.textFields["answer-field"].tap()
         XCTAssertTrue(keyboard.waitForExistence(timeout: 5))
         XCUIDevice.shared.press(.home)
         p.idle(2)
         p.app.activate()
-        XCTAssertTrue(paused.waitForExistence(timeout: 10), "no pause after the background")
         p.idle(1)
-        p.shot("B003-paused-after-the-background")
-        XCTAssertFalse(keyboard.exists, "B003: the keyboard came back over the pause")
-        p.carryOnPaused(answering: "yes", expecting: nil)
+        p.shot("B003-after-the-background")
+        XCTAssertFalse(paused.exists, "the background paused the game")
+        XCTAssertEqual(p.settle(), .ask)
     }
 
     /// B021, B022, B013 (B066), B014, B043: the store sheets' heading; an error in one sheet isn't in the next; Restore

@@ -86,29 +86,52 @@ final class PlaythroughUITests: XCTestCase {
 
         app.open("noodle-rush")
         XCTAssertTrue(app.text("Welcome back!").waitForExistence(timeout: 15))
-        // Leaving the app pauses the game until a tap.
+        // Leaving the app doesn't pause the game: it plays on (testTheGamePlaysOnInTheBackground).
         XCUIDevice.shared.press(.home)
         sleep(2)
         app.activate()
         let paused = app.element("paused")
-        XCTAssertTrue(paused.waitForExistence(timeout: 10), "no pause after the background")
+        XCTAssertTrue(app.element("talking-circle").waitForExistence(timeout: 10))
+        XCTAssertFalse(paused.exists, "the background paused the game")
+        // "stop", typed, pauses it until a tap.
+        app.type("stop")
+        XCTAssertTrue(paused.waitForExistence(timeout: 10), "no pause after stop")
+        // fixed (B003): the keyboard stayed up over the pause after a typed stop.
+        XCTAssertTrue(app.keyboards.firstMatch.waitForNonExistence(timeout: 5), "the keyboard stays up over the pause")
         // The pause is VoiceOver's only place (it's modal): its carry on, and its back arrow.
         XCTAssertTrue(app.buttons["Carry on"].exists)
         app.shot("noodle-rush-paused", in: self)
         paused.tap()
         XCTAssertTrue(paused.waitForNonExistence(timeout: 5))
         XCTAssertTrue(app.text("Tap the picture to skip").waitForExistence(timeout: 10), "carrying on asks again")
-        // So does "stop", typed.
-        app.type("stop")
-        XCTAssertTrue(paused.waitForExistence(timeout: 10), "no pause after stop")
-        // fixed (B003): the keyboard stayed up over the pause after a typed stop.
-        XCTAssertTrue(app.keyboards.firstMatch.waitForNonExistence(timeout: 5), "the keyboard stays up over the pause")
-        paused.tap()
-        XCTAssertTrue(paused.waitForNonExistence(timeout: 5))
         XCTAssertFalse(app.reply("stop").exists, "stop pauses: it isn't an answer")
         XCTAssertTrue(app.buttons["answer-yes"].waitForExistence(timeout: 10))
         app.buttons["Back"].tap()
         XCTAssertTrue(app.card("noodle-rush").says("CONTINUE"))
+    }
+
+    /**
+     * Locking the phone or leaving the app doesn't pause the game (UIBackgroundModes audio): Noodle Rush's 29 s
+     * opening plays on in the background, the app kept running (not suspended) while it does, and the app comes back
+     * at its question, the whole turn shown, not paused. Suspended, the turn would still have most of its voice to go.
+     */
+    @MainActor
+    func testTheGamePlaysOnInTheBackground() throws {
+        let app = Player.launch()
+        app.open("noodle-rush")
+        XCTAssertTrue(app.text("Tap the picture to skip").waitForExistence(timeout: 15))
+        XCUIDevice.shared.press(.home)
+        XCTAssertTrue(app.wait(for: .runningBackground, timeout: 10), "the app was suspended at once")
+        sleep(15)
+        XCTAssertEqual(app.state, .runningBackground, "the app was suspended while the game spoke")
+        sleep(18)
+        app.activate()
+        XCTAssertTrue(app.element("talking-circle").waitForExistence(timeout: 10))
+        XCTAssertFalse(app.element("paused").exists, "the background paused the game")
+        XCTAssertTrue(app.text("Your turn!").waitForExistence(timeout: 3), "the voice didn't play on in the background")
+        XCTAssertTrue(app.spoken("Are you ready to play?").exists, "the turn's last line isn't in the transcript")
+        app.shot("noodle-rush-after-the-background", in: self)
+        app.buttons["Back"].tap()
     }
 
     /// Playing by voice (the answers heard from a script, -EpicHear, in place of the mic): the game listens by itself

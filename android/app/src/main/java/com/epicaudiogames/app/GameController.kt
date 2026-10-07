@@ -58,6 +58,8 @@ class GameController(
 ) {
     private val scope = MainScope()
     private val audio = AudioPlayer(context, info.id, packs, onFinished = { finishTurn() }, onInterrupted = { pause() })
+    /** The service, notification, media session and wake lock that let the game go on with the screen off. */
+    private val background = BackgroundPlay(context, this)
     private val listener = Listener(
         context,
         onPartial = { partial = it },
@@ -122,6 +124,7 @@ class GameController(
     private val parked = "${info.id}.parked"
 
     fun open() {
+        background.start()
         val saved = savedPlace()
         val t = try {
             game.open(saved).also { t ->
@@ -163,6 +166,7 @@ class GameController(
 
     fun close() {
         ticker?.cancel()
+        background.stop()
         listener.release()
         audio.release()
         scope.cancel()
@@ -396,6 +400,7 @@ class GameController(
     /** The mic allowed now (the player said yes, or turned it on in Settings): the game listens if it's waiting. */
     fun allowMic() {
         micAllowed = true
+        background.micAllowed()
         if (!paused && !typing) listen()
     }
 
@@ -418,6 +423,19 @@ class GameController(
         }
     }
 
+    /**
+     * The talking circle, tapped; also the headphones' button and the notification's (see [BackgroundPlay]): carries on
+     * when paused, skips while the voice speaks (and then listens), and otherwise is the mic button: listen, or stop
+     * listening.
+     */
+    fun circle() {
+        when {
+            paused -> carryOn()
+            speaking -> skip()
+            else -> mic()
+        }
+    }
+
     /** Stops the voice and shows the rest of the turn's lines. */
     fun skip() {
         if (!speaking) return
@@ -426,7 +444,11 @@ class GameController(
         finishTurn()
     }
 
-    /** "Stop", the app going to the background, or a second silence: everything waits for a tap. */
+    /**
+     * "Stop", a second silence, the audio focus lost (a call), the headphones taken out, the store sheet or a web page
+     * opened: everything waits for a tap. The screen going off or the app going to the background doesn't pause: the
+     * game goes on in the pocket ([BackgroundPlay]).
+     */
     fun pause() {
         paused = true
         stopListening()

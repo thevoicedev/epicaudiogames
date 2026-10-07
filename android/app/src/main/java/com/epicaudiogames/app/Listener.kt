@@ -12,6 +12,9 @@ import android.speech.SpeechRecognizer
  * Reports the words as they come ([onPartial]), the recogniser's guesses, best first ([onHeard]), speech it
  * couldn't make out ([onHeard] with an empty list), silence ([onSilence]), passing trouble that says nothing about
  * the player ([onTrouble]: the listen just ends) and the sound level ([onLevel]).
+ *
+ * It goes on with the screen off (the game's foreground service lets it use the mic), and hears a Bluetooth
+ * headset's mic when there is one ([HeadsetMic]).
  */
 class Listener(
     private val context: Context,
@@ -23,6 +26,7 @@ class Listener(
     private val onTrouble: () -> Unit,
 ) {
     private var recognizer: SpeechRecognizer? = null
+    private val headset = HeadsetMic(context)
     /** Bumped by every start and stop: what the recogniser reports for a listen that's over is let go. */
     private var session = 0
     var active = false
@@ -31,10 +35,19 @@ class Listener(
     private var spoke = false
 
     fun start() {
-        stop()
+        session++
+        recognizer?.cancel()
+        val id = ++session
+        active = true
+        spoke = false
+        // With a Bluetooth headset, once its mic is in use (a moment at most); a stop meanwhile and it doesn't start.
+        headset.use { if (id == session && active) listen(id) }
+    }
+
+    private fun listen(id: Int) {
         val r = recognizer ?: SpeechRecognizer.createSpeechRecognizer(context).also { recognizer = it }
         // A listener for this listen alone: what the recogniser still reports for an earlier one goes to that one's.
-        r.setRecognitionListener(Callbacks(++session))
+        r.setRecognitionListener(Callbacks(id))
         val intent = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             .putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM)
             .putExtra(RecognizerIntent.EXTRA_PARTIAL_RESULTS, true)
@@ -42,8 +55,6 @@ class Listener(
             .putExtra(RecognizerIntent.EXTRA_PREFER_OFFLINE, offline)
             .putExtra(RecognizerIntent.EXTRA_MAX_RESULTS, 5)
             .putExtra(RecognizerIntent.EXTRA_CALLING_PACKAGE, context.packageName)
-        active = true
-        spoke = false
         r.startListening(intent)
     }
 
@@ -52,6 +63,7 @@ class Listener(
         session++
         recognizer?.cancel()
         active = false
+        headset.release()
     }
 
     fun release() {
@@ -59,6 +71,7 @@ class Listener(
         recognizer?.destroy()
         recognizer = null
         active = false
+        headset.release()
     }
 
     /** The recogniser's calls for listen [id]: only those for the listen going on now are reported. */
@@ -84,6 +97,7 @@ class Listener(
         override fun onResults(results: Bundle?) {
             if (!current) return
             active = false
+            headset.release()
             val guesses = results?.getStringArrayList(SpeechRecognizer.RESULTS_RECOGNITION).orEmpty().filter { it.isNotBlank() }
             // No words, and none came while listening: nobody spoke.
             if (guesses.isEmpty() && !spoke) onSilence() else onHeard(guesses)
@@ -92,6 +106,7 @@ class Listener(
         override fun onError(error: Int) {
             if (!current) return
             active = false
+            headset.release()
             when (error) {
                 // Speech it couldn't make out; with no words at all, silence (many recognisers end a silent listen so).
                 SpeechRecognizer.ERROR_NO_MATCH -> if (spoke) onHeard(emptyList()) else onSilence()

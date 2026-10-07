@@ -69,8 +69,24 @@ The simulator has no microphone and no real audio route. On a phone, with the re
   chips working.
 - **Audio:** lines highlight in time with the voice on the speaker and on AirPods; Don's sentences in Nuclear War
   and the Leaning Tower of Pizza music have no gaps.
-- **Interruptions:** a phone call, Siri, an alarm, pulling out headphones, locking the phone. Each should end in
-  "Tap to carry on", with the mic still working after.
+- **Interruptions:** a phone call, Siri, an alarm, pulling out headphones. Each should end in "Tap to carry on", with
+  the mic still working after (also when it happened with the phone locked: carry on with the headphones' button).
+- **The phone locked** (`UIBackgroundModes` audio): lock the phone mid-turn and put it in a pocket. The voice plays
+  on; the game then listens by itself, and answering out loud through the headphones carries on, turn after turn
+  (the orange/red recording dot stays on while a game is open with the mic allowed: the mic is kept running so iOS
+  lets it listen in the background). Check a silence and "stop" while locked, and that a game paused or at its end
+  plays nothing. Also try connecting AirPods while locked mid-game (the mic restarts on the new input), and a call
+  while locked, then carrying on.
+- **AirPods' mic:** with AirPods in, the game hears you through them, not the iPhone (put the phone away from you).
+  On iOS 26 with recent AirPods (high-quality Bluetooth recording) the voice stays full quality; on older iOS or
+  other headsets the voice drops to call quality for as long as the game is open (Bluetooth's hands-free profile is
+  the only one with a mic). A wired headset's mic is used likewise.
+- **The headphones' button and the lock screen:** Now Playing shows the game's title, "Epic Audio Games" and its
+  cover, "playing" while it speaks or listens. The one-button play/pause (an AirPods press, a wired headset's
+  click) does what Magic Tap does: skips the voice, starts or stops listening while it waits, carries on after a
+  pause. Pause on its own (taking an AirPod out, the lock screen while the game talks) pauses the game; play on its
+  own carries on after a pause, or starts listening while it waits. Next/previous and seeking are off. Leaving the
+  game clears it.
 - **Packs:** buy a pack in a TestFlight (sandbox) build, download it, and carry on at NEXT CHAPTER; Restore after
   reinstalling. Needs the pack server (`EPIC_PACKS_URL = https:/$()/epicaudiogames.com/packs`, with the zips on it:
   README, "The website") and the products in App Store Connect.

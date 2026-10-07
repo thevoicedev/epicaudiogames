@@ -119,6 +119,11 @@ assets, so run the content tools first. The app needs Android 7 (API 24) or late
   talking, and stop it.
 - **Listening:** after each question the mic opens by itself, as on Alexa. Silence plays the question again; a
   second silence, or "stop", pauses the game until a tap.
+- **Screen off, phone in a pocket:** while a game is open it keeps talking and listening (a foreground service,
+  with a notification showing the game and its cover). The headphones' button (play/pause) does what a tap on the
+  talking circle does: skip, talk, stop listening, or carry on. Pause (the lock screen's, or earbuds taken out)
+  pauses the game; play carries on, or talks when it's your turn. With a Bluetooth headset, the
+  game listens through the headset's mic. Calls, other apps taking the audio and headphones coming out still pause.
 - **Saves:** each game's place is saved at every question, and "Welcome back!" picks it up.
 - **Packs:** a game's card and menu open its store sheet: each pack's price (Google Play Billing), buying it, then
   downloading it from the pack server (`-PepicPacksUrl=https://...`, or `epicPacksUrl` in gradle.properties),

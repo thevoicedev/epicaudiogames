@@ -6,6 +6,16 @@
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
     <uses-feature android:name="android.hardware.screen.portrait" android:required="false" />
+    <!-- A game goes on with the screen off or the phone in a pocket: a foreground service plays its voice and listens
+         (the microphone type only once the mic is allowed), with a notification (Android 13+ asks for it with the
+         mic; the service runs either way), and keeps the CPU up while the game talks or listens. -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MICROPHONE" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!-- A Bluetooth headset's mic, while the game listens (its call link, asked for as the communication device). -->
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <!-- Packs are downloaded from the pack server. -->
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -33,5 +43,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".GameService"
+            android:exported="false"
+            android:foregroundServiceType="mediaPlayback|microphone" />
     </application>
 </manifest>

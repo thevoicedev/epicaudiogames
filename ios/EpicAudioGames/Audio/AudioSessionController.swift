@@ -4,10 +4,17 @@ import AVFoundation
 import os
 
 /**
- * The audio session a game plays and listens in: .playAndRecord (the voice plays while the mic can open), to the
- * speaker rather than the earpiece, Bluetooth headphones allowed, and not mixed with other apps' audio (as Android's
- * audio focus stops them). One category for the whole game screen: switching it between speaking and listening
- * would stall both.
+ * The audio session a game plays and listens in: .playAndRecord (the voice plays while the mic is on), to the
+ * speaker rather than the earpiece, Bluetooth headphones allowed for listening and for their mic, and not mixed with
+ * other apps' audio (as Android's audio focus stops them). One category for the whole game screen: switching it
+ * between speaking and listening would stall both. The app's UIBackgroundModes has "audio": with the phone locked,
+ * the game goes on speaking and listening.
+ *
+ * Headphones' mics: AirPods and other Bluetooth headsets are heard through the hands-free profile (HFP), which is
+ * call quality both ways; their own A2DP has no mic. So with a Bluetooth headset connected, the game's voice is call
+ * quality the whole time the game is open (the mic is on all that time). From iOS 26, headsets that can record in
+ * high quality (recent AirPods) are asked to (.bluetoothHighQualityRecording), and the voice stays full quality;
+ * other headsets fall back to HFP. The headset's mic is preferred to the iPhone's whenever one is connected.
  *
  * It reports what happens to the session (interruptions, route changes, the engine's output changing, the media
  * services restarting) as [Event]s on the main actor; what to do about them (pausing) is the game's. Nonisolated: the
@@ -48,10 +55,45 @@ nonisolated final class AudioSessionController: @unchecked Sendable {
         self.onEvent = onEvent
     }
 
-    /// .playAndRecord to the speaker, Bluetooth headphones allowed, not mixed with other apps; then active.
+    /**
+     * The category's options: the speaker rather than the earpiece; Bluetooth headphones for listening (A2DP) and,
+     * to use their mic, as headsets (HFP, which iOS picks over A2DP for a headset that has both); from iOS 26,
+     * high-quality Bluetooth recording where the headset has it (HFP otherwise). Not mixed with other apps.
+     */
+    static var options: AVAudioSession.CategoryOptions {
+        var options: AVAudioSession.CategoryOptions = [.defaultToSpeaker, .allowBluetoothA2DP, .allowBluetoothHFP]
+        if #available(iOS 26.0, *) { options.insert(.bluetoothHighQualityRecording) }
+        return options
+    }
+
+    /// .playAndRecord with [options], then active, with the headset's mic preferred if one is connected.
     @Sendable static func setUp(_ session: AVAudioSession) throws {
-        try session.setCategory(.playAndRecord, mode: .default, options: [.defaultToSpeaker, .allowBluetoothA2DP])
+        try session.setCategory(.playAndRecord, mode: .default, options: options)
         try session.setActive(true)
+        preferHeadsetMic(session)
+    }
+
+    /// The inputs that are a headset's mic (AirPods and other Bluetooth headsets, wired and USB headsets, a car).
+    static let headsetInputs: [AVAudioSession.Port] = [.bluetoothHFP, .headsetMic, .usbAudio, .carAudio]
+
+    /// Which of these inputs to listen with: the first headset's, else the iPhone's own mic, else none.
+    static func preferredInput(_ inputs: [AVAudioSession.Port]) -> Int? {
+        inputs.firstIndex { headsetInputs.contains($0) } ?? inputs.firstIndex(of: .builtInMic)
+    }
+
+    /// The headset's mic preferred when headphones with one are connected, else the iPhone's: as the session is set
+    /// up, and when the route changes. Nothing is changed when it is already the preferred input.
+    static func preferHeadsetMic(_ session: AVAudioSession = .sharedInstance()) {
+        let inputs = session.availableInputs ?? []
+        guard let i = preferredInput(inputs.map(\.portType)) else { return }
+        let pick = inputs[i]
+        guard session.preferredInput?.uid != pick.uid else { return }
+        do {
+            try session.setPreferredInput(pick)
+            log.info("listening with \(pick.portName, privacy: .public)")
+        } catch {
+            log.error("can't prefer \(pick.portName, privacy: .public): \(error, privacy: .public)")
+        }
     }
 
     /// Its events are being reported.

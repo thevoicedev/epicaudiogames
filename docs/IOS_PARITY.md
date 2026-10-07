@@ -50,6 +50,8 @@ quick-reply chips at the end of the transcript, under its last line, inside what
 | # | iOS does | Android does | Why | Pinned by |
 |---|---|---|---|---|
 | L2 | A call, Siri or an alarm, the turn's or the mic's engine stopping itself while in use, the media services restarting, and a turn whose audio can't start at all (a call has it) all pause the game: "Tap to carry on", also at an end or while idle. The session's events are reported even when it couldn't be made active as the game opened | A passing loss of audio focus pauses the voice and resumes it by itself; a lasting loss, focus refused, or headphones taken out pause the game (B031, B039) | iOS stops the engine and doesn't restart it, so the turn would never finish | TurnPlayerTests (`aTurnThatCantStartStalls`, `eventsAreReportedEvenIfTheSessionCantBeActive`), GameControllerTests (`aTurnWhoseAudioCantPlayWaitsForATap`); on a device, the plan's interruption matrix |
+| L22 | The mic is kept running (an input-only AVAudioEngine, `MicInput`) from when a game opens with the mic allowed until it closes; between answers its sound goes nowhere, and each answer is a new recognition request on it. Leaving the app or locking the phone doesn't pause the game | The recogniser opens the mic for each answer; a foreground service keeps the game going with the screen off (`BackgroundPlay.kt`) | iOS refuses to start recording in the background (`cannotStartRecording`), so a mic opened per answer could never listen with the phone locked | BackgroundAudioTests, AppModelTests (`theGamePlaysOnInTheBackground`), PlaythroughUITests (`testTheGamePlaysOnInTheBackground`); on a device, the phone locked |
+| L23 | The lock screen's Now Playing (the game, its cover; playing while it speaks or listens). The headphones' one button (togglePlayPause) does what Magic Tap does: carry on after a pause, skip the voice, start or stop listening. Pause on its own (an AirPod taken out) pauses the game; play on its own carries on, or starts listening while the game waits | The notification and media session's button do what a tap on the talking circle does (`BackgroundPlay.kt`) | The platform's own controls; Magic Tap is iOS's one-button action | GameControllerTests (`theHeadphonesButtonDoesWhatMagicTapDoes`, `pauseAndPlayFromTheHeadphones`, `theLockScreenShowsTheGameWhileItsOpen`) |
 | L7 | The ⋮ menu is iOS's `Menu`, anchored to its button | Material's `DropdownMenu`, dropping from the ⋮ | The platform's own control | Screenshot review |
 | L9 | Nuclear War's missing clips are tracked per game (`NuclearWar.missing`) | One set on the shared `NuclearAudio` | `NuclearAudio` is immutable and shared between games | NuclearWarTests |
 | L12 | The JSON reader refuses unquoted literals (`00`, `tru`); otherwise it takes what kotlinx 1.6.3 takes | kotlinx reads unquoted literals | No map or save has them; refusing them keeps the reader small | JSONTests, TextConf |
@@ -118,7 +120,12 @@ asking a question (Noodle Rush, its chips showing), an end panel and the store s
 - **D2, product ids.** The App Store products are the catalog's Play ids (`frootopia_stories`,
   `alien_customs_levels`, `the_werewolf_stories`); a catalog `appstore` key would override one. `ios/Config/
   EpicAudioGames.storekit` has them for StoreKit testing in Xcode (the scheme's Run action uses it).
-- **D13, voice processing** stays off, as on Android: the mic listens through a plain input-only engine.
+- **D13, voice processing** stays off, as on Android: the mic listens through a plain input-only engine (kept running
+  while a game is open, L22).
+- **Headsets' mics.** The session allows Bluetooth headsets as inputs (`.allowBluetoothHFP`, and from iOS 26
+  `.bluetoothHighQualityRecording`) besides A2DP output, and prefers a headset's mic to the iPhone's
+  (`AudioSessionController.preferHeadsetMic`). The cost, before iOS 26 or with headsets that can't record in high
+  quality: the voice is call quality on Bluetooth headphones for as long as a game is open.
 - **Nuclear War compares saved text by UTF-16 units** (`kEquals`, `kContains`), as Kotlin does, for country refs
   and city names read from a save.
 

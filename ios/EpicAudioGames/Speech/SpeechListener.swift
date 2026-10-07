@@ -11,6 +11,9 @@ import Speech
  * guesses (best first), speech it couldn't make out (no guesses), silence, and the sound level. iOS's recogniser
  * doesn't decide when an answer is over, as Android's does: the Endpointer does, on a 100 ms tick. One is made for
  * each game opened, as Listener.kt is.
+ *
+ * Its mic (MicInput) stays on from when the game opens (or the mic is allowed) until the game closes, so that it can
+ * listen with the phone locked; each answer is a new request and recognition task on it ([start]).
  */
 final class SpeechListener: Listening {
     var events = ListenerEvents()
@@ -18,6 +21,8 @@ final class SpeechListener: Listening {
     let isAvailable: Bool
 
     private let recognizer: SFSpeechRecognizer?
+    /// The mic, on while the game is open (a new one after the media services restart).
+    private(set) var mic = MicInput()
     private var capture: SpeechCapture?
     private var endpointer: Endpointer?
     private var ticker: Task<Void, Never>?
@@ -36,8 +41,8 @@ final class SpeechListener: Listening {
         isAvailable = recognizer != nil
     }
 
-    /// The engine the mic is listening through, while it is (AppModel tells its configuration changes apart).
-    var engine: AVAudioEngine? { capture?.engine }
+    /// The engine the mic listens through (AppModel tells its configuration changes apart).
+    var engine: AVAudioEngine? { mic.engine }
 
     /// D9: the player's first English language, if the recogniser has it; else US English.
     static var locale: Locale {
@@ -62,15 +67,16 @@ final class SpeechListener: Listening {
         }
         onDevice = recognizer.supportsOnDeviceRecognition && !Self.onDeviceFails
         do {
-            capture = try SpeechCapture(recognizer: recognizer, hints: hints, onDevice: onDevice) { [weak self] event in
-                self?.received(event, id)
+            capture = try SpeechCapture(input: mic, recognizer: recognizer, hints: hints, onDevice: onDevice) {
+                [weak self] event in self?.received(event, id)
             }
-        } catch is SpeechCapture.NoInput {
+        } catch is MicInput.NoInput {
             SpeechCapture.log.info("no mic to listen with")
             later(id) { $0.events.unavailable() }
             return
         } catch {
-            // The mic couldn't start (Android's ERROR_AUDIO): passing trouble, not the player's silence.
+            // The mic couldn't start (Android's ERROR_AUDIO; in the background, iOS's cannotStartRecording): passing
+            // trouble, not the player's silence.
             SpeechCapture.log.error("can't start listening: \(error, privacy: .public)")
             later(id) { $0.events.trouble() }
             return
@@ -90,8 +96,40 @@ final class SpeechListener: Listening {
         end()
     }
 
+    /// The game closing: listening stops, and so does the mic.
     func release() {
         stop()
+        mic.stop()
+    }
+
+    // ----- The mic, on while the game is open -----
+
+    /**
+     * The mic on, if the game can listen (a recogniser, and the mic and speech recognition allowed), between answers
+     * feeding nothing: as the game opens, as the mic is allowed, and as the app comes back to the screen. In the
+     * foreground: iOS won't start it in the background.
+     */
+    func startMic() {
+        guard isAvailable, MicPermission.granted else { return }
+        do {
+            try mic.start()
+        } catch {
+            MicInput.log.error("can't start the mic: \(error, privacy: .public)")
+        }
+    }
+
+    /// The mic on again after it stopped itself (its input changed, an interruption ended), if it was on.
+    func restartMic() {
+        mic.restart()
+    }
+
+    /// The media services restarted: the mic's engine is no use. A new one, on if the old one was.
+    func resetMic() {
+        let wasOn = mic.isWanted
+        stop()
+        mic.stop()
+        mic = MicInput()
+        if wasOn { startMic() }
     }
 
     /// An interruption or a route change while listening: the recogniser's error that follows means nothing.

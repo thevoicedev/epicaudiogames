@@ -13,6 +13,11 @@
 	<array>
 		<string>Fonts/lilita_one.ttf</string>
 	</array>
+	<!-- The game speaks and listens on with the phone locked, through the headphones (AppModel.onScreen). -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+	</array>
 	<key>EpicPacksURL</key>
 	<string>$(EPIC_PACKS_URL)</string>
 	<!-- White status bar icons everywhere (UIStatusBarStyle), as on Android. -->

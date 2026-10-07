@@ -47,6 +47,8 @@ final class AppModel {
     @ObservationIgnored private var session: AudioSessionController?
     /// Bumped by each close: a session deactivation waiting for a fading bed is let go if another follows.
     @ObservationIgnored private var closes = 0
+    /// The open game on the lock screen, and the headphones' button acting on it.
+    @ObservationIgnored let nowPlaying = NowPlaying()
 
     /// How the games listen: the device's speech recogniser (once the player allows it), none (typing and chips,
     /// as on a phone with no recogniser), or (Debug) a script of answers.
@@ -134,8 +136,11 @@ final class AppModel {
             self.listener = listener
             game = controller
             activateSession()
-            controller.open()
+            // The mic goes on before the first turn plays (if it's allowed), so the game can listen with the phone
+            // locked: iOS won't start it in the background.
             askForTheMic(controller)
+            controller.open()
+            nowPlaying.show(controller, cover: Covers.image(info.id))
         }
     }
 
@@ -195,9 +200,14 @@ final class AppModel {
         info.id + installed.map { "+\($0.pack.id)@\($0.pack.version)" }.joined()
     }
 
-    /// The app on screen (active) or not (in the background): a game loading waits for it; coming back reads the
-    /// purchases again, and whether the mic was allowed in Settings meanwhile (then the game listens if it waits,
-    /// as Android's ON_RESUME does).
+    /**
+     * The app on screen (active) or not (in the background, the phone locked): a game loading waits for it; coming
+     * back reads the purchases again, and whether the mic was allowed in Settings meanwhile (then the game listens if
+     * it waits, as Android's ON_RESUME does), and turns the mic on again if it couldn't start in the background.
+     *
+     * Going to the background doesn't pause the game (UIBackgroundModes audio): it speaks and listens on, the phone
+     * locked, through the headphones. Calls, Siri, alarms and headphones taken out still pause it (sessionEvent).
+     */
     func onScreen(_ on: Bool) {
         shown = on
         guard on else { return }
@@ -208,8 +218,9 @@ final class AppModel {
             // fixed: this set micAllowed itself, so the game's own check (not allowed yet) never called allowMic().
             if !MicPermission.granted {
                 game.micAllowed = false
-            } else if !game.micAllowed {
-                game.allowMic()
+            } else {
+                (listener as? SpeechListener)?.startMic()
+                if !game.micAllowed { game.allowMic() }
             }
         }
         Task { await store.restore(cellular: false) }
@@ -220,18 +231,15 @@ final class AppModel {
         await withCheckedContinuation { waitingToShow.append($0) }
     }
 
-    /// The app going to the background: the game waits for a tap.
-    func pause() {
-        game?.pause()
-    }
-
     private func close() {
         let player = audio as? TurnPlayer
         let engine = player?.engine
         // A bed fading out after the last turn's end plays its fade, as Android's fading players do.
         let tail = player?.tail
         let closed = game != nil
-        game?.close()
+        let mic = (listener as? SpeechListener)?.engine
+        if closed { nowPlaying.clear() }
+        game?.close()           // the listener's release turns the mic off
         game = nil
         loaded = nil
         audio = nil
@@ -241,7 +249,7 @@ final class AppModel {
         guard let session else { return }
         closes += 1
         let close = closes
-        let engines = engine.map { [$0] } ?? []
+        let engines = [engine, mic].compactMap { $0 }
         guard let tail else {
             session.deactivate(stopping: engines)
             return
@@ -269,7 +277,7 @@ final class AppModel {
     }
 
     /// GameScreen.kt's permission request as the game opens: the mic is allowed once the player says so, and then
-    /// the game listens (if it's waiting for an answer by then).
+    /// the game listens (if it's waiting for an answer by then). Allowed, the mic goes on, for the whole game.
     private func askForTheMic(_ controller: GameController) {
         #if DEBUG
         if case .script = hearing {
@@ -279,10 +287,14 @@ final class AppModel {
         #endif
         let granted = MicPermission.granted
         controller.micAllowed = granted
+        let speech = listener as? SpeechListener
+        if granted { speech?.startMic() }
         guard !granted, controller.micWorks else { return }
         Task {
             // fixed: listen() here ignored a pause and the text box; allowMic() waits for them, as Android's does.
-            if await MicPermission.request() { controller.allowMic() }
+            guard await MicPermission.request() else { return }
+            if game === controller { speech?.startMic() }
+            controller.allowMic()
         }
     }
 
@@ -306,29 +318,40 @@ final class AppModel {
         }
     }
 
-    /// A call, Siri, an alarm, headphones taken out, or the audio system restarting: the game waits for a tap (L2).
-    private func sessionEvent(_ event: AudioSessionController.Event) {
+    /**
+     * A call, Siri, an alarm, headphones taken out, or the audio system restarting: the game waits for a tap (L2).
+     * The mic, on for the whole game, is turned on again whenever it stopped (an interruption over, its input
+     * changed), so that the game can listen again with the phone still locked.
+     */
+    func sessionEvent(_ event: AudioSessionController.Event) {
         guard let game else { return }
+        let speech = listener as? SpeechListener
         switch event {
         case .interruptionBegan:
-            (listener as? SpeechListener)?.audioSessionChanged()
+            speech?.audioSessionChanged()
             game.pause()
         case .interruptionEnded:
-            break
+            speech?.restartMic()
         case .routeChanged(let reason):
-            (listener as? SpeechListener)?.audioSessionChanged()
+            speech?.audioSessionChanged()
             if reason == .oldDeviceUnavailable { game.pause() }
+            if reason == .newDeviceAvailable || reason == .oldDeviceUnavailable {
+                // Headphones in: their mic; out: the iPhone's.
+                AudioSessionController.preferHeadsetMic()
+            }
         case .engineConfigurationChanged(let engine):
             // An engine stopped itself: the turn's would never finish, the mic's would hear nothing more.
             let turns = (audio as? TurnPlayer)?.engine.map(ObjectIdentifier.init)
-            let mic = (listener as? SpeechListener)?.engine.map(ObjectIdentifier.init)
+            let mic = speech?.engine.map(ObjectIdentifier.init)
             if (game.speaking && engine == turns) || (game.listening && engine == mic) {
-                (listener as? SpeechListener)?.audioSessionChanged()
+                speech?.audioSessionChanged()
                 game.pause()
             }
+            if engine == mic { speech?.restartMic() }
         case .mediaServicesReset:
             (audio as? TurnPlayer)?.resetEngine()
             activateSession()
+            speech?.resetMic()
             game.pause()
         }
     }

@@ -3,6 +3,7 @@
 
 import EpicAppCore
 import Foundation
+import MediaPlayer
 import Testing
 @testable import EpicAudioGames
 
@@ -171,6 +172,53 @@ struct AppModelTests {
         #expect(model.opening != nil)
         model.onScreen(true)
         #expect(await until { model.game?.speaking == true })
+        model.home()
+    }
+
+    /// Going to the background (the phone locked, another app) doesn't pause the game: it speaks on, and comes back
+    /// playing. The lock screen shows it while it's open.
+    @Test func theGamePlaysOnInTheBackground() async throws {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let model = model()
+        model.open(try info(model, "noodle-rush"))
+        #expect(await until { model.game?.speaking == true })
+        let game = try #require(model.game)
+        #expect(model.nowPlaying.game === game)
+        #expect(MPNowPlayingInfoCenter.default().nowPlayingInfo?[MPMediaItemPropertyTitle] as? String == "Noodle Rush")
+        model.onScreen(false)
+        #expect(!game.paused, "the background paused the game")
+        try await Task.sleep(for: .milliseconds(500))
+        #expect(game.speaking)
+        #expect(!game.paused)
+        model.onScreen(true)
+        #expect(!game.paused)
+        #expect(game.speaking)
+        model.home()
+        #expect(model.nowPlaying.game == nil)
+        #expect(MPNowPlayingInfoCenter.default().nowPlayingInfo == nil)
+    }
+
+    /// What still pauses: a call (or Siri, an alarm), headphones taken out, the media services restarting. New
+    /// headphones, and an interruption ending, don't.
+    @Test func callsAndHeadphonesOutPauseTheGame() async throws {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let model = model()
+        model.open(try info(model, "noodle-rush"))
+        #expect(await until { model.game?.speaking == true })
+        let game = try #require(model.game)
+        model.sessionEvent(.routeChanged(.newDeviceAvailable))
+        #expect(!game.paused, "headphones in paused the game")
+        model.sessionEvent(.interruptionBegan)
+        #expect(game.paused)
+        model.sessionEvent(.interruptionEnded(shouldResume: true))
+        #expect(game.paused, "it carries on by itself")
+        game.carryOn()
+        #expect(!game.paused)
+        model.sessionEvent(.routeChanged(.oldDeviceUnavailable))
+        #expect(game.paused, "headphones out didn't pause the game")
+        game.carryOn()
+        model.sessionEvent(.mediaServicesReset)
+        #expect(game.paused)
         model.home()
     }
 

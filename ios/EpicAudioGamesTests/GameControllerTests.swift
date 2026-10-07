@@ -2,6 +2,7 @@
 
 import EpicAppCore
 import Foundation
+import MediaPlayer
 import SwiftUI
 import Testing
 import UIKit
@@ -815,6 +816,137 @@ struct GameControllerTests {
         // A stall for a turn that's over means nothing.
         audio.stall()
         #expect(!c.paused)
+    }
+
+    /**
+     * VoiceOver's Magic Tap and the play/pause button of the headphones and the lock screen (NowPlaying's
+     * togglePlayPause) are one button:
+     * speaking, it skips; waiting, it listens, and again stops listening; paused, it carries on (the question again);
+     * at an end, nothing. The game plays on regardless of the screen (the phone locked).
+     */
+    @Test(arguments: [false, true])
+    func theHeadphonesButtonDoesWhatMagicTapDoes(headphones: Bool) throws {
+        let c = controller(mic: true)
+        c.listensByItself = { false }       // so the button opens the mic
+        let now = NowPlaying()
+        defer { now.clear() }
+        func press() {
+            if headphones {
+                #expect(now.press(.togglePlayPause) == .success)
+            } else {
+                c.magicTap { c.mic() }
+            }
+        }
+        c.open()
+        now.show(c, cover: nil)
+        #expect(now.isPlaying)
+        press()
+        #expect(!c.speaking, "it doesn't skip")
+        #expect(spoken(c) == ["Hello there, do you want cake?"])
+        #expect(listener.starts == 0)
+        #expect(!now.isPlaying)
+        press()
+        #expect(c.listening, "it doesn't listen")
+        #expect(listener.starts == 1)
+        #expect(now.isPlaying)
+        press()
+        #expect(!c.listening, "it doesn't stop listening")
+        #expect(listener.stops > 0)
+        c.pause()
+        press()
+        #expect(!c.paused, "it doesn't carry on")
+        #expect(c.speaking)
+        #expect(audio.played.count == 2)
+        audio.finish()
+        c.answer("yes")
+        audio.finish()
+        #expect(c.end != nil)
+        press()
+        #expect(audio.played.count == 3, "something played at the end")
+        #expect(!c.paused)
+    }
+
+    /// The lock screen shows the game, its play/pause on and the commands it has no use for off; closed, nothing.
+    @Test func theLockScreenShowsTheGameWhileItsOpen() throws {
+        let c = controller()
+        let center = MPNowPlayingInfoCenter.default()
+        let commands = MPRemoteCommandCenter.shared()
+        let now = NowPlaying()
+        c.open()
+        now.show(c, cover: UIImage(systemName: "circle"))
+        #expect(center.nowPlayingInfo?[MPMediaItemPropertyTitle] as? String == "Test")
+        #expect(center.nowPlayingInfo?[MPMediaItemPropertyArtist] as? String == "Epic Audio Games")
+        #expect(center.nowPlayingInfo?[MPMediaItemPropertyArtwork] != nil)
+        #expect(center.playbackState == .playing)
+        #expect(commands.togglePlayPauseCommand.isEnabled)
+        #expect(commands.playCommand.isEnabled && commands.pauseCommand.isEnabled)
+        #expect(!commands.nextTrackCommand.isEnabled && !commands.previousTrackCommand.isEnabled)
+        #expect(!commands.skipForwardCommand.isEnabled && !commands.changePlaybackPositionCommand.isEnabled)
+        now.clear()
+        #expect(center.nowPlayingInfo == nil)
+        #expect(!commands.togglePlayPauseCommand.isEnabled)
+        #expect(now.press(.togglePlayPause) == .noActionableNowPlayingItem)
+        #expect(now.press(.pause) == .noActionableNowPlayingItem)
+    }
+
+    /**
+     * The separate pause and play commands: pause (AirPods send it when an earbud is taken out) pauses the game,
+     * speaking, waiting or listening, and does nothing paused or at an end; play carries on after a pause, starts
+     * listening while the game waits, and does nothing while it speaks or listens, or at an end. The lock screen says
+     * playing while the game speaks or listens, and paused otherwise.
+     */
+    @Test func pauseAndPlayFromTheHeadphones() throws {
+        let c = controller(mic: true)
+        c.listensByItself = { false }
+        let now = NowPlaying()
+        defer { now.clear() }
+        let center = MPNowPlayingInfoCenter.default()
+        c.open()
+        now.show(c, cover: nil)
+        #expect(center.playbackState == .playing)
+        // Speaking: play does nothing; pause pauses.
+        #expect(now.press(.play) == .success)
+        #expect(c.speaking && !c.paused)
+        #expect(listener.starts == 0)
+        #expect(now.press(.pause) == .success)
+        #expect(c.paused, "an earbud out didn't pause the game")
+        #expect(!c.speaking)
+        #expect(center.playbackState == .paused)
+        // Paused: pause again does nothing; play carries on (the question again).
+        _ = now.press(.pause)
+        #expect(c.paused)
+        #expect(audio.played.count == 1)
+        _ = now.press(.play)
+        #expect(!c.paused)
+        #expect(c.speaking)
+        #expect(audio.played.count == 2)
+        #expect(center.playbackState == .playing)
+        // Waiting: play listens; again, it keeps listening; pause stops listening and pauses.
+        audio.finish()
+        #expect(!c.listening)
+        #expect(!now.isPlaying)         // the lock screen follows it a moment later (observed)
+        _ = now.press(.play)
+        #expect(c.listening)
+        #expect(center.playbackState == .playing)
+        _ = now.press(.play)
+        #expect(c.listening, "play stopped listening")
+        #expect(listener.starts == 1)
+        _ = now.press(.pause)
+        #expect(c.paused)
+        #expect(!c.listening)
+        _ = now.press(.play)
+        audio.finish()
+        // At an end: neither does anything.
+        c.answer("yes")
+        audio.finish()
+        #expect(c.end != nil)
+        _ = now.press(.pause)
+        #expect(!c.paused, "pause at an end")
+        let played = audio.played.count
+        _ = now.press(.play)
+        #expect(audio.played.count == played)
+        #expect(!c.listening)
+        #expect(!now.isPlaying)
     }
 
     @Test func startAgainClearsTheFeed() {

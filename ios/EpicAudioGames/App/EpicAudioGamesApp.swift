@@ -1,4 +1,4 @@
-// MainActivity.kt's MainActivity: the app's one window, and leaving the app pausing the game.
+// MainActivity.kt's MainActivity: the app's one window, and whether it's on screen.
 
 import SwiftUI
 
@@ -13,12 +13,11 @@ struct EpicAudioGamesApp: App {
             RootView(model: model)
         }
         .onChange(of: scenePhase) { _, phase in
-            // Leaving the app pauses the game; a game that loads meanwhile waits until the app is back. A
-            // permission alert makes the app inactive for a moment, and the game plays on; the store sheet pauses the
-            // game itself (AppModel.showStore).
+            // Leaving the app or locking the phone doesn't pause the game: it plays and listens on (UIBackgroundModes
+            // audio; AppModel.onScreen). A game that loads meanwhile waits until the app is back. A permission alert
+            // makes the app inactive for a moment; the store sheet pauses the game itself (AppModel.showStore).
             switch phase {
             case .background:
-                model.pause()
                 model.onScreen(false)
             case .active:
                 model.onScreen(true)

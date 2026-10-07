@@ -12,6 +12,9 @@ HOW TO PLAY
 PERMISSIONS
 The first time a game opens, iOS asks for the microphone, then for speech recognition. Both are used only to hear answers while a game is open. Speech is recognised on the iPhone where it supports it, and otherwise by Apple's speech service. The app doesn't store or send recordings. If you decline, the games still work by typing and tapping.
 
+BACKGROUND AUDIO
+The games are played with headphones, often with the phone locked in a pocket. While a game is open, the voice keeps playing and the game keeps listening for spoken answers with the screen locked (background audio mode), so the microphone indicator stays on until the player leaves the game. The lock screen and the headphone buttons control the game: pause, carry on, skip the voice or answer. Leaving the game, a call, or taking the headphones off pauses it.
+
 IN-APP PURCHASES
 Three non-consumable packs, each adding more of one game:
 - frootopia_stories: The Kingdom of Frootopia, stories 2 to 5 (15 MB download)

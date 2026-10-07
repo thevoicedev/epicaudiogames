@@ -357,6 +357,21 @@ final class GameController {
         }
     }
 
+    /**
+     * The game's one button, with no screen to look at: VoiceOver's Magic Tap, and the play/pause of the headphones and
+     * the lock screen (NowPlaying). Paused, it carries on; speaking, it skips the voice; waiting for an answer, it
+     * [talk]s (starts or stops listening; the screen's talk also asks for the mic). At an end, nothing.
+     */
+    func magicTap(talk: () -> Void) {
+        if paused {
+            carryOn()
+        } else if speaking {
+            skip()
+        } else if end == nil {
+            talk()
+        }
+    }
+
     /// Stops the voice and shows the rest of the turn's lines.
     func skip() {
         if !speaking { return }
@@ -365,7 +380,8 @@ final class GameController {
         finishTurn()
     }
 
-    /// "Stop", the app going to the background, or a second silence: everything waits for a tap.
+    /// "Stop", a second silence, the store sheet, or the audio taken (a call, headphones out): everything waits for a
+    /// tap. Not the app going to the background or the phone locking: the game plays on (UIBackgroundModes audio).
     func pause() {
         paused = true
         stopListening()

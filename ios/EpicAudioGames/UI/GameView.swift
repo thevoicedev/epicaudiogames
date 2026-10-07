@@ -95,15 +95,10 @@ struct GameView: View {
         }
     }
 
-    /// VoiceOver's Magic Tap (two fingers, twice): carry on, skip the voice, or start or stop listening.
+    /// VoiceOver's Magic Tap (two fingers, twice): carry on, skip the voice, or start or stop listening (as the
+    /// headphones' button does, NowPlaying).
     private func magicTap() {
-        if game.paused {
-            game.carryOn()
-        } else if game.speaking {
-            game.skip()
-        } else if game.end == nil {
-            talk()
-        }
+        game.magicTap(talk: talk)
     }
 }
 

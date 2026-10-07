@@ -7,6 +7,7 @@ import android.content.ContextWrapper
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.provider.Settings
 import android.view.WindowManager
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -116,6 +117,8 @@ import com.epicaudiogames.engine.Button as Option
 
 /** The mic has been asked for since the app started: opening another game doesn't ask again (the mic button does). */
 private var micAsked = false
+/** Notifications have been asked for (with the mic) since the app started. */
+private var notificationsAsked = false
 
 /**
  * The game, a chat: the talking circle (the game's picture, pulsing while it speaks, ringed while it listens), the
@@ -125,19 +128,27 @@ private var micAsked = false
 @Composable
 fun GameScreen(game: GameController, onStore: () -> Unit) {
     val context = LocalContext.current
-    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
-        if (granted) {
+    // The mic, and with it (Android 13+) the notification that shows the game while the screen is off. Only the mic's
+    // answer matters here: without the notification, the game still goes on in the background.
+    val permission = rememberLauncherForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+        if (micGranted(context)) {
             game.allowMic()
         } else {
             game.micAllowed = false
         }
     }
+    val ask: (mic: Boolean) -> Unit = { mic ->
+        val wanted = listOfNotNull(
+            Manifest.permission.RECORD_AUDIO.takeIf { mic },
+            notificationPermission(context)?.takeIf { !notificationsAsked },
+        )
+        if (mic) micAsked = true
+        notificationsAsked = true
+        if (wanted.isNotEmpty()) permission.launch(wanted.toTypedArray())
+    }
     LaunchedEffect(game) {
         game.micAllowed = micGranted(context)
-        if (!game.micAllowed && game.micWorks && !micAsked) {
-            micAsked = true
-            permission.launch(Manifest.permission.RECORD_AUDIO)
-        }
+        ask(!game.micAllowed && game.micWorks && !micAsked)
     }
     // The mic button with the mic not allowed: asked for again while Android still asks, else the way to Settings.
     var micOff by remember { mutableStateOf(false) }
@@ -145,8 +156,7 @@ fun GameScreen(game: GameController, onStore: () -> Unit) {
         val activity = context.findActivity()
         if (!micAsked || (activity != null &&
                 ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.RECORD_AUDIO))) {
-            micAsked = true
-            permission.launch(Manifest.permission.RECORD_AUDIO)
+            ask(true)
         } else {
             micOff = true
         }
@@ -163,21 +173,20 @@ fun GameScreen(game: GameController, onStore: () -> Unit) {
         }
         onDispose { window?.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON) }
     }
-    // Leaving the app pauses the game (not the activity being made again for a new theme or font size); coming
-    // back, a mic allowed in Settings meanwhile works at once.
+    // The screen going off, or the app going to the background, doesn't pause the game: it goes on in the pocket,
+    // talking and listening (GameController's BackgroundPlay). The keyboard goes, though, so the game listens again
+    // after its next question. Coming back, a mic allowed in Settings meanwhile works at once.
+    val focus = LocalFocusManager.current
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     DisposableEffect(game) {
         val observer = LifecycleEventObserver { _, event ->
-            if (event == Lifecycle.Event.ON_STOP && context.findActivity()?.isChangingConfigurations != true) {
-                game.pause()
-            }
+            if (event == Lifecycle.Event.ON_STOP && game.typing) focus.clearFocus()
             if (event == Lifecycle.Event.ON_RESUME && !game.micAllowed && micGranted(context)) game.allowMic()
         }
         lifecycle.addObserver(observer)
         onDispose { lifecycle.removeObserver(observer) }
     }
     // Paused, the keyboard goes away: what's typed waits for the tap that carries on.
-    val focus = LocalFocusManager.current
     LaunchedEffect(game.paused) {
         if (game.paused) focus.clearFocus()
     }
@@ -197,8 +206,17 @@ fun GameScreen(game: GameController, onStore: () -> Unit) {
                         if (game.info.packs.isNotEmpty()) {
                             DropdownMenuItem(text = { Text("More stories and levels") }, onClick = { menu = false; onStore() })
                         }
-                        DropdownMenuItem(text = { Text("Help") }, onClick = { menu = false; openWebPage(context, HELP_URL) })
-                        DropdownMenuItem(text = { Text("Privacy policy") }, onClick = { menu = false; openWebPage(context, PRIVACY_URL) })
+                        // A web page to read: the game waits for it.
+                        DropdownMenuItem(text = { Text("Help") }, onClick = {
+                            menu = false
+                            game.pause()
+                            openWebPage(context, HELP_URL)
+                        })
+                        DropdownMenuItem(text = { Text("Privacy policy") }, onClick = {
+                            menu = false
+                            game.pause()
+                            openWebPage(context, PRIVACY_URL)
+                        })
                     }
                 }
             }
@@ -216,6 +234,7 @@ fun GameScreen(game: GameController, onStore: () -> Unit) {
             confirmButton = {
                 TextButton(onClick = {
                     micOff = false
+                    game.pause()            // the game waits while the mic is turned on in Settings
                     context.startActivity(
                         Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, Uri.fromParts("package", context.packageName, null)),
                     )
@@ -237,6 +256,12 @@ private fun openWebPage(context: Context, url: String) {
 
 private fun micGranted(context: Context) =
     ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+
+/** Android 13+'s notification permission, if it isn't granted yet (before 13, notifications need none). */
+private fun notificationPermission(context: Context): String? =
+    if (Build.VERSION.SDK_INT >= 33 &&
+        ContextCompat.checkSelfPermission(context, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED
+    ) Manifest.permission.POST_NOTIFICATIONS else null
 
 private fun Context.findActivity(): Activity? {
     var c: Context = this
@@ -269,9 +294,8 @@ private fun TalkingCircle(game: GameController) {
                 .size(146.dp)
                 .testTag("talking-circle")
                 .semantics { contentDescription = if (game.speaking) "Skip" else "Talk" }
-                .clickable(remember { MutableInteractionSource() }, indication = null, role = Role.Button) {
-                    if (game.speaking) game.skip() else game.mic()
-                },
+                // As the headphones' button and the notification's: GameController.circle.
+                .clickable(remember { MutableInteractionSource() }, indication = null, role = Role.Button) { game.circle() },
             contentAlignment = Alignment.Center,
         ) {
             Box(Modifier.size(146.dp).scale(scale).border(ringWidth, ring, CircleShape))
