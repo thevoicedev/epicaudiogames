@@ -8,3 +8,6 @@ gradlew text eol=lf
 *.jpg binary
 *.m4a binary
 *.mp3 binary
+*.opus binary
+*.wav binary
+*.zip binary

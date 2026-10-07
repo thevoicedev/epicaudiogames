@@ -9,7 +9,7 @@ Every word is shown on screen as it's spoken. Everything plays offline. Website:
 |---|---|
 | `docs/MAP_FORMAT.md` | the game map format: every game is a JSON graph of turns |
 | `games/<id>/` | each game's map (`map.json`) and, from phase 4, its packs (`pack.json`); Nuclear War, written in Kotlin, has its clips (`clips.json`) and lines (`lines.json`) instead |
-| `content/<id>/` | each game's audio, built by the tools and kept out of git |
+| `content/<id>/` | each game's audio, built by the tools (committed, with the tools' cache in `tools/cache/`, so no voice is paid for twice) |
 | `tools/` | build tools: turn the Mini Games radio plays into maps, fetch the audio, check everything |
 | `android/` | the app: `engine` (pure Kotlin: maps, answers, saves, and Nuclear War; tested on the JVM) and, from phase 2, `app` |
 | `web/` | the website, epicaudiogames.com: one page, served by a dependency-free Node server on Railway (see below) |

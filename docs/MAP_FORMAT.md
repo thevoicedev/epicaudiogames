@@ -9,7 +9,7 @@ A game is:
 ```
 games/<id>/map.json             the turns of the free game
 games/<id>/packs/<pack>.json    each paid pack's turns (merged into the map when the player has the pack)
-content/<id>/<path>.*           the free game's audio (built by tools/, kept out of git)
+content/<id>/<path>.*           the free game's audio (built by tools/, committed)
 ```
 
 `games/catalog.json` lists the games, and each game's packs (see Packs).

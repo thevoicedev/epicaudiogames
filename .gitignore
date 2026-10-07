@@ -1,6 +1,5 @@
-# built audio (rebuilt by tools/)
-content/
-tools/cache/
+# content/ (the games' audio), tools/cache/ (ElevenLabs, speech-to-text and CDN downloads) and build/packs/ are
+# committed, so another machine can build the app and the packs without paying for the voices again.
 
 # secrets
 .env
@@ -21,6 +20,6 @@ captures/
 __pycache__/
 node_modules/
 
-# pack builds (tools/make_pack.py)
-build/
+# pack zips for the pack server: tools/make_pack.py remakes them from build/packs/ (and the Werewolf one is over
+# GitHub's 100 MB file limit)
 dist/
