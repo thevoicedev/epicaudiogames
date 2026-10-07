@@ -27,9 +27,10 @@ CODE_SIGN_STYLE = Automatic
 LOCALIZATION_PREFERS_STRING_CATALOGS = YES
 STRING_CATALOG_GENERATE_SYMBOLS = YES
 
-// Where packs are downloaded from (<url>/<pack>-<version>.zip), Android's PACKS_URL. Empty: the store can't
-// download packs (buying is hidden). Set it, and DEVELOPMENT_TEAM, in Local.xcconfig (see Local.xcconfig.example).
-EPIC_PACKS_URL =
+// Where packs are downloaded from (<url>/<pack>-<version>.zip), Android's PACKS_URL: the R2 bucket in
+// docs/R2_PACKS.md. It's public, so it lives here; Local.xcconfig can still override it. The $() keeps the // from
+// starting a comment. Set DEVELOPMENT_TEAM in Local.xcconfig (see Local.xcconfig.example).
+EPIC_PACKS_URL = https:/$()/packs.epicaudiogames.com
 DEVELOPMENT_TEAM =
 
 // Compiler checks, as Xcode's iOS app template sets them.

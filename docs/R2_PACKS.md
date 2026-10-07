@@ -57,22 +57,25 @@ swift test --package-path ios/EpicEngine
 
 ```
 npx wrangler login
-npx wrangler r2 bucket create epicaudiogames-packs
+npx wrangler r2 bucket create epicaudiogames-packs2
 ```
 
-Then connect the domain in the Cloudflare dashboard: R2 › `epicaudiogames-packs` › Settings › Custom Domains ›
+Then connect the domain in the Cloudflare dashboard: R2 › `epicaudiogames-packs2` › Settings › Custom Domains ›
 Connect Domain › `packs.epicaudiogames.com`. (With wrangler instead: `npx wrangler r2 bucket domain add
-epicaudiogames-packs --domain packs.epicaudiogames.com --zone-id <epicaudiogames.com's zone id>`.) Leave the
+epicaudiogames-packs2 --domain packs.epicaudiogames.com --zone-id <epicaudiogames.com's zone id>`.) Leave the
 r2.dev public URL off.
 
 ## 5. Upload the zips
 
 ```
 for f in dist/packs/*.zip; do
-  npx wrangler r2 object put "epicaudiogames-packs/$(basename "$f")" --file "$f" --remote \
+  npx wrangler r2 object put "epicaudiogames-packs2/$(basename "$f")" --file "$f" --remote \
     --content-type application/zip --cache-control "public, max-age=31536000, immutable"
 done
 ```
+
+Or drag the zips into the bucket in the Cloudflare dashboard: that's how version 1 went up, without giving wrangler
+access to the whole account (its login asks for Workers, DNS, email and more).
 
 A zip's name carries its version, so it never changes once uploaded. A new pack version is a new file
 (`make_pack.py --version 2`), and the old one stays for the builds that still ask for it.

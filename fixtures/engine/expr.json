@@ -1,4 +1,4 @@
-{"format":1,"games_sha256":"f4f3147b0c6675fb2049215014342583865d70fee6b99d5cee0b4006ff955f49","engine_sha256":"6657f82ae079c4599a80af2d68830e4309935970b75ad9022247161b28ce9f5d","varsets":[
+{"format":1,"games_sha256":"2d8f6664f781abb9452b247d41636d792c706a94b2e22c6ffadf9cf37e31329e","engine_sha256":"6657f82ae079c4599a80af2d68830e4309935970b75ad9022247161b28ce9f5d","varsets":[
 {"name":"initial","game":"alien-customs+packs","vars":[["level",["n",0]],["item",["n",0]],["ok",["n",0]],["bad",["n",0]],["deck_items",["s",""]]]},
 {"name":"initial","game":"frootopia+packs","vars":[]},
 {"name":"initial","game":"leaning-tower-of-pizza","vars":[["nose",["n",0]],["guesses",["n",0]],["mode",["s","battle"]],["streak",["n",0]],["best",["n",0]],["newHigh",["b",false]],["plays",["n",0]],["q",["s",""]],["firstDone",["b",false]],["unlocked",["b",false]],["playedChallenge",["b",false]],["deck_main",["s",""]],["deck_easy",["s",""]],["deck_trick",["s",""]],["deck_dn",["s",""]]]},

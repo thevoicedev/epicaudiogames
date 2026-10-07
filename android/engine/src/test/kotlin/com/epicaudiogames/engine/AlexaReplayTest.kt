@@ -38,7 +38,21 @@ class AlexaReplayTest {
         Known("\"To\", \"too\", \"for\", \"fore\", \"won\" and \"oh\" are numbers only next to another number") { _, said, _, _ ->
             Text.normalise(said).split(' ').any { it in setOf("to", "too", "for", "fore", "won", "oh") }
         },
+        // fixed: Noodle Rush's skill asked again on everyday yeses and noes ("okay", "let's do it", "no way")
+        Known("Noodle Rush takes more ways to say yes and no (\"okay\", \"let's do it\", \"no way\", \"I'm ready\"), where " +
+            "the skill only asked the question again") { _, said, alexa, _ ->
+            Text.normalise(said) in NOODLE_RUSH_WORDS && alexa.size == 1 && alexa[0].startsWith("prompts/")
+        },
     )
+
+    /** The exact-match answers Noodle Rush's map gained after the recordings were made. */
+    private val NOODLE_RUSH_WORDS = setOf(
+        "all right", "alright", "i do", "i don't", "i don't want to", "i want to", "i would", "i wouldn't",
+        "i'm ready", "im ready", "let's do it", "let's go", "let's play", "lets do it", "lets go", "lets play",
+        "no i don't", "no i wouldn't", "no thank you", "no way", "not now", "ok", "okay", "ready", "sure thing",
+        "yeah i'm ready", "yeah let's go", "yes i do", "yes i want to", "yes i would", "yes i'm ready",
+        "yes let's go", "yes let's play",
+    ).map { Text.normalise(it) }.toSet()
 
     private val gamesDir = File(System.getProperty("games.dir") ?: "../../games")
     private val recordings = File(gamesDir.parentFile, "tools/cache/parity")

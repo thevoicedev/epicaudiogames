@@ -26,6 +26,8 @@
    "yep",
    "yup",
    "sure",
+   "ok",
+   "okay",
    "=yes i am",
    "=i'm ready to play",
    "=yes i'm ready to play",
@@ -34,7 +36,8 @@
   "no": [
    "no",
    "nope",
-   "nah"
+   "nah",
+   "not now"
   ],
   "repeat": [
    "repeat",
@@ -3358,7 +3361,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L0_intro"
    }
   },
   "rubber-gloves_ann": {
@@ -6431,7 +6434,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L0_intro"
    }
   },
   "teddy-bear_ann": {
@@ -9513,12 +9516,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L0_intro"
    }
   },
   "L0_win": {
    "set": {
-    "level": "+1"
+    "level": 1
    },
    "say": [
     {
@@ -12776,7 +12779,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L1_intro"
    }
   },
   "laptop_ann": {
@@ -15840,7 +15843,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L1_intro"
    }
   },
   "toothbrush_ann": {
@@ -18897,12 +18900,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L1_intro"
    }
   },
   "L1_win": {
    "set": {
-    "level": "+1"
+    "level": 2
    },
    "say": [
     {
@@ -22137,7 +22140,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L2_intro"
    }
   },
   "basketball_ann": {
@@ -25197,7 +25200,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L2_intro"
    }
   },
   "peanuts_ann": {
@@ -28255,12 +28258,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L2_intro"
    }
   },
   "L2_win": {
    "set": {
-    "level": "+1"
+    "level": 3
    },
    "say": [
     {
@@ -31495,7 +31498,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L3_intro"
    }
   },
   "rubber-duck_ann": {
@@ -34558,7 +34561,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L3_intro"
    }
   },
   "sandwich_ann": {
@@ -37615,12 +37618,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L3_intro"
    }
   },
   "L3_win": {
    "set": {
-    "level": "+1"
+    "level": 4
    },
    "say": [
     {
@@ -40855,7 +40858,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L4_intro"
    }
   },
   "umbrella_ann": {
@@ -43912,7 +43915,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L4_intro"
    }
   },
   "yoyo_ann": {
@@ -46975,12 +46978,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L4_intro"
    }
   },
   "L4_win": {
    "set": {
-    "level": "+1"
+    "level": 5
    },
    "say": [
     {
@@ -50234,7 +50237,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L5_intro"
    }
   },
   "water-bottle_ann": {
@@ -53308,7 +53311,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L5_intro"
    }
   },
   "whistle_ann": {
@@ -56383,12 +56386,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L5_intro"
    }
   },
   "L5_win": {
    "set": {
-    "level": "+1"
+    "level": 6
    },
    "say": [
     {
@@ -59645,7 +59648,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L6_intro"
    }
   },
   "marshmallows_ann": {
@@ -62719,7 +62722,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L6_intro"
    }
   },
   "sleeping-bag_ann": {
@@ -65806,12 +65809,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L6_intro"
    }
   },
   "L6_win": {
    "set": {
-    "level": "+1"
+    "level": 7
    },
    "say": [
     {
@@ -69056,7 +69059,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L7_intro"
    }
   },
   "glitter_ann": {
@@ -72148,7 +72151,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L7_intro"
    }
   },
   "camera_ann": {
@@ -75224,12 +75227,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L7_intro"
    }
   },
   "L7_win": {
    "set": {
-    "level": "+1"
+    "level": 8
    },
    "say": [
     {
@@ -78486,7 +78489,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L8_intro"
    }
   },
   "hot-sauce_ann": {
@@ -81562,7 +81565,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L8_intro"
    }
   },
   "apron_ann": {
@@ -84641,12 +84644,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L8_intro"
    }
   },
   "L8_win": {
    "set": {
-    "level": "+1"
+    "level": 9
    },
    "say": [
     {
@@ -87907,7 +87910,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L9_intro"
    }
   },
   "snorkel_ann": {
@@ -90981,7 +90984,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L9_intro"
    }
   },
   "beach-ball_ann": {
@@ -94065,12 +94068,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L9_intro"
    }
   },
   "L9_win": {
    "set": {
-    "level": "+1"
+    "level": 10
    },
    "say": [
     {
@@ -97325,7 +97328,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L10_intro"
    }
   },
   "briefcase_ann": {
@@ -100398,7 +100401,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L10_intro"
    }
   },
   "breath-mints_ann": {
@@ -103478,12 +103481,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L10_intro"
    }
   },
   "L10_win": {
    "set": {
-    "level": "+1"
+    "level": 11
    },
    "say": [
     {
@@ -106733,7 +106736,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L11_intro"
    }
   },
   "party-hat_ann": {
@@ -109815,7 +109818,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L11_intro"
    }
   },
   "candles_ann": {
@@ -112896,12 +112899,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L11_intro"
    }
   },
   "L11_win": {
    "set": {
-    "level": "+1"
+    "level": 12
    },
    "say": [
     {
@@ -116157,7 +116160,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L12_intro"
    }
   },
   "binoculars_ann": {
@@ -119230,7 +119233,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L12_intro"
    }
   },
   "rope_ann": {
@@ -122299,12 +122302,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L12_intro"
    }
   },
   "L12_win": {
    "set": {
-    "level": "+1"
+    "level": 13
    },
    "say": [
     {
@@ -125554,7 +125557,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L13_intro"
    }
   },
   "3d-glasses_ann": {
@@ -128635,7 +128638,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L13_intro"
    }
   },
   "autograph-book_ann": {
@@ -131717,12 +131720,12 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L13_intro"
    }
   },
   "L13_win": {
    "set": {
-    "level": "+1"
+    "level": 14
    },
    "say": [
     {
@@ -134969,7 +134972,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L14_intro"
    }
   },
   "cuke_ann": {
@@ -138034,7 +138037,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L14_intro"
    }
   },
   "rizz_ann": {
@@ -141100,7 +141103,7 @@
    "end": {
     "kind": "gameover",
     "title": "Deported!",
-    "retry": "level_intro"
+    "retry": "L14_intro"
    }
   },
   "L14_win": {
