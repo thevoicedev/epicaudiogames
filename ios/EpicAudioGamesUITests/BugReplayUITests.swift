@@ -652,7 +652,8 @@ private struct Phone {
         _ test: XCTestCase, app: XCUIApplication = XCUIApplication(), reset: Bool = true, hearing: String? = nil,
         mic: Bool = false, open: String? = nil, say: String? = nil, extra: [String] = []
     ) -> Phone {
-        var args = reset ? ["-EpicReset", "YES"] : []
+        // No pack server, whatever the build has: buying says so and buys nothing (L6).
+        var args = (reset ? ["-EpicReset", "YES"] : []) + ["-EpicPacksURL", ""]
         if let hearing {
             args += ["-EpicHear", hearing]
         } else if !mic {

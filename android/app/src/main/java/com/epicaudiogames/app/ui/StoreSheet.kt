@@ -87,7 +87,8 @@ private fun PackRow(pack: PackInfo, store: Store, installed: Boolean, onBuy: () 
                 pack.product in store.pending -> Pill("PAYMENT PENDING", Palette.headerLine, Palette.ink)
                 else -> {
                     val price = store.prices[pack.product]
-                    BuyButton(price ?: "GET", loading = price == null && store.loading, onClick = onBuy)
+                    BuyButton(price ?: "GET", loading = price == null && store.loading, onClick = onBuy,
+                        description = price?.let { "Buy for $it" })
                 }
             }
         }
@@ -97,14 +98,18 @@ private fun PackRow(pack: PackInfo, store: Store, installed: Boolean, onBuy: () 
     }
 }
 
-/** The price (GET until it's known, a spinner while it's asked for: GET still works), or DOWNLOAD. */
+/**
+ * The price (GET until it's known, a spinner while it's asked for: GET still works), or DOWNLOAD. [description] is
+ * what TalkBack says instead of the label: "Buy for £1.99", not a bare price.
+ */
 @Composable
-private fun BuyButton(label: String, loading: Boolean = false, onClick: () -> Unit) {
+private fun BuyButton(label: String, loading: Boolean = false, onClick: () -> Unit, description: String? = null) {
+    val spoken = description ?: label
     Button(
         onClick = onClick,
         colors = ButtonDefaults.buttonColors(containerColor = Palette.yes),
         shape = RoundedCornerShape(18.dp),
-        modifier = if (loading) Modifier.semantics { contentDescription = label } else Modifier,
+        modifier = if (loading || description != null) Modifier.semantics { contentDescription = spoken } else Modifier,
     ) {
         if (loading) {
             CircularProgressIndicator(Modifier.size(20.dp), color = Color.White, strokeWidth = 2.dp)

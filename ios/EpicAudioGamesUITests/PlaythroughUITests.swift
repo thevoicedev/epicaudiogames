@@ -337,7 +337,8 @@ private enum Player {
 
     /// [mic]: the device's recogniser, asking for permission as on a phone.
     static func launch(_ app: XCUIApplication, hearing: String?, mic: Bool) {
-        app.launchArguments = ["-EpicReset", "YES"]
+        // No pack server, whatever the build has: buying says so and buys nothing (L6).
+        app.launchArguments = ["-EpicReset", "YES", "-EpicPacksURL", ""]
         if let hearing {
             app.launchArguments += ["-EpicHear", hearing]
         } else if !mic {

@@ -161,7 +161,8 @@ private struct PackRow: View {
         } else {
             Spacer(minLength: 0)
             let price = store.prices[pack.product]
-            BuyButton(label: price ?? "GET", loading: price == nil && store.loading) {
+            BuyButton(label: price ?? "GET", loading: price == nil && store.loading,
+                      spoken: price.map { "Buy for \($0)" }) {
                 Task { await store.buy(pack) }
             }
         }
@@ -169,9 +170,11 @@ private struct PackRow: View {
 }
 
 /// The price (GET until it's known, a spinner while it's asked for: GET still works), DOWNLOAD or DOWNLOAD NOW.
+/// [spoken] is what VoiceOver says instead of the label: "Buy for £1.99", not a bare price.
 private struct BuyButton: View {
     let label: String
     var loading = false
+    var spoken: String? = nil
     let action: () -> Void
 
     var body: some View {
@@ -191,6 +194,6 @@ private struct BuyButton: View {
             .background(Palette.yes, in: RoundedRectangle(cornerRadius: 18, style: .circular))
         }
         .buttonStyle(PressStyle())
-        .accessibilityLabel(label)
+        .accessibilityLabel(spoken ?? label)
     }
 }

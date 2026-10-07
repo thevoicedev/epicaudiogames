@@ -327,8 +327,9 @@ def content_dir
 end
 
 # Local.xcconfig writes the URL as https:/$()/host, since // starts a comment there.
+# Local.xcconfig's, else Base.xcconfig's, as Xcode reads them (Base includes Local after its own settings).
 def packs_url
-  url = xcconfig_value(LOCAL_XCCONFIG, "EPIC_PACKS_URL").to_s.gsub("$()", "")
+  url = (xcconfig_value(LOCAL_XCCONFIG, "EPIC_PACKS_URL") || xcconfig_value(BASE_XCCONFIG, "EPIC_PACKS_URL")).to_s.gsub("$()", "")
   url.empty? || url.include?("example.com") ? nil : url
 end
 
