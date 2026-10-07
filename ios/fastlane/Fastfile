@@ -261,7 +261,8 @@ platform :ios do
       output_name: "EpicAudioGames-#{version}-#{build}",
       buildlog_path: File.join(output, "logs"),
       xcargs: (["CURRENT_PROJECT_VERSION=#{build}", "DEVELOPMENT_TEAM=#{team}"] + signing).join(" "),
-      export_xcargs: signing.join(" "),
+      # gym hands xcargs to the export as well, so the signing flags aren't repeated in export_xcargs (xcodebuild
+      # refuses -authenticationKeyPath twice)
       export_method: "app-store",
       export_options: {
         signingStyle: "automatic",
