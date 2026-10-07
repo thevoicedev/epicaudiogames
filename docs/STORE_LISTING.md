@@ -280,6 +280,10 @@ Choose before declaring: +447468595532 is the App Review contact number and woul
 business number (or a landline that forwards) avoids publishing a personal mobile. The email can be james@hugo.fm or
 a support address. Without the declaration, Apple and Google stop offering the app in the EU.
 
+Google Play: done (checked 7 October 2026). The app is in the verified organisation account HUGO.FM GAMES LIMITED,
+whose public developer profile already shows the address above, +447468595532 and james@hugo.fm. The Play Console
+has no separate trader form for it. App Store Connect still needs its declaration, with the same number.
+
 ## Google Play: the developer account
 
 Which kind of account the app goes in changes the timeline:
@@ -321,6 +325,6 @@ and don't draw attention to them.
   places in `web/public/privacy.html`.
 - **VoiceOver on a real iPhone** (`docs/IOS.md`), before claiming it in the description again.
 - **Nuclear War's leader names**: your call (above).
-- **EU trader status** on both stores, and the Play account type (above).
+- **EU trader status** in App Store Connect, with +447468595532 (Google Play is done; it is an organisation account).
 - Optional: screenshots with the real `content/` covers (the website's covers are used now; five are 338 x 190,
   scaled up, so slightly soft).

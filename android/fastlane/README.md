@@ -1,8 +1,24 @@
 # fastlane: Google Play
 
 Everything Google Play shows about Epic Audio Games lives here as files, and fastlane sends it to the Play Console
-(package `com.epicaudiogames.app`). The app doesn't exist in the Play Console yet: the one-time steps below create
-it, and some things can only ever be done there.
+(package `com.epicaudiogames.app`). The app is in the HUGO.FM GAMES LIMITED organisation account, and steps 1 to 5
+below were done on 7 October 2026. Version 2 (1.0) is on the internal testing track, for the "Epic Audio Games"
+tester list. Steps 6 and 7 (App content, EU trader status) are still to finish.
+
+## A new build
+
+1. Raise `versionCode` in `android/app/build.gradle.kts`. Google never takes the same version code twice, including
+   one that was uploaded but never released.
+2. Optional: add `metadata/android/en-US/changelogs/<versionCode>.txt` for the release notes. Without it the lane
+   sends `changelogs/default.txt`.
+3. From `android/`, run `fastlane android internal`. It builds, signs and uploads to internal testing, where the
+   testers get it within minutes and Google doesn't review it.
+
+The keys' paths come from `android/fastlane/.env` (git ignores it). The upload key's password comes from the
+Keychain (see Keys below).
+
+Google Play also has minimum versions: target SDK 36 and Play Billing Library 8 or newer (both as of October 2026).
+The app uses `billing-ktx` 8.0.0 because 8.1 and later need Kotlin 2.2, and this project is on Kotlin 2.0.21.
 
 | Here | What it is |
 |---|---|

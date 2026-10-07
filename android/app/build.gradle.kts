@@ -8,14 +8,14 @@ val repoRoot = rootProject.projectDir.parentFile
 
 android {
     namespace = "com.epicaudiogames.app"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "com.epicaudiogames.app"
         minSdk = 24
-        targetSdk = 35
-        versionCode = 1
-        versionName = "0.1"
+        targetSdk = 36
+        versionCode = 2
+        versionName = "1.0"
         // Where packs are downloaded from (<url>/<pack>-<version>.zip): gradle property epicPacksUrl, set in
         // ~/.gradle/gradle.properties or with -PepicPacksUrl=... Empty: the store can't download packs yet.
         buildConfigField("String", "PACKS_URL", "\"${project.findProperty("epicPacksUrl") ?: ""}\"")
@@ -79,7 +79,7 @@ dependencies {
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.media3:media3-exoplayer:1.4.1")
-    implementation("com.android.billingclient:billing-ktx:7.1.1")
+    implementation("com.android.billingclient:billing-ktx:8.0.0")
     debugImplementation("androidx.compose.ui:ui-tooling")
     implementation("androidx.compose.ui:ui-tooling-preview")
 }

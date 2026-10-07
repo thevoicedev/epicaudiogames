@@ -1,0 +1,24 @@
+{
+    "configurations": [
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:epicaudiogames}/ios/EpicEngine",
+            "name": "Debug eag (ios/EpicEngine)",
+            "target": "eag",
+            "configuration": "debug",
+            "preLaunchTask": "swift: Build Debug eag (ios/EpicEngine)"
+        },
+        {
+            "type": "swift",
+            "request": "launch",
+            "args": [],
+            "cwd": "${workspaceFolder:epicaudiogames}/ios/EpicEngine",
+            "name": "Release eag (ios/EpicEngine)",
+            "target": "eag",
+            "configuration": "release",
+            "preLaunchTask": "swift: Build Release eag (ios/EpicEngine)"
+        }
+    ]
+}
