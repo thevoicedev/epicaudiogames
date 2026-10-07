@@ -46,7 +46,24 @@ struct AlexaReplayTests {
                 ["to", "too", "for", "fore", "won", "oh"].contains(String($0))
             }
         },
+        // fixed: Noodle Rush's skill asked again on everyday yeses and noes ("okay", "let's do it", "no way")
+        Known(
+            why: "Noodle Rush takes more ways to say yes and no (\"okay\", \"let's do it\", \"no way\", \"I'm ready\"), "
+                + "where the skill only asked the question again"
+        ) { _, said, alexa, _ in
+            Self.noodleRushWords.contains(SpokenText.normalise(said)) && alexa.count == 1
+                && alexa[0].hasPrefix("prompts/")
+        },
     ]
+
+    /// The exact-match answers Noodle Rush's map gained after the recordings were made.
+    private static let noodleRushWords = Set([
+        "all right", "alright", "i do", "i don't", "i don't want to", "i want to", "i would", "i wouldn't",
+        "i'm ready", "im ready", "let's do it", "let's go", "let's play", "lets do it", "lets go", "lets play",
+        "no i don't", "no i wouldn't", "no thank you", "no way", "not now", "ok", "okay", "ready", "sure thing",
+        "yeah i'm ready", "yeah let's go", "yes i do", "yes i want to", "yes i would", "yes i'm ready",
+        "yes let's go", "yes let's play",
+    ].map { SpokenText.normalise($0) })
 
     private static let knownStop = "known"
 

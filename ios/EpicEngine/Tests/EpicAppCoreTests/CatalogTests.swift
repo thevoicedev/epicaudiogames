@@ -23,7 +23,7 @@ struct CatalogTests {
         #expect(pack.playProduct == "frootopia_stories")
         #expect(pack.version == 1)
         #expect(pack.size == 14_558_828)
-        #expect(pack.sha256 == "97027bacbde9760a87c14880cee79afcb772bdcc908a75a7a8c3c71321fb4060")
+        #expect(pack.sha256 == "4e25148c79b8d900bc42baa9ab9477ae0c7ea363f01a18ab114dab548b8d06db")
         #expect(games[1].packs.isEmpty)
         #expect(games.flatMap(\.packs).map(\.id)
             == ["frootopia-stories", "alien-customs-levels", "the-werewolf-stories"])
