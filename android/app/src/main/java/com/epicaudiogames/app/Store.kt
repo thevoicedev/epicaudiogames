@@ -2,6 +2,7 @@ package com.epicaudiogames.app
 
 import android.app.Activity
 import android.content.Context
+import android.os.SystemClock
 import android.system.ErrnoException
 import android.system.OsConstants
 import androidx.compose.runtime.getValue
@@ -23,6 +24,11 @@ import com.android.billingclient.api.QueryPurchasesParams
 import com.android.billingclient.api.acknowledgePurchase
 import com.android.billingclient.api.queryProductDetails
 import com.android.billingclient.api.queryPurchasesAsync
+import com.epicaudiogames.app.analytics.Event
+import com.epicaudiogames.app.analytics.Events
+import com.epicaudiogames.app.analytics.NoAnalytics
+import com.epicaudiogames.app.analytics.PurchaseResult
+import com.epicaudiogames.app.analytics.RestoreResult
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.CoroutineStart
@@ -45,6 +51,10 @@ import java.net.URL
  *
  * Debug builds also install any <pack>-<version>.zip found in the app's external files/incoming folder (put there
  * with adb push), to try packs without a store or a server.
+ *
+ * What happens goes to [onEvent], for the usage data (docs/DESIGN.md › Usage data): a purchase started and how it
+ * ended, Restore purchases pressed and what it found, and each download (which pack, whether it installed, how long
+ * it took and how much came down). Never a price, an order or a Play account.
  */
 class Store(
     private val context: Context,
@@ -53,22 +63,40 @@ class Store(
     private val scope: CoroutineScope,
     /** A pack was installed: called once for each install (the open game may be waiting for it). */
     private val onInstalled: (PackInfo) -> Unit = {},
+    /** What happens, for the usage data: an event's name and its details (as GameController's onEvent). */
+    private val onEvent: (String, Map<String, Any>) -> Unit = NoAnalytics::track,
+    /**
+     * Where packs are downloaded from (<url>/<pack>-<version>.zip): the build's (gradle property epicPacksUrl), or a
+     * debug build's launch's (DebugLaunch's EpicPacksURL). Empty: packs can't be downloaded, so none is sold.
+     */
+    private val packsUrl: String = BuildConfig.PACKS_URL,
 ) : PurchasesUpdatedListener {
     private val all = games.flatMap { it.packs }
+    /** The app's words, for what the store tells the player ([message], [note], [failed]). */
+    private val words = Words.of(context)
+    /** The product a purchase was started for, until Play says how it ended. */
+    private var buying: String? = null
 
     /** Each product's price, as Play shows it ("£1.99"), once known. */
     val prices = mutableStateMapOf<String, String>()
-    /** The prices are being asked for (the sheet's GET shows a spinner). */
+    /** The prices are being asked for (the sheet's Get shows a spinner). */
     var loading by mutableStateOf(false)
         private set
     /** The packs downloading, and how far each has got (0 to 1). */
     val downloading = mutableStateMapOf<String, Float>()
-    /** Why a pack's download failed, by pack: its own game's sheet says so, under it. */
+    /**
+     * Why a pack's purchase or download didn't go through, by pack: its row says so, under it (docs/DESIGN.md › Shop:
+     * failures under the row), where the player pressed Buy. Said there, TalkBack hears it: the Shop's list draws only
+     * what's in sight, and the store's [message] at its foot may not be.
+     */
     val failed = mutableStateMapOf<String, String>()
-    /** The products paid for (their packs, if not here, show DOWNLOAD), and those waiting for their payment. */
+    /** The products paid for (their packs, if not here, show Download), and those waiting for their payment. */
     val owned = mutableStateMapOf<String, Boolean>()
     val pending = mutableStateMapOf<String, Boolean>()
-    /** Something to tell the player that isn't about one pack (the store not being there, a purchase going wrong). */
+    /**
+     * Something to tell the player that isn't about one pack (the store not being there as purchases are restored); a
+     * purchase that doesn't go through is said under its pack's row ([failed]).
+     */
     var message by mutableStateOf<String?>(null)
     /** How "Restore purchases" went, when nothing went wrong. */
     var note by mutableStateOf<String?>(null)
@@ -94,6 +122,9 @@ class Store(
 
     /** The app's model is gone: the connection to Play goes with it. */
     fun close() = client.endConnection()
+
+    /** Something happened in the shop: to [onEvent]. */
+    private fun emit(e: Event) = onEvent(e.name, e.props)
 
     private fun connect() {
         if (all.isEmpty() || client.isReady || connecting) return
@@ -138,7 +169,10 @@ class Store(
      */
     suspend fun restore(asked: Boolean = false) {
         if (!client.isReady) {
-            if (asked) message = UNAVAILABLE
+            if (asked) {
+                message = words.text(R.string.store_unavailable)
+                emit(Events.restore(RestoreResult.FAILED, count = 0))
+            }
             connect()
             return
         }
@@ -146,14 +180,22 @@ class Store(
         val result = client.queryPurchasesAsync(
             QueryPurchasesParams.newBuilder().setProductType(BillingClient.ProductType.INAPP).build())
         if (result.billingResult.responseCode != BillingClient.BillingResponseCode.OK) {
-            if (asked) message = RESTORE_FAILED
+            if (asked) {
+                message = words.text(R.string.store_restore_failed)
+                emit(Events.restore(RestoreResult.FAILED, count = 0))
+            }
             return
         }
         var ok = true
         for (p in result.purchasesList) ok = handle(p) && ok
-        if (asked && ok) {
-            val paid = result.purchasesList.any { it.purchaseState == Purchase.PurchaseState.PURCHASED }
-            note = if (paid) RESTORED else NOTHING_TO_RESTORE
+        if (asked) {
+            val paid = result.purchasesList.filter { it.purchaseState == Purchase.PurchaseState.PURCHASED }
+            if (ok) {
+                note = words.text(if (paid.isNotEmpty()) R.string.store_restored else R.string.store_nothing_to_restore)
+            }
+            // (A pack that then didn't download says so itself, and has its own pack_download.)
+            val count = all.count { pack -> paid.any { pack.product in it.products } }
+            emit(Events.restore(if (count > 0) RestoreResult.RESTORED else RestoreResult.NONE, count))
         }
     }
 
@@ -177,25 +219,40 @@ class Store(
     fun buy(activity: Activity, pack: PackInfo) {
         message = null
         note = null
-        if (BuildConfig.PACKS_URL.isEmpty()) {
+        failed.remove(pack.id)
+        if (packsUrl.isEmpty()) {
             // As on iOS (L6): nothing is bought that couldn't be downloaded.
-            message = NO_SERVER
+            failed[pack.id] = words.text(R.string.store_no_server)
             return
         }
         val d = details[pack.product]
         if (d == null) {
-            message = UNAVAILABLE
+            failed[pack.id] = words.text(R.string.store_unavailable)
             if (client.isReady) scope.launch { queryProducts() } else connect()
             return
         }
         val params = BillingFlowParams.newBuilder()
             .setProductDetailsParamsList(listOf(BillingFlowParams.ProductDetailsParams.newBuilder().setProductDetails(d).build()))
             .build()
+        buying = pack.product
+        emit(Events.purchaseStart(pack.product))
         purchaseWent(client.launchBillingFlow(activity, params).responseCode)
     }
 
     override fun onPurchasesUpdated(result: BillingResult, purchases: List<Purchase>?) {
         if (result.responseCode == BillingClient.BillingResponseCode.OK) {
+            // Bought, or waiting for its payment (and later, from Play, bought after all).
+            for (p in purchases.orEmpty()) {
+                val outcome = when (p.purchaseState) {
+                    Purchase.PurchaseState.PURCHASED -> PurchaseResult.PURCHASED
+                    Purchase.PurchaseState.PENDING -> PurchaseResult.PENDING
+                    else -> continue
+                }
+                for (product in p.products) {
+                    if (all.any { it.product == product }) emit(Events.purchaseResult(product, outcome))
+                }
+            }
+            buying = null
             purchases.orEmpty().forEach { scope.launch { handle(it) } }
         } else {
             purchaseWent(result.responseCode)
@@ -204,15 +261,35 @@ class Store(
 
     /** A purchase that didn't come to a purchase (launching it, or its answer): what to say and do. */
     private fun purchaseWent(code: Int) {
+        val product = buying
+        val outcome = when (code) {
+            BillingClient.BillingResponseCode.OK -> null        // Play's sheet is up: it says how it ends
+            BillingClient.BillingResponseCode.USER_CANCELED -> PurchaseResult.CANCELLED
+            BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> PurchaseResult.OWNED
+            else -> PurchaseResult.FAILED
+        }
+        if (outcome != null) {
+            product?.let { emit(Events.purchaseResult(it, outcome)) }
+            buying = null
+        }
         when (code) {
             BillingClient.BillingResponseCode.OK, BillingClient.BillingResponseCode.USER_CANCELED -> Unit
             BillingClient.BillingResponseCode.ITEM_ALREADY_OWNED -> scope.launch { restore() }
             BillingClient.BillingResponseCode.SERVICE_DISCONNECTED -> {
-                message = UNAVAILABLE
+                didntGoThrough(product, words.text(R.string.store_unavailable))
                 connect()
             }
-            else -> message = PURCHASE_FAILED
+            else -> didntGoThrough(product, words.text(R.string.store_purchase_failed))
         }
+    }
+
+    /**
+     * A purchase of [product] that didn't go through, and why: under its pack's row ([failed]), or, with no purchase
+     * known to be under way, as the store's [message].
+     */
+    private fun didntGoThrough(product: String?, why: String) {
+        val bought = all.filter { it.product == product }
+        if (bought.isEmpty()) message = why else bought.forEach { failed[it.id] = why }
     }
 
     /** A purchase: acknowledged once it's paid for, then its packs downloaded if they aren't here (false if one isn't). */
@@ -235,8 +312,8 @@ class Store(
     /** Downloads a pack's zip and installs it, in the store's scope whoever asks. False if it couldn't. */
     private suspend fun download(pack: PackInfo): Boolean {
         inFlight[pack.id]?.let { return it.await() }
-        if (BuildConfig.PACKS_URL.isEmpty()) {
-            message = NO_SERVER
+        if (packsUrl.isEmpty()) {
+            message = words.text(R.string.store_no_server)
             return false
         }
         if (!packs.hasRoom(pack)) {
@@ -258,9 +335,13 @@ class Store(
         downloading[pack.id] = 0f
         failed.remove(pack.id)
         val zip = File(context.cacheDir, "${pack.id}-${pack.version}.zip")
+        // For the usage data: how long it took, and how much came down.
+        val started = SystemClock.elapsedRealtime()
+        var done = 0L
+        val seconds = { (SystemClock.elapsedRealtime() - started) / 1000 }
         return try {
             withContext(Dispatchers.IO) {
-                val conn = URL("${BuildConfig.PACKS_URL.trimEnd('/')}/${pack.id}-${pack.version}.zip")
+                val conn = URL("${packsUrl.trimEnd('/')}/${pack.id}-${pack.version}.zip")
                     .openConnection() as HttpURLConnection
                 conn.connectTimeout = 15_000
                 conn.readTimeout = 30_000
@@ -269,7 +350,6 @@ class Store(
                     conn.inputStream.use { input ->
                         zip.outputStream().use { out ->
                             val buf = ByteArray(1 shl 16)
-                            var done = 0L
                             var shown = 0f
                             while (true) {
                                 val n = input.read(buf)
@@ -291,16 +371,17 @@ class Store(
             }
             retries.remove(pack.id)
             installs++
+            emit(Events.packDownload(pack.id, installed = true, seconds(), done))
             onInstalled(pack)
             true
         } catch (e: CancellationException) {
             throw e
         } catch (e: Exception) {
+            emit(Events.packDownload(pack.id, installed = false, seconds(), done))
             if (outOfSpace(e)) {
                 failed[pack.id] = noRoom(pack)
             } else {
-                failed[pack.id] =
-                    "Couldn't download ${pack.title}. Check your connection, and open the store again to retry."
+                failed[pack.id] = words.text(R.string.store_download_failed, pack.title)
                 retryLater(pack)
             }
             false
@@ -331,29 +412,21 @@ class Store(
                 installs++
                 onInstalled(pack)
             } else {
-                message = "${zip.name} isn't the catalog's ${pack.id}."
+                message = words.text(R.string.store_incoming_wrong, zip.name, pack.id)
             }
         }
     }
 
-    companion object {
-        const val UNAVAILABLE = "The store isn't available right now. Check that you're signed in to Google Play."
-        const val NO_SERVER = "Packs can't be downloaded in this version of the app yet."
-        const val PURCHASE_FAILED = "The purchase didn't go through. Please try again."
-        const val RESTORE_FAILED = "Couldn't restore your purchases. Please try again."
-        const val RESTORED = "Your purchases are restored."
-        const val NOTHING_TO_RESTORE = "There are no purchases to restore."
+    /** Not enough room on the phone for [pack]: what it needs, unpacked from its download, to the megabyte. */
+    private fun noRoom(pack: PackInfo): String =
+        words.text(R.string.store_no_room, pack.title, (pack.size * 22 / 10 + 500_000) / 1_000_000)
 
+    private companion object {
         /** How long to wait (ms) before trying a failed download again, each time. */
-        private val RETRY_DELAYS = longArrayOf(15_000, 60_000, 300_000)
-
-        fun noRoom(pack: PackInfo): String {
-            val mb = (pack.size * 22 / 10 + 500_000) / 1_000_000
-            return "There isn't enough space on your phone for ${pack.title}. It needs about $mb MB free."
-        }
+        val RETRY_DELAYS = longArrayOf(15_000, 60_000, 300_000)
 
         /** A full disk (ENOSPC), anywhere in the cause chain. */
-        private fun outOfSpace(e: Throwable): Boolean = generateSequence(e) { it.cause }.any {
+        fun outOfSpace(e: Throwable): Boolean = generateSequence(e) { it.cause }.any {
             (it is ErrnoException && it.errno == OsConstants.ENOSPC) || it.message?.contains("ENOSPC") == true
         }
     }

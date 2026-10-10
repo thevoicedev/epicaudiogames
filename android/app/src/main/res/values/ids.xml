@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The window's bar icons as the app set them (ui/theme/EpicTheme.kt's setBarIcons): a tag on its decor view, so
+         they can be set again after the system's splash puts the theme's own back. -->
+    <item name="bar_icons_dark" type="id" />
+</resources>

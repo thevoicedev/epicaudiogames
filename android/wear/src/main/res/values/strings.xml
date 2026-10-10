@@ -1,0 +1,12 @@
+<resources>
+    <!-- The Wear OS app's own words (docs/DESIGN.md, Watches). What the game is doing and its button's name come from
+         the phone, in the phone app's words. iOS's watch app says the same with "iPhone" (WatchView.swift). -->
+    <string name="app_name">Epic Audio Games</string>
+    <!-- No game open on the phone. -->
+    <string name="no_game">Open a game on your phone</string>
+    <!-- At an end: its choices (Next chapter, Play again, Back to games) are on the phone. -->
+    <string name="end_hint">Choose what\'s next on your phone.</string>
+    <string name="pause">Pause</string>
+    <!-- A press that couldn't reach the phone (the watch buzzed as it happened). -->
+    <string name="unreachable">Can\'t reach your phone. Keep it close, then try again.</string>
+</resources>

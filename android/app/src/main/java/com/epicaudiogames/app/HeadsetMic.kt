@@ -36,6 +36,17 @@ class HeadsetMic(context: Context) {
     private var waiting: Runnable? = null
     private var watcher: Any? = null
 
+    /**
+     * Whether a headset's call link is held now, its mic the one listened to: a sound meant for the player then goes
+     * over it as call audio (Earcons), or it wouldn't reach the headset. Not while the link is still being waited for.
+     */
+    val inUse: Boolean
+        get() {
+            if (Build.VERSION.SDK_INT < 31) return false
+            val device = routed ?: return false
+            return audio.communicationDevice?.id == device.id
+        }
+
     /** Makes a connected Bluetooth headset's mic the one listened to, then runs [then]; without one, [then] at once. */
     fun use(then: () -> Unit) {
         cancelWait()

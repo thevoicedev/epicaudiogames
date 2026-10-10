@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import android.os.SystemClock
 import android.util.Log
+import androidx.annotation.StringRes
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableIntStateOf
@@ -21,6 +22,10 @@ import com.epicaudiogames.engine.Saved
 import com.epicaudiogames.engine.Session
 import com.epicaudiogames.engine.Step
 import com.epicaudiogames.engine.Turn
+import com.epicaudiogames.app.analytics.Event
+import com.epicaudiogames.app.analytics.Events
+import com.epicaudiogames.app.analytics.MicAsked
+import com.epicaudiogames.app.analytics.NoAnalytics
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -31,21 +36,48 @@ import java.io.File
 
 /** One entry in the game's transcript. */
 sealed interface FeedItem {
-    /** A line of the game, shown as it is spoken. */
-    data class Spoken(val who: String, val name: String, val text: String) : FeedItem
+    /**
+     * What a screen reader says for the entry, read as one element (docs/DESIGN.md › Game › Transcript; FeedView.swift
+     * reads the same), in the app's [words]. Never announced as it comes: the game is already saying it.
+     */
+    fun readAs(words: Words): String
 
-    /** What the player said, typed or tapped. */
-    data class Reply(val text: String) : FeedItem
+    /**
+     * A line of the game, shown as it is spoken. It's read with its speaker first ("Gribbo: …"), even where the name
+     * isn't shown; the narrator's lines, and lines with no name, are read as they are.
+     */
+    data class Spoken(val who: String, val name: String, val text: String) : FeedItem {
+        override fun readAs(words: Words) =
+            if (name.isBlank() || who == "NARRATOR") text else words.text(R.string.line_with_speaker, name, text)
+    }
 
-    data class Note(val text: String) : FeedItem
+    /** What the player said, typed or tapped: read "You said: …". */
+    data class Reply(val text: String) : FeedItem {
+        override fun readAs(words: Words) = words.text(R.string.reply_said, text)
+    }
+
+    /** The app's own line between the game's ("Welcome back!"): [text] is its string. */
+    data class Note(@StringRes val text: Int) : FeedItem {
+        override fun readAs(words: Words) = words.text(text)
+    }
 }
 
 /**
  * One game being played: the engine's game (a map's session, or Nuclear War), the audio, the listening, and what the
  * screen shows. A turn plays its clips while their lines appear in the feed; then the game waits for an answer
- * (listening by itself, as Alexa does), shows its end, or leaves.
+ * (listening by itself, as Alexa does, unless [listensByItself] says not to), shows its end, or leaves.
+ *
+ * The microphone never opens without the listening sound and its tick, and closes with the falling one when the
+ * recogniser ends the listen or the player turns it off (not when a new turn, typing, a pause or leaving stops it):
+ * docs/DESIGN.md › Sounds, haptics and the microphone, as [settings] say. Each turn plays at the voice speed, its
+ * music at the music volume; the player has the answer time chosen to start talking.
  *
  * An engine error doesn't crash the app: the feed gets a note and the game goes back to the list ([failure]).
+ *
+ * What happens in it goes to [onEvent], for the usage data (docs/DESIGN.md › Usage data): the game opened, an end
+ * reached (and the free part's end), the next chapter, a restart, the game going wrong, and, as it closes, how it went
+ * (turns, time, and how many answers were spoken, typed and tapped, and how many questions went unanswered: counts,
+ * never an answer).
  */
 class GameController(
     context: Context,
@@ -55,19 +87,49 @@ class GameController(
     /** The installed packs this game was opened with (their folders). */
     val packs: List<File>,
     private val onLeave: () -> Unit,
+    /**
+     * Whether the game opens the mic by itself once a question is asked: the app asks MicPolicy.kt's listensByItself
+     * (by default, not with TalkBack on, which the recogniser would hear). Asked each time, as the setting and the
+     * screen reader can change mid-game. The player can always open it: the mic button, the circle, the headphones'
+     * button. iOS: GameController.swift's listensByItself.
+     */
+    private val listensByItself: () -> Boolean = { true },
+    /**
+     * What happens in the game, for the usage data: an event's name and its details (analytics/Events.kt makes them;
+     * the app's Analytics.track takes them; by default, as in tests, they go nowhere). iOS: GameController.swift's
+     * onEvent.
+     */
+    private val onEvent: (String, Map<String, Any>) -> Unit = NoAnalytics::track,
+    /**
+     * The player's settings (the app's, AppSettings.kt): the listening sounds and tick, the voice speed, the music
+     * volume and the time to answer, each read as it's needed, so a change applies from the next turn or listen.
+     */
+    private val settings: AppSettings = AppSettings(MemoryPrefs()),
+    /**
+     * What it hears answers with (Listening.kt): the phone's speech recogniser, or what the app says instead (none, in
+     * a test; a debug build's script, DebugLaunch). iOS: AppModel.Hearing, as it makes the game's listener.
+     */
+    hearing: Hearing = Hearing.SPEECH,
 ) {
     private val scope = MainScope()
+    /** The app's words, for the notes and replies it adds to the feed, and what went wrong. */
+    private val words = Words.of(context)
     private val audio = AudioPlayer(context, info.id, packs, onFinished = { finishTurn() }, onInterrupted = { pause() })
     /** The service, notification, media session and wake lock that let the game go on with the screen off. */
     private val background = BackgroundPlay(context, this)
-    private val listener = Listener(
+    private val earcons = Earcons(context)
+    private val haptics = Haptics(context)
+    private val listener: Listening = hearing.listener(
         context,
-        onPartial = { partial = it },
-        onHeard = ::heard,
-        onSilence = ::silence,
-        onLevel = { level = it },
-        onUnavailable = { listening = false; micWorks = false },
-        onTrouble = ::stopped,
+        ListenerEvents(
+            onPartial = { partial = it },
+            onHeard = ::heard,
+            onSilence = ::silence,
+            onLevel = { level = it },
+            onUnavailable = ::unavailable,
+            onTrouble = ::stopped,
+            cue = ::opening,
+        ),
     )
 
     val feed = mutableStateListOf<FeedItem>()
@@ -90,11 +152,23 @@ class GameController(
         private set
     var activeChars by mutableIntStateOf(0)
         private set
-    var micWorks by mutableStateOf(Listener.available(context))
+    var micWorks by mutableStateOf(listener.available)
     var micAllowed by mutableStateOf(false)
+    /**
+     * Whether it hears through the microphone, which Android asks the player for (the recogniser); one that doesn't (a
+     * debug build's script) counts as allowed, and the screen asks for nothing.
+     */
+    val micNeedsPermission: Boolean get() = listener.needsPermission
     /** What went wrong, when an engine error ended the game; the list tells the player. */
     var failure by mutableStateOf<String?>(null)
         private set
+
+    /**
+     * What the game's one button does now, and what TalkBack calls it: the talking circle's tap and the notification's
+     * button ([CircleAction]). Null at an end.
+     */
+    val circleAction: CircleAction?
+        get() = CircleAction.of(paused, speaking, listening, end != null, ask != null, micAllowed, micWorks)
 
     /**
      * The player is typing an answer (the text box has the focus): the mic doesn't open by itself, and stops if it's
@@ -117,19 +191,37 @@ class GameController(
     private var carryOn = false
     private var ticker: Job? = null
     private var silences = 0
+    /** How many times this listen has gone on after the recogniser gave up early (time to answer; [silence]). */
+    private var listenedOn = 0
     /** When the latest turn began: a tap on an option this soon after is the last tap's double (see [tap]). */
     private var askedAt = 0L
+
+    // This play of the game, for the usage data's game_leave as it closes: counts, never what was said.
+    /** When it opened (elapsedRealtime); 0 if it never did. */
+    private var openedAt = 0L
+    private var turns = 0
+    private var answersSpoken = 0
+    private var answersTyped = 0
+    private var answersTapped = 0
+    /** Questions that got no answer (every silence that counted: [silences] starts again from each answer). */
+    private var unanswered = 0
+    /** The turn whose end was reached last, or shown again as the game opened: its game_end goes once. */
+    private var reached: Turn? = null
+    private var closed = false
 
     /** Where a save is kept aside while its place isn't in the map (its pack missing, or not updated yet). */
     private val parked = "${info.id}.parked"
 
     fun open() {
         background.start()
+        openedAt = SystemClock.elapsedRealtime()
         val saved = savedPlace()
+        var resumed = false
         val t = try {
             game.open(saved).also { t ->
                 if (saved != null && (game.canResume(saved) || (saved.ended && t.end != null))) {
-                    feed += FeedItem.Note("Welcome back!")
+                    feed += FeedItem.Note(R.string.note_welcome_back)
+                    resumed = true
                 }
             }
         } catch (e: Exception) {
@@ -139,10 +231,14 @@ class GameController(
             try {
                 game.start()
             } catch (e2: Exception) {
+                emit(Events.gameOpen(info.id, resumed = false))
                 fail(e2)
                 return
             }
         }
+        emit(Events.gameOpen(info.id, resumed))
+        // Opened at an end reached before (a chapter's end, its next chapter now here): not reached again.
+        if (resumed && t.end != null) reached = t
         play(t)
     }
 
@@ -164,7 +260,14 @@ class GameController(
         return back
     }
 
+    /** The game closes (left, or the app's model gone): how it went is usage data, once. */
     fun close() {
+        if (!closed) {
+            closed = true
+            val seconds = if (openedAt == 0L) 0 else (SystemClock.elapsedRealtime() - openedAt) / 1000
+            emit(Events.gameLeave(info.id, turn?.node, turns, seconds, answersSpoken, answersTyped, answersTapped,
+                unanswered))
+        }
         ticker?.cancel()
         background.stop()
         listener.release()
@@ -172,10 +275,14 @@ class GameController(
         scope.cancel()
     }
 
+    /** Something happened in the game: to [onEvent]. */
+    private fun emit(e: Event) = onEvent(e.name, e.props)
+
     // ----- Turns -----
 
     private fun play(t: Turn) {
         turn = t
+        turns++
         ask = t.ask         // its options show at once: an answer can cut the voice short
         askedAt = SystemClock.uptimeMillis()
         end = null
@@ -189,6 +296,9 @@ class GameController(
         turnStart = feed.size
         carryOn = false
         speaking = true
+        // At the voice speed and music volume the player has now (Settings › Sound and voice).
+        audio.setSpeed(settings.voiceSpeed)
+        audio.setMusicVolume(settings.musicVolume)
         audio.play(t.steps)          // calls finishTurn when the turn's audio has played (at once if it has none)
         ticker?.cancel()
         ticker = scope.launch {
@@ -222,8 +332,9 @@ class GameController(
         speaking = false
         activeEntry = -1
         Log.w("GameController", "${info.id} went wrong", e)
-        feed += FeedItem.Note("Sorry, the game went wrong.")
-        failure = "${info.title} went wrong and had to stop."
+        emit(Events.gameError(info.id, turn?.node))
+        feed += FeedItem.Note(R.string.note_went_wrong)
+        failure = words.text(R.string.game_went_wrong, info.title)
         leave()
     }
 
@@ -289,26 +400,47 @@ class GameController(
             t.end != null -> {
                 end = t.end
                 saves.store(info.id, game.save())
+                if (reached !== t) {
+                    reached = t
+                    t.end?.let { e -> ended(e, t.node) }
+                }
             }
             t.ask != null -> {
                 ask = t.ask
                 saves.store(info.id, game.save())
-                if (!paused && !typing) listen()
+                if (!paused && !typing && listensByItself()) listen()
             }
         }
     }
 
+    /** An end reached, for the usage data: which, and where; and the free part's end, if a pack has what comes next. */
+    private fun ended(e: End, node: String) {
+        emit(Events.gameEnd(info.id, e.kind, node))
+        e.locked?.let { pack -> if (!canGoOn) emit(Events.lockedEnd(info.id, pack)) }
+    }
+
     // ----- Answers -----
 
+    /** How an answer came, for the usage data's counts. */
+    private enum class Given { SPOKEN, TYPED, TAPPED }
+
     /**
-     * A typed answer or a tapped option (also while the voice is still talking: it stops). [shown] is what the reply
-     * shows: an option's label. Answering while paused carries on.
+     * A typed answer (also while the voice is still talking: it stops). [shown] is what the reply shows. Answering
+     * while paused carries on.
      */
-    fun answer(text: String, shown: String = text) {
+    fun answer(text: String, shown: String = text) = give(text, shown, Given.TYPED)
+
+    /** An answer, spoken, typed or tapped ([how], which only the usage data's counts care about). */
+    private fun give(text: String, shown: String, how: Given) {
         if (text.isBlank() || ask == null) return
         if (Commands.isPause(text)) {
             pause()
             return
+        }
+        when (how) {
+            Given.SPOKEN -> answersSpoken++
+            Given.TYPED -> answersTyped++
+            Given.TAPPED -> answersTapped++
         }
         paused = false
         stopListening()
@@ -331,7 +463,7 @@ class GameController(
      */
     fun tap(button: Button) {
         if (SystemClock.uptimeMillis() - askedAt < DOUBLE_TAP_MS) return
-        answer(button.value, button.label)
+        give(button.value, button.label, Given.TAPPED)
     }
 
     /** The recogniser's guesses, best first: the first that the question takes, else the best. */
@@ -339,10 +471,11 @@ class GameController(
         if (!listening) return          // a listen that's over
         listening = false
         partial = ""
+        closing()
         if (ask == null) return
         if (guesses.isEmpty()) {
             // Speech it couldn't make out: "sorry?" (the game's else); twice running, the game waits for a tap.
-            feed += FeedItem.Reply("…")
+            feed += FeedItem.Reply(words.text(R.string.reply_unclear))
             if (++silences >= 2) {
                 pause()
                 return
@@ -355,7 +488,7 @@ class GameController(
             return
         }
         val best = guesses.firstOrNull { g -> Commands.isPause(g) || understands(g) } ?: guesses.first()
-        answer(best)
+        give(best, best, Given.SPOKEN)
     }
 
     private fun understands(said: String) = try {
@@ -364,32 +497,86 @@ class GameController(
         false
     }
 
-    /** Nobody answered: the question again; after a second silence, the game waits for a tap. */
+    /**
+     * Nobody answered: the question again; after a second silence, the game waits for a tap. A recogniser that gave up
+     * before the player's time to answer is up (Settings) listens on instead, without a sound: the same listen.
+     */
     private fun silence() {
         if (!listening) return          // a listen that's over
+        if (ask != null && listensAgain(listener.heardFor(), settings.answerTime.millis, listenedOn)) {
+            listenedOn++
+            partial = ""
+            listener.start(withCue = false)
+            return
+        }
         listening = false
         partial = ""
+        closing()
         if (ask == null) return
         silences++
+        unanswered++
         if (silences >= 2) pause() else perform { game.silence() }
     }
 
     /** Passing trouble with the recogniser, nothing to do with the player: the listen just ends (the mic tries again). */
     private fun stopped() {
+        if (listening) closing()
         listening = false
         partial = ""
         level = 0f
     }
 
+    /** No recogniser that can work now (none for the language, or no connection): answers are typed or tapped. */
+    private fun unavailable() {
+        if (listening) closing()
+        listening = false
+        micWorks = false
+    }
+
     // ----- Listening -----
 
-    /** Listens for an answer. Calling it while listening does nothing. */
+    /**
+     * Listens for an answer: the listening sound first, then the recogniser (Listener). However the mic opens (by
+     * itself, the mic button, the circle, the headphones' or the notification's button), it comes here. Calling it
+     * while listening does nothing.
+     */
     fun listen() {
         if (!micAllowed || !micWorks || ask == null || speaking || listening) return
         partial = ""
         listening = true
+        listenedOn = 0
+        // Longer and Longest also ask the recogniser to wait longer for the rest of an answer.
+        listener.settleMs = if (settings.answerTime == AnswerTime.NORMAL) null else SETTLE_MS
         listener.start()
     }
+
+    /**
+     * The mic opening (Listener's cue, once a headset's link is up): the tick and the rising sound, as Settings say,
+     * then [done] once the sound has been heard out (at once with the sounds off), when the recogniser starts.
+     */
+    private fun opening(callLink: Boolean, done: () -> Unit): () -> Unit {
+        if (settings.listeningHaptics) haptics.micOpened()
+        if (!settings.listeningSounds) {
+            done()
+            return {}
+        }
+        return earcons.play(Earcon.LISTEN_START, callLink, done)
+    }
+
+    /**
+     * The mic closing because the recogniser ended the listen or the player turned it off: the falling sound and a
+     * softer tick, as Settings say. Not when the game stops listening itself (a new turn, typing, a pause, leaving).
+     */
+    private fun closing() {
+        if (settings.listeningHaptics) haptics.micClosed()
+        if (settings.listeningSounds) earcons.play(Earcon.LISTEN_STOP)
+    }
+
+    /** Settings › Voice speed changed: the voice (and the music under it) goes at the new speed at once. */
+    fun speedChanged() = audio.setSpeed(settings.voiceSpeed)
+
+    /** Settings › Music volume changed: the music playing now follows it at once. */
+    fun musicVolumeChanged() = audio.setMusicVolume(settings.musicVolume)
 
     private fun stopListening() {
         listener.stop()
@@ -397,12 +584,26 @@ class GameController(
         level = 0f
     }
 
-    /** The mic allowed now (the player said yes, or turned it on in Settings): the game listens if it's waiting. */
-    fun allowMic() {
+    /**
+     * The mic allowed now (the player said yes, or turned it on in Settings): the game listens if it's waiting and
+     * listens by itself. When the player asked for the mic with a tap ([listen]: the mic button, or the circle), it
+     * does what the tap would have done with the mic allowed, cutting the voice short, whatever [listensByItself]
+     * says; but not over a pause.
+     */
+    fun allowMic(listen: Boolean = false) {
         micAllowed = true
         background.micAllowed()
-        if (!paused && !typing) listen()
+        if (paused) return
+        if (listen) {
+            if (speaking) skip()
+            this.listen()
+        } else if (!typing && listensByItself()) {
+            this.listen()
+        }
     }
+
+    /** What the player said to Android's microphone question, asked as the game opened or by a tap: usage data. */
+    fun micAnswered(granted: Boolean) = emit(Events.micPermission(granted, MicAsked.GAME))
 
     /** A key typed in the text box: listening stops, and the silences count from nothing again. */
     fun typed() {
@@ -414,9 +615,12 @@ class GameController(
     fun mic() {
         micWorks = true
         when {
-            listening -> stopListening()
+            listening -> {
+                stopListening()
+                closing()           // the player turned it off
+            }
             speaking -> {
-                skip()              // which listens, unless the player is typing
+                skip()              // which may listen already: by itself, unless the player is typing
                 listen()
             }
             else -> listen()
@@ -425,8 +629,9 @@ class GameController(
 
     /**
      * The talking circle, tapped; also the headphones' button and the notification's (see [BackgroundPlay]): carries on
-     * when paused, skips while the voice speaks (and then listens), and otherwise is the mic button: listen, or stop
-     * listening.
+     * when paused, skips while the voice speaks (then listens, if it listens by itself), and otherwise is the mic
+     * button: listen, or stop listening. What it does, and its name, is [circleAction]; with the mic not allowed, the
+     * screen asks for it instead.
      */
     fun circle() {
         when {
@@ -469,8 +674,9 @@ class GameController(
     // ----- Ends -----
 
     fun playAgain() {
+        emit(Events.gameRestart(info.id))
         feed.clear()
-        feed += FeedItem.Note("Starting again!")
+        feed += FeedItem.Note(R.string.note_starting_again)
         paused = false
         silences = 0
         val e = end
@@ -479,9 +685,10 @@ class GameController(
 
     /** The menu's "Start again": the game from its very beginning. */
     fun startAgain() {
+        emit(Events.gameRestart(info.id))
         audio.stop()
         feed.clear()
-        feed += FeedItem.Note("Starting again!")
+        feed += FeedItem.Note(R.string.note_starting_again)
         paused = false
         silences = 0
         perform { game.restart() }
@@ -491,7 +698,8 @@ class GameController(
         get() = end?.let { e -> e.kind == "chapter" && e.next?.let { game.hasChapter(it) } == true } ?: false
 
     fun nextChapter() {
-        feed += FeedItem.Note("Next chapter")
+        end?.next?.let { emit(Events.chapterNext(info.id, it)) }
+        feed += FeedItem.Note(R.string.next_chapter)
         paused = false
         silences = 0
         perform { game.nextChapter() }
@@ -507,5 +715,10 @@ class GameController(
     private companion object {
         /** A second tap this soon after a new question is a double tap. */
         const val DOUBLE_TAP_MS = 500L
+        /**
+         * With a longer time to answer: how long the recogniser is asked to wait, once the player stops talking, before
+         * the answer counts as complete (iOS: Endpointer's settle, 2 s for Longer and Longest).
+         */
+        const val SETTLE_MS = 2_000L
     }
 }

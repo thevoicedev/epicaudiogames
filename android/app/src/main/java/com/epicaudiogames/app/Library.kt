@@ -70,6 +70,9 @@ class Saves(context: Context) {
 
     fun clear(game: String) = prefs.edit().remove(game).apply()
 
+    /** Every game's place, and any kept aside (a debug build's EpicReset: no game is "In progress"). */
+    fun clearAll() = prefs.edit().clear().apply()
+
     /** A game that was left part-way (not at its end). */
     fun inProgress(game: String): Boolean = load(game)?.let { !it.ended } ?: false
 }

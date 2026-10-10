@@ -1,6 +1,5 @@
 package com.epicaudiogames.app
 
-import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Notification
 import android.app.NotificationChannel
@@ -9,7 +8,6 @@ import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -68,7 +66,7 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
         setMetadata(
             MediaMetadata.Builder()
                 .putString(MediaMetadata.METADATA_KEY_TITLE, game.info.title)
-                .putString(MediaMetadata.METADATA_KEY_ARTIST, APP)
+                .putString(MediaMetadata.METADATA_KEY_ARTIST, context.getString(R.string.app_name))
                 .apply { if (cover != null) putBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART, cover) }
                 .build(),
         )
@@ -77,7 +75,8 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
     private val wakeLock = context.getSystemService(PowerManager::class.java)
         .newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "EpicAudioGames:game")
         .apply { setReferenceCounted(false) }
-    private var state = Circle.NONE
+    /** The notification's button now: what a tap on the talking circle does ([circle]), or none. */
+    private var state: CircleAction? = null
     private var closed = false
     /** The service was started with the mic allowed: it may listen in the background. */
     private var listens = false
@@ -87,13 +86,13 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
         current = this
         session.isActive = true
         state = circle()
-        listens = micGranted(context)
+        listens = Permissions.micGranted(context)
         GameService.start(context)
         scope.launch {
             snapshotFlow { circle() to (game.speaking || game.listening) }.collect { (circle, busy) ->
                 // The CPU stays up while the game talks or listens (the screen may be off); not while it waits.
                 if (busy) wakeLock.acquire(WAKE_MS) else if (wakeLock.isHeld) wakeLock.release()
-                if (circle != state) Log.i(TAG, "${game.info.id}: ${circle.label ?: "no button"}")
+                if (circle != state) Log.i(TAG, "${game.info.id}: ${circle?.name ?: "no button"}")
                 state = circle
                 session.setPlaybackState(playback(circle))
                 if (current === this@BackgroundPlay) GameService.update(context, notification())
@@ -122,15 +121,8 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
         if (wakeLock.isHeld) wakeLock.release()
     }
 
-    /** What the talking circle does now, for the notification's button. */
-    private fun circle() = when {
-        game.end != null -> Circle.NONE
-        game.paused -> Circle.CARRY_ON
-        game.speaking -> Circle.SKIP
-        game.listening -> Circle.STOP
-        game.ask != null && game.micAllowed -> Circle.TALK
-        else -> Circle.NONE
-    }
+    /** What the talking circle does now, for the notification's button ([notificationButton]). */
+    private fun circle() = notificationButton(game.circleAction, end = game.end != null)
 
     /**
      * Play (the lock screen's, or headphones'): carries on when paused, else talks when the game is waiting for an
@@ -159,13 +151,13 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
     /** The headphones' play/pause or hook button, and the notification's: a tap on the talking circle. */
     fun tap(from: String) {
         if (closed) return
-        Log.i(TAG, "${game.info.id}: $from -> ${state.label ?: "nothing"}")
+        Log.i(TAG, "${game.info.id}: $from -> ${state?.name ?: "nothing"}")
         game.circle()
     }
 
     /** Playing while the game speaks or listens (the lock screen then shows pause, which pauses the game). */
-    private fun playback(circle: Circle): PlaybackState {
-        val playing = circle == Circle.SKIP || circle == Circle.STOP
+    private fun playback(circle: CircleAction?): PlaybackState {
+        val playing = circle == CircleAction.SKIP || circle == CircleAction.STOP_LISTENING
         return PlaybackState.Builder()
             .setActions(PlaybackState.ACTION_PLAY or PlaybackState.ACTION_PAUSE or PlaybackState.ACTION_PLAY_PAUSE)
             .setState(
@@ -178,7 +170,7 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
     fun notification(): Notification {
         val b = builder(context)
             .setContentTitle(game.info.title)
-            .setContentText(APP)
+            .setContentText(context.getString(R.string.app_name))
             .setContentIntent(openApp)
             .setOngoing(true)
             .setShowWhen(false)
@@ -187,9 +179,11 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
             .setVisibility(Notification.VISIBILITY_PUBLIC)
         if (icon != null) b.setLargeIcon(icon)
         val style = Notification.MediaStyle().setMediaSession(session.sessionToken)
-        val label = state.label
-        if (label != null) {
-            b.addAction(Notification.Action.Builder(Icon.createWithResource(context, state.icon), label, tapCircle).build())
+        // Named as the circle is on screen: what TalkBack says for it on the lock screen and in the shade.
+        val button = state
+        if (button != null) {
+            val icon = Icon.createWithResource(context, button.icon)
+            b.addAction(Notification.Action.Builder(icon, context.getString(button.label), tapCircle).build())
             style.setShowActionsInCompactView(0)
         }
         b.setStyle(style)
@@ -219,18 +213,18 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
         override fun onPause() = pause("pause")
     }
 
-    /** What the talking circle does now: the notification's button (its label and icon). */
-    private enum class Circle(val label: String?, val icon: Int) {
-        SKIP("Skip", R.drawable.ic_skip),
-        TALK("Talk", R.drawable.ic_mic),
-        STOP("Stop listening", R.drawable.ic_stop),
-        CARRY_ON("Carry on", R.drawable.ic_play),
-        NONE(null, 0),
-    }
+    /** The notification button's icon: play to carry on, skip, stop listening, and the mic to talk. */
+    private val CircleAction.icon: Int
+        get() = when (this) {
+            CircleAction.CARRY_ON -> R.drawable.ic_play
+            CircleAction.SKIP -> R.drawable.ic_skip
+            CircleAction.STOP_LISTENING -> R.drawable.ic_stop
+            CircleAction.TALK, CircleAction.MIC_REFUSED, CircleAction.NO_RECOGNITION, CircleAction.WAIT ->
+                R.drawable.ic_mic
+        }
 
     companion object {
         private const val TAG = "BackgroundPlay"
-        private const val APP = "Epic Audio Games"
         private const val CHANNEL = "game"
         /** A wake lock's longest hold: taken again at each change, so only a game stuck speaking lets it go. */
         private const val WAKE_MS = 30 * 60 * 1000L
@@ -244,8 +238,10 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
         fun builder(context: Context): Notification.Builder {
             val b = if (Build.VERSION.SDK_INT >= 26) {
                 context.getSystemService(NotificationManager::class.java).createNotificationChannel(
-                    NotificationChannel(CHANNEL, "Game playing", NotificationManager.IMPORTANCE_LOW).apply {
-                        description = "The game you're playing, while the screen is off or the app is in the background"
+                    NotificationChannel(
+                        CHANNEL, context.getString(R.string.notification_channel), NotificationManager.IMPORTANCE_LOW,
+                    ).apply {
+                        description = context.getString(R.string.notification_channel_description)
                         setShowBadge(false)
                     },
                 )
@@ -258,8 +254,13 @@ class BackgroundPlay(private val context: Context, private val game: GameControl
     }
 }
 
-private fun micGranted(context: Context) =
-    ContextCompat.checkSelfPermission(context, Manifest.permission.RECORD_AUDIO) == PackageManager.PERMISSION_GRANTED
+/**
+ * The notification's button for the talking circle's [action]: the circle's own, named as on screen, but none at an
+ * [end] (paused or not), none while there's nothing to do yet, and none for a refused mic, as asking for it needs the
+ * screen. So it shows when it always has; a recogniser that isn't available keeps its button (a tap tries again).
+ */
+internal fun notificationButton(action: CircleAction?, end: Boolean): CircleAction? =
+    action?.takeIf { !end && it.enabled && it != CircleAction.MIC_REFUSED }
 
 /**
  * The foreground service that keeps an open game going with the screen off: the voice plays (media playback) and the
@@ -285,7 +286,8 @@ class GameService : Service() {
             return START_NOT_STICKY
         }
         // A start asked for with startForegroundService must go to the foreground, even when the game has closed since.
-        val notification = play?.notification() ?: BackgroundPlay.builder(this).setContentTitle("Epic Audio Games").build()
+        val notification = play?.notification()
+            ?: BackgroundPlay.builder(this).setContentTitle(getString(R.string.app_name)).build()
         foreground(notification)
         if (play == null || !wanted) finish()
         return START_NOT_STICKY
@@ -293,7 +295,7 @@ class GameService : Service() {
 
     private fun foreground(notification: Notification) {
         var types = if (Build.VERSION.SDK_INT >= 29) ServiceInfo.FOREGROUND_SERVICE_TYPE_MEDIA_PLAYBACK else 0
-        val mic = micGranted(this)
+        val mic = Permissions.micGranted(this)
         if (mic && Build.VERSION.SDK_INT >= 30) types = types or ServiceInfo.FOREGROUND_SERVICE_TYPE_MICROPHONE
         try {
             ServiceCompat.startForeground(this, ID, notification, types)

@@ -15,6 +15,7 @@ import androidx.media3.common.AudioAttributes
 import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.PlaybackException
+import androidx.media3.common.PlaybackParameters
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
 import androidx.media3.datasource.DefaultDataSource
@@ -35,6 +36,13 @@ import java.io.File
  * A clip with no file, or one that can't be played, takes no time: its lines show as it's passed. [onInterrupted]
  * says the game should wait for a tap: the audio focus lost for good (or refused, as during a call), or the
  * headphones taken out.
+ *
+ * The whole turn goes at the voice speed ([setSpeed]: the voice, the beds and the pauses, as many clips have their
+ * music mixed in), so [position] stays in the media's time and the transcript keeps up. At 1x Android doesn't touch
+ * the sound at all. The beds are at their own volume times the music volume ([setMusicVolume]).
+ *
+ * The app's own clips (the welcome and help, AppAudio) play through one too, as game "app" (assets/app/), with
+ * [handleFocus] off: AppAudio takes the audio focus itself, for a moment only, so other apps' audio comes back after.
  */
 @OptIn(UnstableApi::class)
 class AudioPlayer(
@@ -43,9 +51,10 @@ class AudioPlayer(
     private val packs: List<File>,
     private val onFinished: () -> Unit,
     private val onInterrupted: () -> Unit,
+    handleFocus: Boolean = true,
 ) {
     private val attributes = AudioAttributes.Builder().setUsage(C.USAGE_GAME).setContentType(C.AUDIO_CONTENT_TYPE_SPEECH).build()
-    private val player = ExoPlayer.Builder(context).setAudioAttributes(attributes, true).build()
+    private val player = ExoPlayer.Builder(context).setAudioAttributes(attributes, handleFocus).build()
     private val sources = ProgressiveMediaSource.Factory(DefaultDataSource.Factory(context))
     private val files = mutableMapOf<String, Set<String>>()
     private val handler = Handler(Looper.getMainLooper())
@@ -57,6 +66,12 @@ class AudioPlayer(
     /** The beds that start (or, for null, stop) when the playlist reaches an item. */
     private var bedsAt = mapOf<Int, List<Step.Bed>>()
     private val beds = mutableMapOf<String, ExoPlayer>()
+    /** Each bed's own volume (its step's), before the music volume. */
+    private val bedVolumes = mutableMapOf<String, Float>()
+    /** The voice speed (Settings › Sound and voice): the turn's, voice and beds alike. */
+    private var speed = 1f
+    /** The music volume (Settings › Sound and voice), 0 to 1: the beds', on top of their own. */
+    private var musicVolume = 1f
     private var playing = false
     /** The item played on to after one that couldn't be played: each error moves on past the last. */
     private var skippedTo = 0
@@ -158,6 +173,27 @@ class AudioPlayer(
         stopBeds()
     }
 
+    /**
+     * The voice speed (0.75 to 2), for the turn playing (at once: the transcript follows the media's time) and those
+     * to come: the voice and every bed, so music mixed into a clip and the music under it stay together. The pitch
+     * stays as it is.
+     */
+    fun setSpeed(speed: Float) {
+        if (speed == this.speed) return
+        this.speed = speed
+        Log.i(TAG, "voice speed ${speed}x")
+        val parameters = PlaybackParameters(speed)
+        player.playbackParameters = parameters
+        beds.values.forEach { it.playbackParameters = parameters }
+    }
+
+    /** The music volume (0 to 1): each bed at its own volume times this, at once and for the beds to come. */
+    fun setMusicVolume(volume: Float) {
+        if (volume == musicVolume) return
+        musicVolume = volume
+        beds.forEach { (path, p) -> p.volume = (bedVolumes[path] ?: 1f) * volume }
+    }
+
     /** The clip playing (its index among the turn's clips) and the seconds into it; null in a pause or when idle. */
     fun position(): Pair<Int, Double>? {
         if (!playing) return null
@@ -170,6 +206,8 @@ class AudioPlayer(
 
     fun release() {
         released = true
+        // Not playing any more: a player slow to let go reports that as an error, which mustn't finish the turn.
+        playing = false
         runCatching { context.unregisterReceiver(noisy) }
         stopBeds()
         player.release()
@@ -220,7 +258,10 @@ class AudioPlayer(
             if (path in beds) continue           // already playing: it carries on
             val u = uri(path) ?: continue
             val p = ExoPlayer.Builder(context).setAudioAttributes(attributes, false).build()
-            p.volume = b.volume.toFloat()
+            bedVolumes[path] = b.volume.toFloat()
+            p.volume = b.volume.toFloat() * musicVolume
+            // At the voice's speed from the start, so it keeps time with the clips over it.
+            p.playbackParameters = PlaybackParameters(speed)
             p.setMediaSource(sources.createMediaSource(MediaItem.fromUri(u)))
             p.prepare()
             p.playWhenReady = voicePlays()
@@ -232,6 +273,7 @@ class AudioPlayer(
     private fun fadeOutBeds() {
         val fading = beds.values.toList()
         beds.clear()
+        bedVolumes.clear()
         val start = fading.map { it.volume }
         val steps = 6
         for (k in 1..steps) {
@@ -245,6 +287,7 @@ class AudioPlayer(
     private fun stopBeds() {
         beds.values.forEach { it.release() }
         beds.clear()
+        bedVolumes.clear()
     }
 
     /** The clip's file, from a pack or the game's assets; null (and a log line) when there's none. */

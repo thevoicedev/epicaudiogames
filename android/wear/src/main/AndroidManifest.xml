@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- A watch app: Play offers it to Wear OS watches only, from the phone app's listing. -->
+    <uses-feature android:name="android.hardware.type.watch" />
+    <!-- The buzz as the phone's microphone opens and another as it closes (docs/DESIGN.md, Watches). Granted with the
+         app; nothing is asked. -->
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <!-- Ambient mode: with the wrist down the screen stays on the game, dimmed (AmbientLifecycleObserver needs it). -->
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <!-- Nothing is stored on the watch, so there's nothing to back up or carry to a new one. -->
+    <application
+        android:allowBackup="false"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="false"
+        android:icon="@mipmap/ic_launcher"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.EpicWatch">
+        <!-- A remote for the phone app, of no use without it: the phone plays the game and listens. -->
+        <meta-data
+            android:name="com.google.android.wearable.standalone"
+            android:value="false" />
+        <!-- Its own task (no affinity), as Wear OS's recent apps want. -->
+        <activity
+            android:name=".WatchActivity"
+            android:exported="true"
+            android:taskAffinity="">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>

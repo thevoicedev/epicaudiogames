@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What a backup carries (Google's Auto Backup, Android 6 to 11; data_extraction_rules.xml says the same for 12 and
+     later): the games' places (saves.xml) and the player's settings (settings.xml), and nothing else.
+
+     The settings go because a blind or partially sighted player setting up a new phone needs their theme, text size,
+     voice speed, time to answer and microphone setting back without sighted help, and because Share usage data turned
+     off has to stay off: left out, a restored phone would start sharing again. Nothing in them says who the player
+     is. Onboarding having been done comes with them, so the new phone doesn't welcome the player again (Android asks
+     for the microphone afresh, from a game).
+
+     Never in a backup: the usage data's random ID and the events waiting to be sent (no_backup/analytics/, so a
+     restored phone starts with a new ID, as the privacy policy says), the packs (no_backup/packs/: they download
+     again), and the cache. -->
+<full-backup-content>
+    <include domain="sharedpref" path="saves.xml" />
+    <include domain="sharedpref" path="settings.xml" />
+</full-backup-content>

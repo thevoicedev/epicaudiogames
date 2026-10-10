@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- What a backup or a new phone set up from this one carries, Android 12 and later: the games' places and the
+     settings, and nothing else, as backup_rules.xml (Android 6 to 11) explains. The usage data's random ID and queue,
+     and the packs, are in no_backup, which neither ever takes. -->
+<data-extraction-rules>
+    <cloud-backup>
+        <include domain="sharedpref" path="saves.xml" />
+        <include domain="sharedpref" path="settings.xml" />
+    </cloud-backup>
+    <device-transfer>
+        <include domain="sharedpref" path="saves.xml" />
+        <include domain="sharedpref" path="settings.xml" />
+    </device-transfer>
+</data-extraction-rules>

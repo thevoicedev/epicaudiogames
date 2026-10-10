@@ -1,4 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- Every word the app shows or says (docs/DESIGN.md: sentence case, plain words, a visible label that matches what
+     TalkBack says), so it can be translated. The screens read them with stringResource; plain Kotlin with Words
+     (Words.kt), whose JVM tests read this file. The same words as the iOS app's (Text("…"), gathered in
+     Localizable.xcstrings): change one, change the other. What a game says, and the help pages, come from content/
+     and games/, not from here. -->
 <resources>
     <string name="app_name">Epic Audio Games</string>
+
+    <!-- Words used in several places, with the same meaning everywhere. -->
+    <string name="back">Back</string>
+    <string name="close">Close</string>
+    <string name="carry_on">Carry on</string>
+    <string name="paused">Paused</string>
+    <string name="how_to_play">How to play</string>
+    <string name="more_stories">More stories and levels</string>
+    <string name="show_welcome">Show the welcome again</string>
+    <string name="listen">Listen</string>
+    <string name="pause">Pause</string>
+    <string name="playing">Playing</string>
+    <string name="allow_microphone">Allow microphone</string>
+    <string name="microphone_off">The microphone is off</string>
+    <string name="not_now">Not now</string>
+    <string name="next_chapter">Next chapter</string>
+
+    <!-- The app as it runs (MainActivity.kt): a game loading, and a notice. -->
+    <string name="opening_game">Opening %1$s</string>
+    <string name="notice_title">Sorry!</string>
+    <string name="ok">OK</string>
+    <string name="game_not_opened">%1$s couldn\'t be opened.</string>
+
+    <!-- The tabs (ui/MainTabs.kt). -->
+    <string name="tab_games">Games</string>
+    <string name="tab_shop">Shop</string>
+    <string name="tab_help">Help</string>
+    <string name="tab_settings">Settings</string>
+
+    <!-- The intro (ui/IntroScreen.kt): its one element is the app's name, and its action. -->
+    <string name="intro_skip">Skip intro</string>
+
+    <!-- Games (ui/HomeScreen.kt). -->
+    <string name="games_heading">Games</string>
+    <string name="games_intro">Put on your headphones, listen, and answer out loud.</string>
+    <string name="card_play">Play</string>
+    <string name="card_in_progress">In progress</string>
+    <string name="get_pack">Get %1$s</string>
+    <!-- The card's Get button for TalkBack: the pack, then the game. -->
+    <string name="get_pack_for">Get %1$s for %2$s</string>
+    <string name="card_all_installed">All packs installed</string>
+
+    <!-- Shop and the store sheet (ui/ShopScreen.kt, ui/PackRows.kt, ui/StoreSheet.kt). -->
+    <string name="shop_heading">Shop</string>
+    <string name="shop_intro">One-time purchases. No ads and no subscriptions. Packs download once, then play offline.</string>
+    <string name="store_heading">More from %1$s</string>
+    <!-- A pack's buy button: the store's own price ("£1.99"); "Get" while it's not known. -->
+    <string name="pack_buy">Buy for %1$s</string>
+    <string name="pack_get">Get</string>
+    <!-- The buy button for TalkBack: its words, then the game and the pack. -->
+    <string name="pack_buy_label">Buy for %1$s: %2$s, %3$s</string>
+    <string name="pack_get_label">Get %1$s, %2$s</string>
+    <string name="pack_get_loading_label">Get %1$s, %2$s, loading the price</string>
+    <string name="pack_download">Download %1$s</string>
+    <!-- The Download button for TalkBack: the pack, then the game. -->
+    <string name="pack_download_label">Download %1$s for %2$s</string>
+    <string name="pack_downloading">Downloading, %1$d%%</string>
+    <!-- What TalkBack says of a download, at 0, 25, 50 and 75% only: the pack, then how far. -->
+    <string name="pack_downloading_label">%1$s: downloading, %2$d%%</string>
+    <string name="pack_size">%1$d MB download</string>
+    <string name="pack_installed">Installed</string>
+    <string name="pack_bought">Bought</string>
+    <string name="pack_pending">Payment pending</string>
+    <string name="pack_pending_note">Waiting for the payment to be approved.</string>
+    <string name="restore_intro">Bought a pack on another phone? Restore it here.</string>
+    <string name="restore">Restore purchases</string>
+    <string name="restore_payments">Payments are handled by Google Play.</string>
+
+    <!-- What the store says (Store.kt). -->
+    <string name="store_unavailable">The store isn\'t available right now. Check that you\'re signed in to Google Play.</string>
+    <string name="store_no_server">Packs can\'t be downloaded in this version of the app yet.</string>
+    <string name="store_purchase_failed">The purchase didn\'t go through. Please try again.</string>
+    <string name="store_restore_failed">Couldn\'t restore your purchases. Please try again.</string>
+    <string name="store_restored">Your purchases are restored.</string>
+    <string name="store_nothing_to_restore">There are no purchases to restore.</string>
+    <string name="store_no_room">There isn\'t enough space on your phone for %1$s. It needs about %2$d MB free.</string>
+    <string name="store_download_failed">Couldn\'t download %1$s. Check your connection, and open the store again to retry.</string>
+    <!-- A debug build's pack pushed with adb that isn't the catalog's: the file, then the pack's id. -->
+    <string name="store_incoming_wrong">%1$s isn\'t the catalog\'s %2$s.</string>
+
+    <!-- The game (ui/GameScreen.kt): its header and menu. -->
+    <string name="game_menu">More</string>
+    <string name="menu_start_again">Start again</string>
+    <!-- The talking circle (and the notification's button), MicPolicy.kt's CircleAction: what a tap does... -->
+    <string name="circle_skip">Skip</string>
+    <string name="circle_stop_listening">Stop listening</string>
+    <string name="circle_talk">Talk</string>
+    <string name="circle_talk_mic_off">Talk (the microphone is off)</string>
+    <string name="circle_talk_no_recognition">Talk (speech recognition isn\'t available)</string>
+    <!-- ...and the game's state, as TalkBack says it after the name. -->
+    <string name="state_speaking">Speaking</string>
+    <string name="state_listening">Listening</string>
+    <string name="state_your_turn">Your turn</string>
+    <string name="state_wait">Wait for the question</string>
+    <!-- The line under the circle: what to do now. The words heard so far are in quotes. -->
+    <string name="status_heard">“%1$s”</string>
+    <string name="status_listening">Listening…</string>
+    <string name="status_skip">Tap the picture to skip</string>
+    <string name="status_your_turn_mic">Your turn! Tap the mic to talk</string>
+    <string name="status_your_turn">Your turn!</string>
+    <!-- The transcript: a line read with its speaker ("Gribbo: Who goes there?"), and the player's reply. -->
+    <string name="line_with_speaker">%1$s: %2$s</string>
+    <string name="reply_you">You</string>
+    <string name="reply_said">You said: %1$s</string>
+    <!-- A reply the recogniser heard but couldn't make out. -->
+    <string name="reply_unclear">…</string>
+    <string name="note_welcome_back">Welcome back!</string>
+    <string name="note_starting_again">Starting again!</string>
+    <string name="note_went_wrong">Sorry, the game went wrong.</string>
+    <string name="game_went_wrong">%1$s went wrong and had to stop.</string>
+    <!-- The answer bar and the question's options. -->
+    <string name="answer_field">Type an answer</string>
+    <string name="send">Send</string>
+    <string name="options">Options</string>
+    <!-- The microphone refused for good, from the mic button or the circle. -->
+    <string name="microphone_off_text">To answer out loud, allow the microphone in Settings. You can always tap or type instead.</string>
+    <string name="microphone_off_settings">Settings</string>
+    <!-- The end panel. -->
+    <string name="end_chapter">Chapter complete</string>
+    <string name="end_game_over">Game over</string>
+    <string name="end_the_end">The end</string>
+    <string name="end_next_in">What happens next is in %1$s.</string>
+    <string name="end_more_in">There\'s more: %1$s.</string>
+    <string name="end_coming_soon">What happens next is coming soon, in a story pack.</string>
+    <string name="end_try_again">Try again</string>
+    <string name="end_play_again">Play again</string>
+    <string name="end_back">Back to games</string>
+    <!-- Paused. -->
+    <string name="leave_game">Leave game</string>
+
+    <!-- Help (ui/HelpScreen.kt). The topics themselves are content/app/app.json's. -->
+    <string name="help_heading">Help</string>
+    <string name="help_list_intro">Open a topic to read it. Listen reads it to you.</string>
+    <string name="help_no_content">How to play, using TalkBack, packs and purchases: it\'s all on our website.</string>
+    <string name="help_support">Help and support</string>
+    <string name="help_contact">Contact</string>
+    <string name="help_contact_intro">We\'d love to hear from you, especially about how well the app works for you.</string>
+    <string name="help_email">Email %1$s</string>
+    <string name="help_pick_topic">Pick a topic to read it here.</string>
+    <string name="help_all_topics">All help topics</string>
+
+    <!-- Settings (ui/SettingsScreen.kt). -->
+    <string name="settings_heading">Settings</string>
+    <string name="settings_sound">Sound and voice</string>
+    <string name="settings_voice_speed">Voice speed</string>
+    <string name="speed_slower">Slower</string>
+    <string name="speed_faster">Faster</string>
+    <string name="speed_normal">Normal speed</string>
+    <!-- A voice speed other than normal: "1.25 times". -->
+    <string name="speed_times">%1$s times</string>
+    <string name="settings_sample">Play a sample</string>
+    <string name="settings_intro_sound">Play the intro sound</string>
+    <string name="settings_intro_sound_hint">The Epic Audio Games sound as the app starts</string>
+    <string name="settings_listening_sounds">Listening sounds</string>
+    <string name="settings_listening_sounds_hint">A sound as the microphone opens, and as it closes</string>
+    <string name="settings_listening_haptics">Vibrate when listening starts</string>
+    <string name="settings_music_volume">Music volume</string>
+    <string name="volume_off">Off</string>
+    <string name="volume_percent">%1$d%%</string>
+    <string name="settings_music_note">Some scenes have their music mixed in and stay as they are.</string>
+    <string name="settings_answer_time">Time to answer</string>
+    <string name="answer_time_normal">Normal</string>
+    <string name="answer_time_longer">Longer</string>
+    <string name="answer_time_longest">Longest</string>
+    <plurals name="seconds">
+        <item quantity="one">%d second</item>
+        <item quantity="other">%d seconds</item>
+    </plurals>
+    <string name="settings_microphone">Microphone</string>
+    <string name="settings_mic_auto">Open the microphone by itself</string>
+    <string name="mic_auto_not_with_screen_reader">Not when a screen reader is on</string>
+    <string name="mic_auto_not_with_screen_reader_hint">With TalkBack on, you open it yourself</string>
+    <string name="mic_auto_always">Always</string>
+    <string name="mic_auto_always_hint">Even with TalkBack on</string>
+    <string name="mic_auto_never">Never</string>
+    <string name="mic_auto_never_hint">You open it yourself, every time</string>
+    <string name="microphone_allowed">The microphone is allowed</string>
+    <string name="microphone_refused">Android won\'t ask again. To use the microphone, turn it on in your phone\'s settings.</string>
+    <string name="open_phone_settings">Open phone settings</string>
+    <string name="settings_appearance">Appearance</string>
+    <string name="settings_theme">Theme</string>
+    <string name="theme_system">Match my phone</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_contrast">High contrast</string>
+    <!-- A theme's swatch: letters in its heading colour (a picture only; TalkBack doesn't read it). -->
+    <string name="theme_swatch">Aa</string>
+    <string name="settings_text_size">Text size</string>
+    <string name="text_size_standard">Standard</string>
+    <string name="text_size_large">Large</string>
+    <string name="text_size_larger">Larger</string>
+    <string name="text_size_preview">Preview</string>
+    <string name="text_size_preview_line">Gribbo: Who goes there? Speak up, or the moon gets it!</string>
+    <string name="settings_font">Font</string>
+    <string name="font_atkinson">Atkinson Hyperlegible</string>
+    <string name="font_atkinson_hint">Easier to read</string>
+    <string name="font_system">Phone\'s font</string>
+    <string name="settings_reduce_motion">Reduce motion</string>
+    <string name="settings_reduce_motion_hint">Nothing pulses, and the story jumps rather than scrolls</string>
+    <string name="settings_on_in_phone">On in your phone\'s settings</string>
+    <string name="settings_transcript">Transcript</string>
+    <string name="settings_highlight_words">Highlight words as they\'re spoken</string>
+    <string name="settings_whole_line">Show the whole line at once</string>
+    <string name="settings_whole_line_hint">Off: each word shows as it\'s spoken</string>
+    <string name="settings_speaker_names">Show who\'s speaking</string>
+    <string name="settings_speaker_names_hint">TalkBack always says who\'s speaking</string>
+    <string name="settings_privacy">Privacy</string>
+    <string name="settings_analytics">Share usage data</string>
+    <string name="settings_analytics_hint">Helps us see which games and screens people use, under a random ID. Never your name, email or voice, never what you say or type, and nothing about accessibility settings.</string>
+    <string name="settings_delete_usage">Delete my usage data</string>
+    <string name="delete_usage_title">Delete your usage data?</string>
+    <string name="delete_usage_text">We\'ll delete the usage data this phone has sent us, and the app will use a new random ID.</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+    <string name="delete_usage_done">Your usage data is deleted.</string>
+    <string name="delete_usage_failed">Couldn\'t reach our server. Please try again.</string>
+    <string name="delete_usage_nothing">There\'s nothing to delete: the app hasn\'t sent any usage data under its random ID.</string>
+    <string name="delete_usage_nothing_off">There\'s nothing to delete. The app forgot its random ID when usage data was turned off, so what it sent before can\'t be found, and we delete all usage data after 13 months.</string>
+    <string name="settings_privacy_policy">Privacy policy</string>
+    <string name="settings_help_about">Help and about</string>
+    <string name="settings_support">Support</string>
+    <string name="settings_accessibility">Accessibility statement</string>
+    <string name="settings_licences">Licences</string>
+    <!-- The app's version: its name, then its build number ("Version 1.0 (3)"). -->
+    <string name="settings_version">Version %1$s (%2$d)</string>
+    <!-- Settings › Licences. -->
+    <string name="licences_heading">Licences</string>
+    <string name="licences_font">Atkinson Hyperlegible Next</string>
+    <string name="licences_font_text">The font the app\'s words are shown in, made to be easy to read by the Braille Institute. It\'s used under the SIL Open Font License 1.1:</string>
+    <string name="licences_font_link">The SIL Open Font License, on its website</string>
+
+    <!-- Onboarding (ui/Onboarding.kt). -->
+    <string name="onboarding_step">Step %1$d of %2$d</string>
+    <string name="onboarding_skip">Skip</string>
+    <string name="onboarding_next">Next</string>
+    <string name="onboarding_start">Start playing</string>
+    <string name="onboarding_welcome">Welcome</string>
+    <string name="onboarding_welcome_text">Welcome to Epic Audio Games! The games talk to you, and you answer out loud.</string>
+    <string name="onboarding_usage">We collect usage data under a random ID to improve the games — never what you say, and nothing about accessibility settings.</string>
+    <string name="onboarding_usage_off">Usage data is off. You can turn it on again in Settings, under Privacy.</string>
+    <string name="turn_off">Turn off</string>
+    <string name="turn_on">Turn on</string>
+    <string name="turn_off_usage">Turn off usage data</string>
+    <string name="turn_on_usage">Turn on usage data</string>
+    <string name="onboarding_mic">Answer out loud</string>
+    <string name="onboarding_mic_why">The games ask you questions, and you answer out loud. To hear you, the app needs the microphone.</string>
+    <string name="onboarding_mic_private">What you say is turned into words by your phone\'s speech recognition, and never sent to us.</string>
+    <string name="onboarding_mic_notifications">Android will ask about notifications too. While you play with the screen off, the game\'s notification has the same button as the picture.</string>
+    <string name="onboarding_mic_on">The microphone is on.</string>
+    <string name="onboarding_mic_later">No problem: you can tap or type, and allow it later in Settings.</string>
+    <string name="onboarding_comfort">Make it comfortable</string>
+    <string name="onboarding_comfort_text">Choose the colours and the size of the words. You can change them any time in Settings.</string>
+    <string name="onboarding_comfort_more">More in Settings: the font, the voice\'s speed, and how the story\'s words are shown.</string>
+    <string name="onboarding_screen_reader">Playing with TalkBack</string>
+    <string name="onboarding_screen_reader_where">You\'ll find this in Help too, under %1$s.</string>
+    <string name="onboarding_screen_reader_text">With TalkBack on, the microphone doesn\'t open by itself. At the top of a game is a picture: double tap it to talk, then say your answer after the rising sound. The button on your headphones does the same.</string>
+    <string name="onboarding_ready">You\'re ready</string>
+    <string name="onboarding_ready_text">Pick a game, put on your headphones, and answer out loud.</string>
+    <string name="onboarding_ready_help">Help has its own tab, whenever you need it, and every topic can be read to you.</string>
+
+    <!-- The game's notification and its channel (BackgroundPlay.kt), shown while a game plays with the screen off. -->
+    <string name="notification_channel">Game playing</string>
+    <string name="notification_channel_description">The game you\'re playing, while the screen is off or the app is in the background</string>
 </resources>

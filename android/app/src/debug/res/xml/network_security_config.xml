@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Debug builds only (a release build has no such file, so it's HTTPS only): usage data may go to the web server
+     (web/server.js) running on this computer, over plain HTTP, to try the app against it. With the server on port
+     3000 and adb reverse tcp:3000 tcp:3000, launch the app with its EpicAnalytics extra set to http://127.0.0.1:3000
+     (analytics/Analytics.kt, UsageData.EXTRA). 10.0.2.2 is the emulator's own name for this computer. -->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="false">127.0.0.1</domain>
+        <domain includeSubdomains="false">localhost</domain>
+        <domain includeSubdomains="false">10.0.2.2</domain>
+    </domain-config>
+</network-security-config>
