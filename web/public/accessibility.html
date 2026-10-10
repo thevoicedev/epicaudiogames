@@ -1,0 +1,575 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Accessibility - Epic Audio Games</title>
+  <meta name="description" content="How Epic Audio Games works for blind and partially sighted players: answer by speaking, typing or tapping, every word on screen, high contrast, big text, voice speed, spoken help, keyboards and watches. What we're still testing, and how to tell us what gets in your way.">
+  <meta name="theme-color" content="#0b1430">
+  <link rel="canonical" href="https://epicaudiogames.com/accessibility">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Epic Audio Games">
+  <meta property="og:title" content="Accessibility - Epic Audio Games">
+  <meta property="og:description" content="Made for blind and partially sighted players first: speaking, typing or tapping, every word on screen, high contrast, big text, voice speed and spoken help.">
+  <meta property="og:url" content="https://epicaudiogames.com/accessibility">
+  <meta property="og:image" content="https://epicaudiogames.com/og-v2.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Epic Audio Games: audio story games you play by voice.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:alt" content="Epic Audio Games: audio story games you play by voice.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    /* The same tokens and footer as index.html; the page parts below are shared with support.html and privacy.html. */
+    :root {
+      --bg: #0b1430;
+      --bg-2: #16275e;
+      --bg-3: #1e3a8a;
+      --ink: #f6f8ff;
+      --muted: #b9c5ea;
+      --faint: #a9b5da;
+      --accent: #ffd54f;
+      --accent-ink: #2a1f00;
+      --blue: #5fa3d6;
+      --blue-deep: #3e7fc3;
+      --card: rgba(255, 255, 255, 0.06);
+      --card-hover: rgba(255, 255, 255, 0.10);
+      --line: rgba(255, 255, 255, 0.12);
+      --radius: 20px;
+      --gutter: 16px;
+      --measure: 68ch;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+      font-size: 17px;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--bg);
+      background-image:
+        radial-gradient(900px 500px at 50% -120px, rgba(95, 163, 214, 0.30), transparent 70%),
+        radial-gradient(600px 400px at 90% 30%, rgba(109, 40, 217, 0.18), transparent 70%),
+        linear-gradient(180deg, var(--bg) 0%, #0d1a40 60%, var(--bg) 100%);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3 {
+      font-family: "Fredoka", "Nunito", system-ui, sans-serif;
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0;
+      letter-spacing: 0.005em;
+    }
+
+    p { margin: 0; }
+    a { color: inherit; }
+    img { display: block; max-width: 100%; }
+
+    /* the apps' keyboard focus ring: 3px, gold */
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+    .wrap {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 var(--gutter);
+    }
+
+    .sky {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: -1;
+      background-image:
+        radial-gradient(1.5px 1.5px at 12% 18%, #fff 60%, transparent),
+        radial-gradient(1px 1px at 28% 66%, #fff 60%, transparent),
+        radial-gradient(1.5px 1.5px at 44% 32%, #dfe9ff 60%, transparent),
+        radial-gradient(1px 1px at 61% 12%, #fff 60%, transparent),
+        radial-gradient(2px 2px at 73% 48%, #ffe9a6 60%, transparent),
+        radial-gradient(1px 1px at 84% 22%, #fff 60%, transparent),
+        radial-gradient(1.5px 1.5px at 92% 72%, #fff 60%, transparent),
+        radial-gradient(1px 1px at 8% 84%, #dfe9ff 60%, transparent),
+        radial-gradient(1.5px 1.5px at 52% 88%, #fff 60%, transparent),
+        radial-gradient(1px 1px at 36% 8%, #fff 60%, transparent);
+      opacity: 0.45;
+    }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 8px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-weight: 800;
+      text-decoration: none;
+      z-index: 10;
+    }
+    .skip:focus { left: var(--gutter); }
+
+    /* ---------- top bar ---------- */
+    .top { padding: 18px 0; }
+
+    .bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px 20px;
+      flex-wrap: wrap;
+    }
+
+    .home {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-family: "Fredoka", "Nunito", system-ui, sans-serif;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    .home .disc {
+      width: 42px;
+      height: 42px;
+      flex: none;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 30%, #7dbbe9, var(--blue-deep) 65%, #2f6aab);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35), inset 0 3px 8px rgba(255, 255, 255, 0.18);
+      display: grid;
+      place-items: center;
+    }
+
+    .home .disc svg { width: 28px; height: 28px; }
+
+    .top nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px 20px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .top nav a { color: var(--muted); text-decoration: none; }
+    .top nav a:hover { color: var(--ink); text-decoration: underline; }
+    .top nav a[aria-current="page"] { color: var(--accent); }
+
+    /* ---------- page ---------- */
+    .page-head {
+      text-align: center;
+      max-width: 60ch;
+      margin: 24px auto 32px;
+    }
+
+    .eyebrow {
+      display: inline-block;
+      padding: 6px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 213, 79, 0.45);
+      background: rgba(255, 213, 79, 0.10);
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 0.8rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .page-head h1 {
+      font-size: clamp(2.3rem, 7vw, 3.6rem);
+      margin: 16px 0 12px;
+      background: linear-gradient(180deg, #ffffff 0%, #cfe3ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .page-head p { color: var(--muted); font-size: 1.05rem; }
+
+    .doc {
+      max-width: var(--measure);
+      margin: 0 auto;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      background: var(--card);
+      border: 1px solid var(--line);
+      padding: 26px 26px 24px;
+    }
+
+    .summary {
+      border-color: rgba(255, 213, 79, 0.35);
+      background:
+        radial-gradient(500px 220px at 0% 0%, rgba(255, 213, 79, 0.10), transparent 70%),
+        var(--card);
+      margin-bottom: 36px;
+    }
+
+    .summary h2 { font-size: 1.4rem; margin-bottom: 14px; color: var(--accent); }
+
+    .doc .checks {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: grid;
+      gap: 10px;
+    }
+
+    .checks li {
+      position: relative;
+      padding-left: 32px;
+    }
+
+    .checks li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 3px;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--blue-deep));
+    }
+
+    .checks li::after {
+      content: "";
+      position: absolute;
+      left: 7px;
+      top: 8px;
+      width: 8px;
+      height: 5px;
+      border-left: 2.5px solid #fff;
+      border-bottom: 2.5px solid #fff;
+      transform: rotate(-45deg);
+    }
+
+    .doc section { margin: 0 0 34px; }
+    .doc section:last-child { margin-bottom: 0; }
+
+    .doc h2 {
+      font-size: clamp(1.4rem, 4vw, 1.7rem);
+      margin-bottom: 12px;
+    }
+
+    .doc h3 {
+      font-size: 1.15rem;
+      margin: 20px 0 6px;
+    }
+
+    .doc p + p, .doc p + ul, .doc ul + p { margin-top: 12px; }
+
+    .doc section > p, .doc section > ul { color: #dde4fa; }
+
+    .doc ul { padding-left: 22px; margin: 0; }
+    .doc ul li + li { margin-top: 6px; }
+
+    .doc a { color: var(--accent); font-weight: 700; text-underline-offset: 2px; overflow-wrap: anywhere; }
+    .doc a:hover { color: #ffe58a; }
+
+    .doc strong { color: var(--ink); }
+
+    .note { color: var(--muted); font-size: 0.95rem; }
+
+    main { padding-bottom: 24px; }
+
+    /* ---------- footer (as index.html) ---------- */
+    footer {
+      margin-top: 56px;
+      padding: 44px 0 36px;
+      border-top: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.25);
+    }
+
+    .foot {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px 32px;
+    }
+
+    .foot .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .foot .brand a { display: inline-block; opacity: 0.95; transition: opacity 0.2s; }
+    .foot .brand a:hover { opacity: 1; }
+
+    .foot .brand img {
+      height: 26px;
+      width: auto;
+      filter: brightness(0) invert(1);
+    }
+
+    .foot .brand span {
+      color: var(--faint);
+      font-size: 0.92rem;
+      padding-left: 16px;
+      border-left: 1px solid var(--line);
+    }
+
+    .foot nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 22px;
+      font-weight: 700;
+      font-size: 0.95rem;
+    }
+
+    .foot nav a { color: var(--muted); text-decoration: none; }
+    .foot nav a:hover { color: var(--ink); text-decoration: underline; }
+
+    .copy {
+      margin-top: 22px;
+      color: var(--faint);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 760px) {
+      .foot { flex-direction: column; align-items: flex-start; }
+      .card { padding: 22px 18px 20px; }
+    }
+
+    @media (max-width: 460px) {
+      .top nav { width: 100%; }
+      .foot .brand { flex-wrap: wrap; }
+      .foot .brand span { padding-left: 0; border-left: 0; }
+    }
+
+    /* Windows high contrast and other forced colours: the gradient title as plain text */
+    @media (forced-colors: active) {
+      .page-head h1 { background: none; color: CanvasText; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to the statement</a>
+  <div class="sky" aria-hidden="true"></div>
+
+  <header class="top">
+    <div class="wrap bar">
+      <a class="home" href="/">
+        <span class="disc" aria-hidden="true">
+          <svg viewBox="22 36 64 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M33 60 L33 54 A21 21 0 0 1 75 54 L75 60" stroke="#fff" stroke-width="6" stroke-linecap="round"/>
+            <rect x="24" y="58" width="16" height="20" rx="3" fill="#fff"/>
+            <rect x="68" y="58" width="16" height="20" rx="3" fill="#fff"/>
+            <g stroke="#ffd54f" stroke-width="4" stroke-linecap="round">
+              <path d="M48 63 L48 73"/>
+              <path d="M54 59 L54 77"/>
+              <path d="M60 63 L60 73"/>
+            </g>
+          </svg>
+        </span>
+        Epic Audio Games
+      </a>
+      <nav aria-label="Site">
+        <a href="/#games">Games</a>
+        <a href="/support">Support</a>
+        <a href="/privacy">Privacy</a>
+        <a href="/accessibility" aria-current="page">Accessibility</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <div class="wrap">
+      <div class="page-head">
+        <span class="eyebrow">Updated 10 October 2026</span>
+        <h1>Accessibility</h1>
+        <p>Epic Audio Games is made for blind and partially sighted players first, and for everyone else as well.</p>
+      </div>
+
+      <div class="doc">
+        <div class="card summary">
+          <h2>The short version</h2>
+          <ul class="checks">
+            <li>Every question can be answered by speaking, typing or tapping.</li>
+            <li>Every word the games say is shown on screen as it's spoken.</li>
+            <li>High contrast, bigger text, voice speed and spoken help are in Settings, and the apps follow your phone's own settings too.</li>
+            <li>The apps work on tablets and with a keyboard, and our watch apps buzz when the microphone opens.</li>
+            <li>We're still testing the apps with VoiceOver and TalkBack on real phones. Tell us about anything that gets in your way.</li>
+            <li>The app's usage data never includes anything about accessibility.</li>
+          </ul>
+        </div>
+
+        <section aria-labelledby="aim">
+          <h2 id="aim">What we aim for</h2>
+          <p>
+            We design the apps for blind and partially sighted players first. We follow Apple's and Google's
+            accessibility guidelines, and we use the Web Content Accessibility Guidelines (WCAG) 2.2 as our
+            yardstick: text with a contrast of at least 7:1, at least 3:1 for everything else that carries meaning,
+            text that grows with your settings, nothing shown by colour alone, and nothing that moves when you've
+            asked for less motion.
+          </p>
+        </section>
+
+        <section aria-labelledby="apps">
+          <h2 id="apps">In the apps</h2>
+
+          <h3>Playing with your voice</h3>
+          <ul>
+            <li>The game speaks, and you answer. Say your answer, type it, or tap one of the options: every question takes all three.</li>
+            <li>A short sound and a small vibration tell you when the microphone starts listening, and another sound when it stops. The app never says "listening" out loud, so nothing it says is heard as your answer.</li>
+            <li>Time to answer, in Settings, gives you 6, 10 or 15 seconds before the game asks again.</li>
+            <li>One button always does the next thing. Tap the picture, press your headphones' button or Space on a keyboard, or press the big button of our watch app, to skip the voice, talk, stop listening or carry on. On iPhone and iPad, Magic Tap does the same.</li>
+            <li>You can lock your phone, or turn its screen off, and keep playing: the game goes on talking and listening, and its controls are on the lock screen.</li>
+          </ul>
+
+          <h3>Reading along</h3>
+          <ul>
+            <li>Every line is shown on screen as it's spoken, with the word being spoken highlighted. You can turn the highlight off, and choose whether each line appears all at once or word by word.</li>
+            <li>Text is set in Atkinson Hyperlegible Next, a typeface the Braille Institute designed for readers with low vision, or in your phone's own font if you prefer.</li>
+            <li>Text follows your phone's text size and bold text settings, and Settings can make it larger still.</li>
+            <li>Light, Dark and High contrast (black, white and yellow) themes, or match your phone, including its increased contrast setting. All text has a contrast of at least 7:1.</li>
+            <li>Nothing relies on colour alone: every state has words and an icon too.</li>
+          </ul>
+
+          <h3>Listening your way</h3>
+          <ul>
+            <li>Voice speed from 0.75 to 2 times, with a sample to try it.</li>
+            <li>Music volume, from off to full, with a sample of each step. A few scenes have their music mixed into the voices, and those stay as they are.</li>
+            <li>Help is spoken as well as written: every help topic has a Listen button.</li>
+          </ul>
+
+          <h3>Tablets and Chromebooks</h3>
+          <ul>
+            <li>The same apps run on iPad, and on Android tablets, foldables and Chromebooks, in any orientation and at any window size, split screen included.</li>
+            <li>On a wide screen the tabs move to the side or the top, the games sit side by side, a game shows its words beside the picture and the answers, and Help shows its topics beside the one you're reading. Text keeps to a comfortable reading width, and a screen reader goes through a game in the same order as on a phone.</li>
+          </ul>
+
+          <h3>Keyboards</h3>
+          <ul>
+            <li>Everything can be reached with Tab and the arrow keys, and whatever has the focus has a clear ring around it.</li>
+            <li>Space taps the picture, unless you're in the answer box. Return or Enter sends your answer, Escape pauses the game or closes a sheet, and Control with 1 to 4 switches between the tabs (Command with 1 to 4 on an iPad).</li>
+            <li>A mouse or trackpad can do everything a finger can.</li>
+          </ul>
+
+          <!-- Our watch apps: ios/EpicWatch (docs/WATCH.md) and android/wear (docs/WEAR_OS.md). Leave the lines about
+               them out of a release that ships without them, as the app's own "Using a watch" help does. -->
+          <h3>Watches</h3>
+          <ul>
+            <li>Your watch's own controls work without our watch app: Now Playing on an Apple Watch, and the media controls on a Wear OS watch, show the game. Pause stops the voice or the listening, and play carries on, or starts listening when it's your turn.</li>
+            <li>Our watch apps, for Apple Watch and Wear OS, do more. They show the game's title and what it's doing in words, with one big button that does what tapping the picture does, and Pause.</li>
+            <li>The watch buzzes when the microphone opens, and differently when it stops, so you know when to answer even if you can't hear the sound.</li>
+            <li>The watch apps work with VoiceOver and TalkBack on the watch and follow its text size, and all their text has a contrast of at least 7:1. Your phone still plays the game and does the listening.</li>
+          </ul>
+
+          <h3>Everything else</h3>
+          <ul>
+            <li>Reduce motion follows your phone's setting, or can be turned on in the app.</li>
+            <li>Every button is named by the words you see on it, so you can press it by saying them with Voice Control or Voice Access.</li>
+            <li>The games are inside the app and play offline. Packs download once.</li>
+            <li>There are no ads, and nothing is timed except how long a game waits for your answer, which you can change.</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="screen-readers">
+          <h2 id="screen-readers">Screen readers</h2>
+          <p>
+            The apps are built to work with VoiceOver on iPhone and iPad and TalkBack on Android. Every screen has
+            headings, every button has a name, and nothing the game says out loud is read out a second time.
+          </p>
+          <p>
+            With a screen reader on, the microphone doesn't open by itself, so your screen reader isn't heard as your
+            answer. You open it when you're ready: with the mic button, by tapping the picture, or with your
+            headphones' button. If you'd rather it opened by itself, change <strong>Open the microphone by
+            itself</strong> in Settings, under Microphone.
+          </p>
+          <h3>VoiceOver on iPhone and iPad</h3>
+          <p>
+            Magic Tap (a two-finger double tap anywhere) skips the voice, starts or stops listening, or carries on,
+            whichever comes next. Escape (a two-finger scrub) closes a sheet or leaves a game.
+          </p>
+          <h3>TalkBack on Android</h3>
+          <p>
+            Double tap the picture or the mic button to talk. TalkBack's two-finger double tap, its play and pause
+            gesture, should do the same as tapping the picture, but we're still testing it on real phones.
+          </p>
+        </section>
+
+        <section aria-labelledby="limits">
+          <h2 id="limits">Known limitations</h2>
+          <ul>
+            <li>We're still testing the apps on real phones, tablets and watches with VoiceOver, TalkBack, Voice Control, Voice Access, Switch Control and keyboards. Until that's done, we don't claim full support for them in the app stores.</li>
+            <li>TalkBack's two-finger double tap may not reach the game on every phone yet.</li>
+            <li>The watch apps are remotes. Watches can't recognise speech for apps, so your phone plays the game and does the listening, and the watch has to be able to reach it.</li>
+            <li>Speech recognition is your phone's own, Apple's or Google's. Some phones need a connection for it, or English downloaded for offline use. Typing and tapping always work.</li>
+            <li>The apps and the games are in English only.</li>
+            <li>Some scenes have their music mixed into the voices, so the music volume setting can't change them.</li>
+          </ul>
+        </section>
+
+        <section aria-labelledby="website">
+          <h2 id="website">This website</h2>
+          <p>
+            This website aims to meet WCAG 2.2 at level AA. Its pages have headings and landmarks, a link to skip
+            to the content, link text that says where it goes, text with a contrast of at least 7:1 and a visible
+            keyboard focus, and no animation when you've asked your device for less motion. It reflows when you zoom
+            in, and it has no cookies, ads or analytics.
+          </p>
+        </section>
+
+        <section aria-labelledby="usage-data">
+          <h2 id="usage-data">Your usage data</h2>
+          <p>
+            The app's usage data never includes anything about accessibility: not whether a screen reader is on, not
+            your theme, text size, font, motion, voice speed, music volume, time to answer or microphone setting, and
+            not which help topics you read. <a href="/privacy#usage-data">The privacy policy's usage data
+            section</a> lists everything it does include, and how to turn it off.
+          </p>
+        </section>
+
+        <section aria-labelledby="contact">
+          <h2 id="contact">Tell us what gets in your way</h2>
+          <p>
+            If something in the apps or on this website doesn't work for you, or you'd like to help us test, email
+            <a href="mailto:james@hugo.fm?subject=Accessibility%20-%20Epic%20Audio%20Games">james@hugo.fm</a>. Tell
+            us which phone you have, any assistive technology you use, and what happened. We read every email.
+          </p>
+        </section>
+
+        <section aria-labelledby="about">
+          <h2 id="about">About this statement</h2>
+          <p>
+            We wrote this statement on 9 October 2026 and updated it on 10 October 2026, before the apps' release.
+            We'll review it after testing with screen readers on real phones, and whenever the apps change.
+          </p>
+          <p class="note">For help with playing, see <a href="/support">Support</a>.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <div class="foot">
+        <div class="brand">
+          <a href="https://hugo.fm/" aria-label="Hugo FM"><img src="/hugo-fm.png" alt="Hugo FM" width="1186" height="216"></a>
+          <span>Epic Audio Games is made by Hugo FM</span>
+        </div>
+        <nav aria-label="Legal">
+          <a href="/privacy">Privacy Policy</a>
+          <a href="/support">Support</a>
+          <a href="/accessibility">Accessibility</a>
+          <a href="https://hugo.fm/">hugo.fm</a>
+          <a href="https://hugo.fm/privacy">Hugo FM Privacy</a>
+          <a href="https://hugo.fm/terms">Terms</a>
+        </nav>
+      </div>
+      <p class="copy">&copy; 2026 Hugo FM. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>

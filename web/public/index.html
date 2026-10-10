@@ -7,16 +7,20 @@
   <meta name="description" content="Talk your way through audio adventures. Listen, answer out loud, and play! Eight voice games you play with your headphones on. Coming soon to iOS and Android.">
   <meta name="theme-color" content="#0b1430">
   <link rel="canonical" href="https://epicaudiogames.com/">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Epic Audio Games">
   <meta property="og:title" content="Epic Audio Games">
   <meta property="og:description" content="Talk your way through audio adventures. Listen, answer out loud, and play! Coming soon to iOS and Android.">
   <meta property="og:url" content="https://epicaudiogames.com/">
-  <meta property="og:image" content="https://epicaudiogames.com/og.png">
+  <meta property="og:image" content="https://epicaudiogames.com/og-v2.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Epic Audio Games: audio story games you play by voice.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:alt" content="Epic Audio Games: audio story games you play by voice.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
@@ -37,7 +41,7 @@
       --bg-3: #1e3a8a;
       --ink: #f6f8ff;
       --muted: #b9c5ea;
-      --faint: #7f8db8;
+      --faint: #a9b5da;
       --accent: #ffd54f;
       --accent-ink: #2a1f00;
       --blue: #5fa3d6;
@@ -83,12 +87,29 @@
 
     img { display: block; max-width: 100%; }
 
+    /* the apps' keyboard focus ring: 3px, gold */
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
     .wrap {
       width: 100%;
       max-width: 1120px;
       margin: 0 auto;
       padding: 0 var(--gutter);
     }
+
+    .skip {
+      position: absolute;
+      left: -9999px;
+      top: 8px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      background: var(--accent);
+      color: var(--accent-ink);
+      font-weight: 800;
+      text-decoration: none;
+      z-index: 10;
+    }
+    .skip:focus { left: var(--gutter); }
 
     /* ---------- stars ---------- */
     .sky {
@@ -172,10 +193,11 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .mark .ring, .mark .disc, .mark .wave { animation: none; }
+      .mark .ring, .mark .disc, .mark .wave, .eyebrow .dot { animation: none; }
       .mark .ring { opacity: 0.35; transform: scale(1.2); }
       .mark .ring:nth-child(2) { transform: scale(1.4); opacity: 0.2; }
       .mark .ring:nth-child(3) { display: none; }
+      .game, .game:hover { transition: none; transform: none; }
       html { scroll-behavior: auto; }
     }
 
@@ -425,7 +447,8 @@
     }
 
     .soon h2 { font-size: clamp(2rem, 6vw, 3rem); margin-bottom: 12px; }
-    .soon p { color: var(--muted); max-width: 48ch; margin: 0 auto; }
+    /* lighter than --muted: the card's lighter navy and gold glow left --muted at 6.95:1, under the 7:1 every text has */
+    .soon p { color: #dde4fa; max-width: 48ch; margin: 0 auto; }
     .soon .stores { margin-top: 28px; }
 
     /* ---------- footer ---------- */
@@ -505,9 +528,15 @@
       .foot .brand { flex-wrap: wrap; }
       .foot .brand span { padding-left: 0; border-left: 0; }
     }
+
+    /* Windows high contrast and other forced colours: the gradient title as plain text */
+    @media (forced-colors: active) {
+      .hero h1 { background: none; color: CanvasText; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip" href="#main">Skip to the main content</a>
   <div class="sky" aria-hidden="true"></div>
 
   <header class="hero">
@@ -560,7 +589,7 @@
     </div>
   </header>
 
-  <main>
+  <main id="main">
     <section id="how" aria-labelledby="how-title">
       <div class="wrap">
         <div class="section-head">
@@ -677,7 +706,7 @@
         <div class="soon">
           <h2 id="soon-title">Coming soon to iOS and Android</h2>
           <p>Epic Audio Games is on its way to the App Store and Google Play. Check back here, or follow Hugo FM, for the launch.</p>
-          <div class="stores" aria-label="Where to get it">
+          <div class="stores" role="group" aria-label="Where to get it">
             <span class="store" role="img" aria-label="App Store, coming soon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M11 18h2"/></svg>
               <span><small>Coming soon</small><strong>App Store</strong></span>
@@ -702,6 +731,7 @@
         <nav aria-label="Legal">
           <a href="/privacy">Privacy Policy</a>
           <a href="/support">Support</a>
+          <a href="/accessibility">Accessibility</a>
           <a href="https://hugo.fm/">hugo.fm</a>
           <a href="https://hugo.fm/privacy">Hugo FM Privacy</a>
           <a href="https://hugo.fm/terms">Terms</a>

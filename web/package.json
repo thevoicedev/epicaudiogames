@@ -2,11 +2,15 @@
   "name": "epicaudiogames-web",
   "version": "1.0.0",
   "private": true,
-  "description": "The epicaudiogames.com website: a static page served by server.js",
+  "description": "The epicaudiogames.com website (public/, served by server.js) and the apps' usage-data endpoints",
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "node --test test/"
   },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.23.1"
   }
 }

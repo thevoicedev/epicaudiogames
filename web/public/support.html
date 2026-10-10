@@ -4,31 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Support - Epic Audio Games</title>
-  <meta name="description" content="Help with Epic Audio Games: how to play, speaking your answers, packs and purchases, saves and accessibility. Email james@hugo.fm for anything else.">
+  <meta name="description" content="Help with Epic Audio Games: how to play, speaking your answers, packs and purchases, saves, tablets, keyboards and watches, VoiceOver and TalkBack, and usage data. Email james@hugo.fm for anything else.">
   <meta name="theme-color" content="#0b1430">
   <link rel="canonical" href="https://epicaudiogames.com/support">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Epic Audio Games">
   <meta property="og:title" content="Support - Epic Audio Games">
-  <meta property="og:description" content="How to play, speaking your answers, packs and purchases, saves and accessibility.">
+  <meta property="og:description" content="How to play, speaking your answers, packs and purchases, saves, tablets, keyboards and watches, accessibility and usage data.">
   <meta property="og:url" content="https://epicaudiogames.com/support">
-  <meta property="og:image" content="https://epicaudiogames.com/og.png">
+  <meta property="og:image" content="https://epicaudiogames.com/og-v2.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Epic Audio Games: audio story games you play by voice.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:alt" content="Epic Audio Games: audio story games you play by voice.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
-    /* The same tokens and footer as index.html; the page parts below are shared with support.html. */
+    /* The same tokens and footer as index.html; the page parts below are shared with privacy.html and accessibility.html. */
     :root {
       --bg: #0b1430;
       --bg-2: #16275e;
       --bg-3: #1e3a8a;
       --ink: #f6f8ff;
       --muted: #b9c5ea;
-      --faint: #7f8db8;
+      --faint: #a9b5da;
       --accent: #ffd54f;
       --accent-ink: #2a1f00;
       --blue: #5fa3d6;
@@ -69,6 +73,9 @@
     p { margin: 0; }
     a { color: inherit; }
     img { display: block; max-width: 100%; }
+
+    /* the apps' keyboard focus ring: 3px, gold */
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
     .wrap {
       width: 100%;
@@ -416,6 +423,11 @@
       td:nth-child(2), td:nth-child(3) { white-space: nowrap; }
       td small { white-space: normal; }
     }
+
+    /* Windows high contrast and other forced colours: the gradient title as plain text */
+    @media (forced-colors: active) {
+      .page-head h1 { background: none; color: CanvasText; }
+    }
   </style>
 </head>
 <body>
@@ -443,6 +455,7 @@
         <a href="/#games">Games</a>
         <a href="/support" aria-current="page">Support</a>
         <a href="/privacy">Privacy</a>
+        <a href="/accessibility">Accessibility</a>
       </nav>
     </div>
   </header>
@@ -459,17 +472,19 @@
         <div class="card contact">
           <div>
             <h2>Email us</h2>
-            <p>Tell us your phone model, which game, and what happened. We read every email.</p>
+            <p>Tell us your phone or tablet model, which game, and what happened. We read every email.</p>
           </div>
           <a class="button" href="mailto:james@hugo.fm?subject=Epic%20Audio%20Games">james@hugo.fm</a>
         </div>
 
         <nav class="toc" aria-label="On this page">
           <a href="#playing">Playing</a>
-          <a href="#speaking">Speaking</a>
-          <a href="#packs">Packs</a>
+          <a href="#speaking">Speaking your answers</a>
+          <a href="#packs">Packs and purchases</a>
           <a href="#saves">Saves</a>
+          <a href="#devices">Tablets, keyboards and watches</a>
           <a href="#access">Accessibility</a>
+          <a href="#privacy">Privacy and usage data</a>
         </nav>
 
         <section aria-labelledby="playing">
@@ -477,16 +492,24 @@
 
           <h3>How do I play?</h3>
           <p>
-            Put on your headphones and tap a game. The game talks, and every word appears in the chat as it's spoken.
-            When it asks you something, the mic opens by itself. Say your answer, type it, or tap one of the options
-            at the end of the chat. You can answer while the voice is still talking. Tap the big circle to skip the
-            voice.
+            Put on your headphones and tap a game. The game talks, and every word appears on screen as it's spoken.
+            When it's your turn, say your answer, type it, or tap one of the options under the story. A short rising
+            sound means the microphone is listening; if you don't hear it, tap the mic button, or the picture, to
+            talk. You can answer while the voice is still talking. Tap the picture to skip the voice.
           </p>
 
           <h3>The game paused by itself.</h3>
           <p>
             If nobody answers, the question plays again. After a second silence, or if you say "stop", the game
-            pauses. Tap to carry on.
+            pauses. Tap <strong>Carry on</strong> to pick up where it stopped. If you'd like longer to answer, choose
+            <strong>Longer</strong> or <strong>Longest</strong> under <strong>Time to answer</strong> in Settings.
+          </p>
+
+          <h3>Can I play with the screen off?</h3>
+          <p>
+            Yes. Lock your iPhone, or turn your Android phone's screen off, and the game goes on talking and
+            listening. Your headphones' button does what tapping the picture does, and the game's controls are on
+            the lock screen (on Android, in its notification).
           </p>
 
           <h3>How do I start a game again?</h3>
@@ -517,11 +540,12 @@
             </li>
           </ul>
           <p>
-            Wait for the circle to ring before you speak. In a noisy place, headphones with a mic help. You can also
-            tap the mic button to listen again.
+            Wait for the short rising sound, or the ring around the picture, before you speak. In a noisy place,
+            headphones with a mic help. You can also tap the mic button to listen again. Settings, under Microphone,
+            shows whether the app is allowed to use the microphone, with a button to put it right.
           </p>
 
-          <h3>The mic button is grey, with a line through it.</h3>
+          <h3>The mic button has a line through it.</h3>
           <p>
             Either the app isn't allowed to use the microphone (see above), or your phone's speech recognition isn't
             available to it. Your phone's own speech recognition does the listening. On iPhone, it needs a connection if your iPhone
@@ -533,7 +557,8 @@
           <h3>Is my voice recorded?</h3>
           <p>
             No. What you say is turned into words by Apple's or Google's speech recognition, used to answer the game,
-            and never sent to us. The <a href="/privacy">privacy policy</a> has the details.
+            and never sent to us, not even in the usage data. The <a href="/privacy">privacy policy</a> has the
+            details.
           </p>
         </section>
 
@@ -558,14 +583,17 @@
 
           <h3>How do I buy a pack?</h3>
           <p>
-            Tap the yellow pill on a game's card in the game list. You can also open a game's menu and tap
-            <strong>More stories and levels</strong>, or wait for the end of the free part, which offers the pack.
-            The pack downloads straight after you buy it.
+            Open the <strong>Shop</strong> tab, along the bottom of the screen on a phone, or at the side or the
+            top on a tablet. Each game with a pack has its own section: tap the <strong>Buy</strong> button under
+            the pack, which shows its price. You can also tap
+            <strong>Get</strong> on a game's card in the Games tab, open a game's menu and tap <strong>More stories
+            and levels</strong>, or wait for the end of the free part, which offers the pack. The pack downloads
+            straight after you buy it.
           </p>
 
           <h3>I bought a pack, but it isn't there.</h3>
           <p>
-            Open a game's store (the yellow pill) and tap <strong>Restore purchases</strong>. Use the same Apple
+            Open the <strong>Shop</strong> tab and tap <strong>Restore purchases</strong>. Use the same Apple
             Account or Google account you bought it with. The app also checks by itself each time it starts. On
             iPhone, packs work with Family Sharing.
           </p>
@@ -573,8 +601,8 @@
           <h3>The download stopped or failed.</h3>
           <p>
             Check your connection and your free space: a pack needs room to download and unpack. Then tap
-            <strong>Download</strong> in the game's store to try again. On iPhone, a download the app starts by
-            itself waits for Wi-Fi. Tap <strong>Download now</strong> to use mobile data instead.
+            <strong>Download</strong> under the pack in the Shop tab to try again. On iPhone, a download the app
+            starts by itself waits for Wi-Fi. Tap <strong>Download now</strong> to use mobile data instead.
           </p>
 
           <h3>Can I get a refund?</h3>
@@ -591,8 +619,8 @@
           <h3>Where is my progress?</h3>
           <p>
             On your phone. Each game saves your place at every question. Games you left part-way show
-            <strong>Continue</strong> on the game list, and the game picks up with "Welcome back!". Deleting the app
-            deletes your saves.
+            <strong>In progress</strong> and <strong>Carry on</strong> in the Games tab, and the game picks up with
+            "Welcome back!". Deleting the app deletes your saves.
           </p>
 
           <h3>I've got a new phone.</h3>
@@ -602,15 +630,108 @@
           </p>
         </section>
 
+        <section aria-labelledby="devices">
+          <h2 id="devices">Tablets, keyboards and watches</h2>
+
+          <h3>Can I play on a tablet?</h3>
+          <p>
+            Yes. The same app runs on iPad, and on Android tablets, foldables and Chromebooks, in any orientation.
+            On a wide screen the tabs are at the side or the top, and a game shows its words beside the picture. To
+            get your packs there, tap <strong>Restore purchases</strong> in the Shop tab, using the same Apple
+            Account or Google account. Saves stay on the device they were made on.
+          </p>
+
+          <h3>Can I use a keyboard?</h3>
+          <p>
+            Yes. Press Space to tap the picture, unless you're in the answer box. Return or Enter sends your answer,
+            Escape pauses the game or closes a sheet, and Control with 1 to 4 switches between the tabs (Command
+            with 1 to 4 on an iPad). Tab and the arrow keys move around the screen, with a ring around whatever has
+            the focus.
+          </p>
+
+          <!-- Our watch apps: ios/EpicWatch (docs/WATCH.md) and android/wear (docs/WEAR_OS.md). Leave the lines about
+               them out of a release that ships without them, as the app's own "Using a watch" help does. -->
+          <h3>Can I use my watch?</h3>
+          <p>
+            Yes. Now Playing on an Apple Watch, and the media controls on a Wear OS watch, show the game. Press
+            pause to stop the voice or the listening, and play to carry on, or to start listening when it's your
+            turn.
+          </p>
+          <p>
+            Our watch app does more. It shows what the game is doing, its big button does what tapping the picture
+            does (skip, talk, stop listening or carry on), and it buzzes when the microphone opens, so you know when
+            to answer even if you can't hear the sound. To add it to an Apple Watch, open the Watch app on your
+            iPhone; on a Wear OS watch, open the Play Store on the watch. Your phone still does the talking and
+            listening.
+          </p>
+
+          <h3>The watch says it can't reach my phone.</h3>
+          <p>
+            Keep your phone close, with Bluetooth on, and try again. If the watch says to open a game, open one on
+            your phone: the watch app controls the game that's open there.
+          </p>
+        </section>
+
         <section aria-labelledby="access">
           <h2 id="access">Accessibility</h2>
           <p>
-            Every line the games speak is also shown as text, and every question can be answered by typing or tapping
-            instead of speaking.
+            Epic Audio Games is made for blind and partially sighted players first. Every line the games speak is
+            also shown as text, and every question can be answered by speaking, typing or tapping. The
+            <a href="/accessibility">accessibility statement</a> lists everything the apps do, and what we're still
+            testing.
           </p>
+
+          <h3>Using VoiceOver on iPhone and iPad</h3>
           <p>
-            If you use VoiceOver on iPhone: with VoiceOver on, the mic doesn't open by itself. Use Magic Tap (a
-            two-finger double-tap) to skip the voice, start listening, or carry on.
+            With VoiceOver on, the microphone doesn't open by itself, so VoiceOver isn't heard as your answer. Use
+            Magic Tap (a two-finger double tap anywhere) to skip the voice, start talking, stop listening, or carry
+            on, whichever comes next. Your headphones' play button does the same. A short sound plays when the
+            microphone starts listening.
+          </p>
+
+          <h3>Using TalkBack on Android</h3>
+          <p>
+            With TalkBack on, the microphone doesn't open by itself either. Double tap the picture or the mic button
+            to talk, or press your headphones' play button. TalkBack's two-finger double tap, its play and pause
+            gesture, should do the same as tapping the picture, but we're still testing it on real phones: if it
+            doesn't work for you, please tell us.
+          </p>
+
+          <h3>Text size, colours and voice speed</h3>
+          <p>
+            Settings has a High contrast theme, bigger text, voice speed from 0.75 to 2 times, more time to answer,
+            and the option to have the microphone open by itself even with a screen reader on. The apps also follow
+            your phone's text size, dark mode, bold text and reduce motion settings, and every help topic can be
+            read to you.
+          </p>
+        </section>
+
+        <section aria-labelledby="privacy">
+          <h2 id="privacy">Privacy and usage data</h2>
+
+          <h3>What does the app send you?</h3>
+          <p>
+            Usage data: which tabs and games are opened, how far stories get, and whether packs are bought and
+            downloaded, under a random ID the app makes. Never your name or email, never your voice or what you say
+            or type, and nothing about accessibility settings or whether you use a screen reader. The privacy
+            policy's <a href="/privacy#usage-data">usage data section</a> lists every event.
+          </p>
+
+          <h3>How do I turn it off?</h3>
+          <p>
+            Open <strong>Settings</strong>, then <strong>Privacy</strong>, and turn off <strong>Share usage
+            data</strong>. The app stops sending, deletes what it hadn't sent yet, and forgets its random ID. That
+            doesn't delete what it sent before: to delete that too, tap <strong>Delete my usage data</strong> first.
+            You can also tap <strong>Turn off</strong> on the welcome page the first time you open the app, before
+            anything has been sent.
+          </p>
+
+          <h3>How do I delete my usage data?</h3>
+          <p>
+            In <strong>Settings</strong>, <strong>Privacy</strong>, tap <strong>Delete my usage data</strong>. It
+            deletes everything we hold under the app's random ID, and the app starts again with a new one. The ID is
+            the only way we can find your usage data, so once you've deleted the app, or turned usage data off, we
+            can't tell which records were yours; they're deleted after 13 months anyway.
           </p>
         </section>
 
@@ -635,6 +756,7 @@
         <nav aria-label="Legal">
           <a href="/privacy">Privacy Policy</a>
           <a href="/support">Support</a>
+          <a href="/accessibility">Accessibility</a>
           <a href="https://hugo.fm/">hugo.fm</a>
           <a href="https://hugo.fm/privacy">Hugo FM Privacy</a>
           <a href="https://hugo.fm/terms">Terms</a>

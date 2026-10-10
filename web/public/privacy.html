@@ -4,31 +4,35 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Privacy Policy - Epic Audio Games</title>
-  <meta name="description" content="How Epic Audio Games handles your information: no account, no ads, no tracking. Your saves stay on your device, and what you say is never sent to us.">
+  <meta name="description" content="How Epic Audio Games handles your information: no account and no ads. The app sends usage data under a random ID, which you can turn off and delete. Your saves stay on your device, and what you say is never sent to us.">
   <meta name="theme-color" content="#0b1430">
   <link rel="canonical" href="https://epicaudiogames.com/privacy">
-  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Epic Audio Games">
   <meta property="og:title" content="Privacy Policy - Epic Audio Games">
-  <meta property="og:description" content="No account, no ads, no tracking. Your saves stay on your device, and what you say is never sent to us.">
+  <meta property="og:description" content="No account and no ads. Usage data under a random ID, which you can turn off and delete. What you say is never sent to us.">
   <meta property="og:url" content="https://epicaudiogames.com/privacy">
-  <meta property="og:image" content="https://epicaudiogames.com/og.png">
+  <meta property="og:image" content="https://epicaudiogames.com/og-v2.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Epic Audio Games: audio story games you play by voice.">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image:alt" content="Epic Audio Games: audio story games you play by voice.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:ital,wght@0,400;0,700;0,800;1,400&display=swap" rel="stylesheet">
   <style>
-    /* The same tokens and footer as index.html; the page parts below are shared with support.html. */
+    /* The same tokens and footer as index.html; the page parts below are shared with support.html and accessibility.html. */
     :root {
       --bg: #0b1430;
       --bg-2: #16275e;
       --bg-3: #1e3a8a;
       --ink: #f6f8ff;
       --muted: #b9c5ea;
-      --faint: #7f8db8;
+      --faint: #a9b5da;
       --accent: #ffd54f;
       --accent-ink: #2a1f00;
       --blue: #5fa3d6;
@@ -69,6 +73,9 @@
     p { margin: 0; }
     a { color: inherit; }
     img { display: block; max-width: 100%; }
+
+    /* the apps' keyboard focus ring: 3px, gold */
+    :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
     .wrap {
       width: 100%;
@@ -339,6 +346,11 @@
       .foot .brand { flex-wrap: wrap; }
       .foot .brand span { padding-left: 0; border-left: 0; }
     }
+
+    /* Windows high contrast and other forced colours: the gradient title as plain text */
+    @media (forced-colors: active) {
+      .page-head h1 { background: none; color: CanvasText; }
+    }
   </style>
 </head>
 <body>
@@ -366,6 +378,7 @@
         <a href="/#games">Games</a>
         <a href="/support">Support</a>
         <a href="/privacy" aria-current="page">Privacy</a>
+        <a href="/accessibility">Accessibility</a>
       </nav>
     </div>
   </header>
@@ -373,7 +386,9 @@
   <main id="main">
     <div class="wrap">
       <div class="page-head">
-        <span class="eyebrow">Effective 7 October 2026</span>
+        <!-- The day this version, with usage data, went live (with privacy's lastmod in sitemap.xml). It has to be
+             live before any app build that sends usage data reaches testers. -->
+        <span class="eyebrow">Effective 10 October 2026</span>
         <h1>Privacy Policy</h1>
         <p>How the Epic Audio Games app and this website handle your information.</p>
       </div>
@@ -382,19 +397,21 @@
         <div class="card summary">
           <h2>The short version</h2>
           <ul class="checks">
-            <li>No account, no ads, and no analytics or tracking in the app.</li>
+            <li>No account and no ads. The app sends us usage data under a random ID, which you can turn off and delete in Settings.</li>
+            <li>Usage data never includes what you say or type, or anything about accessibility.</li>
             <li>Your saves stay on your device.</li>
             <li>What you say is turned into words by Apple's or Google's speech recognition, just to answer the game. It is never sent to us.</li>
             <li>Purchases go through the App Store or Google Play. We never see your payment details.</li>
-            <li>When you download a pack, our server keeps standard logs, like any web server, for a short time.</li>
+            <li>When you download a pack, the servers keep standard logs, like any web server, for a short time.</li>
           </ul>
         </div>
 
         <section aria-labelledby="who">
           <h2 id="who">Who we are</h2>
           <p>
-            Epic Audio Games, the app for iPhone and Android and this website, is made by Hugo.FM Games Limited, a
-            company registered in England and Wales (company number 14615936), trading as Hugo FM. Our registered
+            Epic Audio Games, the app for iPhone, iPad and Android, its watch apps and this website, is made by
+            Hugo.FM Games Limited, a company registered in England and Wales (company number 14615936), trading as
+            Hugo FM. Our registered
             office is 55 Station Road, Manningtree, Essex, CO11 1EB, United Kingdom. In this policy, "we" and "us"
             mean Hugo.FM Games Limited, which is the controller of the personal information described here. If you
             have a question about your privacy, email <a href="mailto:james@hugo.fm">james@hugo.fm</a>.
@@ -406,23 +423,137 @@
           <ul>
             <li>We don't ask you to make an account or sign in.</li>
             <li>We don't show ads.</li>
-            <li>The app contains no analytics, crash-reporting or tracking code, and we don't track you across other apps or websites. If you've allowed it in your device's settings, Apple or Google may share anonymous crash reports and usage statistics with us.</li>
-            <li>We don't sell or share personal information.</li>
-            <li>The app has no chat or messaging with other people and no way to post anything. It has no web views: its Help and Privacy policy links open these pages in your browser.</li>
+            <li>The app contains no third-party analytics, advertising, crash-reporting or tracking code, and we don't track you across other apps or websites. Its own usage data, described below, comes only to us. If you've allowed it in your device's settings, Apple or Google may also give us crash reports and statistics about the app, which don't tell us who you are.</li>
+            <li>We never sell or share usage data, or any other personal information.</li>
+            <li>The app has no chat or messaging with other people and no way to post anything. It has no web views: its links to this website open in your browser.</li>
           </ul>
+        </section>
+
+        <!-- The details and events below are the whitelist, web/analytics/events.json: data-field names the common
+             fields each line describes and data-event an event, which web/test/pages.test.js checks against it. A
+             field or an event added there needs its line here. -->
+        <section aria-labelledby="usage-data">
+          <h2 id="usage-data">Usage data</h2>
+          <p>
+            To see how the games are played, and to keep the app working, the app sends us usage data: short records
+            of things that happen in it, such as "a game was opened" or "a chapter was finished". It's on unless you
+            turn it off, and it never says who you are.
+          </p>
+
+          <h3>The random ID</h3>
+          <p>
+            The first time you open the app, it makes a random ID, a string of letters and numbers that means nothing
+            on its own, and sends it with each record, so we can tell which records came from the same installation.
+            It isn't your name, email or phone number, or an ID of your device or of your Apple or Google account.
+            It's kept in the app's own storage and left out of your device's backups, so deleting the app deletes it
+            and installing the app again starts with a new one. Turning usage data off forgets it.
+          </p>
+          <p>
+            Because the records under one ID belong together, this data is pseudonymous: we can't tell who you are
+            from it, but we treat it as personal information all the same. If we add sign-in to the app later, we'll
+            update this policy before any usage data is linked to an account.
+          </p>
+
+          <h3>What each record says</h3>
+          <p>Every record has the event's name and these details:</p>
+          <ul>
+            <li data-field="install_id">The random ID.</li>
+            <li data-field="session_id seq">A session ID, a new random ID each time you open the app or after it's been in the background for 30 minutes, and a number counting the records in that session.</li>
+            <li data-field="ts">The date and time on your device.</li>
+            <li data-field="app_version build">The app's version and build number.</li>
+            <li data-field="platform os_version">Whether it's the app for iPhone and iPad or the Android app, and the version of the device's system, such as iOS 26 or Android 16.</li>
+            <li data-field="form_factor">The kind of device it's on: a phone, a tablet, a computer or a watch. Only that, never its make or model.</li>
+            <li data-field="lang">Your device's language setting.</li>
+          </ul>
+          <p>These are the events, each with only the details listed:</p>
+          <ul>
+            <li data-event="app_open"><strong>App opened:</strong> whether it was a fresh start, and whether it was the first time.</li>
+            <li data-event="app_background"><strong>App put away:</strong> how many seconds it had been open.</li>
+            <li data-event="intro_finished"><strong>Intro finished:</strong> whether it was skipped.</li>
+            <li data-event="onboarding_finished"><strong>Welcome finished:</strong> whether its steps were completed or skipped.</li>
+            <li data-event="mic_permission"><strong>Microphone answered:</strong> whether you allowed it, and where it was asked: in the welcome, in a game or in Settings.</li>
+            <li data-event="tab_view"><strong>Tab opened:</strong> Games, Shop, Help or Settings.</li>
+            <li data-event="help_viewed"><strong>Help opened:</strong> from the Help tab, a game or the welcome. Not which topic.</li>
+            <li data-event="game_open"><strong>Game opened:</strong> which game, and whether it carried on from where you left it.</li>
+            <li data-event="game_end"><strong>Game reached an end:</strong> which game, the kind of end (a chapter's end, game over or the end) and the point in the story.</li>
+            <li data-event="chapter_next"><strong>Next chapter started:</strong> which game, and which chapter.</li>
+            <li data-event="locked_end"><strong>Free part finished:</strong> which game, and which pack carries on the story.</li>
+            <li data-event="game_restart"><strong>Game started again:</strong> which game.</li>
+            <li data-event="game_leave"><strong>Game left:</strong> which game, the point in the story, how many turns and seconds it was played for, how many answers were spoken, typed and tapped (the numbers only, never the answers), and how many questions went unanswered.</li>
+            <li data-event="game_error"><strong>Game went wrong:</strong> which game, and the point in the story.</li>
+            <li data-event="shop_view"><strong>Shop opened:</strong> from the Shop tab, a game's card, a game's menu or the end of a free part.</li>
+            <li data-event="purchase_start"><strong>Purchase started:</strong> which pack.</li>
+            <li data-event="purchase_result"><strong>Purchase finished:</strong> which pack, and whether it was bought, is waiting for approval, was cancelled, failed or was already yours.</li>
+            <li data-event="restore"><strong>Purchases restored:</strong> whether any were found, and how many.</li>
+            <li data-event="pack_download"><strong>Pack downloaded:</strong> which pack, whether it installed, how long it took and how big it was.</li>
+          </ul>
+
+          <h3>What it never includes</h3>
+          <ul>
+            <li>Anything you say or type, the words of the stories, or any audio.</li>
+            <li>Whether you use a screen reader, or any accessibility or comfort setting: theme, text size, font, reduce motion, voice speed, music volume, time to answer or the microphone setting.</li>
+            <li>Which help topics you read.</li>
+            <li>Whether you use a watch, or anything that passes between your phone and your watch.</li>
+            <li>Your name, email or phone number, your device's model, advertising IDs, or where you are.</li>
+            <li>Your IP address (see below).</li>
+          </ul>
+
+          <h3>Turning it off, and deleting it</h3>
+          <p>
+            Usage data is on unless you turn it off. The first time you open the app, its welcome page says so, with
+            a <strong>Turn off</strong> button, and the app sends nothing until you've finished or skipped the
+            welcome. You can turn it off, or on again, at any time in the app's Settings, under Privacy, with
+            <strong>Share usage data</strong>. Turning it off stops the app sending anything, deletes the records it
+            hadn't sent yet, and forgets its random ID. It doesn't delete what was sent before: to delete that too,
+            use <strong>Delete my usage data</strong> first.
+          </p>
+          <p>
+            <strong>Delete my usage data</strong>, in the same place, deletes everything we hold under your app's
+            random ID, and the app starts again with a new one. The random ID is the only way we can find your usage
+            data, so once the app has been deleted, or has forgotten its ID because usage data was turned off, we
+            can't tell which records were yours; they're deleted after 13 months, like all the rest.
+          </p>
+
+          <h3>Where it goes, and for how long</h3>
+          <p>
+            The app sends usage data over an encrypted connection to our server at epicaudiogames.com, through
+            Cloudflare, which sits in front of our website. Records it can't send straight away, without a
+            connection for example, wait in the app for up to 7 days. Our server keeps usage data in a database that
+            Railway hosts for us in the United States (Virginia). We delete each record 13 months after we receive
+            it. We never sell or share usage data, and we don't use it for advertising.
+          </p>
+          <p>
+            Our server uses the IP address a record comes from only for a moment, in memory, to stop anyone sending
+            too much at once. It doesn't store it, and it isn't part of the usage data. Like any web service, though,
+            Cloudflare and Railway keep standard request logs, which include IP addresses, for a short time, to run
+            the service and keep it secure.
+          </p>
+
+          <h3>Why we use it, and our legal basis</h3>
+          <p>
+            We use usage data to improve the games and keep the app working: to see which games and screens people
+            use, where stories get stuck or players stop, whether purchases and downloads work, and whether people
+            come back. Our legal basis is our legitimate interests in doing that. We think it's a fair balance with
+            your privacy, because the data doesn't say who you are, never includes what you say or anything about
+            accessibility, isn't used for advertising or shared with anyone, is deleted after 13 months, and is easy
+            to turn off and delete.
+          </p>
         </section>
 
         <section aria-labelledby="mic">
           <h2 id="mic">The microphone and speech recognition</h2>
           <p>
             You can answer each question by speaking, typing or tapping. Speaking needs the microphone and your
-            device's speech recognition. The first time you open a game, the app asks for the microphone (and, on
-            iPhone, for speech recognition). You can say no, or turn it off later in your device's settings, and
+            device's speech recognition. The app asks before it uses them: in its welcome steps, when you first open
+            a game, or from its Settings. You can say no, or turn them off later in your device's settings, and
             still play every game by typing and tapping.
           </p>
           <p>
-            The microphone is only on while a game is open and listening for your answer. The circle on screen rings
-            while it listens.
+            The microphone is only on while a game is open and listening for your answer, which can carry on with the
+            screen off or the phone locked if you leave a game playing. A short sound plays when it starts listening
+            (unless you turn the listening sounds off in Settings), the ring around the picture on screen shows that
+            it's listening, and our watch app, if you use it, buzzes. Pausing or leaving the game turns the
+            microphone off.
           </p>
           <h3>On iPhone</h3>
           <p>
@@ -440,8 +571,26 @@
           <h3>What the app does with your words</h3>
           <p>
             The app uses the words only to work out your answer to the question it asked. It doesn't record or keep
-            your voice. What you said shows in the chat while you play, but it isn't saved, and neither your voice
-            nor your words are ever sent to us.
+            your voice. What you said shows on screen while you play, but it isn't saved, and neither your voice nor
+            your words are ever sent to us or made part of the usage data.
+          </p>
+        </section>
+
+        <!-- The watch apps: ios/EpicWatch (docs/WATCH.md) and android/wear (docs/WEAR_OS.md). What passes between
+             phone and watch is WatchBridge.swift's and WearBridge.kt's state and commands. -->
+        <section aria-labelledby="watches">
+          <h2 id="watches">Watches</h2>
+          <p>
+            Our watch apps, for Apple Watch and for Wear OS, are remotes for the game on your phone. While a game is
+            open, your phone tells the watch the game's title, what it's doing in a few words (such as "Your turn")
+            and the name of its big button, and the watch tells your phone which button you pressed. That's all
+            that passes between them, and none of it is about you. It goes between your own phone and watch through
+            Apple's or Google's watch connection, which may pass it through their servers, encrypted, when the two
+            aren't close to each other.
+          </p>
+          <p>
+            The watch apps keep nothing, send nothing to us and have no usage data of their own, and the phone's
+            usage data doesn't say whether you use a watch.
           </p>
         </section>
 
@@ -450,9 +599,9 @@
           <p>
             The app saves your place in each game at every question, so you can carry on later. A save holds where
             you are in the story and the game's own scores and choices, not what you said. Saves, and any packs you
-            download, are kept on your device. They don't come to us, though your saves may be included in your
-            device's own backups (such as iCloud or Google backups) if you have those turned on. Deleting the app
-            deletes them.
+            download, are kept on your device. They don't come to us, though your saves and the app's settings may be
+            included in your device's own backups (such as iCloud or Google backups) if you have those turned on.
+            Deleting the app deletes them.
           </p>
         </section>
 
@@ -470,20 +619,22 @@
         <section aria-labelledby="downloads">
           <h2 id="downloads">Downloading packs</h2>
           <p>
-            After you buy a pack, the app downloads it from our pack server. The request names the pack file and
-            nothing else about you. Like any web server, ours sees the IP address the request comes from, the time,
-            the file asked for and basic technical details, such as the kind of software making the request. Our
-            hosting provider keeps these standard server logs for a short time, to run the service and keep it
-            secure. We don't use them to identify you or to build a profile, and we don't sell or share them.
+            After you buy a pack, the app downloads it from our pack storage at packs.epicaudiogames.com, which
+            Cloudflare hosts for us. The request names the pack file and nothing else about you. Like any web server,
+            Cloudflare's servers see the IP address the request comes from, the time, the file asked for and basic
+            technical details, such as the kind of software making the request. Cloudflare keeps these standard logs
+            for a short time, to run the service and keep it secure. We don't use them to identify you or to build a
+            profile, and we don't sell or share them.
           </p>
         </section>
 
         <section aria-labelledby="site">
           <h2 id="site">This website</h2>
           <p>
-            epicaudiogames.com doesn't use cookies, analytics or ads. Its server keeps the same kind of short-lived
-            standard logs. The pages use fonts from Google Fonts, so your browser fetches them from Google's servers,
-            under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
+            epicaudiogames.com doesn't use cookies, analytics or ads. Railway hosts it and Cloudflare sits in front of
+            it, and both keep the same kind of short-lived standard logs. The pages use fonts from Google Fonts, so
+            your browser fetches them from Google's servers, under the
+            <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.
           </p>
         </section>
 
@@ -498,14 +649,16 @@
         <section aria-labelledby="basis">
           <h2 id="basis">Legal basis, and where it's processed</h2>
           <p>
-            Under UK and EU data protection law, our legal basis for the server logs and for answering your emails is
-            our legitimate interests: running the pack server and this website, keeping them secure, and helping you
-            when you ask.
+            Under UK and EU data protection law, our legal basis for usage data (see
+            <a href="#usage-data">the usage data section above</a>), for the server logs and for answering your
+            emails is our legitimate interests: improving the games and keeping the app working, running the pack
+            downloads and this website, keeping them secure, and helping you when you ask.
           </p>
           <p>
-            Our hosting and email providers may process this information outside the UK, for example in the European
-            Union or the United States. Where they do, they act for us under contracts with appropriate safeguards,
-            such as the UK's International Data Transfer Addendum or the EU's Standard Contractual Clauses.
+            Our hosting and email providers may process this information outside the UK: usage data is stored in the
+            United States, and Cloudflare handles requests in data centres around the world. They act for us under
+            contracts with appropriate safeguards, such as the UK's International Data Transfer Addendum or the EU's
+            Standard Contractual Clauses.
           </p>
         </section>
 
@@ -513,22 +666,26 @@
           <h2 id="children">Children</h2>
           <p>
             Epic Audio Games isn't made for children under 13, and we don't knowingly collect personal information
-            from children. The app doesn't collect personal information from anyone, children included.
+            from children. The app never asks anyone's name, age, email or anything else about who they are. Its
+            usage data is the same for every player and doesn't say who anyone is.
           </p>
           <p>
-            If you're a parent: you can turn the microphone off in your device's settings, and every game still works
-            by typing and tapping. Purchases go through Apple or Google, so their parental controls, such as Ask to
-            Buy and Family Link, apply. If you think a child has sent us personal information, for example by email,
-            tell us and we'll delete it.
+            If you're a parent: you can turn usage data off, or delete it, in the app's Settings, under Privacy. You
+            can turn the microphone off in your device's settings, and every game still works by typing and tapping.
+            Purchases go through Apple or Google, so their parental controls, such as Ask to Buy and Family Link,
+            apply. If you think a child has sent us personal information, for example by email, tell us and we'll
+            delete it.
           </p>
         </section>
 
         <section aria-labelledby="rights">
           <h2 id="rights">Your rights</h2>
           <p>
-            Because the app doesn't send us personal information, we usually hold nothing about you. Your saves are on
-            your device, and you control them. Wherever you live, you can ask us what we hold about you, such as an
-            email you sent, and ask us to correct or delete it. Email us to do so.
+            Your saves are on your device, and you control them. The usage data we hold is under a random ID rather
+            than your name, so the app is how you reach it: <strong>Delete my usage data</strong>, in Settings under
+            Privacy, deletes it, and turning off <strong>Share usage data</strong> stops it, which is also how to
+            object to it. Wherever you live, you can ask us what else we hold about you, such as an email you sent,
+            and ask us to correct or delete it. Email us to do so.
           </p>
           <p>
             If you're in the UK or the European Union, data protection law also gives you the right to object to how
@@ -569,6 +726,7 @@
         <nav aria-label="Legal">
           <a href="/privacy">Privacy Policy</a>
           <a href="/support">Support</a>
+          <a href="/accessibility">Accessibility</a>
           <a href="https://hugo.fm/">hugo.fm</a>
           <a href="https://hugo.fm/privacy">Hugo FM Privacy</a>
           <a href="https://hugo.fm/terms">Terms</a>
