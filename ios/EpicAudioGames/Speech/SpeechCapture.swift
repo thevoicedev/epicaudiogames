@@ -31,10 +31,12 @@ nonisolated final class SpeechCapture: @unchecked Sendable {
 
     /**
      * Starts listening with [recognizer] to [input] (started first if it isn't running: in the foreground it can be,
-     * in the background it throws), on the device when [onDevice]. [onEvent] is called on the main actor.
+     * in the background it throws), on the device when [onDevice], to what the mic records from host time [from] on
+     * (the gate: when the listening sound will have been heard out; nil, all of it). [onEvent] is called on the main
+     * actor.
      */
     init(
-        input: MicInput, recognizer: SFSpeechRecognizer, hints: [String], onDevice: Bool,
+        input: MicInput, recognizer: SFSpeechRecognizer, hints: [String], onDevice: Bool, from: UInt64? = nil,
         onEvent: @escaping @MainActor @Sendable (Event) -> Void
     ) throws {
         self.input = input
@@ -47,7 +49,7 @@ nonisolated final class SpeechCapture: @unchecked Sendable {
         @Sendable func send(_ event: Event) {
             DispatchQueue.main.async { MainActor.assumeIsolated { onEvent(event) } }
         }
-        input.feed(request) { send(.level($0)) }
+        input.feed(request, from: from) { send(.level($0)) }
         task = recognizer.recognitionTask(with: request) { result, error in
             if let result {
                 if result.isFinal {

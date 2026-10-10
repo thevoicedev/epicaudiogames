@@ -43,11 +43,26 @@ public protocol Listening: AnyObject, Sendable {
     /// Listens for one answer; [hints] are words the question expects ([ListenHints]).
     func start(hints: [String])
 
+    /**
+     * Listens for one answer, hearing nothing the mic recorded before [after]: when the listening sound will have been
+     * heard out (GameController plays it first, CuePlaying), so the recogniser never takes it for words. The time to
+     * answer starts there too. Nil: from now. Android's Listener starts its recogniser once the sound is over instead
+     * (ListenSequence.kt).
+     */
+    func start(hints: [String], after: ContinuousClock.Instant?)
+
     /// Stops listening, reporting nothing more.
     func stop()
 
     /// Lets go of the recogniser for good (the game closing).
     func release()
+}
+
+extension Listening {
+    /// A listener with no mic of its own to hold back (a script, a test, no recogniser at all) starts now.
+    public func start(hints: [String], after: ContinuousClock.Instant?) {
+        start(hints: hints)
+    }
 }
 
 /// The words an answer is likely to have, to help the recogniser: the question's buttons and its answers' phrases.

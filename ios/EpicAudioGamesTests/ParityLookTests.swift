@@ -1,4 +1,4 @@
-// ui/GameScreen.kt, ui/Theme.kt and Listener.kt's details as Compose draws them: wrapped text width, the material
+// ui/GameScreen.kt, ui/Components.kt and Listener.kt's details as Compose draws them: wrapped text width, the material
 // icons' shapes, the spinner, and the mic's level.
 
 import SwiftUI
@@ -15,32 +15,18 @@ struct ParityLookTests {
         UIHostingController(rootView: view).sizeThatFits(in: CGSize(width: width, height: .greatestFiniteMagnitude))
     }
 
-    /// A Compose Text that wraps takes its whole maximum width; one that fits on a line is as wide as its text.
+    /// A Compose Text that wraps takes its whole maximum width; one that fits on a line is as wide as its text. In the
+    /// transcript's font: Atkinson Hyperlegible Next at 20 pt.
     @Test func wrappedTextTakesTheWholeWidth() {
-        let text = Text(Self.long).font(Lilita.font(17))
+        let text = Text(Self.long).font(.custom(Atkinson.regular, fixedSize: 20))
         let plain = size(text.fixedSize(horizontal: false, vertical: true), width: 312)
         let wrapped = size(WrappedWidth { text }, width: 312)
         #expect(plain.width < 312, "the test text should leave a ragged edge: \(plain)")
         #expect(wrapped.width == 312)
         #expect(wrapped.height == plain.height)
-        let short = Text("Yes!").font(Lilita.font(17))
+        let short = Text("Yes!").font(.custom(Atkinson.regular, fixedSize: 20))
         #expect(size(WrappedWidth { short }, width: 312).width == size(short, width: 312).width)
         #expect(size(WrappedWidth { short }, width: 312).width < 60)
-    }
-
-    /// The status under the circle: two lines start at the left edge, as Compose's wrapped Text does; one line is
-    /// as wide as its text (and centred by the column).
-    @Test func outlinedTextTakesTheWholeWidthOnceItWraps() {
-        let label = OutlinedLabel()
-        label.configure(text: "“" + Self.long + "”", size: 18, fill: .white, outline: Palette.inkUI, maxLines: 2,
-                        scale: 3, category: .large)
-        #expect(label.fitting(width: 393).width == 393)
-        label.configure(text: "Your turn! Tap the mic to talk", size: 18, fill: .white, outline: Palette.inkUI,
-                        maxLines: 2, scale: 3, category: .large)
-        let one = label.fitting(width: 393)
-        #expect(one.width < 393)
-        #expect(one.width > 100)
-        #expect(label.fitting(width: 393).height == label.fitting(width: .greatestFiniteMagnitude).height)
     }
 
     /// The icons are Material's: their drawn bounds on the 24-unit grid (GameScreen.kt's sizes give the dp).
@@ -61,6 +47,21 @@ struct ParityLookTests {
         #expect(abs(off.minY - 2) < 0.01 && abs(off.maxY - 21) < 0.01)
         let back = bounds(.arrowBack)
         #expect(back == CGRect(x: 4, y: 4, width: 16, height: 16))
+        // The redesign's: circles from 2 to 22, and the squarer ones where Material puts them.
+        for circle in [MaterialIcon.checkCircle, .errorOutline, .schedule] {
+            let b = bounds(circle)
+            #expect(abs(b.minX - 2) < 0.02 && abs(b.maxX - 22) < 0.02)
+            #expect(abs(b.minY - 2) < 0.02 && abs(b.maxY - 22) < 0.02)
+        }
+        #expect(bounds(.stop) == CGRect(x: 6, y: 6, width: 12, height: 12))
+        #expect(bounds(.skipNext) == CGRect(x: 6, y: 6, width: 12, height: 12))
+        #expect(bounds(.add) == CGRect(x: 5, y: 5, width: 14, height: 14))
+        #expect(bounds(.hourglassEmpty) == CGRect(x: 6, y: 2, width: 12, height: 20))
+        #expect(abs(bounds(.download).minX - 5) < 0.01 && abs(bounds(.download).maxY - 20) < 0.01)
+        let arrow = bounds(.keyboardArrowRight)
+        #expect(abs(arrow.minX - 8.59) < 0.01 && abs(arrow.maxX - 16) < 0.01)
+        let micOff = bounds(.micOffOutlined)
+        #expect(abs(micOff.minX - 3) < 0.01 && abs(micOff.maxX - 21.16) < 0.01)
         // Scaled into its frame.
         let big = MaterialIcon.playArrow.path(in: CGRect(x: 0, y: 0, width: 64, height: 64)).boundingRect
         #expect(abs(big.width - 11 * 64 / 24) < 0.01 && abs(big.height - 14 * 64 / 24) < 0.01)

@@ -14,8 +14,8 @@ final class PlaythroughUITests: XCTestCase {
     }
 
     /// The Best Friend ending, which every random turn on the way leads to: yes, yes, "wait" (typed), yes four
-    /// times, no, then yes four times. Then the list (PLAY, not CONTINUE, after an end), a fresh game, a place
-    /// kept (CONTINUE, "Welcome back!"), and a pause.
+    /// times, no, then yes four times. Then the list (Play, not In progress, after an end), a fresh game, a place
+    /// kept (In progress and Carry on, "Welcome back!"), and a pause.
     @MainActor
     func testNoodleRushToAnEndingAndBack() throws {
         let app = Player.launch()
@@ -23,7 +23,7 @@ final class PlaythroughUITests: XCTestCase {
         app.open("noodle-rush")
         app.waitForLine("Noodle Rush!", timeout: 40)
         app.answer("yes", expecting: "Slurpy's Noodle Bar hums")
-        // Its first line runs for 4 s from 0.25 s: part of it is said, the rest paler.
+        // Its first line runs for 4 s from 0.25 s: part of it is said, the word being said highlighted.
         app.shot("noodle-rush-speaking", in: self)
         XCTAssertTrue(app.text("Tap the picture to skip").exists)
         app.skip()
@@ -58,17 +58,19 @@ final class PlaythroughUITests: XCTestCase {
 
         let end = app.element("end-panel")
         XCTAssertTrue(end.waitForExistence(timeout: 10), "no end panel")
-        XCTAssertTrue(end.text("THE END").exists)
+        XCTAssertEqual(app.element("end-heading").label, "The end")
         XCTAssertTrue(end.text("Best Friend Ending").exists)
-        XCTAssertTrue(end.buttons["PLAY AGAIN"].exists)
+        XCTAssertEqual(end.buttons["end-again"].label, "Play again")
         XCTAssertFalse(app.buttons["answer-yes"].exists, "chips at an end")
+        // At an end the picture is only a picture: nothing to tap, and VoiceOver passes it by.
+        XCTAssertFalse(app.element("talking-circle").exists, "the circle is a button at an end")
         app.shot("noodle-rush-end", in: self)
 
         // Back on the list, a game at its end isn't carried on (Library.kt's inProgress).
-        end.buttons["BACK TO GAMES"].tap()
+        end.buttons["end-back"].tap()
         let card = app.card("noodle-rush")
-        XCTAssertTrue(card.says("PLAY"))
-        XCTAssertFalse(card.says("CONTINUE"))
+        XCTAssertTrue(card.says("Play"))
+        XCTAssertFalse(card.says("In progress"))
 
         // Opening it again starts again: an ending isn't picked up (its keep variables would be kept, B002)...
         app.open("noodle-rush")
@@ -80,8 +82,8 @@ final class PlaythroughUITests: XCTestCase {
         // ...and leaving keeps the place, the question waiting.
         app.buttons["Back"].tap()
         let again = app.card("noodle-rush")
-        XCTAssertTrue(again.says("CONTINUE"))
-        XCTAssertTrue(again.says("CARRY ON"))
+        XCTAssertTrue(again.says("In progress"))
+        XCTAssertTrue(again.says("Carry on"))
         app.shot("home-continue", in: self)
 
         app.open("noodle-rush")
@@ -98,16 +100,20 @@ final class PlaythroughUITests: XCTestCase {
         XCTAssertTrue(paused.waitForExistence(timeout: 10), "no pause after stop")
         // fixed (B003): the keyboard stayed up over the pause after a typed stop.
         XCTAssertTrue(app.keyboards.firstMatch.waitForNonExistence(timeout: 5), "the keyboard stays up over the pause")
-        // The pause is VoiceOver's only place (it's modal): its carry on, and its back arrow.
-        XCTAssertTrue(app.buttons["Carry on"].exists)
+        // The pause is VoiceOver's only place (it's modal): its heading, Carry on, How to play and Leave game.
+        XCTAssertTrue(paused.descendants(matching: .any)["Paused"].exists, "no Paused heading")
+        XCTAssertEqual(app.buttons["paused-carry-on"].label, "Carry on")
+        XCTAssertEqual(app.buttons["paused-help"].label, "How to play")
+        XCTAssertEqual(app.buttons["paused-leave"].label, "Leave game")
         app.shot("noodle-rush-paused", in: self)
-        paused.tap()
-        XCTAssertTrue(paused.waitForNonExistence(timeout: 5))
+        // A tap anywhere but its buttons carries on too: here over the dimmed header.
+        app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.12)).tap()
+        XCTAssertTrue(paused.waitForNonExistence(timeout: 5), "a tap on the dimming doesn't carry on")
         XCTAssertTrue(app.text("Tap the picture to skip").waitForExistence(timeout: 10), "carrying on asks again")
         XCTAssertFalse(app.reply("stop").exists, "stop pauses: it isn't an answer")
         XCTAssertTrue(app.buttons["answer-yes"].waitForExistence(timeout: 10))
         app.buttons["Back"].tap()
-        XCTAssertTrue(app.card("noodle-rush").says("CONTINUE"))
+        XCTAssertTrue(app.card("noodle-rush").says("In progress"))
     }
 
     /**
@@ -137,7 +143,7 @@ final class PlaythroughUITests: XCTestCase {
     /// Playing by voice (the answers heard from a script, -EpicHear, in place of the mic): the game listens by itself
     /// after each question; a silence asks again; words show as they come and are answered; speech it couldn't make
     /// out is "…" and the question's else; a second silence pauses; "stop" pauses; the mic stops and starts
-    /// listening; and while paused, the back arrow still leaves (Android's system Back).
+    /// listening; and while paused, Leave game leaves, keeping the place (as Android's system Back does).
     @MainActor
     func testNoodleRushByVoice() throws {
         let app = Player.launch(hearing: "~|yes|?|~|stop")
@@ -162,13 +168,13 @@ final class PlaythroughUITests: XCTestCase {
         // Then a silence: the second running, so the game waits for a tap.
         let paused = app.element("paused")
         XCTAssertTrue(paused.waitForExistence(timeout: 10), "no pause after a second silence")
-        paused.tap()
+        app.buttons["paused-carry-on"].tap()
         XCTAssertTrue(app.text("Tap the picture to skip").waitForExistence(timeout: 10), "carrying on asks again")
         app.skip()
         // "stop", said: a pause, not an answer.
         XCTAssertTrue(paused.waitForExistence(timeout: 10), "saying stop doesn't pause")
         XCTAssertFalse(app.reply("stop").exists)
-        paused.tap()
+        app.buttons["paused-carry-on"].tap()
         app.skip()
         // The mic button stops listening, and starts it again.
         XCTAssertTrue(app.text("Listening…").waitForExistence(timeout: 10))
@@ -178,13 +184,12 @@ final class PlaythroughUITests: XCTestCase {
         XCTAssertTrue(app.text("Your turn! Tap the mic to talk").waitForExistence(timeout: 5))
         mic.tap()
         XCTAssertTrue(app.text("Listening…").waitForExistence(timeout: 5))
-        // Paused, the back arrow leaves the game.
+        // Paused, Leave game leaves the game, its place kept (the header's back arrow, under the dimming, takes no
+        // taps).
         app.type("stop")
         XCTAssertTrue(paused.waitForExistence(timeout: 10))
-        // The pause's own back arrow, where the header's is (the header's, under the dimming, takes no taps).
-        let backs = app.buttons.matching(NSPredicate(format: "label == 'Back'"))
-        backs.element(boundBy: backs.count - 1).tap()
-        XCTAssertTrue(app.card("noodle-rush").says("CONTINUE"))
+        app.buttons["paused-leave"].tap()
+        XCTAssertTrue(app.card("noodle-rush").says("In progress"))
     }
 
     /// GameScreen.kt's permission request: as a game opens, the mic is asked for (and on iOS speech recognition
@@ -216,6 +221,13 @@ final class PlaythroughUITests: XCTestCase {
         XCTAssertTrue(off.waitForExistence(timeout: 5), "the refused mic says nothing")
         XCTAssertTrue(off.buttons["Settings"].exists)
         app.shot("noodle-rush-mic-refused", in: self)
+        off.buttons["Not now"].tap()
+        // fixed: the picture, tapped with the mic refused, did nothing; it goes the mic button's way.
+        let circle = app.element("talking-circle")
+        XCTAssertEqual(circle.label, "Talk (the microphone is off)")
+        XCTAssertEqual(circle.value as? String, "Your turn")
+        circle.tap()
+        XCTAssertTrue(off.waitForExistence(timeout: 5), "the picture does nothing with the mic refused")
         off.buttons["Not now"].tap()
         app.buttons["Back"].tap()
 
@@ -270,7 +282,7 @@ final class PlaythroughUITests: XCTestCase {
         XCTAssertTrue(app.reply("Yes").exists)
         app.shot("nuclear-war-meetings", in: self)
         app.buttons["Back"].tap()
-        XCTAssertTrue(app.card("nuclear-war").says("CONTINUE"))
+        XCTAssertTrue(app.card("nuclear-war").says("In progress"))
 
         // The menu's "Start again": a new game, its settings kept (Don welcomes the player back).
         app.open("nuclear-war")
@@ -305,26 +317,30 @@ final class PlaythroughUITests: XCTestCase {
             XCTAssertFalse(app.alerts.firstMatch.exists, "\(game) went wrong")
             app.buttons["Back"].tap()
         }
-        XCTAssertTrue(app.text("EPIC AUDIO GAMES").waitForExistence(timeout: 10))
+        XCTAssertTrue(app.element("games-heading").waitForExistence(timeout: 10))
         XCTAssertFalse(app.alerts.firstMatch.exists)
     }
 
-    /// A game's packs, from its pill on the list.
+    /// A game's packs, from its "Get" button on the list.
     @MainActor
     func testTheStoreSheet() throws {
         let app = Player.launch()
-        let pill = app.buttons["packs-frootopia"]
-        XCTAssertTrue(pill.waitForExistence(timeout: 15))
-        XCTAssertEqual(pill.label, "+ STORIES 2 TO 5")
-        pill.tap()
+        let get = app.buttons["packs-frootopia"]
+        XCTAssertTrue(get.waitForExistence(timeout: 15))
+        // Named for VoiceOver with the game it's for; Voice Control still knows it by what it shows.
+        XCTAssertEqual(get.label, "Get Stories 2 to 5 for The Kingdom of Frootopia")
+        get.tap()
         let sheet = app.element("store-sheet")
         XCTAssertTrue(sheet.waitForExistence(timeout: 10), "no store sheet")
         // fixed (B021): it said "MORE THE KINGDOM OF FROOTOPIA".
-        XCTAssertTrue(sheet.text("MORE FROM THE KINGDOM OF FROOTOPIA").exists)
+        XCTAssertTrue(sheet.text("More from The Kingdom of Frootopia").exists)
         XCTAssertTrue(sheet.text("Stories 2 to 5").exists)
-        // The buy button: GET until the price is known (a spinner while it's asked for, L6), then the price.
-        let buy = sheet.buttons.matching(NSPredicate(format: "label == 'GET' OR label CONTAINS '1.99'")).firstMatch
-        XCTAssertTrue(buy.waitForExistence(timeout: 10), "no GET or price")
+        // The buy button: Get until the price is known (a spinner while it's asked for, L6), then "Buy for" the
+        // price; either way VoiceOver hears the game and the pack too.
+        let buy = sheet.buttons["buy-frootopia-stories"]
+        XCTAssertTrue(buy.waitForExistence(timeout: 10), "no buy button")
+        XCTAssertTrue(buy.label.hasPrefix("Get") || buy.label.hasPrefix("Buy for"), buy.label)
+        XCTAssertTrue(buy.label.contains("The Kingdom of Frootopia, Stories 2 to 5"), buy.label)
         sleep(1)    // the sheet's rise
         app.shot("store-sheet", in: self)
         // This build has no pack server: buying says so, and nothing is bought (L6).
@@ -333,17 +349,22 @@ final class PlaythroughUITests: XCTestCase {
         sheet.swipeDown(velocity: .fast)
         XCTAssertTrue(sheet.waitForNonExistence(timeout: 5))
 
-        // And from a game's menu.
+        // And from a game's menu; its Close button closes it.
         app.open("frootopia")
         app.buttons["More"].tap()
         let more = app.buttons["More stories and levels"]
         XCTAssertTrue(more.waitForExistence(timeout: 5))
         more.tap()
         XCTAssertTrue(sheet.waitForExistence(timeout: 10), "no store sheet from the menu")
-        XCTAssertTrue(sheet.text("MORE FROM THE KINGDOM OF FROOTOPIA").exists)
-        sheet.swipeDown(velocity: .fast)
+        XCTAssertTrue(sheet.text("More from The Kingdom of Frootopia").exists)
+        let close = sheet.buttons["store-close"]
+        XCTAssertTrue(close.exists, "no Close")
+        close.tap()
         XCTAssertTrue(sheet.waitForNonExistence(timeout: 5))
-        XCTAssertTrue(app.element("talking-circle").exists, "the game is still open")
+        // The game is still open, paused by the sheet (B043): only the pause is found (it's modal) until Carry on.
+        XCTAssertTrue(app.element("paused").waitForExistence(timeout: 5), "the game isn't open and paused")
+        app.buttons["paused-carry-on"].tap()
+        XCTAssertTrue(app.element("talking-circle").waitForExistence(timeout: 5), "the game is still open")
     }
 }
 
@@ -358,10 +379,14 @@ private enum Player {
         return app
     }
 
-    /// [mic]: the device's recogniser, asking for permission as on a phone.
+    /// [mic]: the device's recogniser, asking for permission as on a phone. Straight to Games: no intro, no onboarding,
+    /// and no usage data sent from a test (DebugLaunch).
     static func launch(_ app: XCUIApplication, hearing: String?, mic: Bool) {
         // No pack server, whatever the build has: buying says so and buys nothing (L6).
-        app.launchArguments = ["-EpicReset", "YES", "-EpicPacksURL", ""]
+        app.launchArguments = [
+            "-EpicReset", "YES", "-EpicPacksURL", "", "-EpicNoIntro", "YES", "-EpicSkipOnboarding", "YES",
+            "-EpicAnalytics", "off",
+        ]
         if let hearing {
             app.launchArguments += ["-EpicHear", hearing]
         } else if !mic {
@@ -369,7 +394,7 @@ private enum Player {
         }
         app.launch()
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 15))
-        XCTAssertTrue(app.text("EPIC AUDIO GAMES").waitForExistence(timeout: 15))
+        XCTAssertTrue(app.element("games-heading").waitForExistence(timeout: 15))
     }
 
 }
@@ -398,7 +423,7 @@ private final class Dialogs {
 
 @MainActor
 private extension XCUIElement {
-    /// The text showing [label] (a status, a heading, a pill).
+    /// The text showing [label] (a status, a heading, a title).
     func text(_ label: String) -> XCUIElement {
         staticTexts.matching(NSPredicate(format: "label == %@", label)).firstMatch
     }
@@ -413,11 +438,12 @@ private extension XCUIElement {
         return false
     }
 
-    /// A game card (one button) says [words] (a pill: PLAY, CONTINUE, CARRY ON), within a few seconds.
+    /// A game card (one button, read as sentences: "Noodle Rush. In progress. … Carry on.") says [words] as one of
+    /// its sentences ("In progress", "Play", "Carry on"), within a few seconds.
     func says(_ words: String) -> Bool {
         let deadline = Date().addingTimeInterval(5)
         repeat {
-            if label.components(separatedBy: ", ").contains(words) { return true }
+            if (" " + label).contains(" \(words).") { return true }
             Thread.sleep(forTimeInterval: 0.2)
         } while Date() < deadline
         return false
@@ -433,7 +459,7 @@ private extension XCUIApplication {
     /// A game's card on the list, scrolled to.
     func card(_ game: String) -> XCUIElement {
         let card = element("game-\(game)")
-        XCTAssertTrue(text("EPIC AUDIO GAMES").waitForExistence(timeout: 10), "not on the list")
+        XCTAssertTrue(element("games-heading").waitForExistence(timeout: 10), "not on the list")
         var swipes = 0
         while !(card.exists && card.isHittable) && swipes < 25 {
             swipeUp(velocity: .slow)

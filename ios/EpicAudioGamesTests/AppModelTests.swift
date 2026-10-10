@@ -1,5 +1,5 @@
-// MainActivity.kt's AppModel: the list's CONTINUE read again as it shows, packInstalled reopening a game (L14), the
-// store sheet and the background.
+// MainActivity.kt's AppModel: the list's In progress read again as it shows, packInstalled reopening a game (L14), the
+// store sheet, the tabs and the Shop, the background, the way in (the intro, onboarding) and Help, and the usage data.
 
 import EpicAppCore
 import Foundation
@@ -48,7 +48,7 @@ struct AppModelTests {
     }
 
     /// Android reads each game's save as the list is drawn: a game that reached its end elsewhere (here: the save
-    /// written behind the list's back) shows PLAY as soon as the list shows again, even under the loading overlay.
+    /// written behind the list's back) shows Play as soon as the list shows again, even under the loading overlay.
     @Test func theListReadsWhatCanBeCarriedOnEachTimeItShows() async throws {
         saves.store("noodle-rush", Saved(node: "nr-start", vars: [:], ended: false))
         let model = model()
@@ -75,6 +75,33 @@ struct AppModelTests {
         #expect(game.micAllowed == MicPermission.granted)
         model.home()
     }
+
+    #if DEBUG
+    /**
+     * The game opens the mic by itself as Settings › Microphone says: never, or always (with VoiceOver on too). The
+     * model gives the game MicPolicy's answer (MainActivity.kt's AppModel does the same with TalkBack).
+     */
+    @Test func theMicOpensByItselfAsTheSettingSays() async throws {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        for policy in [MicAuto.never, .always] {
+            let suite = "AppModelTests-\(UUID().uuidString)"
+            let defaults = try #require(UserDefaults(suiteName: suite))
+            defer { defaults.removePersistentDomain(forName: suite) }
+            let settings = AppSettings(defaults: defaults)
+            settings.micAuto = policy
+            // A script with nothing in it: the mic counts as allowed, and hears nothing.
+            let model = AppModel(saves: saves, packs: packs, hearing: .script([]), silent: true, startStore: false,
+                                 settings: settings)
+            model.open(try info(model, "noodle-rush"))
+            #expect(await until { model.game?.speaking == true })
+            let game = try #require(model.game)
+            #expect(game.micAllowed)
+            game.skip()
+            #expect(game.listening == (policy == .always), "\(policy)")
+            model.home()
+        }
+    }
+    #endif
 
     /// L14: Frootopia waiting at the chapter end its pack unlocks opens there again once the pack is in, NEXT CHAPTER
     /// showing: bought before that end (while it played) or at it (once the store sheet closes). From the list too.
@@ -147,6 +174,38 @@ struct AppModelTests {
         #expect(model.storeFor == nil)
         #expect(model.game === game)
         model.home()
+    }
+
+    /// The tabs: Games as the app starts, then the one picked; leaving the Shop, what the store said there goes (and
+    /// only then). MainActivity.kt's AppModel.select.
+    @Test func aTabPickedShowsAndLeavingTheShopClearsWhatItSaid() {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let model = model()
+        #expect(model.tab == .games)
+        model.select(.shop)
+        #expect(model.tab == .shop)
+        model.store.message = "The purchase didn't go through."
+        model.select(.settings)
+        #expect(model.tab == .settings)
+        #expect(model.store.message == nil, "the Shop's message stayed")
+        model.store.note = "Your purchases are restored."
+        model.select(.help)
+        #expect(model.store.note == "Your purchases are restored.", "left a tab that isn't the Shop")
+        model.select(.help)
+        #expect(model.tab == .help)
+    }
+
+    /// The Shop tab reads the purchases again as it shows (what the store said before goes), at most once a minute
+    /// however often it's shown (docs/DESIGN.md › Shop).
+    @Test func theShopReadsThePurchasesAtMostOnceAMinute() {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let model = model()
+        model.store.message = "Said before."
+        model.shopShown()
+        #expect(model.store.message == nil, "not read again")
+        model.store.message = "Said since."
+        model.shopShown()
+        #expect(model.store.message == "Said since.", "read again within the minute")
     }
 
     /// While a game loads, no store sheet opens over it.
@@ -222,11 +281,223 @@ struct AppModelTests {
         model.home()
     }
 
+    // ----- The way in (docs/DESIGN.md › Structure, › Intro, › Onboarding) and Help -----
+
+    /**
+     * The process's first model has the intro (Play the intro sound on), then onboarding (never finished), then Games,
+     * VoiceOver on its heading; another in the same process has no intro, and onboarding once finished isn't shown
+     * again. MainActivity.kt's AppModel (AppFlowTest has the rules).
+     */
+    @Test func theWayInIsTheIntroThenOnboardingThenGames() throws {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let (settings, forget) = try ownSettings(onboarded: false)
+        defer { forget() }
+        AppModel.launched = false
+        defer { AppModel.launched = true }
+        let model = model(settings)
+        #expect(model.intro)
+        #expect(model.onboarding)
+        model.skipIntro()
+        #expect(!model.intro)
+        #expect(model.onboarding)
+        #expect(!model.focusGames, "the Games heading took the focus under onboarding")
+        model.onboardingDone(completed: true)
+        #expect(!model.onboarding)
+        #expect(model.tab == .games)
+        #expect(model.focusGames)
+        #expect(settings.onboardingVersion == AppStart.onboardingVersion)
+        model.gamesFocused()
+        #expect(!model.focusGames)
+        let again = self.model(settings)
+        #expect(!again.intro)
+        #expect(!again.onboarding)
+    }
+
+    /// With no sting (no content, here), the intro ends by itself a while after it shows, Games taking the focus
+    /// (onboarding was finished before); asked again, it isn't started twice.
+    @Test func theIntroEndsByItselfWithoutASting() async throws {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let (settings, forget) = try ownSettings(onboarded: true)
+        defer { forget() }
+        AppModel.launched = false
+        defer { AppModel.launched = true }
+        let model = model(settings)
+        #expect(model.intro)
+        #expect(!model.onboarding)
+        model.startIntro()
+        model.startIntro()
+        try await Task.sleep(for: .seconds(1))
+        #expect(model.intro, "it ended before its time")
+        #expect(await until(.seconds(6)) { !model.intro })
+        #expect(model.focusGames)
+    }
+
+    /// "Show the welcome again" (Settings, Help): onboarding over that tab; skipped, back to it; finished, Games.
+    @Test func theWelcomeShownAgainGoesBackWhereItWasOpened() throws {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let (settings, forget) = try ownSettings(onboarded: true)
+        defer { forget() }
+        let model = model(settings)
+        #expect(!model.onboarding)
+        model.select(.settings)
+        model.showWelcome()
+        #expect(model.onboarding)
+        #expect(model.onboardingFrom == .settings)
+        model.onboardingDone(completed: false)
+        #expect(!model.onboarding)
+        #expect(model.onboardingFrom == nil)
+        #expect(model.tab == .settings)
+        #expect(!model.focusGames)
+        model.select(.help)
+        model.showWelcome()
+        model.onboardingDone(completed: true)
+        #expect(model.tab == .games)
+        #expect(model.focusGames)
+    }
+
+    /// Settings › How to play: the Help tab on playing with your voice, its heading to take the focus once; a topic
+    /// closed is the list again.
+    @Test func howToPlayInSettingsOpensHelpOnPlayingWithYourVoice() {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let model = model()
+        model.howToPlay()
+        #expect(model.tab == .help)
+        #expect(model.helpTopic == "voice")
+        #expect(model.focusHelpTopic)
+        model.helpTopicFocused()
+        #expect(!model.focusHelpTopic)
+        model.showTopic("typing")
+        #expect(model.helpTopic == "typing")
+        model.showTopic(nil)
+        #expect(model.helpTopic == nil)
+    }
+
+    /// A game's How to play: the help sheet on playing with your voice, over the game, which waits for it paused;
+    /// closed, the game stays paused (for Carry on); leaving the game, the sheet goes with it. MainActivity.kt's
+    /// openHelpSheet.
+    @Test func howToPlayInAGameIsTheHelpSheetOverItPaused() async throws {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let model = model()
+        model.open(try info(model, "noodle-rush"))
+        #expect(await until { model.game?.speaking == true })
+        let game = try #require(model.game)
+        model.openHelpSheet()
+        #expect(model.helpSheet)
+        #expect(model.helpSheetTopic == "voice")
+        #expect(game.paused)
+        model.showSheetTopic(nil)
+        #expect(model.helpSheetTopic == nil)
+        model.showSheetTopic("typing")
+        #expect(model.helpSheetTopic == "typing")
+        model.closeHelpSheet()
+        #expect(!model.helpSheet)
+        #expect(model.helpSheetTopic == nil)
+        #expect(game.paused, "closing the help sheet carried on")
+        model.openHelpSheet()
+        #expect(game.paused)
+        model.home()
+        #expect(!model.helpSheet)
+    }
+
+    // ----- Usage data (docs/DESIGN.md › Usage data) -----
+
+    /**
+     * What the app's model tells the usage data (MainActivity.kt's AppModel): the intro and onboarding, the tabs and
+     * the Shop (by where it was opened from), help (never which topic), the microphone's answers, and the game's own
+     * events through it; every one an event the whitelist takes. A test's own usage data: the app's (UsageData) sends
+     * nothing from the unit tests' host, and has nothing to delete.
+     */
+    @Test func theModelsEventsAreUsageData() async throws {
+        defer { try? FileManager.default.removeItem(at: scratch) }
+        let (settings, forget) = try ownSettings(onboarded: false)
+        defer { forget() }
+        AppModel.launched = false
+        defer { AppModel.launched = true }
+        let usage = RecordedUsage()
+        let model = AppModel(
+            saves: saves, packs: packs, hearing: AppModel.Hearing.none, silent: true, startStore: false,
+            settings: settings, analytics: usage)
+        #expect(model.analytics is RecordedUsage)
+        model.skipIntro()
+        model.onboardingMicAnswered(granted: false)
+        model.onboardingDone(completed: false)
+        model.select(.shop)
+        model.select(.help)
+        model.showTopic("typing")
+        model.showTopic(nil)
+        model.micAnswered(granted: true)
+        model.select(.games)
+        model.showStore(try info(model, "frootopia"), from: .card)
+        model.showStore(nil)
+        #expect(usage.take() == [
+            Events.introFinished(skipped: true),
+            Events.micPermission(granted: false, where: .onboarding),
+            Events.onboardingFinished(completed: false),
+            Events.tabView(.shop), Events.shopView(.tab),
+            Events.tabView(.help),
+            Events.helpViewed(.tab),
+            Events.micPermission(granted: true, where: .settings),
+            Events.tabView(.games),
+            Events.shopView(.card),
+        ])
+        // A game: its own events, and what the game's menu and help sheet open.
+        model.open(try info(model, "noodle-rush"))
+        #expect(await until { model.game?.speaking == true })
+        model.openHelpSheet()
+        model.closeHelpSheet()
+        model.showStore(try info(model, "noodle-rush"), from: .menu)
+        model.showStore(nil)
+        model.home()
+        let game = usage.take()
+        #expect(game.map(\.name) == ["game_open", "help_viewed", "shop_view", "game_leave"])
+        #expect(game.first == Events.gameOpen("noodle-rush", resumed: false))
+        #expect(game[1] == Events.helpViewed(.game))
+        #expect(game[2] == Events.shopView(.menu))
+        #expect(await model.deleteUsageData() == .nothingSent)
+    }
+
+    /// A model with these settings (the way in is decided by them), its saves and packs the suite's.
+    private func model(_ settings: AppSettings) -> AppModel {
+        AppModel(saves: saves, packs: packs, hearing: AppModel.Hearing.none, silent: true, startStore: false,
+                 settings: settings)
+    }
+
+    /// Settings of their own (a UserDefaults suite), onboarding finished or not; [forget] lets the suite go.
+    private func ownSettings(onboarded: Bool) throws -> (settings: AppSettings, forget: () -> Void) {
+        let suite = "AppModelTests-\(UUID().uuidString)"
+        let defaults = try #require(UserDefaults(suiteName: suite))
+        let settings = AppSettings(defaults: defaults)
+        if onboarded { settings.onboardingVersion = AppStart.onboardingVersion }
+        return (settings, { defaults.removePersistentDomain(forName: suite) })
+    }
+
     /// Answers fr-53 "no": Quick Ending (fr-55), the chapter end Frootopia's pack unlocks.
     private func reachTheLockedEnd(_ game: GameController) async throws {
         game.answer("no")
         game.skip()
         #expect(await until { game.end != nil })
         #expect(game.end?.kind == "chapter")
+    }
+}
+
+/// Usage data a test reads back: each event as the app told it, each checked against the whitelist as it's taken.
+final class RecordedUsage: Analytics, @unchecked Sendable {
+    private let lock = NSLock()
+    private var events: [Event] = []
+
+    func track(_ name: String, _ props: [String: any Sendable]) {
+        lock.lock()
+        defer { lock.unlock() }
+        events.append(Event(name: name, props: props))
+    }
+
+    /// The events since the last take.
+    func take() -> [Event] {
+        lock.lock()
+        let taken = events
+        events = []
+        lock.unlock()
+        for e in taken { #expect(Events.problem(e.name, e.props) == nil, "\(e)") }
+        return taken
     }
 }

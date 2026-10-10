@@ -14,6 +14,10 @@ import Speech
  *
  * Its mic (MicInput) stays on from when the game opens (or the mic is allowed) until the game closes, so that it can
  * listen with the phone locked; each answer is a new request and recognition task on it ([start]).
+ *
+ * The game plays the listening sound first and says when it will have been heard out ([start]'s after): the mic is
+ * heard from then on (MicInput's gate), and the time to answer counts from there (Settings › Time to answer, read at
+ * each listen: the Endpointer's 6, 10 or 15 seconds for the first word, and 1.2 or 2 for the words to stop).
  */
 final class SpeechListener: Listening {
     var events = ListenerEvents()
@@ -21,6 +25,8 @@ final class SpeechListener: Listening {
     let isAvailable: Bool
 
     private let recognizer: SFSpeechRecognizer?
+    /// The player's time to answer (Settings), read at each listen.
+    private let answerTime: () -> AnswerTime
     /// The mic, on while the game is open (a new one after the media services restart).
     private(set) var mic = MicInput()
     private var capture: SpeechCapture?
@@ -29,16 +35,18 @@ final class SpeechListener: Listening {
     /// Bumped by every start and stop: what the recogniser reports for a listen that's over is let go.
     private var session = 0
     private var onDevice = false
-    /// The listen's hints, for trying it again on the server.
+    /// The listen's hints, and when its mic is heard from, for trying it again on the server.
     private var hints: [String] = []
+    private var after: ContinuousClock.Instant?
     /// The device's recogniser turned out not to have the language (Listener.kt's offline): Apple's servers instead.
     private static var onDeviceFails = false
     /// The audio session was interrupted, or its route changed, while listening: the error that follows is dropped.
     private var interrupted = false
 
-    init(locale: Locale = SpeechListener.locale) {
+    init(locale: Locale = SpeechListener.locale, answerTime: @escaping () -> AnswerTime = { .normal }) {
         recognizer = SFSpeechRecognizer(locale: locale)
         isAvailable = recognizer != nil
+        self.answerTime = answerTime
     }
 
     /// The engine the mic listens through (AppModel tells its configuration changes apart).
@@ -54,11 +62,21 @@ final class SpeechListener: Listening {
     }
 
     func start(hints: [String]) {
+        start(hints: hints, after: nil)
+    }
+
+    /**
+     * Listens for one answer to what the mic records from [after] on (when the listening sound will have been heard
+     * out; nil, from now), with the time to answer counted from there. Listener.kt's start, which ListenSequence.kt
+     * runs once the sound is over.
+     */
+    func start(hints: [String], after: ContinuousClock.Instant?) {
         stop()
         session += 1
         let id = session
         interrupted = false
         self.hints = hints
+        self.after = after
         guard let recognizer, recognizer.isAvailable, SFSpeechRecognizer.authorizationStatus() == .authorized else {
             // No recogniser here now (Listener.kt's ERROR_LANGUAGE_UNAVAILABLE, ERROR_NETWORK): typing and buttons.
             SpeechCapture.log.info("no recogniser to listen with")
@@ -66,10 +84,12 @@ final class SpeechListener: Listening {
             return
         }
         onDevice = recognizer.supportsOnDeviceRecognition && !Self.onDeviceFails
+        // The gate on the mic's own clock (host time), worked out once.
+        let gate = after.map(Self.hostTime)
         do {
-            capture = try SpeechCapture(input: mic, recognizer: recognizer, hints: hints, onDevice: onDevice) {
-                [weak self] event in self?.received(event, id)
-            }
+            capture = try SpeechCapture(
+                input: mic, recognizer: recognizer, hints: hints, onDevice: onDevice, from: gate
+            ) { [weak self] event in self?.received(event, id) }
         } catch is MicInput.NoInput {
             SpeechCapture.log.info("no mic to listen with")
             later(id) { $0.events.unavailable() }
@@ -81,7 +101,8 @@ final class SpeechListener: Listening {
             later(id) { $0.events.trouble() }
             return
         }
-        endpointer = Endpointer(at: .now)
+        let time = answerTime()
+        endpointer = Endpointer(at: max(.now, after ?? .now), noSpeech: time.duration, settle: time.settle)
         ticker = Task { [weak self] in
             while !Task.isCancelled {
                 do { try await Task.sleep(for: .milliseconds(100)) } catch { return }
@@ -157,9 +178,10 @@ final class SpeechListener: Listening {
                 domain: domain, code: code, onDevice: onDevice, interrupted: interrupted, words: words)
             SpeechCapture.log.info("recogniser error \(domain, privacy: .public) \(code): \(String(describing: outcome))")
             if outcome == .unavailable && onDevice && domain == Endpointer.ErrorCode.localDomain {
-                // The device can't recognise the language after all: the same listen again, on the server.
+                // The device can't recognise the language after all: the same listen again, on the server, the mic
+                // still heard only from the gate (no listening sound again).
                 Self.onDeviceFails = true
-                start(hints: hints)
+                start(hints: hints, after: after)
                 return
             }
             // Dropped: the Endpointer still ends the listen (a silence, or the words heard).
@@ -201,6 +223,14 @@ final class SpeechListener: Listening {
         capture?.cancel()
         capture = nil
         endpointer = nil
+    }
+
+    /// [instant] on the mic's clock (the host time its buffers carry): now's host time, and how far off it is.
+    nonisolated static func hostTime(_ instant: ContinuousClock.Instant) -> UInt64 {
+        let wait = instant - .now
+        let seconds = Double(wait.components.seconds) + Double(wait.components.attoseconds) / 1e18
+        let now = mach_absolute_time()
+        return seconds > 0 ? now + AVAudioTime.hostTime(forSeconds: seconds) : now
     }
 
     /// Reported after start() returns, as the recogniser's errors are, unless listening has stopped by then.

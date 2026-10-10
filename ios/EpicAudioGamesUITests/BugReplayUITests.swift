@@ -16,27 +16,27 @@ final class BugReplayUITests: XCTestCase {
     /// The path through Signal Decoders' chapter 1 (the bug list's B001 steps).
     private static let chapterOne = "yes|C A C|no|no|4 2 2 1 1|follow"
 
-    /// B001 (B024, B084), B006: Signal Decoders' chapter 1 to its end. Left there, it comes back at the end with NEXT
-    /// CHAPTER (also after the app starts again), and NEXT CHAPTER plays chapter 2. The closing line stays in view.
+    /// B001 (B024, B084), B006: Signal Decoders' chapter 1 to its end. Left there, it comes back at the end with "Next
+    /// chapter" (also after the app starts again), and "Next chapter" plays chapter 2. The closing line stays in view.
     @MainActor
     func testB001AChapterEndComesBackWithNextChapter() throws {
         let p = Phone.launch(self, open: "signal-decoders", say: Self.chapterOne)
         let end = p.endPanel(timeout: 180)
-        XCTAssertTrue(end.text("CHAPTER COMPLETE!").exists)
+        XCTAssertEqual(p.element("end-heading").label, "Chapter complete")
         XCTAssertTrue(end.text("Chapter 1: The First Signal").exists)
-        XCTAssertTrue(end.buttons["NEXT CHAPTER"].exists)
+        XCTAssertEqual(end.buttons["end-next"].label, "Next chapter")
         let last = p.spoken("End of chapter one.")
         XCTAssertTrue(last.waitForExistence(timeout: 5), "B006: no closing line")
         XCTAssertTrue(last.isHittable, "B006: the closing line is out of view")
         XCTAssertLessThanOrEqual(last.frame.maxY, end.frame.minY + 1, "B006: the end panel covers the closing line")
         p.shot("B001-signal-decoders-chapter-end")
 
-        end.buttons["BACK TO GAMES"].tap()
+        end.buttons["end-back"].tap()
         p.note("B001 card after a chapter end: \(p.card("signal-decoders").label)")
         p.open("signal-decoders")
         let back = p.endPanel(timeout: 20)
         XCTAssertTrue(p.text("Welcome back!").exists, "B001: no Welcome back!")
-        XCTAssertTrue(back.buttons["NEXT CHAPTER"].exists, "B001: NEXT CHAPTER is gone")
+        XCTAssertTrue(back.buttons["end-next"].exists, "B001: Next chapter is gone")
         XCTAssertFalse(p.spoken("Chapter one. The First Signal.").exists, "B001: chapter 1 started again")
         p.shot("B001-signal-decoders-reopened")
 
@@ -45,8 +45,8 @@ final class BugReplayUITests: XCTestCase {
         let again = Phone.launch(self, reset: false)
         again.open("signal-decoders")
         let kept = again.endPanel(timeout: 20)
-        XCTAssertTrue(kept.buttons["NEXT CHAPTER"].exists, "B001: NEXT CHAPTER is gone after a relaunch")
-        kept.buttons["NEXT CHAPTER"].tap()
+        XCTAssertTrue(kept.buttons["end-next"].exists, "B001: Next chapter is gone after a relaunch")
+        kept.buttons["end-next"].tap()
         XCTAssertTrue(again.spoken("Chapter two. The Map in the Music.").waitForExistence(timeout: 30), "no chapter 2")
         XCTAssertTrue(again.text("Next chapter").exists)
         again.shot("B001-signal-decoders-chapter-two")
@@ -55,7 +55,7 @@ final class BugReplayUITests: XCTestCase {
     /**
      * Alien Customs: "I'm not sure" isn't a yes (B085), "okay" is (B093); level 1 won by its officer's questions;
      * left at its end it comes back there (B001); "no" at level 2's question leaves, keeping the level (B027, B083);
-     * deported and left at the game over, it opens at level 2 again (B002, B024, B084); TRY AGAIN retries level 2
+     * deported and left at the game over, it opens at level 2 again (B002, B024, B084); "Try again" retries level 2
      * (B087).
      */
     @MainActor
@@ -72,18 +72,18 @@ final class BugReplayUITests: XCTestCase {
         XCTAssertEqual(p.playCustoms(), .end)
         let won = p.endPanel()
         XCTAssertTrue(won.text("Level 1 cleared: Science experiment!").exists)
-        XCTAssertTrue(won.buttons["NEXT CHAPTER"].exists)
+        XCTAssertTrue(won.buttons["end-next"].exists)
         p.shot("alien-customs-level-1-cleared")
-        won.buttons["BACK TO GAMES"].tap()
+        won.buttons["end-back"].tap()
 
         p.open("alien-customs")
         let back = p.endPanel(timeout: 20)
         XCTAssertTrue(p.text("Welcome back!").exists, "B001: no Welcome back!")
         XCTAssertTrue(back.text("Level 1 cleared: Science experiment!").exists, "B001: not back at the end")
-        back.buttons["NEXT CHAPTER"].tap()
+        back.buttons["end-next"].tap()
         XCTAssertEqual(p.settle(), .ask)
         p.answer("no")
-        XCTAssertTrue(p.text("EPIC AUDIO GAMES").waitForExistence(timeout: 20), "no doesn't leave")
+        XCTAssertTrue(p.element("games-heading").waitForExistence(timeout: 20), "no doesn't leave")
         p.note("B027 card after a quit: \(p.card("alien-customs").label)")
         p.open("alien-customs")
         XCTAssertEqual(p.settle(), .ask)
@@ -93,10 +93,10 @@ final class BugReplayUITests: XCTestCase {
 
         XCTAssertEqual(p.playCustoms(wrong: true), .end)
         let over = p.endPanel()
-        XCTAssertTrue(over.text("GAME OVER").exists)
+        XCTAssertEqual(p.element("end-heading").label, "Game over")
         XCTAssertTrue(over.text("Deported!").exists)
         p.shot("alien-customs-deported")
-        over.buttons["BACK TO GAMES"].tap()
+        over.buttons["end-back"].tap()
         p.open("alien-customs")
         XCTAssertEqual(p.settle(), .ask)
         XCTAssertFalse(p.text("Welcome back!").exists)
@@ -104,10 +104,12 @@ final class BugReplayUITests: XCTestCase {
         XCTAssertTrue(p.secondLevelItem(), "B002/B084: the game over lost the level")
 
         XCTAssertEqual(p.playCustoms(wrong: true), .end)
-        p.endPanel().buttons["TRY AGAIN"].tap()
+        let retry = p.endPanel().buttons["end-again"]
+        XCTAssertEqual(retry.label, "Try again")
+        retry.tap()
         XCTAssertEqual(p.settle(), .ask)
         p.answer("yes")
-        XCTAssertTrue(p.secondLevelItem(), "B087: TRY AGAIN didn't retry level 2")
+        XCTAssertTrue(p.secondLevelItem(), "B087: Try again didn't retry level 2")
     }
 
     /// B002 (B024, B084): Leaning Tower of Pizza to a game over ("yes" to everything: which one is random); opened
@@ -121,7 +123,7 @@ final class BugReplayUITests: XCTestCase {
         p.shot("ltop-end")
         XCTAssertTrue(p.newestLineShows(above: end.frame.minY), "B006: the end panel covers the last line")
         p.note("LTOP end: \(p.labels("spoken").suffix(2)) / \(end.staticTexts.allElementsBoundByIndex.map(\.label))")
-        end.buttons["BACK TO GAMES"].tap()
+        end.buttons["end-back"].tap()
         p.open("leaning-tower-of-pizza")
         XCTAssertEqual(p.settle(), .ask)
         let known = p.spoken("Welcome back Pinocchio!").exists || p.spoken("the little wooden boy returns").exists
@@ -153,9 +155,11 @@ final class BugReplayUITests: XCTestCase {
         p.idle(1.5)
         XCTAssertTrue(p.newestLineShows(above: end.frame.minY), "B006: the end panel covers the last line")
         XCTAssertTrue(end.text("The werewolves got away!").exists)
-        XCTAssertTrue(end.buttons["GET 45 MORE MYSTERIES"].exists, "no GET button")
+        let get = end.buttons["end-get"]
+        XCTAssertTrue(get.exists, "no Get button")
+        XCTAssertEqual(get.label, "Get 45 more mysteries")
         p.shot("B074-werewolf-end-get")
-        end.buttons["BACK TO GAMES"].tap()
+        end.buttons["end-back"].tap()
         p.open("the-werewolf")
         XCTAssertEqual(p.settle(), .ask)
         XCTAssertTrue(p.spoken("Another night.").exists, "B054: the stories played were forgotten")
@@ -376,13 +380,13 @@ final class BugReplayUITests: XCTestCase {
         pill.tap()
         let sheet = p.element("store-sheet")
         XCTAssertTrue(sheet.waitForExistence(timeout: 10))
-        XCTAssertTrue(sheet.text("MORE FROM THE KINGDOM OF FROOTOPIA").exists, "B021")
+        XCTAssertTrue(sheet.text("More from The Kingdom of Frootopia").exists, "B021")
         p.idle(1)
         p.shot("B021-store-sheet-frootopia")
-        // GET, or the price once the App Store says it (the sandbox has the products now): with no pack server,
-        // either one says so and buys nothing.
-        let buy = sheet.buttons.matching(NSPredicate(format: "label == 'GET' OR label CONTAINS '1.99'")).firstMatch
-        XCTAssertTrue(buy.waitForExistence(timeout: 10), "no GET or price")
+        // Get, or Buy for the price once the App Store says it (the sandbox has the products now): with no pack
+        // server, either one says so and buys nothing.
+        let buy = sheet.buttons["buy-frootopia-stories"]
+        XCTAssertTrue(buy.waitForExistence(timeout: 10), "no buy button")
         buy.tap()
         let noServer = "Packs can't be downloaded in this version of the app yet."
         XCTAssertTrue(sheet.text(noServer).waitForExistence(timeout: 5))
@@ -392,7 +396,7 @@ final class BugReplayUITests: XCTestCase {
         let werewolf = p.pill("the-werewolf")
         werewolf.tap()
         XCTAssertTrue(sheet.waitForExistence(timeout: 10))
-        XCTAssertTrue(sheet.text("MORE FROM THE WEREWOLF").exists, "B021")
+        XCTAssertTrue(sheet.text("More from The Werewolf").exists, "B021")
         XCTAssertFalse(sheet.text(noServer).exists, "B013: the last sheet's error shows here")
         sheet.buttons["Restore purchases"].tap()
         let said = sheet.descendants(matching: .any).matching(
@@ -436,10 +440,10 @@ final class BugReplayUITests: XCTestCase {
         let pill = p.pill("the-werewolf")
         let card = p.element("game-the-werewolf")
         let top = card.frame.minY
-        // B009: the card, then at once its packs pill (under the loading overlay by then).
+        // B009: the card, then at once its Get button (under the loading overlay by then).
         let at = pill.frame
         let screen = p.app.coordinate(withNormalizedOffset: .zero)
-        screen.withOffset(CGVector(dx: at.midX, dy: at.midY - 70)).tap()      // the card's words, above its pill
+        screen.withOffset(CGVector(dx: at.midX, dy: at.midY - 70)).tap()      // the card's words, above its Get button
         screen.withOffset(CGVector(dx: at.midX, dy: at.midY)).tap()
         XCTAssertTrue(p.element("talking-circle").waitForExistence(timeout: 30), "the game didn't open")
         XCTAssertFalse(p.element("store-sheet").waitForExistence(timeout: 3), "B009: a sheet opened over the loading")
@@ -527,14 +531,14 @@ final class BugReplayUITests: XCTestCase {
                              extra: ["-UIPreferredContentSizeCategoryName", "UICTContentSizeCategoryAccessibilityXXXL"])
         let end = p.endPanel(timeout: 180)
         p.shot("B076-end-panel-largest-text")
-        let back = end.buttons["BACK TO GAMES"]
+        let back = end.buttons["end-back"]
         XCTAssertTrue(back.exists)
         var swipes = 0
         while !back.isHittable && swipes < 6 {
             end.swipeUp(velocity: .slow)
             swipes += 1
         }
-        XCTAssertTrue(back.isHittable, "B076: BACK TO GAMES can't be reached")
+        XCTAssertTrue(back.isHittable, "B076: Back to games can't be reached")
         p.shot("B076-end-panel-scrolled")
         back.tap()
         p.open("frootopia")
@@ -545,7 +549,7 @@ final class BugReplayUITests: XCTestCase {
         XCTAssertTrue(p.app.textFields["answer-field"].exists)
     }
 
-    /// Frootopia's first story by yes alone, to its end, which its pack goes on from: GET (dark text, B074), the
+    /// Frootopia's first story by yes alone, to its end, which its pack goes on from: Get (dark text, B074), the
     /// store sheet from it, and opened again without the pack, story 1 from its start.
     @MainActor
     func testFrootopiaToTheEndOfItsFirstStory() throws {
@@ -554,10 +558,11 @@ final class BugReplayUITests: XCTestCase {
         let end = p.endPanel(timeout: 600)
         p.idle(1.5)
         XCTAssertTrue(p.newestLineShows(above: end.frame.minY), "B006: the end panel covers the last line")
-        XCTAssertTrue(end.text("CHAPTER COMPLETE!").exists)
-        XCTAssertFalse(end.buttons["NEXT CHAPTER"].exists, "a next chapter with no pack")
-        let get = end.buttons["GET STORIES 2 TO 5"]
-        XCTAssertTrue(get.exists, "no GET button")
+        XCTAssertEqual(p.element("end-heading").label, "Chapter complete")
+        XCTAssertFalse(end.buttons["end-next"].exists, "a next chapter with no pack")
+        let get = end.buttons["end-get"]
+        XCTAssertTrue(get.exists, "no Get button")
+        XCTAssertEqual(get.label, "Get Stories 2 to 5")
         p.shot("B074-frootopia-end-get")
         get.tap()
         let sheet = p.element("store-sheet")
@@ -565,14 +570,15 @@ final class BugReplayUITests: XCTestCase {
         sheet.swipeDown(velocity: .fast)
         XCTAssertTrue(sheet.waitForNonExistence(timeout: 5))
         XCTAssertFalse(p.element("paused").exists, "paused at an end")
-        p.endPanel().buttons["BACK TO GAMES"].tap()
+        p.endPanel().buttons["end-back"].tap()
         p.open("frootopia")
         XCTAssertEqual(p.settle(), .ask)
         XCTAssertTrue(p.spoken("Cosmo! Cosmo, wake up!").exists, "not story 1's start")
         p.shot("frootopia-reopened-without-its-pack")
     }
 
-    /// Every game: a chip, a typed answer, skipping, leaving (CONTINUE, CARRY ON), and coming back ("Welcome back!").
+    /// Every game: a chip, a typed answer, skipping, leaving (In progress, Carry on), and coming back ("Welcome
+    /// back!").
     @MainActor
     func testEveryGamePlaysLeavesAndComesBack() throws {
         let p = Phone.launch(self)
@@ -600,8 +606,8 @@ final class BugReplayUITests: XCTestCase {
             p.leave()
             let card = p.card(game)
             if after == .ask {
-                XCTAssertTrue(card.says("CONTINUE"), "\(game) isn't carried on: \(card.label)")
-                XCTAssertTrue(card.says("CARRY ON"), "\(game) isn't carried on: \(card.label)")
+                XCTAssertTrue(card.says("In progress"), "\(game) isn't carried on: \(card.label)")
+                XCTAssertTrue(card.says("Carry on"), "\(game) isn't carried on: \(card.label)")
                 p.open(game)
                 XCTAssertTrue(p.text("Welcome back!").waitForExistence(timeout: 15), "\(game): no Welcome back!")
                 XCTAssertFalse(p.app.alerts.firstMatch.exists, "\(game) went wrong")
@@ -646,7 +652,8 @@ private struct Phone {
     /**
      * The app, every save cleared unless [reset] is false, with no mic (taps and typing), or hearing [hearing]
      * (ScriptedListener), or [mic] the phone's recogniser. [open]: that game opened at once, its voice skipped and
-     * its questions answered with [say] (DebugLaunch).
+     * its questions answered with [say] (DebugLaunch). Straight to Games either way: no intro, no onboarding, and no
+     * usage data sent from a test.
      */
     static func launch(
         _ test: XCTestCase, app: XCUIApplication = XCUIApplication(), reset: Bool = true, hearing: String? = nil,
@@ -654,6 +661,7 @@ private struct Phone {
     ) -> Phone {
         // No pack server, whatever the build has: buying says so and buys nothing (L6).
         var args = (reset ? ["-EpicReset", "YES"] : []) + ["-EpicPacksURL", ""]
+            + ["-EpicNoIntro", "YES", "-EpicSkipOnboarding", "YES", "-EpicAnalytics", "off"]
         if let hearing {
             args += ["-EpicHear", hearing]
         } else if !mic {
@@ -668,15 +676,22 @@ private struct Phone {
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 15))
         let phone = Phone(app: app, test: test)
         if let open {
-            XCTAssertTrue(phone.element("talking-circle").waitForExistence(timeout: 30), "\(open) didn't open")
+            XCTAssertTrue(phone.gameOpen.waitForExistence(timeout: 30), "\(open) didn't open")
         } else {
-            XCTAssertTrue(phone.text("EPIC AUDIO GAMES").waitForExistence(timeout: 15))
+            XCTAssertTrue(phone.element("games-heading").waitForExistence(timeout: 15))
         }
         return phone
     }
 
     func element(_ id: String) -> XCUIElement {
         app.descendants(matching: .any).matching(identifier: id).firstMatch
+    }
+
+    /// A game is open: its talking circle, or its end panel (opened at an end, the circle is only a picture, which
+    /// VoiceOver and the tests don't see).
+    var gameOpen: XCUIElement {
+        app.descendants(matching: .any)
+            .matching(NSPredicate(format: "identifier == 'talking-circle' OR identifier == 'end-panel'")).firstMatch
     }
 
     func text(_ label: String) -> XCUIElement { app.text(label) }
@@ -804,7 +819,7 @@ private struct Phone {
     @discardableResult
     func card(_ game: String) -> XCUIElement {
         let card = element("game-\(game)")
-        XCTAssertTrue(text("EPIC AUDIO GAMES").waitForExistence(timeout: 15), "not on the list")
+        XCTAssertTrue(element("games-heading").waitForExistence(timeout: 15), "not on the list")
         var swipes = 0
         var up = true
         while !(card.exists && card.isHittable) && swipes < 30 {
@@ -820,7 +835,7 @@ private struct Phone {
         return card
     }
 
-    /// A game card's packs pill, scrolled up into view (it's at the card's foot).
+    /// A game card's Get button (its packs), scrolled up into view (it's at the card's foot).
     func pill(_ game: String) -> XCUIElement {
         card(game)
         let pill = app.buttons["packs-\(game)"]
@@ -830,19 +845,19 @@ private struct Phone {
             from.press(forDuration: 0.05, thenDragTo: app.coordinate(withNormalizedOffset: CGVector(dx: 0.5, dy: 0.45)))
             nudges += 1
         }
-        XCTAssertTrue(pill.exists && pill.isHittable, "no packs pill on \(game)")
+        XCTAssertTrue(pill.exists && pill.isHittable, "no Get button on \(game)")
         return pill
     }
 
     func open(_ game: String) {
         card(game).tap()
-        XCTAssertTrue(element("talking-circle").waitForExistence(timeout: 30), "\(game) didn't open")
+        XCTAssertTrue(gameOpen.waitForExistence(timeout: 30), "\(game) didn't open")
     }
 
     /// The header's back arrow, to the list.
     func leave() {
         app.buttons["Back"].firstMatch.tap()
-        XCTAssertTrue(text("EPIC AUDIO GAMES").waitForExistence(timeout: 15), "not back on the list")
+        XCTAssertTrue(element("games-heading").waitForExistence(timeout: 15), "not back on the list")
     }
 
     func skip() {
@@ -912,7 +927,7 @@ private struct Phone {
 
     /**
      * Paused: with the keyboard still up, types [answer], which must carry on (B003: not play under the pause), and
-     * [expecting] follows; with it gone, taps the pause, and the question is asked again.
+     * [expecting] follows; with it gone, taps the pause's Carry on, and the question is asked again.
      */
     func carryOnPaused(answering answer: String, expecting line: String?) {
         let paused = element("paused")
@@ -922,7 +937,7 @@ private struct Phone {
             if let line { XCTAssertTrue(spoken(line).waitForExistence(timeout: 20), "no '\(line)'") }
             note("B003: typed '\(answer)' while paused; paused now: \(paused.exists)")
         } else {
-            paused.tap()
+            app.buttons["paused-carry-on"].tap()
             XCTAssertTrue(paused.waitForNonExistence(timeout: 5))
             XCTAssertEqual(settle(), .ask, "carrying on doesn't ask again")
         }
@@ -1056,11 +1071,12 @@ private extension XCUIElement {
         staticTexts.matching(NSPredicate(format: "label == %@", label)).firstMatch
     }
 
-    /// A game card says [words] (a pill: PLAY, CONTINUE, CARRY ON), within a few seconds.
+    /// A game card (read as sentences: "Noodle Rush. In progress. … Carry on.") says [words] as one of its sentences
+    /// ("In progress", "Play", "Carry on"), within a few seconds.
     func says(_ words: String) -> Bool {
         let deadline = Date().addingTimeInterval(5)
         repeat {
-            if label.components(separatedBy: ", ").contains(words) { return true }
+            if (" " + label).contains(" \(words).") { return true }
             Thread.sleep(forTimeInterval: 0.2)
         } while Date() < deadline
         return false

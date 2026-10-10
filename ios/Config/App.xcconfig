@@ -10,8 +10,8 @@ ENABLE_PREVIEWS = YES
 
 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon
 ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor
-// Colour sets are reached as ColorResource (Color(.backdrop)), without Color.backdrop extensions that could
-// clash with UI/Theme.swift.
+// Colour sets are reached as ColorResource (Color(.launchBackground)), without Color extensions that could
+// clash with the app's own colour names (UI/Design/Tokens.swift).
 ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = YES
 ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO
 
@@ -24,8 +24,15 @@ INFOPLIST_KEY_NSMicrophoneUsageDescription = When it's your turn, the game liste
 INFOPLIST_KEY_NSSpeechRecognitionUsageDescription = Speech recognition turns what you say into words the game understands. Where your iPhone supports it, this happens on the device itself.
 INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES
 INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES
-// Portrait only and light only, as on Android; white status bar icons over the dark header bar.
+// iPhones portrait only, as Android's phones. An iPad turns any way and takes any window size (Split View, Stage
+// Manager): Config/Info.plist's UISupportedInterfaceOrientations~ipad has all four, and there's no
+// UIRequiresFullScreen. Light or dark as the player's theme says (UI/Design/EpicTheme.swift sets the window's), and
+// the status bar's icons with it (light over the navy launch screen and intro: Config/Info.plist's UIStatusBarStyle).
 INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait
-INFOPLIST_KEY_UIUserInterfaceStyle = Light
-INFOPLIST_KEY_UIStatusBarStyle = UIStatusBarStyleLightContent
 INFOPLIST_KEY_ITSAppUsesNonExemptEncryption = NO
+
+// iPhone and iPad (docs/DESIGN.md, "Tablets, foldables, Chromebooks, Mac and Vision"): Base.xcconfig's iPhone only is
+// for the other targets. The iPad app runs as it is on Apple-silicon Macs and on Apple Vision Pro ("Designed for iPad").
+TARGETED_DEVICE_FAMILY = 1,2
+SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = YES
+SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = YES

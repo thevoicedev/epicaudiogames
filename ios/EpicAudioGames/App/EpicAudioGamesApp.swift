@@ -12,7 +12,8 @@ struct EpicAudioGamesApp: App {
         WindowGroup {
             RootView(model: model)
         }
-        .onChange(of: scenePhase) { _, phase in
+        // From the phase the app starts in too, so a launch straight to active is seen (the usage data's app_open).
+        .onChange(of: scenePhase, initial: true) { _, phase in
             // Leaving the app or locking the phone doesn't pause the game: it plays and listens on (UIBackgroundModes
             // audio; AppModel.onScreen). A game that loads meanwhile waits until the app is back. A permission alert
             // makes the app inactive for a moment; the store sheet pauses the game itself (AppModel.showStore).

@@ -1,20 +1,19 @@
-// ui/GameScreen.kt's Chips: the question's options, as quick replies at the end of the chat.
+// ui/GameScreen.kt's Options and Chip: the question's options, as quick replies at the end of the chat.
 
 import EpicAppCore
 import SwiftUI
 
 /**
- * The question's options (its buttons), as small chips at the feed's end, under the last line. Saying or typing is the
- * main way to answer; a chip sends its value, and the reply shows its label. They're the current question's only.
- * VoiceOver finds them in a container called "Options", each a button.
+ * The question's options (its buttons), as chips at the feed's end, under the last line. Saying or typing is the main
+ * way to answer; a chip sends its value, and the reply shows its label. They're the current question's only.
+ * VoiceOver finds them in a container called "Options", each a button named by its words. GameScreen.kt's Options.
  */
 struct AnswerChips: View {
     let game: GameController
     let buttons: [AnswerButton]
 
     var body: some View {
-        // Each chip has 4 pt above and below it to touch, so the lines are 8 pt apart to the eye.
-        FlowLayout(spacing: 8, lineSpacing: 0) {
+        FlowLayout(spacing: 8, lineSpacing: 8) {
             ForEach(buttons.indices, id: \.self) { i in
                 Chip(label: buttons[i].label) { game.tap(buttons[i]) }
                     .accessibilityIdentifier("answer-\(buttons[i].value)")
@@ -28,28 +27,31 @@ struct AnswerChips: View {
 }
 
 /**
- * A chip: a white pill edged in the reply's colour, its label as written, in ink. It looks 36 pt tall (and at least 48
- * wide), and is at least 44 pt to touch: the space above and below it counts.
+ * A chip: a surface pill with a 2 pt outline, at least 48 pt tall and wide, its label as written in the label style
+ * (wrapping between words when it's longer than a line). GameScreen.kt's Chip.
  */
 private struct Chip: View {
     let label: String
-    let action: () -> Void
+    let action: @MainActor () -> Void
+    @Environment(\.epicColors) private var c
+
+    private static let shape = RoundedRectangle(cornerRadius: 24, style: .continuous)
 
     var body: some View {
         Button(action: action) {
             Text(label)
-                .font(Lilita.font(15, relativeTo: .subheadline))
-                .foregroundStyle(Palette.ink)
+                .epicFont(.label)
+                .foregroundStyle(c.text)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 14)
-                .padding(.vertical, 6)
-                .frame(minWidth: 48, minHeight: 36)
-                .background(Palette.card, in: Capsule())
-                .overlay(Capsule().strokeBorder(Palette.reply, lineWidth: 2))
-                .padding(.vertical, 4)
-                .contentShape(Rectangle())
+                .padding(.horizontal, 18)
+                .padding(.vertical, 10)
+                .frame(minWidth: 48, minHeight: 48)
+                .background(c.surface, in: Self.shape)
+                .overlay { Self.shape.strokeBorder(c.outline, lineWidth: 2) }
+                .contentShape(Self.shape)
         }
         .buttonStyle(PressStyle())
+        .hoverEffect()
         .accessibilityLabel(label)
     }
 }

@@ -1,4 +1,5 @@
-// AudioPlayer.kt's ExoPlayers (the turn's, and one per bed): one AVAudioEngine with a voice node and bed nodes.
+// AudioPlayer.kt's ExoPlayers (the turn's, and one per bed, with their PlaybackParameters and volumes) and Earcons.kt's
+// AudioTrack: one AVAudioEngine with a voice node, bed nodes, the voice speed, and a node for the app's short sounds.
 
 import AVFoundation
 import os
@@ -6,8 +7,13 @@ import os
 /**
  * The engine a game's audio plays through: one AVAudioEngine; a player node for the voice (the turn's clips, with
  * its pauses as gaps); and a pool of bed nodes, 6 to start with and more if a turn needs more at once. They all play
- * [ClipFormat] into the main mixer. Every node starts from one anchor, so a buffer scheduled at a frame of the turn
- * plays exactly there on any node. The voice is gapless, and the beds start on the very sample where they appear.
+ * [ClipFormat] into [gameMix], which goes through the voice speed ([speed], a time-pitch unit: faster or slower at the
+ * same pitch, bypassed at 1x so that 1x is untouched) to the main mixer. Every node starts from one anchor, so a buffer
+ * scheduled at a frame of the turn plays exactly there on any node. The voice is gapless, and the beds start on the
+ * very sample where they appear; at any speed they keep together, as everything goes through the one time-pitch.
+ *
+ * The app's short sounds (the listening sounds, a pack installed: AppCue) play on a node of their own, [cue], straight
+ * into the main mixer: at 1x whatever the voice speed, and never cut by a turn stopping ([playCue]).
  *
  * Nonisolated: AVAudioEngine calls its completion handlers and posts its notifications on its own threads, and a
  * closure made in main-actor code traps there (Swift 6 checks its isolation when it runs). So the handlers are made
@@ -20,10 +26,36 @@ nonisolated final class AudioGraph: @unchecked Sendable {
     let engine = AVAudioEngine()
     let voice = AVAudioPlayerNode()
     private(set) var beds: [AVAudioPlayerNode] = []
+    /// The voice and the beds together, before the voice speed.
+    let gameMix = AVAudioMixerNode()
+    /// The voice speed: the turn faster or slower at the same pitch ([rate]); bypassed at 1x.
+    let speed = AVAudioUnitTimePitch()
+    /// The app's short sounds, at 1x (not through [speed]).
+    let cue = AVAudioPlayerNode()
     /// Rendering offline, by hand (tests): no device, no latency, no host times.
     let offline: Bool
     private var observer: NSObjectProtocol?
     private let reconnect = OSAllocatedUnfairLock(initialState: false)
+
+    /**
+     * The voice speed (Settings › Sound and voice: 0.75 to 2): the voice and every bed, pauses and all, so music mixed
+     * into a clip and the music under it stay together; the pitch stays as it is. At 1 the time-pitch is bypassed, and
+     * the sound is exactly as it was (OfflineRenderTests). AudioPlayer.kt's setSpeed.
+     */
+    var rate: Float = 1 {
+        didSet {
+            speed.rate = rate
+            speed.bypass = rate == 1
+        }
+    }
+
+    /// Settings' music volume (0 to 1): every bed node's, on top of each bed's own (TurnSchedule's gain), at once.
+    /// AudioPlayer.kt's setMusicVolume.
+    var musicVolume: Float = 1 {
+        didSet {
+            for b in beds { b.volume = musicVolume }
+        }
+    }
 
     /// A graph that plays to the device.
     convenience init() {
@@ -37,8 +69,16 @@ nonisolated final class AudioGraph: @unchecked Sendable {
         if offline {
             try engine.enableManualRenderingMode(.offline, format: ClipFormat.pcm, maximumFrameCount: maximumFrameCount)
         }
+        // Voice and beds -> gameMix -> the voice speed -> the main mixer; the short sounds -> the main mixer.
+        engine.attach(gameMix)
+        engine.attach(speed)
         engine.attach(voice)
-        engine.connect(voice, to: engine.mainMixerNode, format: ClipFormat.pcm)
+        engine.attach(cue)
+        engine.connect(gameMix, to: speed, format: ClipFormat.pcm)
+        engine.connect(speed, to: engine.mainMixerNode, format: ClipFormat.pcm)
+        engine.connect(voice, to: gameMix, format: ClipFormat.pcm)
+        engine.connect(cue, to: engine.mainMixerNode, format: ClipFormat.pcm)
+        speed.bypass = true
         ensureBedNodes(Self.initialBedNodes)
         if !offline {
             // The engine stops itself when the output changes (sample rate, channels): reconnect before restarting.
@@ -54,12 +94,14 @@ nonisolated final class AudioGraph: @unchecked Sendable {
         if let observer { NotificationCenter.default.removeObserver(observer) }
     }
 
-    /// At least [count] bed nodes (a turn with more beds at once than the pool has adds nodes for good).
+    /// At least [count] bed nodes (a turn with more beds at once than the pool has adds nodes for good), each at the
+    /// music volume.
     func ensureBedNodes(_ count: Int) {
         while beds.count < count {
             let node = AVAudioPlayerNode()
             engine.attach(node)
-            engine.connect(node, to: engine.mainMixerNode, format: ClipFormat.pcm)
+            engine.connect(node, to: gameMix, format: ClipFormat.pcm)
+            node.volume = musicVolume
             beds.append(node)
         }
     }
@@ -115,7 +157,12 @@ nonisolated final class AudioGraph: @unchecked Sendable {
         play(bedNodes: Array(0..<min(count, beds.count)))
     }
 
-    /// Starts the voice and these bed nodes (indices into [beds]) together, a moment from now, at frame 0 of the turn.
+    /**
+     * Starts the voice and these bed nodes (indices into [beds]) together, a moment from now, at frame 0 of the turn.
+     * At 1x, at a host time. Off 1x, the nodes behind the time-pitch run on a clock of their own (as many frames as it
+     * takes from them: [rate] times the output's), which host times don't map onto: at a frame of that clock instead,
+     * the last they rendered (the same on each: gameMix takes from them all at once) plus the moment, at the speed.
+     */
     func play(bedNodes: [Int]) {
         let nodes = [voice] + bedNodes.map { beds[$0] }
         if offline {
@@ -123,14 +170,74 @@ nonisolated final class AudioGraph: @unchecked Sendable {
             for n in nodes { n.play() }
             return
         }
-        let session = AVAudioSession.sharedInstance()
-        let lead = min(max(2 * session.ioBufferDuration + 0.01, 0.02), 0.1)
-        let when = AVAudioTime(hostTime: mach_absolute_time() + AVAudioTime.hostTime(forSeconds: lead))
+        let lead = Self.lead(AVAudioSession.sharedInstance())
+        let when: AVAudioTime
+        if !speed.bypass, let t = voice.lastRenderTime, t.isSampleTimeValid {
+            let ahead = AVAudioFramePosition((lead * Double(rate) * t.sampleRate).rounded(.up))
+            when = AVAudioTime(sampleTime: t.sampleTime + ahead, atRate: t.sampleRate)
+        } else {
+            when = AVAudioTime(hostTime: mach_absolute_time() + AVAudioTime.hostTime(forSeconds: lead))
+        }
         for n in nodes { n.play(at: when) }
     }
 
+    /// How far ahead nodes are started, so that the render thread reaches them all at once: two I/O buffers and a
+    /// margin, 20 to 100 ms.
+    private static func lead(_ session: AVAudioSession) -> TimeInterval {
+        min(max(2 * session.ioBufferDuration + 0.01, 0.02), 0.1)
+    }
+
+    /**
+     * The frame of their own clock the nodes last rendered (the voice's: gameMix takes from them all at once), what a
+     * speed off 1x starts them from ([play]); nil before they have rendered.
+     */
+    var renderedFrame: AVAudioFramePosition? {
+        guard let t = voice.lastRenderTime, t.isSampleTimeValid else { return nil }
+        return t.sampleTime
+    }
+
+    /**
+     * The nodes have rendered at a frame other than [stale]: what they showed as the engine started, which can be their
+     * clock from before it last stopped (a call, the output changing), no frame to start them from ([play]).
+     */
+    func hasRendered(since stale: AVAudioFramePosition?) -> Bool {
+        guard let frame = renderedFrame else { return false }
+        return frame != stale
+    }
+
+    /**
+     * Plays one of the app's short sounds ([buffer], [ClipFormat], a CueBank's) on the cue node, [delay] from now (or
+     * the moment the engine needs, if that's longer), cutting short any it was playing: never through the voice speed,
+     * and not stopped with a turn ([stopNodes]). Returns when it will have been heard out: its start, its length, the
+     * output's latency and an I/O buffer, then the mic's own latency and a margin, so that what the mic records from
+     * then on is clear of it (SpeechListener's gate). Nil when the engine can't run (a call has the audio).
+     * Earcons.kt's play, with its marker and its tail.
+     */
+    func playCue(_ buffer: AVAudioPCMBuffer, delay: TimeInterval = 0.08) -> ContinuousClock.Instant? {
+        do {
+            try start()
+        } catch {
+            ClipDecoder.log.error("can't start the audio engine for a sound: \(error, privacy: .public)")
+            return nil
+        }
+        let length = Double(buffer.frameLength) / buffer.format.sampleRate
+        let now = ContinuousClock.now
+        cue.stop()
+        cue.scheduleBuffer(buffer, at: nil, options: [], completionHandler: nil)
+        if offline {
+            cue.play()
+            return now + .seconds(length)
+        }
+        let session = AVAudioSession.sharedInstance()
+        let wait = max(delay, Self.lead(session))
+        cue.play(at: AVAudioTime(hostTime: mach_absolute_time() + AVAudioTime.hostTime(forSeconds: wait)))
+        let heard = wait + length + session.outputLatency + session.ioBufferDuration + session.inputLatency + 0.05
+        return now + .seconds(heard)
+    }
+
     /// Stops every node at once, dropping what was scheduled (AudioPlayer.stop's player.stop and stopBeds), but the
-    /// bed nodes in [keeping] (beds fading out after a turn's end, which AudioPlayer.kt's stop never touches).
+    /// bed nodes in [keeping] (beds fading out after a turn's end, which AudioPlayer.kt's stop never touches). The cue
+    /// node plays on: a listening sound isn't cut by the turn that follows it.
     func stopNodes(keeping: Set<Int> = []) {
         voice.stop()
         for (i, b) in beds.enumerated() where !keeping.contains(i) { b.stop() }
@@ -149,16 +256,21 @@ nonisolated final class AudioGraph: @unchecked Sendable {
         return Int64((Double(p.sampleTime) * ClipFormat.sampleRate / p.sampleRate).rounded(.down))
     }
 
-    /// How far what is heard trails what is rendered: the output's latency and one I/O buffer.
+    /**
+     * How far what is heard trails what the voice node renders, in the turn's frames: the output's latency and one I/O
+     * buffer, and off 1x the time-pitch's own latency, all at the speed (the node's clock runs [rate] times as fast).
+     */
     func latencyFrames() -> Int64 {
         guard !offline else { return 0 }
         let session = AVAudioSession.sharedInstance()
-        return ClipFormat.frames(session.outputLatency + session.ioBufferDuration)
+        let pitch = speed.bypass ? 0 : speed.auAudioUnit.latency
+        return ClipFormat.frames((session.outputLatency + session.ioBufferDuration + pitch) * Double(rate))
     }
 
-    /// Lets go of the audio: every node stopped, then the engine.
+    /// Lets go of the audio: every node stopped, the cue node too, then the engine.
     func shutdown() {
         stopNodes()
+        cue.stop()
         engine.stop()
     }
 

@@ -113,17 +113,49 @@ final class FakeAudio: TurnPlaying {
     func stall() { onStalled?() }
 }
 
-/// The listener: it hears what the test says.
+/// The listener: it hears what the test says, and records when each listen hears the mic from (its gate).
 @MainActor
 final class FakeListener: Listening {
     var events = ListenerEvents()
     var isAvailable = true
     var starts = 0
     var stops = 0
+    /// Each listen's gate: when the listening sound will have been heard out (nil: from the start).
+    var after: [ContinuousClock.Instant?] = []
+    /// What the fakes did, in order (shared with FakeCues).
+    var journal: Journal?
 
-    func start(hints: [String]) { starts += 1 }
+    func start(hints: [String]) { start(hints: hints, after: nil) }
+
+    func start(hints: [String], after: ContinuousClock.Instant?) {
+        starts += 1
+        self.after.append(after)
+        journal?.entries.append("listen")
+    }
+
     func stop() { stops += 1 }
     func release() {}
+}
+
+/// The app's short sounds: none plays; each one asked for is recorded, and said to be heard out at [heardAt] (nil: it
+/// can't play, as with a call holding the audio).
+@MainActor
+final class FakeCues: CuePlaying {
+    var played: [AppCue] = []
+    var heardAt: ContinuousClock.Instant? = ContinuousClock.now + .milliseconds(300)
+    var journal: Journal?
+
+    func play(_ cue: AppCue) -> ContinuousClock.Instant? {
+        played.append(cue)
+        journal?.entries.append(cue.rawValue)
+        return heardAt
+    }
+}
+
+/// What the fakes did, in order.
+@MainActor
+final class Journal {
+    var entries: [String] = []
 }
 
 /// Saves in memory, counting what's written and cleared.
@@ -187,12 +219,25 @@ struct GameControllerTests {
     let map: GameMap
     let audio = FakeAudio()
     let listener = FakeListener()
+    let cues = FakeCues()
     let saves: FakeSaves
     /// How many times the game went back to the list.
     let left = Counter()
+    /// The ticks as the mic opens and closes.
+    let ticks = Ticks()
 
     final class Counter {
         var count = 0
+    }
+
+    final class Ticks {
+        var opened = 0
+        var closed = 0
+    }
+
+    /// A screen reader that the test turns on and off as the game goes.
+    final class ScreenReader {
+        var on = false
     }
 
     init() throws {
@@ -205,15 +250,23 @@ struct GameControllerTests {
         self.saves = saves
     }
 
-    private func controller(_ game: (any Play)? = nil, mic: Bool = false) -> GameController {
+    /// [listensByItself]: the app's MicPolicy answer (by default, as with no screen reader: always). [listeningSounds]:
+    /// Settings' (by default on).
+    private func controller(
+        _ game: (any Play)? = nil, mic: Bool = false, listensByItself: @escaping () -> Bool = { true },
+        listeningSounds: @escaping () -> Bool = { true }
+    ) -> GameController {
         let map = map
         let left = left
+        let ticks = ticks
         let c = GameController(
             info: info, game: game ?? Session(map), fresh: { Session(map) },
-            dependencies: GameDependencies(saves: saves, audio: audio, listener: listener),
-            onLeave: { _ in left.count += 1 })
+            dependencies: GameDependencies(saves: saves, audio: audio, listener: listener, cues: cues),
+            onLeave: { _ in left.count += 1 }, listensByItself: listensByItself, listeningSounds: listeningSounds)
         c.micAllowed = mic
         c.doubleTap = .zero         // the tests tap at once
+        c.onListen = { ticks.opened += 1 }
+        c.onListenEnd = { ticks.closed += 1 }
         return c
     }
 
@@ -724,28 +777,122 @@ struct GameControllerTests {
     }
 
     /// D8: with VoiceOver on, the game doesn't open the mic by itself (it would hear VoiceOver), nor once the mic is
-    /// allowed; the player opens it (Magic Tap, Talk), and a sound says so.
+    /// allowed; the player opens it (Magic Tap, Talk), and the listening sound and its tick say so (the system's
+    /// "begin recording" sound is gone: the app's own plays for everyone, and the mic is heard only after it).
     @Test func withVoiceOverTheGameWaitsForThePlayerToTalk() {
-        let c = controller(mic: true)
-        c.listensByItself = { false }
-        var sounds = 0
-        c.onListen = { sounds += 1 }
+        let c = controller(mic: true, listensByItself: { false })
         c.open()
         audio.finish()
         #expect(!c.listening)
         #expect(listener.starts == 0)
+        #expect(cues.played.isEmpty)
         c.mic()
         #expect(c.listening)
-        #expect(sounds == 1)
+        #expect(cues.played == [.listenStart])
+        #expect(listener.after == [cues.heardAt])
+        #expect(ticks.opened == 1)
         c.mic()
         #expect(!c.listening)
-        let d = controller(mic: false)
-        d.listensByItself = { false }
+        #expect(cues.played == [.listenStart, .listenStop])
+        #expect(ticks.closed == 1)
+        let d = controller(mic: false, listensByItself: { false })
         d.open()
         audio.finish()
         d.allowMic()
         #expect(d.micAllowed)
         #expect(!d.listening)
+    }
+
+    /**
+     * The app's MicPolicy is asked at each question (GameController.kt's listensByItself): VoiceOver turned on
+     * mid-game keeps the mic closed from the next question on, though the player can still open it; turned off, the
+     * mic opens by itself again.
+     */
+    @Test func thePolicyIsAskedAtEachQuestion() {
+        let voiceOver = ScreenReader()
+        let c = controller(mic: true, listensByItself: {
+            MicPolicy.listensByItself(policy: .notWithScreenReader, screenReaderOn: voiceOver.on)
+        })
+        c.open()
+        audio.finish()
+        #expect(c.listening)
+        listener.events.silence()               // the question again
+        voiceOver.on = true
+        audio.finish()
+        #expect(!c.listening, "it listened by itself with VoiceOver on")
+        #expect(listener.starts == 1)
+        #expect(c.circleAction == .talk)
+        c.mic()
+        #expect(c.listening)
+        c.mic()
+        voiceOver.on = false
+        c.answer("say that again")
+        audio.finish()
+        #expect(c.listening, "it didn't listen by itself with VoiceOver off again")
+        #expect(listener.starts == 3)
+    }
+
+    /**
+     * The mic allowed after a tap asked for it (the Talk button, the circle, Magic Tap): the game listens as the tap
+     * would have, cutting the voice short, even with VoiceOver on; not over a pause. Allowed any other way (the ask as
+     * the game opens, Settings), it listens only where it would by itself (above). GameController.kt's allowMic.
+     */
+    @Test func aMicAllowedAfterATapListens() {
+        let c = controller(mic: false, listensByItself: { false })
+        c.open()
+        audio.finish()
+        #expect(c.circleAction == .micRefused)
+        c.allowMic(listen: true)
+        #expect(c.micAllowed)
+        #expect(c.listening)
+        #expect(listener.starts == 1)
+        // While the voice speaks: it's cut short, the rest of its lines shown.
+        let d = controller(mic: false, listensByItself: { false })
+        d.open()
+        #expect(d.speaking)
+        d.allowMic(listen: true)
+        #expect(!d.speaking)
+        #expect(spoken(d) == ["Hello there, do you want cake?"])
+        #expect(d.listening)
+        #expect(listener.starts == 2)
+        // Paused: allowed, but the game waits for the tap that carries on.
+        let e = controller(mic: false)
+        e.open()
+        audio.finish()
+        e.pause()
+        e.allowMic(listen: true)
+        #expect(e.micAllowed)
+        #expect(e.paused)
+        #expect(!e.listening)
+        #expect(listener.starts == 2)
+    }
+
+    /// What the game's one button does, and what VoiceOver calls it, as the game goes (docs/DESIGN.md's table): the
+    /// circle, Magic Tap and the headphones' button.
+    @Test func theCircleActionFollowsTheGame() {
+        let c = controller(mic: true, listensByItself: { false })
+        #expect(c.circleAction == .wait)                // no question yet
+        c.open()
+        #expect(c.circleAction == .skip)
+        audio.finish()
+        #expect(c.circleAction == .talk)
+        c.mic()
+        #expect(c.circleAction == .stopListening)
+        c.pause()
+        #expect(c.circleAction == .carryOn)
+        c.carryOn()
+        #expect(c.circleAction == .skip)                // the question again
+        audio.finish()
+        c.micAllowed = false
+        #expect(c.circleAction == .micRefused)
+        c.micAllowed = true
+        c.micWorks = false
+        #expect(c.circleAction == .noRecognition)
+        c.micWorks = true
+        c.answer("yes")
+        audio.finish()
+        #expect(c.end != nil)
+        #expect(c.circleAction == nil)                  // at an end, the circle is just a picture
     }
 
     @Test func listeningTwiceStartsOnce() {
@@ -794,6 +941,160 @@ struct GameControllerTests {
         #expect(listener.starts == starts + 1)
     }
 
+    // ----- The listening sounds (docs/DESIGN.md › Sounds, haptics and the microphone) -----
+
+    /// The mic opens with the rising sound first, then the listener, which hears the mic only from when the sound will
+    /// have been heard out (so the recogniser never hears it); and a tick.
+    @Test func theListeningSoundPlaysBeforeTheMicOpens() {
+        let journal = Journal()
+        cues.journal = journal
+        listener.journal = journal
+        let c = controller(mic: true)
+        c.open()
+        #expect(cues.played.isEmpty)            // not while the voice speaks
+        audio.finish()
+        #expect(c.listening)
+        #expect(journal.entries == ["listen-start", "listen"])
+        #expect(listener.after == [cues.heardAt])
+        #expect(ticks.opened == 1)
+        #expect(ticks.closed == 0)
+    }
+
+    /// Settings › Listening sounds off: no sound either way, and the mic is heard at once; the ticks are their own
+    /// setting's (the app's onListen).
+    @Test func withTheSoundsOffTheMicIsHeardAtOnce() {
+        let c = controller(mic: true, listeningSounds: { false })
+        c.open()
+        audio.finish()
+        #expect(c.listening)
+        #expect(cues.played.isEmpty)
+        #expect(listener.after == [nil])
+        #expect(ticks.opened == 1)
+        listener.events.silence()
+        #expect(cues.played.isEmpty)
+        #expect(ticks.closed == 1)
+    }
+
+    /// A sound that can't play (the build hasn't it, a call has the audio) doesn't hold the mic up: it's heard at once.
+    @Test func aSoundThatCantPlayLetsTheMicStartAtOnce() {
+        cues.heardAt = nil
+        let c = controller(mic: true)
+        c.open()
+        audio.finish()
+        #expect(c.listening)
+        #expect(cues.played == [.listenStart])
+        #expect(listener.after == [nil])
+    }
+
+    /// However the mic opens, the sound plays, once for each listen: the Talk button cutting the voice short, Magic Tap
+    /// and the circle, the mic allowed after a tap or later, by itself after a turn.
+    @Test func theSoundPlaysHoweverTheMicOpens() {
+        let c = controller(mic: true, listensByItself: { false })
+        c.open()
+        c.mic()                                 // the Talk button while the voice speaks
+        #expect(c.listening)
+        #expect(cues.played == [.listenStart])
+        c.mic()                                 // the Talk button again: the player turns it off
+        #expect(cues.played == [.listenStart, .listenStop])
+        c.magicTap { c.mic() }                  // Magic Tap, or the circle
+        #expect(c.listening)
+        #expect(cues.played == [.listenStart, .listenStop, .listenStart])
+        #expect(listener.starts == 2)
+        // The mic allowed after a tap asked for it.
+        let d = controller(mic: false, listensByItself: { false })
+        d.open()
+        audio.finish()
+        cues.played = []
+        d.allowMic(listen: true)
+        #expect(d.listening)
+        #expect(cues.played == [.listenStart])
+        // Allowed later (Settings, the question as the game opened): by itself, as the game would.
+        let e = controller(mic: false)
+        e.open()
+        audio.finish()
+        cues.played = []
+        e.allowMic()
+        #expect(e.listening)
+        #expect(cues.played == [.listenStart])
+        // By itself, after a turn.
+        let f = controller(mic: true)
+        f.open()
+        cues.played = []
+        audio.finish()
+        #expect(f.listening)
+        #expect(cues.played == [.listenStart])
+        #expect(listener.after.allSatisfy { $0 == cues.heardAt })
+    }
+
+    /// One sound for each listen: the Talk button while the voice speaks listens once, though the turn's end it causes
+    /// would listen by itself too; asking to listen while listening does nothing.
+    @Test func aListenHasOneSound() {
+        let c = controller(mic: true)
+        c.open()
+        c.mic()
+        #expect(c.listening)
+        #expect(cues.played == [.listenStart])
+        #expect(listener.starts == 1)
+        c.listen()
+        c.allowMic()
+        #expect(cues.played == [.listenStart])
+        #expect(listener.starts == 1)
+        #expect(ticks.opened == 1)
+    }
+
+    /// The falling sound and the softer tick when the recogniser ends the listen: words heard, speech it couldn't make
+    /// out, a silence, trouble, or no recogniser after all. A listen that's over plays nothing more.
+    @Test(arguments: ["heard", "not made out", "silence", "trouble", "unavailable"])
+    func theStopSoundPlaysWhenTheListenEnds(how: String) {
+        let c = controller(mic: true)
+        c.open()
+        audio.finish()
+        #expect(c.listening)
+        switch how {
+        case "heard": listener.events.heard(["yes"])
+        case "not made out": listener.events.heard([])
+        case "silence": listener.events.silence()
+        case "trouble": listener.events.trouble()
+        default: listener.events.unavailable()
+        }
+        #expect(!c.listening)
+        #expect(cues.played == [.listenStart, .listenStop], "\(how)")
+        #expect(ticks.closed == 1)
+        listener.events.silence()
+        listener.events.heard([])
+        listener.events.trouble()
+        #expect(cues.played == [.listenStart, .listenStop], "\(how): more than one")
+        #expect(ticks.closed == 1)
+    }
+
+    /// No falling sound when the game stops listening itself (GameController.kt's rule): typing, an answer typed (the
+    /// next turn), a pause, leaving. Turning the mic off is the player's: it has one.
+    @Test func theGameStoppingTheMicIsQuiet() async throws {
+        let c = controller(mic: true)
+        c.open()
+        audio.finish()
+        c.typing = true                         // typing
+        #expect(!c.listening)
+        c.typing = false
+        c.mic()
+        #expect(c.listening)
+        c.answer("say that again")              // an answer typed while listening: the next turn
+        #expect(!c.listening)
+        audio.finish()
+        #expect(c.listening)
+        c.pause()                               // a pause ("stop", the store sheet, a call)
+        #expect(!c.listening)
+        c.carryOn()
+        audio.finish()
+        #expect(c.listening)
+        c.leave()                               // leaving
+        #expect(!c.listening)
+        #expect(!cues.played.contains(.listenStop), "\(cues.played)")
+        #expect(cues.played.filter { $0 == .listenStart }.count == 4)
+        #expect(ticks.closed == 0)
+        try await eventually { left.count > 0 }
+    }
+
     /// L2: a turn whose audio can't start at all (a call has it) shows its lines and waits for a tap, without
     /// listening; carrying on asks again.
     @Test func aTurnWhoseAudioCantPlayWaitsForATap() {
@@ -826,8 +1127,7 @@ struct GameControllerTests {
      */
     @Test(arguments: [false, true])
     func theHeadphonesButtonDoesWhatMagicTapDoes(headphones: Bool) throws {
-        let c = controller(mic: true)
-        c.listensByItself = { false }       // so the button opens the mic
+        let c = controller(mic: true, listensByItself: { false })       // so the button opens the mic
         let now = NowPlaying()
         defer { now.clear() }
         func press() {
@@ -848,10 +1148,12 @@ struct GameControllerTests {
         press()
         #expect(c.listening, "it doesn't listen")
         #expect(listener.starts == 1)
+        #expect(cues.played == [.listenStart], "no listening sound")
         #expect(now.isPlaying)
         press()
         #expect(!c.listening, "it doesn't stop listening")
         #expect(listener.stops > 0)
+        #expect(cues.played == [.listenStart, .listenStop], "no stop sound for the player's own stop")
         c.pause()
         press()
         #expect(!c.paused, "it doesn't carry on")
@@ -896,8 +1198,7 @@ struct GameControllerTests {
      * playing while the game speaks or listens, and paused otherwise.
      */
     @Test func pauseAndPlayFromTheHeadphones() throws {
-        let c = controller(mic: true)
-        c.listensByItself = { false }
+        let c = controller(mic: true, listensByItself: { false })
         let now = NowPlaying()
         defer { now.clear() }
         let center = MPNowPlayingInfoCenter.default()
@@ -927,6 +1228,7 @@ struct GameControllerTests {
         #expect(!now.isPlaying)         // the lock screen follows it a moment later (observed)
         _ = now.press(.play)
         #expect(c.listening)
+        #expect(cues.played == [.listenStart])
         #expect(center.playbackState == .playing)
         _ = now.press(.play)
         #expect(c.listening, "play stopped listening")
@@ -934,6 +1236,7 @@ struct GameControllerTests {
         _ = now.press(.pause)
         #expect(c.paused)
         #expect(!c.listening)
+        #expect(cues.played == [.listenStart], "a pause played the stop sound")
         _ = now.press(.play)
         audio.finish()
         // At an end: neither does anything.

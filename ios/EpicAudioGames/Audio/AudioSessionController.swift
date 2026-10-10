@@ -1,4 +1,5 @@
-// AudioPlayer.kt's AudioAttributes(USAGE_GAME, SPEECH) with audio focus: the app's audio session while a game is open.
+// AudioPlayer.kt's AudioAttributes(USAGE_GAME, SPEECH) with audio focus: the app's audio session while a game is open;
+// and AppAudio.kt's, for its sounds with no game open (none for the sting, a moment's focus for a page read aloud).
 
 import AVFoundation
 import os
@@ -19,6 +20,9 @@ import os
  * It reports what happens to the session (interruptions, route changes, the engine's output changing, the media
  * services restarting) as [Event]s on the main actor; what to do about them (pausing) is the game's. Nonisolated: the
  * notifications come on other threads, and their handlers are made here so they never inherit the main actor.
+ *
+ * With no game open, the app's own sounds have sessions of their own, set up the same way with [ambient] (the sting,
+ * the short sounds) or [spoken] (a page read aloud) in place of [setUp] (AppAudio).
  */
 nonisolated final class AudioSessionController: @unchecked Sendable {
     enum Event: Equatable, Sendable {
@@ -66,11 +70,42 @@ nonisolated final class AudioSessionController: @unchecked Sendable {
         return options
     }
 
-    /// .playAndRecord with [options], then active, with the headset's mic preferred if one is connected.
+    /**
+     * .playAndRecord with [options], then active, with the headset's mic preferred if one is connected. Haptics go on
+     * while the mic records: it's on the whole time a game is open, and iOS would otherwise keep the phone still,
+     * listening tick and all (Haptics).
+     */
     @Sendable static func setUp(_ session: AVAudioSession) throws {
         try session.setCategory(.playAndRecord, mode: .default, options: options)
+        do {
+            try session.setAllowHapticsAndSystemSoundsDuringRecording(true)
+        } catch {
+            // Not worth losing the game's audio over: only the ticks are missed.
+            log.error("can't allow haptics while recording: \(error, privacy: .public)")
+        }
         try session.setActive(true)
         preferHeadsetMic(session)
+    }
+
+    /**
+     * The app's own sounds with no game open, the intro's sting and the short ones (AppAudio): .ambient, which mixes
+     * with other apps' audio, keeps to the silent switch, and never records; then active. Android plays them without
+     * taking the audio focus.
+     */
+    @Sendable static func ambient(_ session: AVAudioSession) throws {
+        try session.setCategory(.ambient, mode: .default, options: [])
+        try session.setActive(true)
+    }
+
+    /**
+     * The welcome or a help page read aloud with no game open (AppAudio): .playback with .spokenAudio, so another
+     * app's audio stops for it (a podcast pauses rather than talking over it) and comes back after, once the session is
+     * let go (deactivate's notifyOthersOnDeactivation); then active. Android takes the audio focus for a moment
+     * (AUDIOFOCUS_GAIN_TRANSIENT).
+     */
+    @Sendable static func spoken(_ session: AVAudioSession) throws {
+        try session.setCategory(.playback, mode: .spokenAudio, options: [])
+        try session.setActive(true)
     }
 
     /// The inputs that are a headset's mic (AirPods and other Bluetooth headsets, wired and USB headsets, a car).
@@ -155,7 +190,9 @@ nonisolated final class AudioSessionController: @unchecked Sendable {
         lock.withLock { observers = added }
     }
 
-    private func stopObserving() {
+    /// Its events no longer reported, the session left as it is (AppAudio, handing the session over from one of its
+    /// controllers to the other).
+    func stopObserving() {
         let old = lock.withLock {
             defer { observers = [] }
             return observers

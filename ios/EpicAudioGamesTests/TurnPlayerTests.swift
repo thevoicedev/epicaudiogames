@@ -1,10 +1,15 @@
-// AudioPlayer.kt's onFinished and its `playing` guard: a turn finishes once, later than play(), never after a stop.
+// AudioPlayer.kt's onFinished and its `playing` guard: a turn finishes once, later than play(), never after a stop; its
+// voice speed; and Earcons.kt's play, the listening sounds on a game's player.
 
 import AVFoundation
 import EpicAppCore
 import Foundation
 import Testing
 @testable import EpicAudioGames
+
+/// The app's short sounds' lengths, from the build's Content/app/app.json; nil for a build without it.
+private let builtEarcons = Bundle.main.url(forResource: "app", withExtension: "json", subdirectory: "Content/app")
+    .flatMap(AppManifest.load)?.earcons
 
 /**
  * TurnPlayer on the device's engine (the simulator's output, in real time), with short clips of a quiet constant
@@ -252,6 +257,72 @@ struct TurnPlayerTests {
         #expect(Session.interruption([AVAudioSessionInterruptionTypeKey: UInt(0)])
                 == .interruptionEnded(shouldResume: false))
         #expect(Session.interruption([:]) == nil)
+    }
+
+    /**
+     * At twice the voice speed (Settings) the whole turn (its bed, clips and pause) plays in about half the time, its
+     * position in the turn's own seconds, so the transcript keeps up with the voice. The engine is warm for both runs.
+     */
+    @Test func atTwiceTheSpeedATurnTakesHalfTheTime() async throws {
+        defer { player.release() }
+        player.play([.play(Clip(path: "a", dur: 0.15, lines: []))])
+        #expect(await wait { finished.count == 1 })
+        var start = ContinuousClock.now
+        player.play(turn)
+        #expect(await wait { finished.count == 2 })
+        let atOne = ContinuousClock.now - start
+        player.speed = 2
+        start = ContinuousClock.now
+        player.play(turn)
+        // How far into clip b (0.2 s of its own, 0.1 s heard) the position went.
+        var furthest = 0.0
+        while finished.count == 2 && ContinuousClock.now - start < .seconds(3) {
+            if let p = player.position() {
+                #expect(p.seconds >= 0 && p.seconds < 0.21, "clip \(p.clip) at \(p.seconds) s")
+                if p.clip == 1 { furthest = max(furthest, p.seconds) }
+            }
+            try await Task.sleep(for: .milliseconds(5))
+        }
+        let atTwo = ContinuousClock.now - start
+        #expect(finished.count == 3)
+        #expect(atTwo >= .milliseconds(200), "2x took \(atTwo)")
+        #expect(atTwo < atOne - .milliseconds(80), "1x took \(atOne), 2x \(atTwo)")
+        // A position in the clock's time would stop near 0.1 s.
+        #expect(furthest > 0.13, "clip b's position got to \(furthest) s")
+    }
+
+    /**
+     * The listening sound plays on its own node, at 1x whatever the voice speed, and says when it will have been heard
+     * out: after its length at least, so the mic heard from then on never hears it. A sound the build hasn't plays
+     * nothing, at once (nil: the mic is heard at once).
+     */
+    @Test func theListeningSoundSaysWhenItWillHaveBeenHeard() throws {
+        let scratch = try AudioScratch()
+        let earcons = scratch.url.appendingPathComponent("earcons", isDirectory: true)
+        try FileManager.default.createDirectory(at: earcons, withIntermediateDirectories: true)
+        try LevelClips.wav(earcons.appendingPathComponent("listen-start.wav"), seconds: 0.145)
+        let cues = CueBank(folder: earcons)
+        #expect(cues.clip(.listenStart)?.buffer.frameLength == AVAudioFrameCount(ClipFormat.frames(0.145)))
+        let sounds = TurnPlayer(resolver: content.resolver, cache: DecodedClipCache(), cues: cues)
+        defer { sounds.release() }
+        sounds.speed = 2
+        let now = ContinuousClock.now
+        let heard = try #require(sounds.play(.listenStart))
+        #expect(heard >= now + .milliseconds(145), "heard out \(heard - now) after")
+        #expect(heard < now + .seconds(1), "heard out \(heard - now) after")
+        #expect(sounds.play(.success) == nil)
+        #expect(cues.clip(.success) == nil)
+    }
+
+    /// The app's own sounds as the build has them (Content/app/earcons/): each decodes, as long as app.json says.
+    @Test(.enabled(if: builtEarcons != nil, "no Content/app in this build"))
+    func theBuildsListeningSoundsDecode() throws {
+        for cue in AppCue.allCases {
+            let clip = try #require(CueBank.shared.clip(cue), "\(cue.rawValue)")
+            let listed = try #require(builtEarcons?[cue.rawValue], "\(cue.rawValue) isn't in app.json")
+            let seconds = Double(clip.buffer.frameLength) / ClipFormat.sampleRate
+            #expect(abs(seconds - listed) < 0.002, "\(cue.rawValue): \(seconds) s, app.json says \(listed)")
+        }
     }
 
     /// Spike A's start latency, on the simulator: from play() until the voice is heard (its clock, less the output's

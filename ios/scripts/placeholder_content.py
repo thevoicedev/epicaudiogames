@@ -8,7 +8,9 @@ the same paths and lengths, so the iOS app can be built, run and timed without i
 - <out>/nuclear-war/<path>.opus for Don's lines (clips.json "voice"), Ogg Opus like the real ones
   (tools/games/nuclearwar.py);
 - <out>/<id>/cover.jpg, 676x380 like the real covers (tools/fetch_art.py): the website's cover of the game
-  (web/public/covers/<id>.jpg, scaled up to 676x380 when smaller) when there is one, else a plain gradient.
+  (web/public/covers/<id>.jpg, scaled up to 676x380 when smaller) when there is one, else a plain gradient;
+- <out>/app/: content/app/ as it is (the app's own sounds, help text and the font's licence). It's small and in git,
+  so the placeholder content has the real thing, whatever --game says.
 
 Each clip lasts its "dur" (or 2 s). It is a soft tone whose pitch comes from its path, so neighbouring clips sound
 different, with a short high blip at its start, so a gap or overlap between clips is easy to hear. Beds hum lower and
@@ -35,6 +37,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
 GAMES = ROOT / "games"
+# The app's own content (not a game's), copied as it is.
+APP_CONTENT = ROOT / "content" / "app"
 DEFAULT_DUR = 2.0
 COVER = "676x380"
 # The website's covers of the games (web/public/covers/<id>.jpg), used as the placeholder covers when there.
@@ -143,6 +147,20 @@ def cover(dest, index, force, source=None):
                     str(dest)], check=True)
 
 
+def copy_app_content(out):
+    """Copies content/app/ to <out>/app/ as it is, in place of what was there. Returns how many files it copied."""
+    dest = out / "app"
+    if not APP_CONTENT.is_dir():
+        print("warning: there's no {} to copy (the app's own sounds and help)".format(APP_CONTENT))
+        return 0
+    if dest.resolve() == APP_CONTENT.resolve():
+        return 0            # --out is the real content folder: app/ is already there
+    if dest.exists():
+        shutil.rmtree(dest)
+    shutil.copytree(APP_CONTENT, dest)
+    return sum(1 for p in dest.rglob("*") if p.is_file())
+
+
 def image_size(path):
     """An image's (width, height), by ffprobe."""
     p = subprocess.run(["ffprobe", "-v", "error", "-select_streams", "v:0", "-show_entries", "stream=width,height",
@@ -214,10 +232,12 @@ def main():
         source = Path(args.covers) / (dest.parent.name + ".jpg")
         cover(dest, index, args.force, source)
         real += source.exists()
+    app_files = copy_app_content(out)
     seconds = sum(dur for _, _, _, dur in jobs)
     print("{} clips ({} written, {:.1f} hours of audio) and {} covers ({} from {}) -> {}{}".format(
         len(jobs), made, seconds / 3600, len(covers), real, args.covers, out,
         "" if args.no_packs else ", packs -> {}".format(packs_out)))
+    print("{} files of the app's own (content/app) -> {}".format(app_files, out / "app"))
 
     if args.verify:
         with cf.ThreadPoolExecutor(max_workers=os.cpu_count() or 4) as pool:

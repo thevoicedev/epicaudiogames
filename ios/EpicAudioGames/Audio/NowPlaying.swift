@@ -9,7 +9,7 @@ import UIKit
  * - play/pause as one button (togglePlayPause: AirPods' press, a wired headset's click) does what the talking
  *   circle's Magic Tap does (GameController.magicTap): skip the voice while it speaks, start or stop listening while
  *   it waits, carry on after a pause;
- * - pause pauses the game ("Tap to carry on"): AirPods send it when an earbud is taken out;
+ * - pause pauses the game (the Paused overlay): AirPods send it when an earbud is taken out;
  * - play carries on after a pause, or starts listening while the game waits.
  * There's nothing to skip to or seek in: those commands are off. Everything is cleared when the game closes.
  */

@@ -15,6 +15,9 @@ enum AppTestRepo {
     static func game(_ id: String) throws -> GameInfo {
         try #require(catalog().first { $0.id == id }, "no \(id) in the catalog")
     }
+
+    /// content/app/ in the repo: the app's own sounds and help (tools/app_audio.py's), app.json and all.
+    static func appContent() throws -> URL { try Repo.root(from: #filePath).appendingPathComponent("content/app") }
 }
 
 /// A folder under the temporary directory, removed with it.

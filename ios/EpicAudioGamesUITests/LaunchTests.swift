@@ -3,9 +3,11 @@
 import XCTest
 
 final class LaunchTests: XCTestCase {
+    /// Straight to Games: no intro, no onboarding (IntroOnboardingUITests has those), no usage data sent from a test.
     @MainActor
     func testLaunchShowsTheGames() throws {
         let app = XCUIApplication()
+        app.launchArguments = ["-EpicNoIntro", "YES", "-EpicSkipOnboarding", "YES", "-EpicAnalytics", "off"]
         app.launch()
         XCTAssertTrue(app.wait(for: .runningForeground, timeout: 15))
         let game = app.descendants(matching: .any)

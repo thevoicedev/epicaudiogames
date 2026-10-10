@@ -10,8 +10,8 @@ import Testing
  * a fake server: a zip written here) and installed; the purchases are read again to get a pack that's missing; a
  * refund takes the pack away, once its game is closed (D11, L13); with no pack server nothing is bought (L6); with
  * no products, GET says the store isn't there; a failed download says so under its pack and is tried again; a full
- * disk says so; Ask to Buy waits; a download the last run left going is taken up. StoreKitTests runs the real
- * StoreKit where its test service is available.
+ * disk says so; Ask to Buy waits; a download the last run left going is taken up; and what happens is usage data.
+ * StoreKitTests runs the real StoreKit where its test service is available.
  */
 @MainActor
 @Suite(.serialized)
@@ -274,7 +274,10 @@ struct StoreTests {
         defer { cleanUp(store) }
         await store.restore()
         #expect(store.failed[pack.id] == Store.noRoom(pack))
-        #expect(Store.noRoom(pack).hasPrefix("There isn't enough space on your iPhone for Stories 2 to 5."))
+        #expect(Store.noRoom(pack).hasPrefix("There isn't enough space on your \(Store.device) for Stories 2 to 5."))
+        // Named as the device it runs on: an iPad's says so (the tests may run on either).
+        #expect(Store.noRoom(pack, on: "iPad").hasPrefix("There isn't enough space on your iPad for Stories 2 to 5."))
+        #expect(["iPhone", "iPad", "Mac"].contains(Store.device))
         try await Task.sleep(for: .milliseconds(300))
         #expect(log.fetched.count == 1)
         #expect(!packs.isInstalled(pack))
@@ -308,6 +311,57 @@ struct StoreTests {
         appStore.send(StorePurchase(product: "frootopia_stories", revoked: false, finish: {}))
         #expect(await until { packs.isInstalled(pack) })
         #expect(store.pending.isEmpty)
+    }
+
+    /**
+     * What the shop tells the usage data (Store.kt's onEvent): a purchase started and how it ended (cancelled, waiting
+     * for Ask to Buy, then bought), each download (installed, or failed), and Restore purchases with what the account
+     * has bought, or that the App Store couldn't be asked; never a price. Every event one the whitelist takes.
+     */
+    @Test func theShopsEventsAreUsageData() async throws {
+        let appStore = FakeAppStore()
+        let log = Log()
+        let store = store(appStore, log: log)
+        defer { cleanUp(store) }
+        let events = TrackedEvents()
+        store.onEvent = { name, props in events.add(Event(name: name, props: props)) }
+        store.start()
+        #expect(await until { store.prices["frootopia_stories"] != nil })
+        appStore.cancelling = true
+        await store.buy(pack)
+        #expect(events.take() == [
+            Events.purchaseStart("frootopia_stories"), Events.purchaseResult("frootopia_stories", .cancelled),
+        ])
+        appStore.cancelling = false
+        appStore.askToBuy = true
+        await store.buy(pack)
+        #expect(events.take() == [
+            Events.purchaseStart("frootopia_stories"), Events.purchaseResult("frootopia_stories", .pending),
+        ])
+        // The parent's yes: bought after all, and the pack comes down.
+        appStore.send(StorePurchase(product: "frootopia_stories", revoked: false, finish: {}))
+        #expect(await until { events.names.contains("pack_download") })
+        let bought = events.take()
+        #expect(bought.map(\.name) == ["purchase_result", "pack_download"])
+        #expect(bought.first == Events.purchaseResult("frootopia_stories", .purchased))
+        #expect(bought.last?.props["pack"] as? String == "frootopia-stories")
+        #expect(bought.last?.props["result"] as? String == "installed")
+        #expect(bought.last?.props["bytes"] as? Int64 == pack.size)
+        // Restore purchases: what the account has bought (the App Store lists it now); or the App Store not there.
+        appStore.owned = ["frootopia_stories"]
+        await store.restorePurchases()
+        #expect(events.take() == [Events.restore(.restored, count: 1)])
+        appStore.syncFails = true
+        await store.restorePurchases()
+        #expect(events.take() == [Events.restore(.failed, count: 0)])
+        // A download that fails says so too (the purchases read again, with the pack gone and no connection).
+        try packs.remove(pack)
+        log.failing = true
+        await store.restore()
+        let failed = events.take()
+        #expect(failed.map(\.name) == ["pack_download"])
+        #expect(failed.first?.props["result"] as? String == "failed")
+        for e in bought + failed { #expect(Events.problem(e.name, e.props) == nil, "\(e)") }
     }
 
     /// Two asks for one pack (an update and the purchases read at launch) share one download.
@@ -445,6 +499,8 @@ final class FakeAppStore: AppStoreClient, @unchecked Sendable {
     var syncFails = false
     /// Buying waits for a parent's yes.
     var askToBuy = false
+    /// Buying is cancelled (the player closes the App Store's sheet).
+    var cancelling = false
     private var loaded = false
     /// Set by updates(), which the store calls on the main actor.
     nonisolated(unsafe) private var continuation: AsyncStream<StorePurchase>.Continuation?
@@ -462,6 +518,7 @@ final class FakeAppStore: AppStoreClient, @unchecked Sendable {
         try await MainActor.run {
             guard loaded else { return nil }
             if failing { throw URLError(.cannotConnectToHost) }
+            if cancelling { return .nothing }
             if askToBuy { return .pending }
             bought.append(product)
             if !owned.contains(product) { owned.append(product) }

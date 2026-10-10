@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<!-- The Apple Watch app collects nothing and tracks nothing: it shows what the iPhone's game is doing and sends its
+	     two buttons back, device to device through WatchConnectivity (docs/WATCH.md). Usage data is the iPhone app's
+	     alone (ios/EpicAudioGames/Resources/PrivacyInfo.xcprivacy). It uses none of the required-reason APIs; its one
+	     UserDefaults read is a Debug build's launch argument (WatchDemo.swift), not in the release. -->
+	<key>NSPrivacyTracking</key>
+	<false/>
+	<key>NSPrivacyTrackingDomains</key>
+	<array/>
+	<key>NSPrivacyCollectedDataTypes</key>
+	<array/>
+	<key>NSPrivacyAccessedAPITypes</key>
+	<array/>
+</dict>
+</plist>

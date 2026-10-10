@@ -4,14 +4,35 @@
 <dict>
 	<!-- The keys Xcode does not generate from INFOPLIST_KEY_* settings (App.xcconfig has the rest). This file goes
 	     through the C preprocessor (INFOPLIST_PREPROCESS), for the Debug-only keys. -->
+	<!-- The launch screen: navy with the emblem in the middle of the whole screen, where the intro then draws it
+	     (UI/IntroView.swift); its status bar icons light over the navy, whatever the theme. -->
 	<key>UILaunchScreen</key>
 	<dict>
 		<key>UIColorName</key>
 		<string>LaunchBackground</string>
+		<key>UIImageName</key>
+		<string>LaunchLogo</string>
+		<key>UIImageRespectsSafeAreaInsets</key>
+		<false/>
 	</dict>
+	<key>UIStatusBarStyle</key>
+	<string>UIStatusBarStyleLightContent</string>
+	<!-- An iPad turns any way, and its window can be any size (Split View, Stage Manager), so no UIRequiresFullScreen.
+	     iPhones stay portrait (App.xcconfig). -->
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<!-- The fonts scripts/bundle_content.sh copies from Android (res/font): Atkinson Hyperlegible Next, the app font
+	     (UI/Design/Typography.swift). -->
 	<key>UIAppFonts</key>
 	<array>
-		<string>Fonts/lilita_one.ttf</string>
+		<string>Fonts/atkinson_hyperlegible_next_regular.ttf</string>
+		<string>Fonts/atkinson_hyperlegible_next_bold.ttf</string>
+		<string>Fonts/atkinson_hyperlegible_next_extrabold.ttf</string>
 	</array>
 	<!-- The game speaks and listens on with the phone locked, through the headphones (AppModel.onScreen). -->
 	<key>UIBackgroundModes</key>
@@ -20,9 +41,6 @@
 	</array>
 	<key>EpicPacksURL</key>
 	<string>$(EPIC_PACKS_URL)</string>
-	<!-- White status bar icons everywhere (UIStatusBarStyle), as on Android. -->
-	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
 #if EPIC_DEBUG
 	<!-- Debug: the Documents folder of the app shows in the Files app, to put a pack zip in Documents/incoming. -->
 	<key>UIFileSharingEnabled</key>

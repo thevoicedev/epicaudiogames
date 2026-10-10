@@ -151,6 +151,28 @@ struct TranscriptTests {
         #expect(t.feed.isEmpty)
     }
 
+    /**
+     * What VoiceOver reads for each entry (FeedItemTest.kt): a line with its speaker first, even where the name isn't
+     * shown; the narrator's, and a line with no name (or a blank one), as they are; a reply "You said: …"; a note as
+     * it is.
+     */
+    @Test func eachEntryIsReadAsOneElement() {
+        let gribbo = FeedItem(.spoken(who: "GRIBBO", name: "Gribbo", text: "Want to go say hi?"))
+        #expect(gribbo.readAs == "Gribbo: Want to go say hi?")
+        #expect(FeedItem(.spoken(who: "NARRATOR", name: "Narrator", text: "Later,")).readAs == "Later,")
+        #expect(FeedItem(.spoken(who: "HOST", name: "", text: "Round 1.")).readAs == "Round 1.")
+        #expect(FeedItem(.spoken(who: "HOST", name: " \u{A0}", text: "Round 2.")).readAs == "Round 2.")
+        #expect(FeedItem(.spoken(who: "ZED", name: "ZED", text: "Who?")).readAs == "ZED: Who?")
+        #expect(FeedItem(.reply("the USA")).readAs == "You said: the USA")
+        #expect(FeedItem(.reply("\u{2026}")).readAs == "You said: \u{2026}")
+        #expect(FeedItem(.note("Welcome back!")).readAs == "Welcome back!")
+        // A line joined by the next (a comma) is still one element, its speaker said once.
+        var t = Transcript(who: Self.who)
+        t.begin([clip("c", [line(0, 1, "PIP", "Hello there,"), line(1, 1, "PIP", "friend.")])])
+        t.revealAll()
+        #expect(t.feed.map(\.readAs) == ["Pip: Hello there, friend."])
+    }
+
     /// GameScreen.kt: the words said end at the first space at or after the characters said, else the text's end.
     @Test func theHighlightCutsAtASpace() {
         let s = "Hello there friend"
@@ -167,5 +189,77 @@ struct TranscriptTests {
         #expect(Transcript.highlightCut("caf\u{E9} \u{2014} ok", saidChars: 5) == 6)
         #expect(Transcript.highlightCut("cafe\u{301} \u{2014} ok", saidChars: 5) == 5)
         #expect(Transcript.highlightCut("cafe\u{301} \u{2014} ok", saidChars: 6) == 7)
+    }
+
+    // ----- The word being spoken (HighlightTest.kt) -----
+
+    private static let hello = "Hello there, friend"
+
+    private func word(_ text: String, _ said: Int) -> CurrentWord { Transcript.currentWord(text, saidChars: said) }
+
+    private func cut(_ before: String, _ word: String, _ after: String) -> CurrentWord {
+        CurrentWord(before: before, word: word, after: after)
+    }
+
+    @Test func aLineJustBegunIsOnItsFirstWord() {
+        #expect(word(Self.hello, 0) == cut("", "Hello", " there, friend"))
+        #expect(word(Self.hello, 3) == cut("", "Hello", " there, friend"))
+    }
+
+    @Test func theWordIsTheOneTheNextCharacterIsIn() {
+        // "Hello th|ere,": inside "there,", with its comma.
+        #expect(word(Self.hello, 8) == cut("Hello ", "there,", " friend"))
+        // "Hello |there": the space said, "there," is next.
+        #expect(word(Self.hello, 6) == cut("Hello ", "there,", " friend"))
+    }
+
+    @Test func onTheSpaceAfterAWordItsStillThatWord() {
+        #expect(word(Self.hello, 5) == cut("", "Hello", " there, friend"))
+        #expect(word(Self.hello, 12) == cut("Hello ", "there,", " friend"))
+    }
+
+    @Test func aLineSaidToItsEndStaysOnItsLastWord() {
+        let n = Self.hello.utf16.count
+        #expect(word(Self.hello, n) == cut("Hello there, ", "friend", ""))
+        // Beyond the end (a line that joined another counts on), and before the start: held to the line.
+        #expect(word(Self.hello, n + 10) == cut("Hello there, ", "friend", ""))
+        #expect(word(Self.hello, -3) == cut("", "Hello", " there, friend"))
+    }
+
+    @Test func spacesAroundTheWordsStayWhereTheyAre() {
+        #expect(word("  Hi  you ", 0) == cut("  ", "Hi", "  you "))
+        #expect(word("  Hi  you ", 5) == cut("  ", "Hi", "  you "))
+        #expect(word("  Hi  you ", 6) == cut("  Hi  ", "you", " "))
+        #expect(word("  Hi  you ", 10) == cut("  Hi  ", "you", " "))
+        #expect(word("one\ntwo", 4) == cut("one\n", "two", ""))
+        // Kotlin's whitespace: a no-break space parts words too.
+        #expect(word("one\u{A0}two", 5) == cut("one\u{A0}", "two", ""))
+    }
+
+    /// In UTF-16 units, as activeChars counts: 🍜 is two, so "🍜🍜 hot" is on its second word from 5 on.
+    @Test func theWordCountsUTF16Units() {
+        #expect(word("\u{1F35C}\u{1F35C} hot", 1) == cut("", "\u{1F35C}\u{1F35C}", " hot"))
+        #expect(word("\u{1F35C}\u{1F35C} hot", 4) == cut("", "\u{1F35C}\u{1F35C}", " hot"))
+        #expect(word("\u{1F35C}\u{1F35C} hot", 5) == cut("\u{1F35C}\u{1F35C} ", "hot", ""))
+    }
+
+    @Test func aLineWithNoWordsHasNoneToHighlight() {
+        #expect(word("", 0) == cut("", "", ""))
+        #expect(word("   ", 2) == cut("   ", "", ""))
+    }
+
+    @Test func theThreePartsAreAlwaysTheWholeLineAndTheWordMovesOnlyForward() {
+        let lines = [Self.hello, "  Hi  you ", "One.", "A b  c, d!", "\u{201C}Quick,\u{201D} said Pip. \u{201C}Run!\u{201D}"]
+        for text in lines {
+            var lastStart = 0
+            for said in -2...(text.utf16.count + 2) {
+                let w = word(text, said)
+                #expect(w.before + w.word + w.after == text, "\(text) at \(said)")
+                let spaced = w.word.utf16.contains { Kt.isWhitespace($0) }
+                #expect(!w.word.isEmpty && !spaced, "\(text) at \(said): \(w.word)")
+                #expect(w.before.utf16.count >= lastStart, "\(text) at \(said) went back")
+                lastStart = w.before.utf16.count
+            }
+        }
     }
 }

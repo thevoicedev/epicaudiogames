@@ -15,17 +15,34 @@ import Speech
  * phone is locked. It stops itself when its input changes (a route change, an interruption): AppModel starts it again
  * (restart).
  *
+ * The listening sound plays as an answer's feed starts, and the recogniser must never take it for words: a feed has a
+ * gate ([Feed.from], a host time: when the sound will have been heard out), and what the mic recorded before it is
+ * dropped, or cut off where a buffer straddles it ([admit]), before the recogniser or the level meter see it. Android
+ * starts its recogniser after the sound instead (ListenSequence.kt).
+ *
  * Nonisolated: the tap runs on an audio thread. The answer being fed is swapped under a lock.
  */
 nonisolated final class MicInput: @unchecked Sendable {
     /// No mic to listen with (an input with no channels or sample rate).
     struct NoInput: Error {}
 
-    /// What the tap feeds: one answer's request, and its level meter.
+    /// What the tap feeds: one answer's request, its level meter, and its gate.
     struct Feed: @unchecked Sendable {
         let request: SFSpeechAudioBufferRecognitionRequest
         let meter: LevelMeter
         let level: @Sendable (Float) -> Void
+        /// Nothing recorded before this host time is heard (the listening sound, until it's over); nil: all of it.
+        let from: UInt64?
+    }
+
+    /// What becomes of a buffer of the mic's at the gate ([admit]).
+    enum Admit: Equatable, Sendable {
+        /// All of it is heard.
+        case pass
+        /// None of it: it was all recorded before the gate.
+        case drop
+        /// Its first frames (this many) were recorded before the gate: the rest is heard.
+        case trim(Int)
     }
 
     static let log = Logger(subsystem: "com.epicaudiogames.app", category: "mic")
@@ -55,10 +72,12 @@ nonisolated final class MicInput: @unchecked Sendable {
         guard format.sampleRate > 0, format.channelCount > 0 else { throw NoInput() }
         removeTap()
         let feeding = feeding
-        input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, _ in
+        input.installTap(onBus: 0, bufferSize: 1024, format: format) { buffer, when in
             guard let feed = feeding.withLock({ $0 }) else { return }
-            feed.request.append(buffer)
-            if let level = feed.meter.level(buffer) { feed.level(level) }
+            // Recorded before the gate, the listening sound: never heard (MicInput's doc).
+            guard let heard = MicInput.gated(buffer, when: when, from: feed.from) else { return }
+            feed.request.append(heard)
+            if let level = feed.meter.level(heard) { feed.level(level) }
         }
         tapped.withLock { $0 = true }
         engine.prepare()
@@ -94,9 +113,15 @@ nonisolated final class MicInput: @unchecked Sendable {
         removeTap()
     }
 
-    /// From now on, the mic's buffers go to [request], and their level to [level] (20 times a second).
-    func feed(_ request: SFSpeechAudioBufferRecognitionRequest, level: @escaping @Sendable (Float) -> Void) {
-        let feed = Feed(request: request, meter: LevelMeter(), level: level)
+    /**
+     * From now on, the mic's buffers go to [request], and their level to [level] (20 times a second): those recorded
+     * from host time [from] on (the gate: when the listening sound will have been heard out), or all of them.
+     */
+    func feed(
+        _ request: SFSpeechAudioBufferRecognitionRequest, from: UInt64? = nil,
+        level: @escaping @Sendable (Float) -> Void
+    ) {
+        let feed = Feed(request: request, meter: LevelMeter(), level: level, from: from)
         feeding.withLock { $0 = feed }
     }
 
@@ -117,5 +142,58 @@ nonisolated final class MicInput: @unchecked Sendable {
             return t
         }
         if was { engine.inputNode.removeTap(onBus: 0) }
+    }
+
+    // ----- The gate -----
+
+    /**
+     * What of a buffer of [frames] frames at [rate] a second, its first recorded at host time [start], is heard with
+     * the gate at host time [from] (nil: no gate): all of it once it starts at or after the gate; none of it if it was
+     * all recorded before; else the frames from the gate on. Pure: the tap's arithmetic (MicInputTests).
+     */
+    static func admit(start: UInt64, frames: Int, rate: Double, from: UInt64?) -> Admit {
+        guard let from, start < from, frames > 0, rate > 0 else { return .pass }
+        // The frames before the gate, a hair's leeway so that one ending exactly at it isn't lost to the rounding.
+        let early = (AVAudioTime.seconds(forHostTime: from - start) * rate - 1e-6).rounded(.up)
+        if early >= Double(frames) { return .drop }
+        return early > 0 ? .trim(Int(early)) : .pass
+    }
+
+    /// [buffer] as the gate at host time [from] lets it through: itself, the part from the gate on, or nil. [when] is
+    /// the tap's time for it: the host time it was recorded at, or else its arrival less its length.
+    static func gated(_ buffer: AVAudioPCMBuffer, when: AVAudioTime, from: UInt64?) -> AVAudioPCMBuffer? {
+        guard let from else { return buffer }
+        let rate = buffer.format.sampleRate
+        let frames = Int(buffer.frameLength)
+        let start = when.isHostTimeValid
+            ? when.hostTime
+            : mach_absolute_time() &- AVAudioTime.hostTime(forSeconds: Double(frames) / max(rate, 1))
+        switch admit(start: start, frames: frames, rate: rate, from: from) {
+        case .pass: return buffer
+        case .drop: return nil
+        case .trim(let skip): return dropping(skip, of: buffer)
+        }
+    }
+
+    /// [buffer] without its first [skip] frames, as a buffer of its own; nil if there's nothing left, or its samples
+    /// aren't floats or 16-bit (dropped rather than let the sound through).
+    static func dropping(_ skip: Int, of buffer: AVAudioPCMBuffer) -> AVAudioPCMBuffer? {
+        let count = Int(buffer.frameLength) - skip
+        guard skip >= 0, count > 0,
+              let out = AVAudioPCMBuffer(pcmFormat: buffer.format, frameCapacity: AVAudioFrameCount(count)) else {
+            return nil
+        }
+        // Interleaved: one run of samples, [stride] to a frame; else one run per channel.
+        let runs = buffer.format.isInterleaved ? 1 : Int(buffer.format.channelCount)
+        let stride = buffer.stride
+        if let from = buffer.floatChannelData, let to = out.floatChannelData {
+            for r in 0..<runs { to[r].update(from: from[r].advanced(by: skip * stride), count: count * stride) }
+        } else if let from = buffer.int16ChannelData, let to = out.int16ChannelData {
+            for r in 0..<runs { to[r].update(from: from[r].advanced(by: skip * stride), count: count * stride) }
+        } else {
+            return nil
+        }
+        out.frameLength = AVAudioFrameCount(count)
+        return out
     }
 }

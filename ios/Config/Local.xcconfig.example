@@ -3,10 +3,10 @@
 // The Apple team that signs device builds (simulator builds need none).
 DEVELOPMENT_TEAM = 8667597XM3
 
-// The pack server: packs download from <url>/<pack>-<version>.zip, the website's /packs (README, "The website").
-// "//" starts a comment in an xcconfig, so the slashes are written with $() between them. Left empty, buying packs
-// is hidden.
-EPIC_PACKS_URL = https:/$()/epicaudiogames.com/packs
-
-// Simulator only, with the packs served from this Mac (PACKS_DIR=dist/packs PORT=8765 node web/server.js):
-// EPIC_PACKS_URL = http:/$()/localhost:8765/packs
+// Packs download from Base.xcconfig's EPIC_PACKS_URL, the R2 bucket https://packs.epicaudiogames.com
+// (docs/R2_PACKS.md), so there's nothing to set for them here. A value here wins over Base's, and `fastlane ios beta`
+// stops unless the build's URL is the R2 one. "//" starts a comment in an xcconfig, hence the $() between the slashes.
+//
+// Simulator only, with the zips served from this Mac (python3 -m http.server 8765 --directory dist/packs). Take it
+// out again before a TestFlight build. A Debug build also installs any zip dropped into the app's Documents/incoming/.
+// EPIC_PACKS_URL = http:/$()/localhost:8765

@@ -1,8 +1,9 @@
-// The app as built: the games, content and font bundled as android/app/build.gradle.kts bundles assets, and Info.plist.
+// The app as built: the games, content and fonts bundled as android/app/build.gradle.kts bundles assets; Info.plist.
 
 import Foundation
 import Testing
 import UIKit
+@testable import EpicAudioGames
 
 /// Whether the build bundled any content (CI builds without content/ skip the content checks).
 let contentPresent = Bundle.main.url(forResource: "Content", withExtension: nil) != nil
@@ -37,9 +38,28 @@ struct SmokeTests {
         #expect(files.contains("PrivacyInfo.xcprivacy"))
     }
 
-    @Test func lilitaOneIsRegistered() {
-        #expect(UIFont.fontNames(forFamilyName: "Lilita One").contains("LilitaOne"))
-        #expect(UIFont(name: "LilitaOne", size: 17) != nil)
+    /// docs/DESIGN.md's type: Atkinson Hyperlegible Next's Regular, Bold and ExtraBold (Android's res/font files), by
+    /// the names Typography.swift asks for. Lilita One, the old design's font, is gone.
+    @Test func atkinsonHyperlegibleNextIsRegistered() {
+        for name in [Atkinson.regular, Atkinson.bold, Atkinson.extraBold] {
+            #expect(UIFont(name: name, size: 17) != nil, "\(name)")
+        }
+        #expect([Atkinson.regular, Atkinson.bold, Atkinson.extraBold] == [
+            "AtkinsonHyperlegibleNext-Regular", "AtkinsonHyperlegibleNext-Bold", "AtkinsonHyperlegibleNext-ExtraBold",
+        ])
+        let family = UIFont.fontNames(forFamilyName: "Atkinson Hyperlegible Next")
+        #expect(family.contains("AtkinsonHyperlegibleNext-Regular"))
+        #expect(family.contains("AtkinsonHyperlegibleNext-Bold"))
+        #expect(UIFont.fontNames(forFamilyName: "Lilita One").isEmpty)
+        #expect(UIFont(name: "LilitaOne", size: 17) == nil)
+    }
+
+    /// The font goes with its licence (the SIL Open Font License asks for it), in the app's own content/app/, which
+    /// bundle_content.sh bundles whichever games' content it does.
+    @Test(.enabled(if: contentPresent, "no content was bundled"))
+    func theFontsLicenceIsBundled() {
+        #expect(app.url(forResource: "OFL-AtkinsonHyperlegibleNext", withExtension: "txt",
+                        subdirectory: "Content/app/licences") != nil)
     }
 
     @Test func infoPlist() throws {
@@ -48,14 +68,48 @@ struct SmokeTests {
         #expect(info["CFBundleDisplayName"] as? String == "Epic Audio Games")
         #expect((info["NSMicrophoneUsageDescription"] as? String)?.isEmpty == false)
         #expect((info["NSSpeechRecognitionUsageDescription"] as? String)?.isEmpty == false)
-        #expect(info["UISupportedInterfaceOrientations"] as? [String] == ["UIInterfaceOrientationPortrait"])
-        #expect(info["UIUserInterfaceStyle"] as? String == "Light")
-        #expect(info["UIAppFonts"] as? [String] == ["Fonts/lilita_one.ttf"])
-        #expect((info["UILaunchScreen"] as? [String: Any])?["UIColorName"] as? String == "LaunchBackground")
+        // Light or dark as the theme says (EpicTheme), the status bar with it: nothing forced once the app is up. The
+        // launch screen is navy whatever the theme, so its status bar is light (the style as the app launches only).
+        #expect(info["UIUserInterfaceStyle"] == nil)
+        #expect(info["UIStatusBarStyle"] as? String == "UIStatusBarStyleLightContent")
+        #expect(info["UIViewControllerBasedStatusBarAppearance"] == nil)
+        #expect(info["UIAppFonts"] as? [String] == [
+            "Fonts/atkinson_hyperlegible_next_regular.ttf", "Fonts/atkinson_hyperlegible_next_bold.ttf",
+            "Fonts/atkinson_hyperlegible_next_extrabold.ttf",
+        ])
+        // The launch screen: navy, the emblem in the middle of the whole screen, where the intro draws it again.
+        let launch = info["UILaunchScreen"] as? [String: Any]
+        #expect(launch?["UIColorName"] as? String == "LaunchBackground")
+        #expect(launch?["UIImageName"] as? String == "LaunchLogo")
+        #expect(launch?["UIImageRespectsSafeAreaInsets"] as? Bool == false)
         #expect(info["EpicPacksURL"] is String)
         #expect(info["ITSAppUsesNonExemptEncryption"] as? Bool == false)
         let ats = info["NSAppTransportSecurity"] as? [String: Any]
         #expect(ats?["NSAllowsLocalNetworking"] as? Bool == true)
+    }
+
+    /// The launch screen's emblem, which the intro draws in the same place at the same size (IntroView: 160 pt).
+    @Test func theLaunchLogoIsInTheApp() throws {
+        let logo = try #require(UIImage(named: "LaunchLogo"))
+        #expect(logo.size == CGSize(width: IntroView.emblem, height: IntroView.emblem))
+    }
+
+    /**
+     * iPhone and iPad (docs/DESIGN.md › Tablets…): phones portrait only, an iPad every way round and any window size
+     * (no UIRequiresFullScreen). Read from the built Info.plist as it's written: the bundle's infoDictionary gives an
+     * iPad its ~ipad keys in place of the plain ones, so it would differ by device.
+     */
+    @Test func iPhoneAndIPad() throws {
+        let data = try Data(contentsOf: app.bundleURL.appendingPathComponent("Info.plist"))
+        let written = try #require(
+            try PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any])
+        #expect(written["UIDeviceFamily"] as? [Int] == [1, 2])
+        #expect(written["UISupportedInterfaceOrientations"] as? [String] == ["UIInterfaceOrientationPortrait"])
+        #expect(written["UISupportedInterfaceOrientations~ipad"] as? [String] == [
+            "UIInterfaceOrientationPortrait", "UIInterfaceOrientationPortraitUpsideDown",
+            "UIInterfaceOrientationLandscapeLeft", "UIInterfaceOrientationLandscapeRight",
+        ])
+        #expect(written["UIRequiresFullScreen"] == nil)
     }
 
     @Test(.enabled(if: contentPresent, "no content was bundled"))

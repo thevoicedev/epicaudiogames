@@ -25,6 +25,38 @@ public struct FeedItem: Identifiable, Equatable, Sendable {
         case .spoken(_, _, let text), .reply(let text), .note(let text): text
         }
     }
+
+    /**
+     * What VoiceOver says for the entry, read as one element (docs/DESIGN.md › Game › Transcript; GameController.kt's
+     * FeedItem.readAs). A line is read with its speaker first ("Gribbo: …"), even where the name isn't shown; the
+     * narrator's lines, and lines with no name, as they are. A reply is "You said: …". Never announced as it comes:
+     * the game is already saying it.
+     */
+    public var readAs: String {
+        switch kind {
+        case .spoken(let who, let name, let text):
+            Kt.trim(name).isEmpty || Kt.utf16Equal(who, "NARRATOR") ? text : "\(name): \(text)"
+        case .reply(let text): "You said: \(text)"
+        case .note(let text): text
+        }
+    }
+}
+
+/**
+ * A transcript line cut around the word being spoken ([Transcript.currentWord]): what's been said [before] it, the
+ * [word] itself (highlighted), and what's still to come [after] it (shown as it is, or hidden but keeping its place).
+ * Together they're the line. Highlight.kt's CurrentWord.
+ */
+public struct CurrentWord: Equatable, Sendable {
+    public let before: String
+    public let word: String
+    public let after: String
+
+    public init(before: String, word: String, after: String) {
+        self.before = before
+        self.word = word
+        self.after = after
+    }
 }
 
 /**
@@ -170,6 +202,35 @@ public struct Transcript: Sendable {
         let u = Array(text.utf16)
         let cut = highlightCut(text, saidChars: saidChars)
         return (String(decoding: u[..<cut], as: UTF16.self), String(decoding: u[cut...], as: UTF16.self))
+    }
+
+    /**
+     * Where the voice is in [text], [saidChars] characters in (activeChars, in UTF-16 units): the word it's saying, the
+     * one the next character to say is in. So a line just begun has its first word and a line said to its end its
+     * last; with the next character a space, it's the word just said. Words are split at whitespace (Kotlin's), their
+     * punctuation with them. The transcript highlights that word alone (docs/DESIGN.md › Game › Transcript; FeedView's
+     * SpokenBubble). Highlight.kt's currentWord.
+     */
+    public static func currentWord(_ text: String, saidChars: Int) -> CurrentWord {
+        let u = Array(text.utf16)
+        func space(_ i: Int) -> Bool { Kt.isWhitespace(u[i]) }
+        func piece(_ from: Int, _ to: Int) -> String { String(decoding: u[from..<to], as: UTF16.self) }
+        var end = min(max(saidChars, 0), u.count)
+        // Inside a word: on to its end.
+        while end < u.count && !space(end) { end += 1 }
+        // Back over any spaces, to the end of the word before them.
+        while end > 0 && space(end - 1) { end -= 1 }
+        if end == 0 {
+            // Only spaces so far: the first word, wherever it starts.
+            var start = 0
+            while start < u.count && space(start) { start += 1 }
+            var stop = start
+            while stop < u.count && !space(stop) { stop += 1 }
+            return CurrentWord(before: piece(0, start), word: piece(start, stop), after: piece(stop, u.count))
+        }
+        var start = end
+        while start > 0 && !space(start - 1) { start -= 1 }
+        return CurrentWord(before: piece(0, start), word: piece(start, end), after: piece(end, u.count))
     }
 
     /// Kotlin's Double.coerceIn: NaN goes through.

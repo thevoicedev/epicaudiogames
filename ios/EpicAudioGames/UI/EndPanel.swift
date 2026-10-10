@@ -1,24 +1,38 @@
-// ui/GameScreen.kt's EndPanel and EndButton (lines 330-379): the end, what was reached, and what next.
+// ui/GameScreen.kt's EndPanel: the end, what was reached, and what next.
 
 import EpicAppCore
 import SwiftUI
 
-/// The end: what was reached, and what next. With less room than it needs, it scrolls.
+/**
+ * The end: what was reached, and what next, on the raised surface. With less room than it needs, it scrolls (the text
+ * grows as far as the phone's text size goes). VoiceOver moves to its heading a moment after it appears (Android's
+ * pane is named by the heading, which takes TalkBack's focus the same way). GameScreen.kt's EndPanel.
+ */
 struct EndPanel: View {
     let game: GameController
-    let onStore: () -> Void
+    let onStore: @MainActor () -> Void
+    @Environment(\.epicColors) private var c
+
+    private static let shape = UnevenRoundedRectangle(topLeadingRadius: 24, topTrailingRadius: 24, style: .continuous)
 
     var body: some View {
         if let end = game.end {
             PanelScroll {
                 panel(end)
             }
-            .clipShape(UnevenRoundedRectangle(topLeadingRadius: 26, topTrailingRadius: 26, style: .circular))
+            .clipShape(Self.shape)
             .frame(maxWidth: .infinity)
             .background {
-                UnevenRoundedRectangle(topLeadingRadius: 26, topTrailingRadius: 26, style: .circular)
-                    .fill(Palette.card)
-                    .ignoresSafeArea(.container, edges: .bottom)
+                // Its edge round its top and down its sides: the stroke's outer half and its bottom are cut off, so
+                // what shows is the edge's width, inside the panel.
+                ZStack {
+                    Self.shape.fill(c.surfaceRaised)
+                    Self.shape
+                        .stroke(c.outlineSubtle, lineWidth: 2 * c.edgeWidth)
+                        .padding(.bottom, -4 * c.edgeWidth)
+                }
+                .clipShape(Self.shape)
+                .ignoresSafeArea(.container, edges: .bottom)
             }
             .accessibilityElement(children: .contain)
             .accessibilityIdentifier("end-panel")
@@ -26,13 +40,12 @@ struct EndPanel: View {
     }
 
     private func panel(_ end: End) -> some View {
-        VStack(spacing: 10) {
-            // It stops growing at the second accessibility size: larger, CHAPTER COMPLETE! has no room to break.
-            OutlinedText(heading(end), size: 30, fill: Palette.goldUI, maxLines: 2, alignment: .center, isHeader: true)
-                .dynamicTypeSize(...DynamicTypeSize.accessibility2)
+        VStack(spacing: 12) {
+            PaneHeading(text: end.heading, key: end)
+                .accessibilityIdentifier("end-heading")
             Text(end.title)
-                .textStyle(.titleLarge)
-                .foregroundStyle(Palette.title)
+                .epicFont(.itemTitle)
+                .foregroundStyle(c.text)
                 .multilineTextAlignment(.center)
             let canGoOn = game.canGoOn
             if end.locked != nil && !canGoOn {
@@ -40,36 +53,42 @@ struct EndPanel: View {
                     let more = end.kind == "chapter"
                         ? "What happens next is in \(pack.title)." : "There's more: \(pack.title)."
                     Text(more)
-                        .textStyle(.bodyMedium)
-                        .foregroundStyle(Palette.ink)
+                        .epicFont(.body)
+                        .foregroundStyle(c.text)
                         .multilineTextAlignment(.center)
-                    // Dark text on the gold: white is too faint there.
-                    FilledButton(label: "GET \(pack.title.uppercased())", color: Palette.gold, text: Palette.ink,
-                                 action: onStore)
+                    EpicButton("Get \(pack.title)", wide: true, action: onStore)
+                        .accessibilityIdentifier("end-get")
                 } else {
                     Text("What happens next is coming soon, in a story pack.")
-                        .textStyle(.bodyMedium)
-                        .foregroundStyle(Palette.ink)
+                        .epicFont(.body)
+                        .foregroundStyle(c.text)
                         .multilineTextAlignment(.center)
                 }
             }
             if canGoOn {
-                FilledButton(label: "NEXT CHAPTER", color: Palette.yes) { game.nextChapter() }
+                EpicButton("Next chapter", wide: true) { game.nextChapter() }
+                    .accessibilityIdentifier("end-next")
             }
-            FilledButton(label: end.kind == "gameover" ? "TRY AGAIN" : "PLAY AGAIN", color: Palette.choice) {
+            EpicButton(end.kind == "gameover" ? "Try again" : "Play again", kind: .secondary, wide: true) {
                 game.playAgain()
             }
-            FilledButton(label: "BACK TO GAMES", color: Palette.headerBottom) { game.leave() }
+            .accessibilityIdentifier("end-again")
+            EpicButton("Back to games", kind: .secondary, wide: true) { game.leave() }
+                .accessibilityIdentifier("end-back")
         }
-        .padding(18)
-        .frame(maxWidth: .infinity)
+        .padding(20)
+        .readableWidth(alignment: .center)
     }
+}
 
-    private func heading(_ end: End) -> String {
-        switch end.kind {
-        case "chapter": "CHAPTER COMPLETE!"
-        case "gameover": "GAME OVER"
-        default: "THE END"
+extension End {
+    /// The end panel's heading, in sentence case as everywhere (docs/DESIGN.md › Principles); the watch shows it too
+    /// (WatchBridge).
+    var heading: String {
+        switch kind {
+        case "chapter": "Chapter complete"
+        case "gameover": "Game over"
+        default: "The end"
         }
     }
 }

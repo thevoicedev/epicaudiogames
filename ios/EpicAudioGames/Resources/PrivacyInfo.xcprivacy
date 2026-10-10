@@ -2,13 +2,73 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<!-- No tracking, and no data collected: speech is turned into text for the game and never stored or sent by us. -->
+	<!-- No tracking: nothing goes to other companies or to advertising. Usage data goes to our own server under a random
+	     install ID, for analytics only, and the player can turn it off and delete it in Settings (Analytics/;
+	     web/analytics/events.json lists every event; docs/DESIGN.md, Usage data). Speech is turned into text for the
+	     game and never stored or sent by us. The collected types below match fastlane/app_privacy_details.json, the App
+	     Privacy answers (fastlane ios check compares them). -->
 	<key>NSPrivacyTracking</key>
 	<false/>
 	<key>NSPrivacyTrackingDomains</key>
 	<array/>
 	<key>NSPrivacyCollectedDataTypes</key>
-	<array/>
+	<array>
+		<!-- Which games, screens and stories are played, and how they end. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeProductInteraction</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+			</array>
+		</dict>
+		<!-- The random install ID (not the advertising identifier). -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeDeviceID</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+			</array>
+		</dict>
+		<!-- Packs bought, restored and downloaded. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypePurchaseHistory</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+			</array>
+		</dict>
+		<!-- The app and iOS versions, the language, the kind of device (phone, tablet or computer; never its model), and
+		     where a game went wrong. -->
+		<dict>
+			<key>NSPrivacyCollectedDataType</key>
+			<string>NSPrivacyCollectedDataTypeOtherDiagnosticData</string>
+			<key>NSPrivacyCollectedDataTypeLinked</key>
+			<true/>
+			<key>NSPrivacyCollectedDataTypeTracking</key>
+			<false/>
+			<key>NSPrivacyCollectedDataTypePurposes</key>
+			<array>
+				<string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
+			</array>
+		</dict>
+	</array>
+	<!-- No FileTimestamp: the usage data's queue (Analytics/EventQueue.swift) keeps each event's time in its own line,
+	     and never reads a file's dates. -->
 	<key>NSPrivacyAccessedAPITypes</key>
 	<array>
 		<!-- Free disk space, checked before a pack is downloaded and unpacked. -->
@@ -20,14 +80,26 @@
 				<string>E174.1</string>
 			</array>
 		</dict>
-		<!-- mach_absolute_time: the mic level meter's 20-a-second limit (Speech/SpeechCapture.swift) and the audio
-		     graph's start times (Audio/AudioGraph.swift). Time between events in the app; nothing leaves the device. -->
+		<!-- mach_absolute_time: the mic level meter's 20-a-second limit (Speech/SpeechCapture.swift), the audio
+		     graph's start times (Audio/AudioGraph.swift), and the mic's gate, which drops what it recorded before the
+		     listening sound was over (Speech/MicInput.swift, Speech/SpeechListener.swift). Time between events in the
+		     app; nothing leaves the device. -->
 		<dict>
 			<key>NSPrivacyAccessedAPIType</key>
 			<string>NSPrivacyAccessedAPICategorySystemBootTime</string>
 			<key>NSPrivacyAccessedAPITypeReasons</key>
 			<array>
 				<string>35F9.1</string>
+			</array>
+		</dict>
+		<!-- UserDefaults: the player's settings (App/AppSettings.swift), and a launch's -EpicAnalytics off (the UI tests';
+		     Analytics/Analytics.swift), which only the app itself reads and writes. -->
+		<dict>
+			<key>NSPrivacyAccessedAPIType</key>
+			<string>NSPrivacyAccessedAPICategoryUserDefaults</string>
+			<key>NSPrivacyAccessedAPITypeReasons</key>
+			<array>
+				<string>CA92.1</string>
 			</array>
 		</dict>
 	</array>

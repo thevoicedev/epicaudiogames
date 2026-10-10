@@ -1,4 +1,5 @@
-// MainActivity.kt's App (lines 119-139): the game list, or the game being played, and the store sheet over either.
+// MainActivity.kt's App (App, Screens and TabScreen): the way in (the intro, onboarding), then the tabs, or the game
+// being played instead of them, and the store sheet over either and the help sheet over the game, in the player's theme.
 
 import EpicAppCore
 import SwiftUI
@@ -9,24 +10,62 @@ struct RootView: View {
     #if DEBUG
     @State private var lab = false
     #endif
+    @Environment(\.accessibilityVoiceOverEnabled) private var voiceOver
 
     var body: some View {
         ZStack {
-            // While a game loads (or loads again, with a pack), what's under the spinner waits.
-            Group {
-                if let game = model.game {
-                    GameView(game: game, onStore: { model.showStore(game.info) })
-                } else {
-                    home
+            if model.intro {
+                // After the launch screen, once per process (docs/DESIGN.md › Intro).
+                IntroView(onSkip: model.skipIntro)
+                    .onAppear { model.startIntro() }
+            } else if model.onboarding {
+                // The first run, or opened again from Help or Settings (docs/DESIGN.md › Onboarding).
+                OnboardingView(
+                    settings: model.settings, manifest: model.appAudio.manifest, audio: model.appAudio,
+                    reopened: model.onboardingFrom != nil, screenReader: screenReader,
+                    onMicAnswer: model.onboardingMicAnswered, onDone: model.onboardingDone)
+            } else {
+                // While a game loads (or loads again, with a pack), what's under the spinner waits.
+                Group {
+                    if let game = model.game {
+                        // The game's keys are off while a sheet is over it (each sheet has its own Escape).
+                        GameView(
+                            game: game, keys: model.storeFor == nil && !model.helpSheet, onHelp: model.openHelpSheet
+                        ) { from in
+                            model.showStore(game.info, from: from)
+                        }
+                    } else {
+                        MainTabs(
+                            selected: model.tab, onSelect: model.select,
+                            keys: model.storeFor == nil && model.notice == nil
+                        ) { tab in
+                            screen(tab)
+                        }
+                    }
+                }
+                .accessibilityHidden(model.opening != nil)
+                if let opening = model.opening {
+                    LoadingOverlay(title: opening.title)
                 }
             }
-            .accessibilityHidden(model.opening != nil)
-            if model.opening != nil {
-                LoadingOverlay()
-            }
         }
+        // The window's width and shape, for the layouts that change with them (docs/DESIGN.md › Tablets…).
+        .measuresWindow()
+        // The player's theme (Settings › Appearance and the phone's own settings), for everything under it; the window
+        // dark under the intro, which is navy in every theme.
+        .epicTheme(model.settings, darkWindow: model.intro)
         .sheet(item: Binding(get: { model.storeFor }, set: { if $0 == nil { model.showStore(nil) } })) { game in
-            StoreSheet(game: game, store: model.store)
+            // A sheet is presented on its own: the theme is given to it again.
+            StoreSheet(game: game, store: model.store, installed: model.packs.isInstalled)
+                .epicTheme(model.settings)
+        }
+        .sheet(isPresented: Binding(
+            get: { model.helpSheet && model.game != nil }, set: { if !$0 { model.closeHelpSheet() } }
+        )) {
+            HelpSheet(
+                pages: model.helpPages, audio: model.appAudio, topic: model.helpSheetTopic,
+                onTopic: model.showSheetTopic)
+                .epicTheme(model.settings)
         }
         .alert(
             "Sorry!",
@@ -53,20 +92,54 @@ struct RootView: View {
         return !game.paused && game.end == nil
     }
 
+    /// VoiceOver is on, for onboarding (its page, the welcome waiting for Listen); in a Debug build -EpicVoiceOver YES
+    /// too, so a UI test can see those pages (DebugLaunch).
+    private var screenReader: Bool {
+        #if DEBUG
+        if DebugLaunch.screenReader { return true }
+        #endif
+        return voiceOver
+    }
+
+    /// A tab's screen, on the model's state (MainActivity.kt's TabScreen).
+    @ViewBuilder private func screen(_ tab: AppTab) -> some View {
+        switch tab {
+        case .games:
+            home
+        case .shop:
+            ShopView(
+                games: model.games, store: model.store, installed: model.packs.isInstalled,
+                speaks: model.tab == .shop && model.storeFor == nil, onShown: model.shopShown)
+        case .help:
+            HelpView(
+                pages: model.helpPages, audio: model.appAudio, topic: model.helpTopic, onTopic: model.showTopic,
+                onShowWelcome: model.showWelcome, focusTopic: model.focusHelpTopic,
+                onTopicFocused: model.helpTopicFocused)
+        case .settings:
+            SettingsView(
+                settings: model.settings, onPlaySample: model.playSample, onHowToPlay: model.howToPlay,
+                onShowWelcome: model.showWelcome, onDeleteUsageData: model.deleteUsageData,
+                onMicAnswer: model.micAnswered, onPreviewCue: model.previewCue, onPreviewIntro: model.previewIntro,
+                onPreviewMusic: model.previewMusic)
+        }
+    }
+
     /// The list: drawn again on the way back from a game and when a pack is installed (MainActivity.kt's
-    /// key(visits, installs)), scrolled as it was.
+    /// key(visits, installs)), scrolled as it was; VoiceOver on its heading after the intro or onboarding.
     private var home: some View {
         let scroll = Binding(get: { model.homeScroll }, set: { model.homeScroll = $0 })
         #if DEBUG
         return HomeView(
             games: model.games, continuing: model.continuing, installs: model.store.installs,
             installed: model.packs.isInstalled, scroll: scroll, onOpen: { model.open($0) },
-            onStore: model.showStore, onLab: { lab = true })
+            onStore: { model.showStore($0, from: .card) }, focusHeading: model.focusGames,
+            onHeadingFocused: model.gamesFocused, onLab: { lab = true })
         #else
         return HomeView(
             games: model.games, continuing: model.continuing, installs: model.store.installs,
             installed: model.packs.isInstalled, scroll: scroll, onOpen: { model.open($0) },
-            onStore: model.showStore)
+            onStore: { model.showStore($0, from: .card) }, focusHeading: model.focusGames,
+            onHeadingFocused: model.gamesFocused)
         #endif
     }
 }

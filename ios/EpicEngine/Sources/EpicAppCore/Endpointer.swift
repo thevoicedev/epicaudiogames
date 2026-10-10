@@ -7,12 +7,24 @@
  * - words that haven't changed for [settle], or listening for [cap]: the answer is over, and the recogniser is
  *   told so ([Decision.endAudio]); its final result comes next;
  * - no final result [finalWait] after that: the last words heard are the answer (or, with none, a silence).
+ * Each counts from when the mic is heard (the listening sound over, [init]'s now), not from the tap.
+ *
+ * [noSpeech] and [settle] are the player's time to answer (Settings › Sound and voice): 6 seconds and 1.2 by default
+ * (Normal), 10 or 15 seconds and 2 for Longer and Longest. Android meets the same times by listening on after its
+ * recogniser gives up early (GameController.kt's listensAgain).
  */
 public struct Endpointer: Sendable {
+    /// The time to answer's Normal: no words for 6 seconds is a silence.
     public static let noSpeech: Duration = .seconds(6)
+    /// The time to answer's Normal: words that haven't changed for 1.2 seconds are the answer.
     public static let settle: Duration = .milliseconds(1200)
     public static let cap: Duration = .seconds(20)
     public static let finalWait: Duration = .seconds(3)
+
+    /// No words for this long is a silence: the player's time to answer.
+    public let noSpeech: Duration
+    /// Words that haven't changed for this long are the answer.
+    public let settle: Duration
 
     public enum Decision: Equatable, Sendable {
         case wait
@@ -31,8 +43,14 @@ public struct Endpointer: Sendable {
     /// The words heard so far (the latest partial result).
     public private(set) var words = ""
 
-    public init(at now: ContinuousClock.Instant) {
+    /// Listening from [now] (the gate: when the listening sound will have been heard out, if it's later than the tick
+    /// that starts it), with the player's time to answer.
+    public init(
+        at now: ContinuousClock.Instant, noSpeech: Duration = Endpointer.noSpeech, settle: Duration = Endpointer.settle
+    ) {
         started = now
+        self.noSpeech = noSpeech
+        self.settle = settle
     }
 
     /// The recogniser's words so far.
@@ -52,11 +70,11 @@ public struct Endpointer: Sendable {
             return .giveUp
         }
         guard let changed else {
-            if now - started < Self.noSpeech { return .wait }
+            if now - started < noSpeech { return .wait }
             done = true
             return .silence
         }
-        if now - changed < Self.settle && now - started < Self.cap { return .wait }
+        if now - changed < settle && now - started < Self.cap { return .wait }
         ended = now
         return .endAudio
     }

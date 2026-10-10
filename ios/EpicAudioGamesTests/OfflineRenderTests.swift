@@ -164,6 +164,36 @@ struct OfflineRenderTests {
         }
         #expect(render.finishes == 1)
     }
+
+    /**
+     * At 1.5 times the voice speed (Settings), the time-pitch plays the whole turn faster, the voice and the beds alike
+     * (both go through it): a tone on the voice and the same tone on a bed, at the same frame of the turn, come out
+     * together, at about that frame / 1.5, and the turn's sound is over sooner. (At 1x the time-pitch is bypassed: the
+     * renders above are exact.)
+     */
+    @Test func atASpeedTheVoiceAndTheBedsKeepTogether() async throws {
+        let content = try LevelClips()
+        try content.tone("burst", seconds: 0.2)
+        try content.clip("quiet", level: 0, seconds: 0.2)
+        // The tone 0.6 s into the turn: on the voice, then (the voice silent) on a bed.
+        let voice: [Step] = [.pause(0.6), .play(Clip(path: "burst", dur: 0, lines: [])), .pause(0.4)]
+        let bed: [Step] = [.pause(0.6), .bed(path: "burst", volume: 1, dur: 0.2),
+                           .play(Clip(path: "quiet", dur: 0, lines: [])), .pause(0.4)]
+        let a = try await OfflineRender(voice, content, speed: 1.5)
+        let b = try await OfflineRender(bed, content, speed: 1.5)
+        let onVoice = try #require(OfflineRender.loud(a.mix).first, "the voice's tone never came")
+        let onBed = try #require(OfflineRender.loud(b.mix).first, "the bed's tone never came")
+        #expect(abs(onVoice - onBed) <= Int(ClipFormat.frames(0.005)), "voice at \(onVoice), bed at \(onBed)")
+        // About 0.6 s / 1.5 = 0.4 s in, give or take the time-pitch's own latency.
+        let expected = Int(ClipFormat.frames(0.6 / 1.5))
+        #expect(abs(onVoice - expected) < Int(ClipFormat.frames(0.1)), "at \(onVoice), not about \(expected)")
+        // Over by about 0.8 s / 1.5, well before the 0.8 s it takes at 1x.
+        let end = try #require(OfflineRender.loud(a.mix).last)
+        #expect(end < Int(ClipFormat.frames(0.75)), "the tone ended at \(end)")
+        #expect(end - onVoice > Int(ClipFormat.frames(0.1)), "the tone lasted \(end - onVoice) frames")
+        #expect(a.finishes == 1)
+        #expect(b.finishes == 1)
+    }
 }
 
 /// A turn rendered offline, as TurnPlayer plays it.
@@ -173,16 +203,17 @@ struct OfflineRender {
     let mix: [Float]
     let finishes: Int
 
-    init(_ steps: [Step], _ content: LevelClips) async throws {
-        try await self.init(steps, resolver: content.resolver)
+    init(_ steps: [Step], _ content: LevelClips, speed: Float = 1) async throws {
+        try await self.init(steps, resolver: content.resolver, speed: speed)
     }
 
-    /// Renders the turn and [after] seconds past its end.
-    init(_ steps: [Step], resolver: ContentResolver, after: Double = 0.25) async throws {
+    /// Renders the turn and [after] seconds past its end, at the voice speed [speed] (1: the time-pitch bypassed).
+    init(_ steps: [Step], resolver: ContentResolver, after: Double = 0.25, speed: Float = 1) async throws {
         let cache = DecodedClipCache()
         let turn = await TurnPlayer.prepare(steps, resolver: resolver, cache: cache)
         let graph = try AudioGraph(offline: true)
         defer { graph.shutdown() }
+        graph.rate = speed
         let feeder = TurnFeeder(turn, cache: cache)
         graph.ensureBedNodes(turn.bedNodes)
         try graph.start()
@@ -194,15 +225,19 @@ struct OfflineRender {
         }
         schedule(await feeder.chunks(before: TurnPlayer.lookahead))
         graph.play(beds: turn.bedNodes)
-        let total = Int(turn.end + ClipFormat.frames(after))
+        // Off 1x the output is the turn's length over the speed; renders are kept short, as the time-pitch takes that
+        // many times more frames from the nodes behind it.
+        let total = Int((Double(turn.end) / Double(speed)).rounded(.up)) + Int(ClipFormat.frames(after))
+        let step = speed == 1 ? 4_096 : 1_024
         let out = try #require(AVAudioPCMBuffer(pcmFormat: graph.engine.manualRenderingFormat, frameCapacity: 4_096))
         var mix: [Float] = []
         mix.reserveCapacity(total)
         while mix.count < total {
-            let status = try graph.engine.renderOffline(AVAudioFrameCount(min(4_096, total - mix.count)), to: out)
+            let status = try graph.engine.renderOffline(AVAudioFrameCount(min(step, total - mix.count)), to: out)
             try #require(status == .success)
             mix += UnsafeBufferPointer(start: out.floatChannelData![0], count: Int(out.frameLength))
-            schedule(await feeder.chunks(before: Int64(mix.count) + TurnPlayer.lookahead))
+            let heard = Int64((Double(mix.count) * Double(speed)).rounded(.up))
+            schedule(await feeder.chunks(before: heard + TurnPlayer.lookahead))
         }
         #expect(await feeder.isDone)
         // The finish comes through the main queue.
@@ -210,6 +245,11 @@ struct OfflineRender {
         self.turn = turn
         self.mix = mix
         finishes = finished.count
+    }
+
+    /// The frames of [mix] louder than [threshold], in order.
+    static func loud(_ mix: [Float], threshold: Float = 0.1) -> [Int] {
+        mix.indices.filter { abs(mix[$0]) > threshold }
     }
 
     /// The mix is [expected] at every frame (to a float's rounding: the mixer adds in its own order).
@@ -268,6 +308,49 @@ final class LevelClips {
             if #available(iOS 18, *) { file.close() }     // else when it goes
         }
         levels[path] = (level, ClipDecoder.outputFrames(Int64(frames), rate: rate))
+    }
+
+    /**
+     * A tone (a sine of [frequency] at [level]) for [seconds], at 48 kHz: a sound a time-pitch keeps as it is, where it
+     * may smear a constant level. Not in [expected]: only its own frames are known.
+     */
+    func tone(_ path: String, seconds: Double, frequency: Double = 1_000, level: Float = 0.5) throws {
+        let frames = Int(ClipFormat.frames(seconds))
+        let url = scratch.url.appendingPathComponent("Content/test/\(path).caf")
+        try FileManager.default.createDirectory(at: url.deletingLastPathComponent(), withIntermediateDirectories: true)
+        let format = try #require(AVAudioFormat(standardFormatWithSampleRate: 48_000, channels: 1))
+        let buffer = try #require(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(frames)))
+        let samples = buffer.floatChannelData![0]
+        for i in 0..<frames {
+            samples[i] = level * Float(sin(2 * Double.pi * frequency * Double(i) / 48_000))
+        }
+        buffer.frameLength = AVAudioFrameCount(frames)
+        try autoreleasepool {
+            let file = try AVAudioFile(forWriting: url, settings: format.settings, commonFormat: .pcmFormatFloat32,
+                                       interleaved: false)
+            try file.write(from: buffer)
+            if #available(iOS 18, *) { file.close() }
+        }
+    }
+
+    /// A 16-bit mono WAV at 48 kHz, [seconds] of a constant [level]: a short sound's file, as tools/app_audio.py writes
+    /// the app's (the listening sounds: CueBank reads them).
+    static func wav(_ url: URL, seconds: Double, level: Float = 0.3) throws {
+        let frames = Int(ClipFormat.frames(seconds))
+        let format = try #require(AVAudioFormat(standardFormatWithSampleRate: 48_000, channels: 1))
+        let buffer = try #require(AVAudioPCMBuffer(pcmFormat: format, frameCapacity: AVAudioFrameCount(frames)))
+        buffer.floatChannelData![0].update(repeating: level, count: frames)
+        buffer.frameLength = AVAudioFrameCount(frames)
+        let settings: [String: Any] = [
+            AVFormatIDKey: kAudioFormatLinearPCM, AVSampleRateKey: 48_000.0, AVNumberOfChannelsKey: 1,
+            AVLinearPCMBitDepthKey: 16, AVLinearPCMIsFloatKey: false, AVLinearPCMIsBigEndianKey: false,
+        ]
+        try autoreleasepool {
+            let file = try AVAudioFile(forWriting: url, settings: settings, commonFormat: .pcmFormatFloat32,
+                                       interleaved: false)
+            try file.write(from: buffer)
+            if #available(iOS 18, *) { file.close() }
+        }
     }
 
     /**

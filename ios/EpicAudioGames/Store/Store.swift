@@ -18,17 +18,21 @@ import os
  * wasn't running is taken up at launch. One the player didn't ask for (at launch, or as the app comes back) waits for
  * Wi-Fi rather than use cellular or Low Data Mode (L10); "Download now" lets it.
  *
- * In a build with no pack server, GET says the packs can't be downloaded yet, before anything is bought (L6). A
+ * In a build with no pack server, Get says the packs can't be downloaded yet, before anything is bought (L6). A
  * refunded purchase takes its pack off the phone, once its game is closed (D11, L13).
  *
  * Debug builds also install any <pack>-<version>.zip found in Documents/incoming (put there with the Files app, or
  * simctl), to try packs without a store or a server.
+ *
+ * What happens goes to [onEvent], for the usage data (docs/DESIGN.md › Usage data): a purchase started and how it
+ * ended, Restore purchases pressed and what it found, and each download (which pack, whether it installed, how long
+ * it took and how much came down). Never a price, an order or an Apple Account. Store.kt's.
  */
 @Observable
 final class Store {
     /// Each product's price, as the App Store shows it ("£1.99"), once known.
     private(set) var prices: [String: String] = [:]
-    /// The prices are being asked for (the sheet's GET shows a spinner).
+    /// The prices are being asked for (the sheet's Get shows a spinner).
     private(set) var loading = false
     /// The packs downloading, and how each is getting on.
     private(set) var downloads: [String: DownloadState] = [:]
@@ -49,6 +53,8 @@ final class Store {
     @ObservationIgnored var onInstalled: (PackInfo) -> Void = { _ in }
     /// Whether a game is open: a refunded pack of its own waits until it closes.
     @ObservationIgnored var inUse: (String) -> Bool = { _ in false }
+    /// What happens, for the usage data: an event's name and its details (as GameController's onEvent).
+    @ObservationIgnored var onEvent: (String, [String: any Sendable]) -> Void = { _, _ in }
 
     @ObservationIgnored private let all: [PackInfo]
     @ObservationIgnored private let packsURL: String
@@ -67,7 +73,8 @@ final class Store {
     @ObservationIgnored private var network = DownloadState.Network.unknown
     @ObservationIgnored private var monitor: NWPathMonitor?
 
-    /// A download going: its name with the fetcher, whether it may use cellular, and who waits for it.
+    /// A download going: its name with the fetcher, whether it may use cellular, and who waits for it; and, for the
+    /// usage data, when it started (a download let go for one on cellular carries on its time).
     private struct Download {
         let pack: PackInfo
         let key: String
@@ -75,6 +82,7 @@ final class Store {
         var received: Int64 = 0
         var installing = false
         var waiting: [CheckedContinuation<Bool, Never>] = []
+        var started = ContinuousClock.now
     }
 
     static let log = Logger(subsystem: "com.epicaudiogames.app", category: "store")
@@ -110,7 +118,11 @@ final class Store {
             for await purchase in updates {
                 guard let self else { return }
                 // Ask to Buy's yes was asked for: it may use cellular. A purchase on another device waits for Wi-Fi.
-                await self.handle(purchase, cellular: self.pending.contains(purchase.product))
+                let asked = self.pending.contains(purchase.product)
+                // The purchase that was waiting (for a parent's OK, or the bank) is bought after all (Store.kt's
+                // onPurchasesUpdated, as Play says so later).
+                if asked && !purchase.revoked { self.emit(Events.purchaseResult(purchase.product, .purchased)) }
+                await self.handle(purchase, cellular: asked)
             }
         })
         tasks.append(Task { [weak self] in
@@ -138,19 +150,31 @@ final class Store {
         _ = await readPurchases(cellular: cellular)
     }
 
-    /// The sheet's "Restore purchases": the App Store is asked again for this account's purchases (it may ask the
-    /// player to sign in), then as [restore], saying how it went.
+    /**
+     * The sheet's "Restore purchases": the App Store is asked again for this account's purchases (it may ask the
+     * player to sign in), then as [restore], saying how it went; and, for the usage data, how many of the catalog's
+     * packs the account has bought (none, if the App Store couldn't be asked).
+     */
     func restorePurchases() async {
         message = nil
         note = nil
+        var synced = true
         do {
             try await appStore.sync()
         } catch {
             Self.log.error("can't sync with the App Store: \(error, privacy: .public)")
             message = Self.unavailable
+            synced = false
         }
         let (ok, bought) = await readPurchases(cellular: true)
-        if ok && message == nil { note = bought ? Self.restored : Self.nothingToRestore }
+        if ok && message == nil { note = bought.isEmpty ? Self.nothingToRestore : Self.restored }
+        // (A pack that then didn't download says so itself, and has its own pack_download.)
+        let count = all.filter { bought.contains($0.product) }.count
+        if synced {
+            emit(Events.restore(count > 0 ? .restored : .nothing, count: count))
+        } else {
+            emit(Events.restore(.failed, count: 0))
+        }
     }
 
     /// A store sheet opening (or closing): what was said before goes; opening reads the purchases again.
@@ -162,6 +186,11 @@ final class Store {
         Task { await restore(cellular: true) }
     }
 
+    /**
+     * Buys [pack]: the App Store's sheet, then the purchase handled. For the usage data, the sheet shown (for a
+     * product whose price came: StoreKitClient buys only those) and how it ended, as Store.kt's buy and
+     * onPurchasesUpdated say them; the App Store has no "owned" (it sells a pack bought before again, for nothing).
+     */
     func buy(_ pack: PackInfo) async {
         message = nil
         note = nil
@@ -170,20 +199,29 @@ final class Store {
             message = Self.noServer
             return
         }
+        let shown = prices[pack.product] != nil
+        if shown { emit(Events.purchaseStart(pack.product)) }
         do {
-            switch try await appStore.purchase(pack.product) {
+            let outcome = try await appStore.purchase(pack.product)
+            // The sheet showed after all (the product was there, its price not yet): it started too.
+            if outcome != nil && !shown { emit(Events.purchaseStart(pack.product)) }
+            switch outcome {
             case nil:
+                if shown { emit(Events.purchaseResult(pack.product, .failed)) }
                 message = Self.unavailable
                 await loadProducts()
             case .bought(let purchase)?:
+                emit(Events.purchaseResult(pack.product, .purchased))
                 await handle(purchase, cellular: true)
             case .pending?:
+                emit(Events.purchaseResult(pack.product, .pending))
                 pending.insert(pack.product)        // Ask to Buy: the purchase comes later, as an update
             case .nothing?:
-                break
+                emit(Events.purchaseResult(pack.product, .cancelled))
             }
         } catch {
             Self.log.error("purchase failed: \(error, privacy: .public)")
+            if shown { emit(Events.purchaseResult(pack.product, .failed)) }
             message = Self.purchaseFailed
         }
     }
@@ -198,7 +236,7 @@ final class Store {
         dropped.insert(d.key)
         fetcher.cancel(d.key)
         let key = Self.key(pack)
-        going[pack.id] = Download(pack: pack, key: key, cellular: true, waiting: d.waiting)
+        going[pack.id] = Download(pack: pack, key: key, cellular: true, waiting: d.waiting, started: d.started)
         refresh()
         listen()
         fetcher.start(url, key: key, cellular: true)
@@ -224,13 +262,14 @@ final class Store {
         }
     }
 
-    /// The purchases this account has, each handled; whether every download went, and whether any was bought.
-    private func readPurchases(cellular: Bool) async -> (ok: Bool, bought: Bool) {
+    /// The purchases this account has, each handled; whether every download went, and the products bought (not
+    /// refunded).
+    private func readPurchases(cellular: Bool) async -> (ok: Bool, bought: Set<String>) {
         if all.contains(where: { prices[$0.product] == nil }) { await loadProducts() }
         let purchases = await appStore.entitlements()
         var ok = true
         for purchase in purchases { ok = await handle(purchase, cellular: cellular) && ok }
-        return (ok, purchases.contains { !$0.revoked })
+        return (ok, Set(purchases.filter { !$0.revoked }.map(\.product)))
     }
 
     /// A purchase: finished at once, then its packs downloaded if they aren't here (false if one isn't).
@@ -283,9 +322,17 @@ final class Store {
         "Couldn't download \(pack.title). Check your connection, and open the store again to retry."
     }
 
-    static func noRoom(_ pack: PackInfo) -> String {
-        "There isn't enough space on your iPhone for \(pack.title). It needs about "
+    /// Store.kt's store_no_room, which says "phone": here the device the app runs on ([device]).
+    static func noRoom(_ pack: PackInfo, on device: String = Store.device) -> String {
+        "There isn't enough space on your \(device) for \(pack.title). It needs about "
             + "\((pack.roomNeeded + 500_000) / 1_000_000) MB free."
+    }
+
+    /// What the device whose space is short is called: an iPad (also the iPad app on Apple Vision Pro, which iOS calls
+    /// one), a Mac (the iPad app on one), else an iPhone.
+    static var device: String {
+        if ProcessInfo.processInfo.isiOSAppOnMac { return "Mac" }
+        return UIDevice.current.userInterfaceIdiom == .pad ? "iPad" : "iPhone"
     }
 
     /// Downloads a pack's zip and installs it; a second ask waits for the same download. False if it couldn't.
@@ -388,11 +435,13 @@ final class Store {
     }
 
     private func install(_ pack: PackInfo, _ zip: URL) async {
-        // The check and the unpacking go on if the app is left meanwhile (or was launched for this).
-        let background = UIApplication.shared.beginBackgroundTask(withName: "install \(pack.id)")
+        // The check and the unpacking go on if the app is left meanwhile (or was launched for this), for as long as
+        // iOS gives: when it says time's up, the time is given back (a background task still held then ends the app),
+        // and the install carries on once the app runs again.
+        let background = BackgroundTime("install \(pack.id)")
         defer {
             try? FileManager.default.removeItem(at: zip)
-            if background != .invalid { UIApplication.shared.endBackgroundTask(background) }
+            background.end()
         }
         do {
             try await Self.install(pack, zip, packs)
@@ -404,10 +453,16 @@ final class Store {
         }
     }
 
-    /// A download over: those waiting for it are told; one that failed says why, and is tried again later.
+    /**
+     * A download over: those waiting for it are told; one that failed says why, and is tried again later. For the
+     * usage data, whether it installed, how long it took, and how much came down (an installed zip is checked to be
+     * the catalog's size).
+     */
     private func done(_ id: String, ok: Bool, failure: FetchFailure? = nil) {
         guard let d = going.removeValue(forKey: id) else { return }
         refresh()
+        let seconds = Int((ContinuousClock.now - d.started).components.seconds)
+        emit(Events.packDownload(id, installed: ok, seconds: seconds, bytes: ok ? d.pack.size : d.received))
         if let failure {
             if failure.diskFull {
                 failed[id] = Self.noRoom(d.pack)
@@ -437,6 +492,11 @@ final class Store {
     private func installed(_ pack: PackInfo) {
         installs += 1
         onInstalled(pack)
+    }
+
+    /// Something happened in the shop: to [onEvent].
+    private func emit(_ e: Event) {
+        onEvent(e.name, e.props)
     }
 
     /// The downloads as the sheet shows them, from how far each has got and the network.

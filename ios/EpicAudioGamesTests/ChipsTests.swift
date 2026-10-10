@@ -30,11 +30,12 @@ struct ChipsTests {
         #expect(ideal == CGSize(width: 158, height: 44))
     }
 
-    /// A chip as wide as its label: "Blacksmith" in a third of a phone's width isn't broken mid-word (the button grid
-    /// broke it "BLACKSMIT / H"); a label longer than a line takes the line, wrapping between words.
+    /// A chip as wide as its label: "Blacksmith" in a third of a phone's width isn't broken mid-word (the old button
+    /// grid broke it "BLACKSMIT / H"); a label longer than a line takes the line, wrapping between words. In the
+    /// chips' own font: Atkinson Hyperlegible Next Bold, the label style.
     @Test func aLabelIsNeverSqueezed() {
         // Large text: a third of the width is less than the word.
-        let word = Text("BLACKSMITH").font(Lilita.font(40))
+        let word = Text("Blacksmith").font(.custom(Atkinson.bold, fixedSize: 44))
         let one = size(word, width: .greatestFiniteMagnitude)
         #expect(one.width > (353 - 16) / 3)
         let perLine = max(1, Int((353 + 8) / (one.width + 8)))
@@ -42,8 +43,9 @@ struct ChipsTests {
         let flow = FlowLayout { ForEach(0..<9, id: \.self) { _ in word } }
         #expect(size(flow, width: 353).height == CGFloat(lines) * one.height, "a word was broken onto two lines")
         let long = "A label much longer than a line of a phone's width can hold at all"
-        let wrapped = size(FlowLayout { Text(long).font(Lilita.font(15)) }, width: 200)
+        let label = Font.custom(Atkinson.bold, fixedSize: 18)
+        let wrapped = size(FlowLayout { Text(long).font(label) }, width: 200)
         #expect(wrapped.width == 200)
-        #expect(wrapped.height > size(Text("A").font(Lilita.font(15)), width: 200).height * 1.5)
+        #expect(wrapped.height > size(Text("A").font(label), width: 200).height * 1.5)
     }
 }

@@ -26,6 +26,11 @@ enum MicPermission {
         return mic == .undetermined || speech == .notDetermined
     }
 
+    /// Speech recognition hasn't been asked about yet: asking for the mic asks about it too (onboarding says so first).
+    static var speechUnasked: Bool {
+        SFSpeechRecognizer.authorizationStatus() == .notDetermined
+    }
+
     /// Asks for whichever hasn't been answered yet (a dialog each), then whether both are allowed.
     static func request() async -> Bool {
         guard await AVAudioApplication.requestRecordPermission() else { return false }

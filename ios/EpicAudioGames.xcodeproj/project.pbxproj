@@ -40,7 +40,6 @@
 		EA0000000000000000000025 /* Local.xcconfig.example */ = {isa = PBXFileReference; lastKnownFileType = text; path = Local.xcconfig.example; sourceTree = "<group>"; };
 		EA0000000000000000000026 /* bundle_content.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = bundle_content.sh; sourceTree = "<group>"; };
 		EA0000000000000000000027 /* placeholder_content.py */ = {isa = PBXFileReference; lastKnownFileType = text.script.python; path = placeholder_content.py; sourceTree = "<group>"; };
-		EA0000000000000000000028 /* render_icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = render_icon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -128,7 +127,6 @@
 			children = (
 				EA0000000000000000000026 /* bundle_content.sh */,
 				EA0000000000000000000027 /* placeholder_content.py */,
-				EA0000000000000000000028 /* render_icon.swift */,
 			);
 			path = scripts;
 			sourceTree = "<group>";
