@@ -1,0 +1,39 @@
+{
+  "about": "Framing the store screenshots (make_art.py shots, tools/art/shots.py): each raw capture build/store-shots/<platform>/raw/[<rawDir>/]<name>.png goes on the brand background under its caption, once per size. Words in *stars* are drawn gold, the rest white (both at least 7:1 on the navy). Captions are drafts until the owner approves them (gate 4); a shot with a claim is left out unless --claims names it (only after the real-device screen-reader test). Sizes: size is the framed image, band the caption's height, caption/captionMin its biggest and smallest font size, screenScale the capture's width as a share of the image's (it shrinks to fit the height when it must), screenTop where it starts, screenAlign center to centre it in the room left; rawDir a subfolder of the raw folder, out the store folder (else the platform's), suffix added to the name; plain = the capture as it is, no caption or frame (Wear OS). --sizes picks sizes; without, default.",
+  "android": {
+    "raw": "build/store-shots/android/raw",
+    "out": "android/fastlane/metadata/android/en-US/images/phoneScreenshots",
+    "default": ["phone"],
+    "sizes": {
+      "phone": {"size": [1080, 1920], "band": 336, "caption": 84, "captionMin": 64, "screenScale": 0.8, "screenTop": 360, "radius": 40, "outline": 3},
+      "7in": {"about": "Play's 7-inch tablet screenshots: the emulator at 1200x1920, 320 dpi (600 dp wide), framed 9:16.", "rawDir": "tablet7", "out": "android/fastlane/metadata/android/en-US/images/sevenInchScreenshots", "size": [1080, 1920], "band": 336, "caption": 84, "captionMin": 64, "screenScale": 0.9, "screenTop": 360, "screenAlign": "center", "radius": 36, "outline": 3},
+      "10in": {"about": "Play's 10-inch tablet screenshots: the emulator at 1600x2560, 320 dpi (800 dp wide), framed 9:16.", "rawDir": "tablet10", "out": "android/fastlane/metadata/android/en-US/images/tenInchScreenshots", "size": [1440, 2560], "band": 448, "caption": 112, "captionMin": 85, "screenScale": 0.9, "screenTop": 480, "screenAlign": "center", "radius": 48, "outline": 4},
+      "10in-land": {"about": "The 10-inch tablet turned (1280 dp wide: the two-pane game, Chromebook-friendly), framed 16:9 into the same folder.", "rawDir": "tablet10-land", "out": "android/fastlane/metadata/android/en-US/images/tenInchScreenshots", "suffix": "_landscape", "size": [2560, 1440], "band": 260, "caption": 100, "captionMin": 76, "screenScale": 0.9, "screenTop": 280, "screenAlign": "center", "radius": 40, "outline": 4},
+      "wear": {"about": "Wear OS: the watch's screen as it is, square, at least 384x384 (Play: no frame, no added words).", "rawDir": "wear", "out": "android/fastlane/metadata/android/en-US/images/wearScreenshots", "plain": true, "square": true, "minSide": 384}
+    }
+  },
+  "ios": {
+    "raw": "build/store-shots/ios/raw",
+    "out": "ios/fastlane/screenshots/en-US",
+    "iapOut": "ios/fastlane/iap_review",
+    "default": ["6.9", "6.3"],
+    "sizes": {
+      "6.9": {"size": [1320, 2868], "band": 456, "caption": 112, "captionMin": 84, "screenScale": 0.82, "screenTop": 486, "radius": 56, "outline": 4},
+      "6.3": {"size": [1206, 2622], "band": 417, "caption": 102, "captionMin": 77, "screenScale": 0.82, "screenTop": 444, "radius": 51, "outline": 4},
+      "13": {"about": "The 13-inch iPad (iPad Pro 13-inch (M4) simulator, 2064x2752). App Store Connect also takes 2048x2732 for this display.", "rawDir": "ipad13", "size": [2064, 2752], "band": 440, "caption": 128, "captionMin": 96, "screenScale": 0.86, "screenTop": 470, "screenAlign": "center", "radius": 64, "outline": 5}
+    }
+  },
+  "caption": {"weight": "bold", "lines": 2, "colour": "white", "key": "gold", "outlineColour": "outlineSubtle"},
+  "shots": [
+    {"name": "01_games", "caption": "Story games you play *by voice*"},
+    {"name": "02_story", "caption": "Every word on screen, *as it's spoken*"},
+    {"name": "03_answer", "caption": "Answer *out loud*, type or tap"},
+    {"name": "04_big_text", "caption": "*Big, clear text.* High contrast."},
+    {"name": "05_voice_speed", "caption": "Voice speed, *your way*"},
+    {"name": "06_help", "caption": "Help, *read out loud*"},
+    {"name": "07_shop", "caption": "One-time packs. *No ads.*"},
+    {"name": "08_eight_games", "caption": "Eight games, from *werewolves* to *pirates*"},
+    {"name": "09_screen_reader", "platform": "ios", "claim": "voiceover", "caption": "Works with *VoiceOver*"},
+    {"name": "09_screen_reader", "platform": "android", "claim": "talkback", "caption": "Works with *TalkBack*"}
+  ]
+}

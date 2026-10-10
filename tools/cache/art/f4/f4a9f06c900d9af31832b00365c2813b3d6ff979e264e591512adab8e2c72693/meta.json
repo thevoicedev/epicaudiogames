@@ -1,0 +1,27 @@
+{
+  "made": "2026-10-09T13:43:21Z",
+  "model": "gpt-image-2.5-sunburst",
+  "endpoint": "images/generations",
+  "elapsed_s": 15.4,
+  "usage": {
+    "input_tokens": 128,
+    "input_tokens_details": {
+      "image_tokens": 0,
+      "text_tokens": 128
+    },
+    "output_tokens": 228,
+    "output_tokens_details": {
+      "image_tokens": 228,
+      "text_tokens": 0
+    },
+    "total_tokens": 356
+  },
+  "cost_usd": 0.00748,
+  "cost_estimated": false,
+  "stored_as": "webp",
+  "images": 1,
+  "returned_size": "1536x752",
+  "returned_quality": "medium",
+  "returned_background": "opaque",
+  "returned_output_format": "png"
+}

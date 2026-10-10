@@ -1,0 +1,20 @@
+{
+ "_doc": "The owner's picks from tools/cache/app/audition/index.html, written by py -3.13 tools/app_audio.py pick ... (earcons: a family; sting: the mix content/app/sting.m4a is, and its sha256).",
+ "earcons": "marimba",
+ "sting": {
+  "voice": "jessica-a1",
+  "bed": "cinematic-1",
+  "at": 0.35,
+  "duck": 8.0,
+  "length": 2.8,
+  "text": "Epic Audio Games!",
+  "dur": 2.8,
+  "voiceAt": 0.35,
+  "voiceEnd": 1.743,
+  "lufs": -16.0,
+  "peak": -2.7,
+  "monoLoss": 0.3,
+  "voiceOverBed": 16.5,
+  "sha256": "ffd0966b010185663acd7bc8dfdf77a778c168980ba47254caef0e7498ee9762"
+ }
+}

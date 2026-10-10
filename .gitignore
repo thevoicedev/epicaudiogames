@@ -21,6 +21,8 @@ captures/
 # Python / Node
 __pycache__/
 node_modules/
+# the website's server packages (pg): Railway installs them from web/package-lock.json
+web/node_modules/
 
 # pack zips for the pack server: tools/make_pack.py remakes them from build/packs/ (and the Werewolf one is over
 # GitHub's 100 MB file limit)
@@ -29,6 +31,13 @@ dist/
 # placeholder audio and packs for the simulator and emulator (ios/scripts/placeholder_content.py makes them)
 /build/placeholder-content/
 /build/placeholder-packs/
+
+# the store art's review sheets, the raw screenshots before framing, and the preview video's captures and cuts
+# (tools/make_art.py, tools/store_shots.py, tools/make_preview.py make them again). What the stores get is copied
+# into ios/fastlane/ and android/fastlane/ (docs/RELEASE.md).
+/build/art/
+/build/store-shots/
+/build/preview/
 
 # iOS / Swift
 ios/build/

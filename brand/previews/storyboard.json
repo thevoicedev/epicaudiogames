@@ -1,0 +1,45 @@
+{
+  "about": "The app preview (tools/make_preview.py; gate 5: the owner approves the cut). 29 seconds, no end card: the intro and its sting, a story speaking with the transcript filling, the listening sound and the words heard, the story answering, then Settings (voice speed, big text) and the Games tab. Scenes are the narrative and its captions (drafts, like the screenshots'; never another platform's name in the App Store's); takes are what gets recorded, each a cold start of the app with these launch extras (Android: DebugLaunch.kt, typed as brand/scenes.json says; iOS: launch arguments, true as YES). A take's sound is what the app plays, for an Android take recorded without scrcpy: each sound (the sting, an earcon, a turn's clips from the map, a content/ clip) starts at (at) or ends at (end) an anchor: an EpicShots log line (line: a regular expression; nth: which one, 1 first, -1 last; plus: seconds after it), an event (launch: am start; displayed: the system's 'Displayed' line) or t seconds from the recording's start; the first anchor that happened counts, end before at. Check the anchors against the log lines DebugLaunch.kt writes (events.jsonl of a take; make_preview.py plan shows where everything falls).",
+  "length": 29,
+  "game": "noodle-rush",
+  "capture": {
+    "about": "android: the emulator's screen for the takes (Play's 1080x1920; the emulator's own density), its font scale; ios: the simulator (an iPhone 17 Pro Max records 1320x2868, cut to 886x1920), the bundle and the BlackHole input. stingDelay: how long after the intro's first frame the sting starts (0: as it appears; 0.7 with a screen reader on).",
+    "android": {"size": [1080, 1920], "density": null, "fontScale": 1.0, "stingDelay": 0.0},
+    "ios": {"device": "iPhone 17 Pro Max", "bundle": "com.epicaudiogames.app", "audioDevice": ":BlackHole 2ch", "stingDelay": 0.0}
+  },
+  "scenes": [
+    {"id": "intro", "from": 0, "to": 3, "caption": "Story games you play *by voice*", "shows": "The intro: the emblem, the circle and the wordmark, and the sting."},
+    {"id": "speaking", "from": 3, "to": 10, "caption": "Every word on screen, *as it's spoken*", "shows": "Noodle Rush speaking: the transcript filling, the word being said highlighted."},
+    {"id": "listening", "from": 10, "to": 16, "caption": "Answer *out loud*, type or tap", "shows": "The end of the question, the listening sound, the ring listening, the words heard (\"Yes\")."},
+    {"id": "reply", "from": 16, "to": 23, "caption": "Your choices *change the story*", "shows": "The story answering: the next scene, the reply bubble above it."},
+    {"id": "settings", "from": 23, "to": 26.5, "caption": "Voice speed, *your way*", "shows": "Settings: voice speed at 1.25 times, the Larger text size."},
+    {"id": "games", "from": 26.5, "to": 29, "caption": "Eight games, from *werewolves* to *pirates*", "shows": "The Games tab."}
+  ],
+  "takes": {
+    "main": {
+      "about": "A cold start with the intro, then Noodle Rush from its start: the title scene, its question, the listening sound, \"Yes\" heard (the scripted listener: about 1.5 s listening, then the words for 2 s), the next scene.",
+      "intro": true,
+      "seconds": 60,
+      "extras": {"EpicReset": true, "EpicIntro": true, "EpicSkipOnboarding": true, "EpicAnalytics": "off", "EpicOpen": "noodle-rush", "EpicFresh": true, "EpicHear": "Yes"},
+      "sound": [
+        {"sting": true, "at": [{"line": "\\bintro\\b"}, {"event": "displayed"}]},
+        {"turn": ["Page1"], "end": [{"line": "\\b(spoken|asking)\\b", "nth": 1}, {"line": "\\blistening\\b", "nth": 1, "plus": -0.15}]},
+        {"earcon": "listen-start", "at": {"line": "\\blistening\\b", "nth": 1}},
+        {"earcon": "listen-stop", "at": {"line": "\\bheard\\b", "nth": 1}},
+        {"turn": ["Page2"], "end": {"line": "\\b(spoken|asking)\\b", "nth": 2}, "at": {"line": "\\bheard\\b", "nth": 1, "plus": 0.2}}
+      ]
+    },
+    "settings": {
+      "about": "Settings with voice speed at 1.25 times and the Larger text size (silent: the cut carries the story's sound on under it).",
+      "seconds": 8,
+      "extras": {"EpicReset": true, "EpicNoIntro": true, "EpicSkipOnboarding": true, "EpicAnalytics": "off", "EpicTab": "settings", "EpicSpeed": "1.25", "EpicTextSize": "1.3"},
+      "sound": []
+    },
+    "games": {
+      "about": "The Games tab (silent: the story's sound carries on under it and fades).",
+      "seconds": 7,
+      "extras": {"EpicReset": true, "EpicNoIntro": true, "EpicSkipOnboarding": true, "EpicAnalytics": "off", "EpicTab": "games"},
+      "sound": []
+    }
+  }
+}

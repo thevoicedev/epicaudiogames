@@ -1,0 +1,67 @@
+{
+  "about": "The app icon's concept prompts: base is every prompt, with {motif} replaced by one motif's words. A change here makes new requests (and new costs); the old images stay in the cache.",
+  "size": "1024x1024",
+  "background": "opaque",
+  "base": "A square app icon for \"Epic Audio Games\", voice-controlled audio story games made first for blind and partially sighted players. Flat vector style. The whole square is filled edge to edge with deep navy blue (#0B1430), with an optional very soft, subtle radial glow of slightly lighter navy (#16275E) behind the centre. One bold emblem sits in the centre, filling about 60% of the square, drawn only in warm golden yellow (#FFD54F) and white (#FFFFFF). {motif} Thick strokes and chunky solid shapes with rounded ends, generous gaps between the parts, at most three elements, and a distinctive silhouette that is still recognisable when the icon is shown 29 pixels wide. Very high contrast between the emblem and the navy. No text, no letters, no numbers, no border or frame, no rounded-corner tile or app-icon plate drawn inside the square, no device, no hands, no people, no drop shadows, no 3D, no gradients or textures on the emblem, no thin lines, no small details.",
+  "motifs": [
+    {
+      "id": 1,
+      "name": "headphones-bars",
+      "about": "today's icon, redrawn (continuity)",
+      "prompt": "The emblem: over-ear headphones, a thick white headband arch with two solid rounded white ear cups, and between the ear cups three rounded vertical golden sound bars of different heights, the middle bar the tallest.",
+      "alt": "white headphones with three gold sound bars between the ear cups"
+    },
+    {
+      "id": 2,
+      "name": "wave-band",
+      "about": "the headband as a sound wave",
+      "prompt": "The emblem: headphones whose headband is a bold golden sound wave, one thick wavy arch like an audio waveform bent into an arc, joining two solid white ear cups.",
+      "alt": "headphones whose band is a gold sound wave, with white ear cups"
+    },
+    {
+      "id": 3,
+      "name": "speech-bars",
+      "about": "a speech bubble with sound bars",
+      "prompt": "The emblem: a big solid white speech bubble with a short rounded tail at its lower left, holding three or four rounded vertical golden sound bars of different heights.",
+      "alt": "a white speech bubble holding gold sound bars"
+    },
+    {
+      "id": 4,
+      "name": "headphones-bubble",
+      "about": "headphones around a speech bubble",
+      "prompt": "The emblem: thick white headphones (a headband arch and two ear cups) around a solid golden speech bubble that sits between the ear cups, under the headband.",
+      "alt": "white headphones around a gold speech bubble"
+    },
+    {
+      "id": 5,
+      "name": "sound-rings",
+      "about": "concentric sound rings",
+      "prompt": "The emblem: a solid golden circle in the centre with two thick white curved arcs on each side of it, curving outwards like sound spreading from a source, evenly spaced.",
+      "alt": "a gold dot with white sound arcs spreading out on both sides"
+    },
+    {
+      "id": 6,
+      "name": "talking-circle",
+      "about": "the game's talking circle as a waveform ring",
+      "prompt": "The emblem: a thick golden ring whose outline is a bold circular audio waveform with big rounded peaks all around it, with a solid white circle in the middle.",
+      "alt": "a gold sound-wave ring around a white circle"
+    },
+    {
+      "id": 7,
+      "name": "mic-headphones",
+      "about": "a microphone and headphones as one mark",
+      "prompt": "The emblem: a white microphone (a rounded capsule on a short stand) in the centre, with a thick golden headphone band arching over it and a golden ear cup at each end of the band, as one combined mark.",
+      "alt": "a white microphone under a gold headphone band"
+    },
+    {
+      "id": 8,
+      "name": "bars-circle",
+      "about": "gold bars forming a circle",
+      "prompt": "The emblem: seven rounded vertical golden sound bars side by side whose heights trace the outline of a circle (shortest at the left and right, tallest in the middle), so together they read as a round disc made of sound bars, with a thick white headphone band arching over the top.",
+      "alt": "gold sound bars forming a circle under a white headphone band"
+    }
+  ],
+  "refine": "Redraw this app icon as a cleaner, bolder version of the same idea: keep its emblem, composition, proportions and colours (golden yellow #FFD54F and white on deep navy #0B1430), make every shape thicker and simpler, remove any small details, texture or shading, keep the background a plain full-bleed navy square. No text, no border, no rounded tile.",
+  "layer": "Keep exactly the same emblem as in this image (the same shapes, proportions, positions and colours), centred, and remove the navy background and any glow completely so that only the emblem remains on a fully transparent background. Do not add anything.",
+  "keyed": "Keep exactly the same emblem as in this image (the same shapes, proportions, positions and colours), centred, and replace the navy background and any glow with one flat, pure magenta colour (#FF00FF) everywhere around and inside the emblem. No shadow, no glow, no outline, no anti-aliasing halo in another colour. Do not add anything."
+}

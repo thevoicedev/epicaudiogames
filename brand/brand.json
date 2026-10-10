@@ -1,0 +1,78 @@
+{
+  "about": "The brand, for tools/make_art.py: the colours (docs/DESIGN.md's Dark tokens), the fonts, how big the emblem sits on each platform's icon and inside which safe area, the feature graphic's and social image's layout, the image models in order of preference and their prices. docs/STORE_ART.md explains each part.",
+  "name": "Epic Audio Games",
+  "tagline": "Audio story games you play by voice",
+  "palette": {
+    "navy": "#0B1430",
+    "navyRaised": "#16275E",
+    "gold": "#FFD54F",
+    "onGold": "#1A1400",
+    "white": "#FFFFFF",
+    "text": "#F6F8FF",
+    "textMuted": "#C9D2F0",
+    "outline": "#8E9CCB",
+    "outlineSubtle": "#2C3D7A",
+    "keyColour": "#FF00FF"
+  },
+  "emblemColours": ["#FFD54F", "#FFFFFF"],
+  "background": {
+    "about": "Every exported icon's background: a radial gradient from inner (the centre) to outer (the corners), with a little noise against banding.",
+    "inner": "#16275E",
+    "outer": "#0B1430",
+    "reach": 0.92
+  },
+  "fonts": {
+    "regular": "android/app/src/main/res/font/atkinson_hyperlegible_next_regular.ttf",
+    "bold": "android/app/src/main/res/font/atkinson_hyperlegible_next_bold.ttf",
+    "extrabold": "android/app/src/main/res/font/atkinson_hyperlegible_next_extrabold.ttf"
+  },
+  "icon": {
+    "about": "emblem: the emblem's longer side as a share of the visible icon; Dp sizes are on Android's 108 dp adaptive canvas (72 dp of it shows); safeRadiusDp: no opaque pixel further than this from the centre (the 66 dp safe circle, less a hair).",
+    "ios": {"size": 1024, "emblem": 0.68},
+    "android": {"canvasDp": 108, "visibleDp": 72, "emblemDp": 52, "safeRadiusDp": 32.5,
+                "densities": {"mdpi": 1, "hdpi": 1.5, "xhdpi": 2, "xxhdpi": 3, "xxxhdpi": 4}},
+    "legacy": {"sizeDp": 48, "insetDp": 2, "cornerDp": 7, "emblem": 0.66},
+    "splash": {"canvasDp": 288, "emblemDp": 128, "safeRadiusDp": 94},
+    "launch": {"pt": 160, "scales": [2, 3]},
+    "play": {"size": 512},
+    "web": {"favicon": 0.8, "faviconCorner": 0.22, "touch": 0.68, "maskable": 0.5, "emblemPx": 256}
+  },
+  "feature": {
+    "about": "Play's feature graphic: text inside x 60-964, y 50-450 and never in the middle 220 px (Play puts a play button there when there's a video).",
+    "size": [1024, 500],
+    "textBox": [60, 50, 964, 450],
+    "keepClear": [402, 0, 622, 500],
+    "column": [60, 50, 392, 450],
+    "iconSize": 150,
+    "title": {"weight": "extrabold", "size": 54, "min": 36, "lines": 2, "colour": "white"},
+    "tagline": {"weight": "bold", "size": 30, "min": 22, "lines": 3, "colour": "gold"},
+    "generateSize": "1536x752"
+  },
+  "og": {
+    "about": "The website's social image (og:image): centred, nothing within 60 px of an edge.",
+    "size": [1200, 630],
+    "margin": 60,
+    "iconSize": 210,
+    "title": {"weight": "extrabold", "size": 76, "min": 48, "lines": 1, "colour": "white"},
+    "tagline": {"weight": "bold", "size": 40, "min": 28, "lines": 2, "colour": "gold"}
+  },
+  "models": {
+    "about": "Tried in this order; probe records what each can do (a transparent background, a custom size). Layers that need a transparent background use the first model the probe saw make one.",
+    "prefer": ["gpt-image-2.5-sunburst", "gpt-image-2", "gpt-image-1.5", "gpt-image-1"]
+  },
+  "prices": {
+    "about": "US dollars per million tokens, from developers.openai.com/api/docs/pricing on 2026-10-09 (standard, not batch). The ledger's costs are estimates from these and each response's usage.",
+    "gpt-image-2.5-sunburst": {"textIn": 5.0, "imageIn": 8.0, "imageOut": 30.0},
+    "gpt-image-2.5-flare": {"textIn": 5.0, "imageIn": 8.0, "imageOut": 30.0},
+    "gpt-image-2": {"textIn": 5.0, "imageIn": 8.0, "imageOut": 30.0},
+    "gpt-image-1.5": {"textIn": 5.0, "imageIn": 8.0, "imageOut": 32.0, "textOut": 10.0},
+    "chatgpt-image-latest": {"textIn": 5.0, "imageIn": 8.0, "imageOut": 32.0, "textOut": 10.0},
+    "gpt-image-1-mini": {"textIn": 2.0, "imageIn": 2.5, "imageOut": 8.0},
+    "gpt-image-1": {"textIn": 5.0, "imageIn": 10.0, "imageOut": 40.0}
+  },
+  "budget": {
+    "about": "US dollars: run is the default --budget of one command; total stops every command once the ledger reaches it.",
+    "run": 5.0,
+    "total": 60.0
+  }
+}

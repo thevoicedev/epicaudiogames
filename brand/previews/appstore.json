@@ -1,0 +1,16 @@
+{
+  "about": "The App Store's app preview: 886x1920 (every iPhone size group takes it), cut from the iPhone simulator's takes on the Mac (capture-ios: an App Store preview must show the iPhone app). Named 01_IPHONE_67 so deliver files it under the 6.9-inch iPhones; edit --install copies it to ios/fastlane/app_previews/en-US/. The poster frame is 5 s in (the Fastfile's preview_frame_time_code). in and out are seconds from each take's zero, first guesses: set them from make_preview.py plan once captured. Captions never name another platform (guideline 2.3.10).",
+  "target": "appstore",
+  "source": "ios",
+  "name": "01_IPHONE_67",
+  "caption": {"size": 58, "min": 44, "lines": 2, "width": 0.9, "top": 132, "bottom": 120, "padX": 34, "padY": 26, "radius": 28, "alpha": 0.92},
+  "fadeOut": 1.0,
+  "clips": [
+    {"scene": "intro", "take": "main", "in": 0.0, "out": 3.0},
+    {"scene": "speaking", "take": "main", "in": 14.4, "out": 21.4},
+    {"scene": "listening", "take": "main", "in": 30.4, "out": 36.4},
+    {"scene": "reply", "take": "main", "in": 36.4, "out": 43.4},
+    {"scene": "settings", "take": "settings", "in": 1.5, "out": 5.0, "sound": {"take": "main", "in": 43.4}},
+    {"scene": "games", "take": "games", "in": 1.0, "out": 3.5, "sound": {"take": "main", "in": 46.9}}
+  ]
+}

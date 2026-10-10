@@ -1,0 +1,6 @@
+# tools/make_art.py (store art: docs/STORE_ART.md). The versions the Windows machine has, so an export on the Mac gives
+# the same pixels: python3 -m venv .venv-art && .venv-art/bin/pip install -r tools/requirements-art.txt
+pillow==10.4.0
+numpy==2.2.2
+requests==2.32.3
+fonttools==4.63.0

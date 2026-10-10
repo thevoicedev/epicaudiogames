@@ -1,0 +1,11 @@
+{
+  "endpoint": "images/generations",
+  "model": "gpt-image-2.5-sunburst",
+  "prompt": "A square app icon for \"Epic Audio Games\", voice-controlled audio story games made first for blind and partially sighted players. Flat vector style. The whole square is filled edge to edge with deep navy blue (#0B1430), with an optional very soft, subtle radial glow of slightly lighter navy (#16275E) behind the centre. One bold emblem sits in the centre, filling about 60% of the square, drawn only in warm golden yellow (#FFD54F) and white (#FFFFFF). The emblem: over-ear headphones, a thick white headband arch with two solid rounded white ear cups, and between the ear cups three rounded vertical golden sound bars of different heights, the middle bar the tallest. Thick strokes and chunky solid shapes with rounded ends, generous gaps between the parts, at most three elements, and a distinctive silhouette that is still recognisable when the icon is shown 29 pixels wide. Very high contrast between the emblem and the navy. No text, no letters, no numbers, no border or frame, no rounded-corner tile or app-icon plate drawn inside the square, no device, no hands, no people, no drop shadows, no 3D, no gradients or textures on the emblem, no thin lines, no small details.",
+  "size": "1024x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1,
+  "variant": 0
+}

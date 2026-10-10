@@ -1,0 +1,16 @@
+{
+  "about": "Play's promo video (YouTube; the owner uploads it, public or unlisted, ads off): 1080x1920 from the emulator's takes, with an .srt of what's said. in and out are seconds from each take's zero (main: the intro's first frame; the others: the app's first frame), first guesses from the map's timings: after capture-android, make_preview.py plan shows where each line really falls, so set them from that. Set from the takes of 2026-10-10 (main 80 s, settings and games 20 s each, recorded with the emulator's own screen recorder): \"Noodle Rush!\" at 15.5, \"Are you ready to play?\" from 32.4, the listening sound at 34.9, \"Yes\" heard at 38.7, the next scene from 39.1; Settings and Games drawn by 9.0 and 7.4 into their takes. sound takes a clip's sound from elsewhere (here the story carries on under Settings and the Games tab); captionAt top or bottom; fadeOut the last seconds' sound.",
+  "target": "play",
+  "source": "android",
+  "name": "epic-audio-games-preview",
+  "caption": {"size": 72, "min": 54, "lines": 2, "width": 1.0, "top": 66, "bottom": 321, "padX": 172, "padY": 34, "radius": 0, "alpha": 1.0},
+  "fadeOut": 1.0,
+  "clips": [
+    {"scene": "intro", "take": "main", "in": 0.0, "out": 3.0},
+    {"scene": "speaking", "take": "main", "in": 15.0, "out": 22.0},
+    {"scene": "listening", "take": "main", "in": 32.3, "out": 38.3},
+    {"scene": "reply", "take": "main", "in": 38.3, "out": 45.3},
+    {"scene": "settings", "take": "settings", "in": 9.5, "out": 13.0, "sound": {"take": "main", "in": 45.3}, "captionAt": "bottom"},
+    {"scene": "games", "take": "games", "in": 8.0, "out": 10.5, "sound": {"take": "main", "in": 48.8}, "captionAt": "bottom"}
+  ]
+}

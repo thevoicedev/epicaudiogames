@@ -1,0 +1,54 @@
+{
+  "about": "What each image model did when make_art.py probe tried it: a transparent background (alpha), a custom size (1536x752).",
+  "models": {
+    "gpt-image-2.5-sunburst": {
+      "listed": true,
+      "checked": "2026-10-09T09:42:32Z",
+      "keys": {
+        "transparent": "b32923c52b69ab0a0c102ba1b72187cd3ba508f494fd8ac8f711ea2e8e859132",
+        "customSize": "9e6406fc5b20fd8d7933fa85c923ff63aa51d2bd6d40a0da96476172be40a45e"
+      },
+      "transparent": true,
+      "transparentNote": "RGBA 1024x1024, 49% fully transparent, corners clear",
+      "customSize": true,
+      "customSizeNote": "asked 1536x752, got 1536x752",
+      "generate": true
+    },
+    "gpt-image-2": {
+      "listed": true,
+      "checked": "2026-10-09T09:42:32Z",
+      "transparent": false,
+      "transparentNote": "400: Transparent background is not supported for this model.",
+      "keys": {
+        "customSize": "229f330afb57f94b3a979796694cf318184b2a67f6712d3c81a2da82eb0e29da"
+      },
+      "customSize": true,
+      "customSizeNote": "asked 1536x752, got 1536x752",
+      "generate": true
+    },
+    "gpt-image-1.5": {
+      "listed": true,
+      "checked": "2026-10-09T09:42:33Z",
+      "keys": {
+        "transparent": "0cdec0628c9662311052e39da0515bf91727bcfd4d4cf74d8849712cad79f630"
+      },
+      "transparent": true,
+      "transparentNote": "RGBA 1024x1024, 78% fully transparent, corners clear",
+      "customSize": false,
+      "customSizeNote": "400: Invalid size '1536x752'. Supported sizes are 1024x1024, 1024x1536, 1536x1024, and auto.",
+      "generate": true
+    },
+    "gpt-image-1": {
+      "listed": true,
+      "checked": "2026-10-09T09:42:34Z",
+      "keys": {
+        "transparent": "1d878042c6d1dfdf09901544b28022d30b54050adafd165511175086198093f6"
+      },
+      "transparent": true,
+      "transparentNote": "RGBA 1024x1024, 70% fully transparent, corners clear",
+      "customSize": false,
+      "customSizeNote": "400: Invalid size '1536x752'. Supported sizes are 1024x1024, 1024x1536, 1536x1024, and auto.",
+      "generate": true
+    }
+  }
+}

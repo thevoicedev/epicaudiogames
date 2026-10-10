@@ -76,7 +76,9 @@ def slug(text, n=6):
     return "-".join(words[:n]) or "line"
 
 
-def post(path, body=None, files=None, data=None):
+def post(path, body=None, files=None, data=None, raw=False):
+    """An ElevenLabs request: its JSON answer, or with raw, its bytes (the sound effect and music endpoints answer
+    with the audio itself)."""
     headers = {"xi-api-key": api_key()}
     if files is None:
         headers["Content-Type"] = "application/json"
@@ -94,7 +96,7 @@ def post(path, body=None, files=None, data=None):
     for attempt in range(4):
         try:
             with urllib.request.urlopen(req, timeout=180) as r:
-                return json.loads(r.read())
+                return r.read() if raw else json.loads(r.read())
         except urllib.error.HTTPError as e:
             if e.code not in (429, 500, 502, 503) or attempt == 3:
                 raise RuntimeError(f"ElevenLabs {path}: {e.code} {e.read()[:200]!r}") from None
@@ -122,6 +124,25 @@ def quietest(pcm, lo, hi, rate=16000):
     return at
 
 
+def last_sound(pcm, lo, hi, rate=16000):
+    """Where the last sound between lo and hi seconds ends: the end of the last 10 ms within 35 dB of the loudest
+    (quieter is the room's hiss). A scrap shorter than 0.1 s after a pause of 0.2 s or more is passed over: a breath,
+    or the start of the next words, which ElevenLabs sometimes goes on to when it's given them as context. None if
+    there's nothing."""
+    win = int(rate * 0.010)
+    i0, i1 = max(0, int(lo * rate)), min(len(pcm), int(hi * rate))
+    power = [sum(x * x for x in pcm[i:i + win]) / win for i in range(i0, i1 - win + 1, win)]
+    if not power or max(power) <= 0:
+        return None
+    floor = max(power) * 10 ** (-35 / 10)
+    loud = [k for k, p in enumerate(power) if p > floor]
+    k = len(loud) - 1
+    while k > 0 and loud[k] - loud[k - 1] < 20:         # back to the start of the last run of sound
+        k -= 1
+    last = loud[k - 1] if k > 0 and loud[-1] - loud[k] < 10 else loud[-1]
+    return (i0 + (last + 1) * win) / rate
+
+
 def similar(a, b, at_least=0.8):
     """Whether two transcripts are the same words, give or take a few."""
     def norm(t):
@@ -140,13 +161,34 @@ def word_starts(text, alignment):
     return out if len(out) == len(text.split()) else None
 
 
+def tts_context(context):
+    """The text around a line that ElevenLabs takes into account for its flow (previous_text, next_text: the
+    paragraphs before and after it, for the app's spoken help), without the empty ones; {} for none."""
+    context = context or {}
+    return {k: clean(context[k]) for k in ("previous_text", "next_text") if context.get(k) and clean(context[k])}
+
+
+def tts_key(voice, text, context=None):
+    """A line's cache key (tools/cache/tts/<voice>/<key>.mp3). Without context it is what it has always been, so no
+    line already rendered is paid for again; the context, when there is one, is part of it."""
+    parts = [voice["id"], voice["model"], voice["settings"], text]
+    context = tts_context(context)
+    if context:
+        parts.append(context)
+    return hashlib.sha1(json.dumps(parts).encode()).hexdigest()[:16]
+
+
 class Content:
     """The content of one game: content/<game>/ and the CDN folder its recorded clips come from."""
 
-    def __init__(self, game, cdn_prefix, voices=None, fixes=None, out=None, voice=VOICE, trim=False, opus=False):
+    def __init__(self, game, cdn_prefix, voices=None, fixes=None, out=None, voice=VOICE, trim=False, opus=False,
+                 tail=None):
         self.game = game
         self.voice = voice                          # who reads Alexa's lines
         self.trim = trim                            # cut the silence around them (lines said in pieces)
+        # With trim, the silence after a whole line's last sound cut to this many seconds (the app's spoken help:
+        # ElevenLabs times its last character to the end of its audio, however much silence that is). None: kept.
+        self.tail = tail
         self.speech = (".opus", ENCODE_OPUS) if opus else (".m4a", ENCODE_SPEECH)     # how they're encoded
         self.prefix = cdn_prefix                    # "en/audio2/leaning-tower-of-pizza/"
         self.dir = Path(out) if out else ROOT / "content" / game     # a pack build writes elsewhere
@@ -183,39 +225,47 @@ class Content:
 
     def tts_many(self, texts):
         """Renders and encodes many lines at once (in parallel); tts() then finds them ready. A line is a text, or
-        the arguments of tts() as a tuple (text, speak, before, after, piece)."""
+        the arguments of tts() as a tuple (text, speak, before, after, piece), then its context's items if it has
+        one."""
         lines = {(t if isinstance(t, tuple) else (clean(t), None, "", "", False)) for t in texts}
-        list(self.pool.map(lambda a: self.tts(*a), sorted((l for l in lines if l[0]), key=str)))
+        list(self.pool.map(lambda a: self.tts(*a[:5], context=dict(a[5:]) or None),
+                           sorted((l for l in lines if l[0]), key=str)))
 
-    def _tts_raw(self, text):
+    def _tts_raw(self, text, context=None):
         v = self.voice
-        key = hashlib.sha1(json.dumps([v["id"], v["model"], v["settings"], text]).encode()).hexdigest()[:16]
+        context = tts_context(context)
+        key = tts_key(v, text, context)
         folder = CACHE / "tts" / v["name"]
         mp3, info = folder / f"{key}.mp3", folder / f"{key}.json"
         if not mp3.exists():
             r = post(f"/v1/text-to-speech/{v['id']}/with-timestamps?output_format=mp3_44100_128",
-                     {"text": text, "model_id": v["model"], "voice_settings": v["settings"]})
+                     {"text": text, "model_id": v["model"], "voice_settings": v["settings"], **context})
             folder.mkdir(parents=True, exist_ok=True)
-            info.write_text(json.dumps({"text": text, "alignment": r.get("alignment")}), encoding="utf-8")
+            info.write_text(json.dumps({"text": text, "alignment": r.get("alignment"),
+                                        **({"context": context} if context else {})}), encoding="utf-8")
             mp3.write_bytes(base64.b64decode(r["audio_base64"]))
         return key, mp3, json.loads(info.read_text(encoding="utf-8"))
 
-    def tts(self, text, speak=None, before="", after="", piece=False, who=HOST):
+    def tts(self, text, speak=None, before="", after="", piece=False, who=HOST, context=None):
         """A line in the game's voice: content/<game>/tts/<slug>.m4a (or .opus). speak: what's read, when it differs
-        from the text shown ("one hundred nine" for "109", "Saint Petersburg" for "St Petersburg").
+        from the text shown ("one hundred nine" for "109", "Saint Petersburg" for "St Petersburg"). context: the
+        text around it ({"previous_text", "next_text"}: the paragraphs either side, for the app's spoken help), so
+        that it's read as part of what's around it; it's in the cache key only when there is one.
 
         A piece of a sentence (before/after: the words around it) is rendered inside that whole sentence and cut
         out of it between words: at the quietest moment between the middle of the gap the character times give and
         the edge of the piece's own word (the times can be 50 ms out, but never so far that the cut should go into
         the word next to it), with a short fade. It's said as part of a sentence, and nothing of the words around it is left. With trim, a line's silence is cut too: from the
-        start, and from the end down to 0.35 s (0.08 s for a piece that the rest of its sentence follows)."""
+        start, and from the end down to 0.35 s (0.08 s for a piece that the rest of its sentence follows); with tail
+        too, the end is cut by what's heard, that long after the last sound."""
         text = clean(text)
         speak = clean(speak) if speak else text
         if self.planning is not None:
-            self.planning["tts"].add((text, speak if speak != text else None, before, after, piece))
+            self.planning["tts"].add((text, speak if speak != text else None, before, after, piece)
+                                     + tuple(tts_context(context).items()))
             return self._placeholder("tts", who, text)
         full = " ".join(x for x in (before, speak, after) if x)
-        key, mp3, info = self._tts_raw(full)
+        key, mp3, info = self._tts_raw(full, context)
         alignment = info.get("alignment") or {}
         starts = alignment.get("character_start_times_seconds") or []
         ends = alignment.get("character_end_times_seconds") or []
@@ -250,6 +300,10 @@ class Content:
                 fade_out = True
             else:
                 cut_out = ends[last] + (0.08 if piece and not speak.endswith((".", "!", "?")) else 0.35)
+                if self.tail is not None and not piece:
+                    heard = last_sound(pcm or samples(mp3), cut_in, cut_out)
+                    if heard is not None and heard + self.tail < cut_out:
+                        cut_out, fade_out = heard + self.tail, True
         # (pieces are named apart: "k", cut at the quiet point)
         rel = f"tts/{slug(text)}-{key[:6]}" + ("k" if self.trim and timed and (before or after) else "")
         ext, encode = self.speech

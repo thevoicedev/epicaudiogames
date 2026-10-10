@@ -1,0 +1,8 @@
+{
+ "model": "eleven_text_to_sound_v2",
+ "prompt": "old-time radio drama organ and timpani flourish, no voice",
+ "seconds": 3.2,
+ "influence": 0.6,
+ "take": 2,
+ "made": "2026-10-09"
+}

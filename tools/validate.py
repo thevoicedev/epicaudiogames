@@ -7,7 +7,9 @@ Errors (the exit code is 1 if there are any):
     or has a control character in it, an "opposite" pointing nowhere;
   - a clip without a transcript, or a transcript line outside its clip or with an unknown speaker;
   - a node the start can't reach, or one from which no end can be reached (the player would be stuck);
-  - a missing audio file, or one whose length differs from the map's "dur".
+  - a missing audio file, or one whose length differs from the map's "dur";
+  - a game called "app" (content/app/ is the app's own: its sting, earcons and spoken help), or content/app/ not
+    being what tools/app_text.toml and the picks make (tools/app_audio.py check; --game app checks only that).
 
 Usage (from the repo root): python tools/validate.py [--game id] [--no-audio]
 """
@@ -392,6 +394,22 @@ def main():
         for w in c.warnings:
             print(f"  ! {w}")
         failed = failed or bool(c.errors)
+    # The app's own content shares the games' folder (content/app/, which both apps bundle with the games): no game
+    # may be called "app", and it must be what tools/app_audio.py makes from its text and picks.
+    catalog = json.loads((ROOT / "games" / "catalog.json").read_text(encoding="utf-8"))
+    if any(g.get("id") == "app" for g in catalog.get("games", [])) or (ROOT / "games" / "app").exists():
+        print("catalog: 1 error")
+        print('  x a game called "app": content/app/ is the app\'s own (tools/app_audio.py)')
+        failed = True
+    if not args.game or args.game == "app":
+        from app_audio import check as app_check    # here, so prune.py and make_pack.py don't import it with plays()
+        summary, errors, warnings = app_check(audio=not args.no_audio)
+        print(f"{summary}: {'OK' if not errors else f'{len(errors)} errors'}")
+        for e in errors:
+            print(f"  x {e}")
+        for w in warnings:
+            print(f"  ! {w}")
+        failed = failed or bool(errors)
     sys.exit(1 if failed else 0)
 
 

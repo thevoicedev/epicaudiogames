@@ -1,0 +1,16 @@
+{
+  "about": "The owner's picks (make_art.py pick): which concept each export is cut from. Empty until the owner chooses at the approval gate; brand/masters/ then holds the picked art.",
+  "icon": {
+    "id": "icon-03",
+    "concept": "00d047548fc8e2bec737e3fcfa2a4521650741e62114e2c859c2ff2f0cb374cd",
+    "layer": "27e0cf615d2d89bf9f5d3e3e0586358786458b0b9ca592b5adbfb8afd9d49e66",
+    "motif": "speech-bars",
+    "picked": "2026-10-09"
+  },
+  "feature": {
+    "id": "feature-02",
+    "concept": "e055064948c4236f8d56c9eea0a0adee92b1d1fb38b08ae5cc911fc1bc5685ad",
+    "motif": "rings",
+    "picked": "2026-10-09"
+  }
+}

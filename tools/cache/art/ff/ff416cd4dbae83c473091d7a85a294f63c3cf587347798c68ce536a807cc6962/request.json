@@ -1,0 +1,11 @@
+{
+  "endpoint": "images/generations",
+  "model": "gpt-image-2.5-sunburst",
+  "prompt": "Wide landscape background artwork for an audio games app's store banner. A deep navy blue atmosphere (#0B1430 shading to #16275E), calm, premium and simple, with high contrast. A warm golden (#FFD54F) glow rises from the lower right like light from an open storybook, with gentle sound-wave ribbons of white light curling up into the navy. Keep the left 40% of the picture plain, dark navy with no detail at all (words go there later). No text, no letters, no numbers, no logos, no devices, no people, no faces, no frame, no border.",
+  "size": "1536x752",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1,
+  "variant": 0
+}

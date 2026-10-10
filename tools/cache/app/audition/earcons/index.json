@@ -1,0 +1,108 @@
+{
+ "question": {
+  "file": "content/leaning-tower-of-pizza/tts/welcome-back-pinocchio-want-to-play-eb5777.m4a",
+  "text": "Welcome back Pinocchio! Want to play Battle or Challenge mode?"
+ },
+ "families": {
+  "marimba": {
+   "listen-start": {
+    "ms": 145,
+    "peak": -3.0,
+    "rms": -17.5,
+    "above": -34.4
+   },
+   "listen-stop": {
+    "ms": 118,
+    "peak": -5.0,
+    "rms": -18.6,
+    "above": -34.4
+   },
+   "success": {
+    "ms": 240,
+    "peak": -3.0,
+    "rms": -17.9,
+    "above": -36.1
+   }
+  },
+  "glass": {
+   "listen-start": {
+    "ms": 145,
+    "peak": -3.0,
+    "rms": -17.7,
+    "above": -31.0
+   },
+   "listen-stop": {
+    "ms": 118,
+    "peak": -5.0,
+    "rms": -18.9,
+    "above": -31.0
+   },
+   "success": {
+    "ms": 240,
+    "peak": -3.0,
+    "rms": -18.1,
+    "above": -29.0
+   }
+  },
+  "pluck": {
+   "listen-start": {
+    "ms": 145,
+    "peak": -3.0,
+    "rms": -18.4,
+    "above": -22.6
+   },
+   "listen-stop": {
+    "ms": 118,
+    "peak": -5.0,
+    "rms": -20.0,
+    "above": -18.9
+   },
+   "success": {
+    "ms": 240,
+    "peak": -3.0,
+    "rms": -19.4,
+    "above": -21.6
+   }
+  },
+  "bubble": {
+   "listen-start": {
+    "ms": 145,
+    "peak": -3.0,
+    "rms": -17.0,
+    "above": -78.2
+   },
+   "listen-stop": {
+    "ms": 118,
+    "peak": -5.0,
+    "rms": -18.1,
+    "above": -78.2
+   },
+   "success": {
+    "ms": 240,
+    "peak": -3.0,
+    "rms": -17.5,
+    "above": -79.2
+   }
+  }
+ },
+ "elevenlabs": {
+  "listen-start-1": {
+   "prompt": "two soft marimba notes rising, short user interface sound, dry, no reverb"
+  },
+  "listen-start-2": {
+   "prompt": "two soft marimba notes rising, short user interface sound, dry, no reverb"
+  },
+  "listen-stop-1": {
+   "prompt": "two soft marimba notes falling, short user interface sound, dry, no reverb"
+  },
+  "listen-stop-2": {
+   "prompt": "two soft marimba notes falling, short user interface sound, dry, no reverb"
+  },
+  "success-1": {
+   "prompt": "three soft marimba notes rising, cheerful success sound, short, dry, no reverb"
+  },
+  "success-2": {
+   "prompt": "three soft marimba notes rising, cheerful success sound, short, dry, no reverb"
+  }
+ }
+}

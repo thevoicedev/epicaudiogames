@@ -1,0 +1,14 @@
+{
+  "endpoint": "images/edits",
+  "model": "gpt-image-2.5-sunburst",
+  "prompt": "Redraw this app icon as a cleaner, bolder version of the same idea: keep its emblem, composition, proportions and colours (golden yellow #FFD54F and white on deep navy #0B1430), make every shape thicker and simpler, remove any small details, texture or shading, keep the background a plain full-bleed navy square. No text, no border, no rounded tile. The emblem: thick white headphones (a headband arch and two ear cups) around a solid golden speech bubble that sits between the ear cups, under the headband. Make the white headband as thick as the ear cups' rounded ends.",
+  "size": "1024x1024",
+  "quality": "medium",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1,
+  "inputs": [
+    "5f830b9bc2802ad08f0210de7473596a849ebeb87fcde83830d7ef4625e9291a"
+  ],
+  "variant": 1
+}

@@ -1,0 +1,8 @@
+{
+ "model": "eleven_text_to_sound_v2",
+ "prompt": "playful video game logo jingle, bright synth arpeggio rising to a sparkling chime, no voice",
+ "seconds": 3.2,
+ "influence": 0.6,
+ "take": 1,
+ "made": "2026-10-09"
+}

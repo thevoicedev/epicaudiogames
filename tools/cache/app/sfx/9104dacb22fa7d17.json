@@ -1,0 +1,8 @@
+{
+ "model": "eleven_text_to_sound_v2",
+ "prompt": "two soft marimba notes rising, short user interface sound, dry, no reverb",
+ "seconds": 0.5,
+ "influence": 0.6,
+ "take": 2,
+ "made": "2026-10-09"
+}

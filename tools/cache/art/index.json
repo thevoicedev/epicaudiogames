@@ -1,0 +1,243 @@
+{
+  "about": "Concepts by id: the cached image each one is (key, image), its kind, motif and model, its parent when it's a refinement, and its emblem layer once cut out.",
+  "concepts": {
+    "icon-01": {
+      "kind": "icon",
+      "key": "78809d4d25989a99c144a2ecac2395c29bb945e74ce95bdecf5add10d737cef9",
+      "image": 0,
+      "motif": 1,
+      "motifName": "headphones-bars",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "made": "2026-10-09T03:59:06Z",
+      "layer": {
+        "key": "7200ff2650071553f8d250c54d823c36b79e2124872ceaf0fd35b856adfd14bb",
+        "method": "local",
+        "made": "2026-10-09T09:51:03Z",
+        "likeness": 1.0,
+        "colours": [
+          "#FFD54F",
+          "#FFFFFF"
+        ],
+        "source": null
+      }
+    },
+    "icon-02": {
+      "kind": "icon",
+      "key": "3a9d32bff2db32162b39bfeb236dfd9024863b435b97cb4c80a614cc9189faab",
+      "image": 0,
+      "motif": 2,
+      "motifName": "wave-band",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "made": "2026-10-09T03:59:02Z"
+    },
+    "icon-03": {
+      "kind": "icon",
+      "key": "00d047548fc8e2bec737e3fcfa2a4521650741e62114e2c859c2ff2f0cb374cd",
+      "image": 0,
+      "motif": 3,
+      "motifName": "speech-bars",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "made": "2026-10-09T03:59:17Z",
+      "layer": {
+        "key": "27e0cf615d2d89bf9f5d3e3e0586358786458b0b9ca592b5adbfb8afd9d49e66",
+        "method": "local",
+        "made": "2026-10-09T12:02:55Z",
+        "likeness": 0.997,
+        "colours": [
+          "#FFD54F",
+          "#FFFFFF"
+        ],
+        "source": null
+      }
+    },
+    "icon-04": {
+      "kind": "icon",
+      "key": "2d20f94c6eccfc4bbc236d8430c72cc094d11bf6e26ddaecb57ae74dcac6748b",
+      "image": 0,
+      "motif": 4,
+      "motifName": "headphones-bubble",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "made": "2026-10-09T03:59:19Z",
+      "layer": {
+        "key": "d46a0551dfc629d746d58cb5ccfe68cf5f3834a7ed09a50c3e6510d03c6a99df",
+        "method": "local",
+        "made": "2026-10-09T04:19:15Z",
+        "likeness": 0.994,
+        "colours": [
+          "#FFD54F",
+          "#FFFFFF"
+        ],
+        "source": null
+      }
+    },
+    "icon-05": {
+      "kind": "icon",
+      "key": "275115239855f920c85df615416dca692fbce91355bb94d09373970046d0ddce",
+      "image": 0,
+      "motif": 5,
+      "motifName": "sound-rings",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "made": "2026-10-09T03:59:30Z"
+    },
+    "icon-06": {
+      "kind": "icon",
+      "key": "0eae8daa90b95d5e124fdaa848d67b62471d12e04127b33d061ff2a696d724c3",
+      "image": 0,
+      "motif": 6,
+      "motifName": "talking-circle",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "made": "2026-10-09T03:59:35Z"
+    },
+    "icon-07": {
+      "kind": "icon",
+      "key": "6dbaf69a99816695301aa5e408a943e7dc45e8478185852d11bc71dd826f78a0",
+      "image": 0,
+      "motif": 7,
+      "motifName": "mic-headphones",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "made": "2026-10-09T03:59:44Z",
+      "layer": {
+        "key": "f41004a2924fe27f1283b4343e5e90c37726f4542494287d6bb0448e3e78d110",
+        "method": "local",
+        "made": "2026-10-09T09:50:51Z",
+        "likeness": 1.0,
+        "colours": [
+          "#FFD54F",
+          "#FFFFFF"
+        ],
+        "source": null
+      }
+    },
+    "icon-08": {
+      "kind": "icon",
+      "key": "eea2f62ed0f3edfaf05c6082fe52d4bb721bf9a63df4a1c367edaa8f6ba6e38e",
+      "image": 0,
+      "motif": 8,
+      "motifName": "bars-circle",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "made": "2026-10-09T03:59:49Z"
+    },
+    "icon-09": {
+      "kind": "icon",
+      "key": "e1f83766d24ec932212204276997f3c80ca6f1110b3bc2e707e99b19b4b54c49",
+      "image": 0,
+      "motif": 4,
+      "motifName": "headphones-bubble",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 0,
+      "parent": "icon-04",
+      "note": "Make the white headband as thick as the ear cups' rounded ends.",
+      "made": "2026-10-09T04:28:52Z",
+      "layer": {
+        "key": "a62809d0bc33e2207c50866250933f34446c02620d737306f017df047c5856b7",
+        "method": "local",
+        "made": "2026-10-09T09:50:39Z",
+        "likeness": 0.994,
+        "colours": [
+          "#FFD54F",
+          "#FFFFFF"
+        ],
+        "source": null
+      }
+    },
+    "icon-10": {
+      "kind": "icon",
+      "key": "76115702ffb67103ec6e266d024dcc44ec02010963628889eaf609ea36fa2cc8",
+      "image": 0,
+      "motif": 4,
+      "motifName": "headphones-bubble",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1024x1024",
+      "take": 1,
+      "parent": "icon-04",
+      "note": "Make the white headband as thick as the ear cups' rounded ends.",
+      "made": "2026-10-09T04:28:51Z",
+      "layer": {
+        "key": "ba833006d8b7e482bfc92e86cecf0023511d4fbae3b8d19e7470161f433d0714",
+        "method": "local",
+        "made": "2026-10-09T09:50:29Z",
+        "likeness": 1.0,
+        "colours": [
+          "#FFD54F",
+          "#FFFFFF"
+        ],
+        "source": null
+      }
+    },
+    "feature-01": {
+      "kind": "feature",
+      "key": "29c05359f12df35a53245e26eb023d962d7c832403f216c9dbf26fd7798fc9c0",
+      "image": 0,
+      "motif": 1,
+      "motifName": "waves",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1536x752",
+      "take": 0,
+      "made": "2026-10-09T13:43:05Z"
+    },
+    "feature-02": {
+      "kind": "feature",
+      "key": "e055064948c4236f8d56c9eea0a0adee92b1d1fb38b08ae5cc911fc1bc5685ad",
+      "image": 0,
+      "motif": 2,
+      "motifName": "rings",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1536x752",
+      "take": 0,
+      "made": "2026-10-09T13:43:07Z"
+    },
+    "feature-03": {
+      "kind": "feature",
+      "key": "f4a9f06c900d9af31832b00365c2813b3d6ff979e264e591512adab8e2c72693",
+      "image": 0,
+      "motif": 3,
+      "motifName": "night-sky",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1536x752",
+      "take": 0,
+      "made": "2026-10-09T13:43:21Z"
+    },
+    "feature-04": {
+      "kind": "feature",
+      "key": "ff416cd4dbae83c473091d7a85a294f63c3cf587347798c68ce536a807cc6962",
+      "image": 0,
+      "motif": 4,
+      "motifName": "story-glow",
+      "model": "gpt-image-2.5-sunburst",
+      "quality": "medium",
+      "size": "1536x752",
+      "take": 0,
+      "made": "2026-10-09T13:43:24Z"
+    }
+  }
+}

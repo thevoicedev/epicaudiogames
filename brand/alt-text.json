@@ -1,0 +1,18 @@
+{
+  "about": "Text alternatives for the brand images, wherever a page shows them (the website's og:image:alt and <img alt>; neither store console takes alt text for listing images, so the listings' own text says what matters). make_art.py pick fills the icon's and the emblem's from the picked motif; the screenshots' come from their captions and what they show. docs/STORE_ART.md lists where each is used.",
+  "icon": "Epic Audio Games app icon: a white speech bubble holding gold sound bars, on navy.",
+  "emblem": "Epic Audio Games logo: a white speech bubble holding gold sound bars.",
+  "featureGraphic": "Epic Audio Games: audio story games you play by voice. Golden rings of sound spreading out across a deep navy background.",
+  "og": "Epic Audio Games: audio story games you play by voice.",
+  "screenshots": {
+    "01_games": "Story games you play by voice. The Games tab: a list of games, each with its cover, a Play button and a button to get more stories.",
+    "02_story": "Every word on screen, as it's spoken. A story playing, with each line in the transcript and the word being spoken highlighted.",
+    "03_answer": "Answer out loud, type or tap. The game listening for an answer, with the answer options as buttons and a box to type in.",
+    "04_big_text": "Big, clear text. High contrast. The game in the high-contrast theme at a large text size.",
+    "05_voice_speed": "Voice speed, your way. Settings, with the voice speed control and the sound settings.",
+    "06_help": "Help, read out loud. A help topic with its Listen button.",
+    "07_shop": "One-time packs. No ads. The Shop, with packs for each game and their prices.",
+    "08_eight_games": "Eight games, from werewolves to pirates. More of the games list.",
+    "09_screen_reader": "Works with the phone's screen reader. A game being played with the screen reader's focus on the talking circle."
+  }
+}

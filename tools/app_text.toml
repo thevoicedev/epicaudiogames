@@ -1,0 +1,182 @@
+# The welcome and the help topics, shown and read aloud (in Jessica's voice) in both apps (docs/DESIGN.md, Help).
+# py -3.13 tools/app_audio.py build makes content/app/app.json and a clip per paragraph from this file; check (also
+# run by tools/validate.py) fails while the two differ.
+#
+# A paragraph is one of:
+#   "Text."                               shown, and read as it is
+#   { text = "...", speak = "..." }       shown as text, read as speak (an email address)
+#   { cue = "listen-start" }              an earcon played at that point (listen-start, listen-stop, success); not
+#                                         shown, so the text around it has to make sense without it
+#   { ios = ..., android = ... }          a paragraph for one app (either may be left out)
+# A topic whose title or summary differs by app has [help.ios] and [help.android] tables instead (each with its
+# title, summary and paragraphs). links = [{ label = "...", url = "https://..." or "mailto:..." }] go under the text.
+#
+# Plain, warm, short sentences, in sentence case, and nothing the apps don't do. What the iPhone app shows never names
+# Android, TalkBack or Google, and the Android app's never names the iPhone, VoiceOver or Magic Tap (check refuses
+# them). A help topic takes 20 to 45 seconds to say, the welcome 15 to 20 (build and check warn otherwise).
+# The topic ids are fixed: the apps open some of them directly (a game's "How to play" is "voice").
+
+[welcome]
+title = "Welcome"
+paragraphs = [
+  "Welcome to Epic Audio Games! The games talk to you, and you answer out loud.",
+  "When the microphone opens, you'll hear a short rising sound.",
+  { cue = "listen-start" },
+  "Then say your answer. You can also type it, or tap one of the options.",
+  "Put on your headphones, pick a game, and have fun!",
+]
+
+[[help]]
+id = "getting-started"
+title = "Getting started"
+summary = "How the games work, and finding your way around the app."
+paragraphs = [
+  "Epic Audio Games are stories and quizzes that you play with your voice. Every word is shown on screen as it's spoken.",
+  "The app has four tabs: Games, Shop, Help and Settings. On a phone, they're along the bottom.",
+  "In Games, tap a game to play. If you're part-way through one, it says Carry on, and picks up where you left off.",
+  "When the game asks you something, answer out loud, type your answer, or tap one of the options.",
+  "Some games have more stories or levels to buy, in the Shop. And headphones make everything sound its best.",
+]
+
+[[help]]
+id = "voice"
+title = "Playing with your voice"
+summary = "The listening sounds, and saying “repeat” or “stop”."
+paragraphs = [
+  "When the microphone opens, you hear a short rising sound.",
+  { cue = "listen-start" },
+  "That means the game is listening, so say your answer. When it stops listening, you hear a falling sound.",
+  { cue = "listen-stop" },
+  "Answer in a few words. Saying one of the options on screen works well.",
+  "Say “repeat” to hear it again, or “stop” to pause the game.",
+  "If you don't answer, the game asks again. After a second silence, it pauses until you're ready.",
+  "To answer before the voice has finished, tap Talk, next to the answer box. If you need more time, choose a longer Time to answer in Settings.",
+]
+
+[[help]]
+id = "screen-reader"
+
+[help.ios]
+title = "Using VoiceOver"
+summary = "Magic Tap, the picture, and the microphone."
+paragraphs = [
+  "With VoiceOver on, the microphone doesn't open by itself.",
+  "At the top of a game is a picture. Its name says what it will do: Skip, Talk, Stop listening, or Carry on.",
+  "So when it's your turn, double tap Talk, and say your answer after the rising sound.",
+  "Or do a Magic Tap, a two-finger double tap, anywhere in the game. It does the same as the picture, and so does the button on your headphones.",
+  "To leave a game, do a two-finger scrub. Your place is kept.",
+  "If you'd like the microphone to open by itself, choose that in Settings, under Microphone.",
+]
+
+[help.android]
+title = "Using TalkBack"
+summary = "The picture, your headphones' button, and the microphone."
+# Onboarding's TalkBack page shows these paragraphs too (Onboarding.kt). TalkBack's two-finger double tap (its "play or
+# pause media" gesture) should reach the game's media session, and so the picture's action (docs/IOS_PARITY.md, A2),
+# but it hasn't been tried on a phone yet: add it here once it passes docs/DESIGN.md's real-phone checklist.
+paragraphs = [
+  "With TalkBack on, the microphone doesn't open by itself.",
+  "At the top of a game is a picture. Its name says what it will do: Skip, Talk, Stop listening, or Carry on.",
+  "So when it's your turn, double tap Talk, and say your answer after the rising sound.",
+  "The button on your headphones does the same as the picture, even with the screen off.",
+  "If you'd like the microphone to open by itself, choose that in Settings, under Microphone.",
+]
+
+[[help]]
+id = "typing"
+title = "Typing and choosing answers"
+summary = "Answer by typing or tapping, and keyboard shortcuts."
+# The options have no visible heading: TalkBack hears them as a heading, "Options", and VoiceOver as a container of
+# that name (docs/IOS_PARITY.md, answering in a chat). They sit just above the answer bar on a phone (the end of the
+# transcript) and in the two-pane game alike. The keys: Keyboard.kt and GameScreen.kt; GameView.swift's GameKeys,
+# AnswersPanel.swift and MainTabs.swift.
+paragraphs = [
+  "You never have to speak. You can type every answer, and many questions have options you can tap.",
+  "To type, use the Type an answer box at the bottom of the game, then tap Send.",
+  "The options are buttons just above the answer box. Tap one to choose it.",
+  "You can type or tap while the voice is still talking: it stops, and the game goes on with your answer.",
+  "When you start typing, the microphone stops listening. Typing and tapping work without a connection, too.",
+  { ios = "With a keyboard, press Space to tap the picture, unless you're in the answer box. Return sends your answer, Escape pauses the game, and Command with 1 to 4 switches between the tabs.", android = "With a keyboard, press Space to tap the picture, unless you're in the answer box. Enter sends your answer, Escape pauses the game, and Control with 1 to 4 switches between the tabs." },
+]
+
+[[help]]
+id = "pausing"
+title = "Pausing, repeating and leaving"
+summary = "Pause, hear it again, start over, or leave and come back later."
+# "More" is the name both apps give the game's ⋮ button (strings.xml's game_menu; GameView.swift's GameHeader), what a
+# screen reader says and Voice Control or Voice Access answers to.
+paragraphs = [
+  "To pause, say “stop”. The game also pauses by itself if your headphones come out, or a call comes in.",
+  "To carry on, tap Carry on, and the question plays again. When the game is listening, say “repeat” to hear it again.",
+  "To start a game from the very beginning, open the More menu at the top of the game, and choose Start again.",
+  "To leave, use Back at the top of the game, or Leave game on the pause screen. Your place is kept: next time, the game's card says Carry on.",
+]
+
+[[help]]
+id = "packs"
+title = "Packs and purchases"
+summary = "More stories and levels, and getting them on a new phone."
+paragraphs = [
+  "Some games have packs, with more stories or levels. You'll find them all in the Shop, or tap the Get button on a game's card.",
+  "Each pack is a one-time purchase. There are no ads and no subscriptions. A pack downloads once, then plays without a connection.",
+  { ios = "Payments are handled by the App Store.", android = "Payments are handled by Google Play." },
+  { ios = "Got a new iPhone? In the Shop, tap Restore purchases, and use the same Apple Account you bought your packs with.", android = "Got a new phone? In the Shop, tap Restore purchases, and use the same Google account you bought your packs with." },
+  { ios = "If a download is waiting for Wi-Fi, tap Download now to use mobile data instead." },
+]
+
+[[help]]
+id = "headphones"
+title = "Headphones and the lock screen"
+summary = "Your headphones' button, and playing with the screen off."
+paragraphs = [
+  "The games sound best with headphones, wired or Bluetooth. If yours have a microphone, the game listens through it.",
+  "The button on your headphones does what tapping the picture does: it skips the voice, starts or stops listening, or carries on after a pause.",
+  { ios = "You can lock your iPhone and keep playing. The game goes on talking and listening, and its controls are on the lock screen.", android = "You can turn the screen off and keep playing. The game goes on talking and listening, and its notification has the same button as the picture." },
+  "If your headphones come out, the game pauses until you carry on.",
+]
+
+[[help]]
+id = "watch"
+title = "Using a watch"
+summary = "Control the game from your wrist, and our watch app."
+# Paragraph 2 holds whichever the watch's own media controls send: pause and play (the phone pauses, then carries on
+# or listens) or one play/pause toggle (it skips or stops listening, as for the headphones' button; NowPlaying.swift,
+# BackgroundPlay.kt). Paragraphs 3 to 5 are our watch apps (docs/DESIGN.md, Watches; ios/EpicWatch and docs/WATCH.md,
+# android/wear and docs/WEAR_OS.md): leave them out of any release that ships without them.
+paragraphs = [
+  { ios = "With an Apple Watch, you can control the game from your wrist, while your iPhone does the talking and listening.", android = "With a Wear OS watch, you can control the game from your wrist, while your phone does the talking and listening." },
+  { ios = "Now Playing on your watch shows the game. Press pause to stop the voice or the listening. Press play to carry on, or to start listening when it's your turn.", android = "The media controls on your watch show the game. Press pause to stop the voice or the listening. Press play to carry on, or to start listening when it's your turn." },
+  { ios = "The Epic Audio Games app for Apple Watch does more. It shows what the game is doing, and its big button does what tapping the picture does: skip, talk, stop listening, or carry on.", android = "The Epic Audio Games app for Wear OS does more. It shows what the game is doing, and its big button does what tapping the picture does: skip, talk, stop listening, or carry on." },
+  "It also buzzes when the microphone opens, so you know when to answer, even if you can't hear the sound.",
+  { ios = "To add it, open the Watch app on your iPhone.", android = "To add it, open the Play Store on your watch." },
+]
+
+[[help]]
+id = "display"
+title = "Text size and colours"
+summary = "Themes, text size and font, and voice speed, music and time to answer."
+paragraphs = [
+  "In Settings, under Appearance, you can choose a theme: Match my phone, Light, Dark, or High contrast, which is black, white and yellow.",
+  "Text size makes the words bigger, on top of your phone's own setting. You can also switch from the easy-to-read Atkinson Hyperlegible font to your phone's own.",
+  "Under Transcript, you can turn off the word highlighting, or show the words only as they're spoken.",
+  "Under Sound and voice are Voice speed, Music volume, and Time to answer, which gives you longer to reply.",
+  "The app also follows your phone's own settings, like dark mode, bold text and reduced motion.",
+]
+
+[[help]]
+id = "contact"
+title = "Contact and privacy"
+summary = "Get in touch, our privacy policy, and your usage data."
+paragraphs = [
+  "We'd love to hear from you, especially about how well the app works for you.",
+  { text = "Email us at james@hugo.fm.", speak = "Email us at james at hugo dot F M." },
+  "What you say is turned into words by your phone's speech recognition, and never sent to us.",
+  "To help us improve the games, the app sends us usage data, like which games are played, under a random ID. It never includes your voice, what you say or type, or your accessibility settings. You can turn it off, or delete it, in Settings, under Privacy.",
+  "Our privacy policy and accessibility statement are on our website. The links are below.",
+]
+links = [
+  { label = "Email james@hugo.fm", url = "mailto:james@hugo.fm?subject=Epic%20Audio%20Games" },
+  { label = "Privacy policy", url = "https://epicaudiogames.com/privacy" },
+  { label = "Accessibility statement", url = "https://epicaudiogames.com/accessibility" },
+  { label = "Support website", url = "https://epicaudiogames.com/support" },
+]

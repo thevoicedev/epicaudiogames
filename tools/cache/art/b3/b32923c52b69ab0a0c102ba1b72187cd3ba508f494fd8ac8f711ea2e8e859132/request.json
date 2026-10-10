@@ -1,0 +1,11 @@
+{
+  "endpoint": "images/generations",
+  "model": "gpt-image-2.5-sunburst",
+  "prompt": "A simple flat icon: a solid golden (#FFD54F) circle with a thick white ring around it, centred, with nothing else in the image.",
+  "size": "1024x1024",
+  "quality": "low",
+  "background": "transparent",
+  "output_format": "png",
+  "n": 1,
+  "variant": 0
+}

@@ -1,0 +1,11 @@
+{
+  "endpoint": "images/generations",
+  "model": "gpt-image-2",
+  "prompt": "A simple wide banner: plain deep navy blue with one thick golden wave across the middle. No text.",
+  "size": "1536x752",
+  "quality": "low",
+  "background": "opaque",
+  "output_format": "png",
+  "n": 1,
+  "variant": 0
+}

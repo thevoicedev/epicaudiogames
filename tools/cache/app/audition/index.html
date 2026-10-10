@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>App sounds</title>
+<style>
+:root { color-scheme: light dark; --bg: #F3F5FB; --surface: #FFFFFF; --text: #0B1430; --muted: #3B4566;
+  --heading: #16275E; --outline: #6B7699; --ok: #0F5C33; --bad: #A4161A; }
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #0B1430; --surface: #16275E; --text: #F6F8FF; --muted: #C9D2F0; --heading: #FFD54F;
+    --outline: #8E9CCB; --ok: #8FE3B0; --bad: #FFB4AB; }
+}
+* { box-sizing: border-box; }
+body { margin: 0; padding: 16px; background: var(--bg); color: var(--text);
+  font: 18px/1.45 "Atkinson Hyperlegible Next", system-ui, sans-serif; }
+main { max-width: 1180px; margin: 0 auto; }
+h1, h2, h3 { color: var(--heading); line-height: 1.25; margin: 1.4em 0 0.4em; }
+h1 { margin-top: 0.4em; }
+p, li { max-width: 75ch; }
+.muted { color: var(--muted); }
+.card { background: var(--surface); border: 2px solid var(--outline); border-radius: 12px; padding: 12px 16px;
+  margin: 12px 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; vertical-align: top; padding: 8px; border-top: 2px solid var(--outline); }
+th { white-space: nowrap; }
+audio { width: 250px; max-width: 100%; display: block; }
+code { font-size: 15px; overflow-wrap: anywhere; }
+.ok { color: var(--ok); font-weight: 700; }
+.bad { color: var(--bad); font-weight: 700; }
+.picked { border-color: var(--ok); border-width: 4px; }
+</style>
+</head>
+<body>
+<main>
+<h1>App sounds: auditions</h1>
+<p>Listen with headphones, and to the phone-speaker and Bluetooth previews too: players hear these all three ways. Each variant has the command that picks it; run it from the repo root. A pick writes the file into <code>content/app/</code> and updates <code>app.json</code>.</p>
+<div class="card"><h2 style="margin-top:0">Picked now</h2><ul>
+<li>Sting: jessica-a1 over cinematic-1</li>
+<li>Earcons: marimba</li>
+</ul></div>
+<h2 id="sting">Intro sting</h2>
+<p>A voice over a logo bed, as <code>content/app/sting.m4a</code> would be: the bed ducks under the voice and fades out over its last 0.4 s; the mix is levelled to -16 LUFS with peaks at most -1.5 dBFS (AAC stereo). The phone-speaker preview is the same sting folded to mono with nothing under 500 Hz. <strong>Voice over bed</strong> is how far the voice stands above the ducked bed while it speaks (more is clearer); <strong>mono fold</strong> is what a one-speaker phone loses beyond the usual 3 dB (over 2 dB is flagged).</p>
+<h3>jessica-a1: “Epic Audio Games!”</h3>
+<p class="muted">Jessica, as she hosts the games; stability 0.5, style 0.15, seed 1.</p>
+<audio controls preload="none" src="../voice/jessica/2092bd22bb224845.mp3" aria-label="jessica-a1, the voice alone"></audio>
+<div class="scroll"><table><thead><tr><th scope="col">Bed</th><th scope="col">Sting</th><th scope="col">Phone speaker</th><th scope="col">Numbers</th><th scope="col">Pick it</th></tr></thead><tbody>
+<tr><th scope="row">adventure-1</th><td><audio controls preload="none" src="sting/jessica-a1__adventure-1.m4a" aria-label="jessica-a1 over adventure-1"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__adventure-1-phone.mp3" aria-label="jessica-a1 over adventure-1, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.0 LUFS, peak -2.4 dBFS; voice over bed 15.9 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 adventure-1</code></td></tr>
+<tr><th scope="row">adventure-2</th><td><audio controls preload="none" src="sting/jessica-a1__adventure-2.m4a" aria-label="jessica-a1 over adventure-2"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__adventure-2-phone.mp3" aria-label="jessica-a1 over adventure-2, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.1 LUFS, peak -2.2 dBFS; voice over bed 15.3 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 adventure-2</code></td></tr>
+<tr><th scope="row">arcade-1</th><td><audio controls preload="none" src="sting/jessica-a1__arcade-1.m4a" aria-label="jessica-a1 over arcade-1"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__arcade-1-phone.mp3" aria-label="jessica-a1 over arcade-1, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -15.9 LUFS, peak -2.0 dBFS; voice over bed 15.5 dB; mono fold 0.2 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 arcade-1</code></td></tr>
+<tr><th scope="row">arcade-2</th><td><audio controls preload="none" src="sting/jessica-a1__arcade-2.m4a" aria-label="jessica-a1 over arcade-2"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__arcade-2-phone.mp3" aria-label="jessica-a1 over arcade-2, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.1 LUFS, peak -1.9 dBFS; voice over bed 13.8 dB; mono fold 0.0 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 arcade-2</code></td></tr>
+<tr><th scope="row">cinematic-1 (picked)</th><td><audio controls preload="none" src="sting/jessica-a1__cinematic-1.m4a" aria-label="jessica-a1 over cinematic-1"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__cinematic-1-phone.mp3" aria-label="jessica-a1 over cinematic-1, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.0 LUFS, peak -2.7 dBFS; voice over bed 16.5 dB; mono fold 0.3 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 cinematic-1</code></td></tr>
+<tr><th scope="row">cinematic-2</th><td><audio controls preload="none" src="sting/jessica-a1__cinematic-2.m4a" aria-label="jessica-a1 over cinematic-2"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__cinematic-2-phone.mp3" aria-label="jessica-a1 over cinematic-2, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.0 LUFS, peak -2.6 dBFS; voice over bed 15.7 dB; mono fold 0.4 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 cinematic-2</code></td></tr>
+<tr><th scope="row">radio-drama-1</th><td><audio controls preload="none" src="sting/jessica-a1__radio-drama-1.m4a" aria-label="jessica-a1 over radio-drama-1"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__radio-drama-1-phone.mp3" aria-label="jessica-a1 over radio-drama-1, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.0 LUFS, peak -1.8 dBFS; voice over bed 11.3 dB; mono fold 0.0 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 radio-drama-1</code></td></tr>
+<tr><th scope="row">radio-drama-2</th><td><audio controls preload="none" src="sting/jessica-a1__radio-drama-2.m4a" aria-label="jessica-a1 over radio-drama-2"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__radio-drama-2-phone.mp3" aria-label="jessica-a1 over radio-drama-2, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.1 LUFS, peak -2.0 dBFS; voice over bed 13.5 dB; mono fold 0.2 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 radio-drama-2</code></td></tr>
+<tr><th scope="row">storybook-1</th><td><audio controls preload="none" src="sting/jessica-a1__storybook-1.m4a" aria-label="jessica-a1 over storybook-1"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__storybook-1-phone.mp3" aria-label="jessica-a1 over storybook-1, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.1 LUFS, peak -3.0 dBFS; voice over bed 17.5 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 storybook-1</code></td></tr>
+<tr><th scope="row">storybook-2</th><td><audio controls preload="none" src="sting/jessica-a1__storybook-2.m4a" aria-label="jessica-a1 over storybook-2"></audio></td><td><audio controls preload="none" src="sting/jessica-a1__storybook-2-phone.mp3" aria-label="jessica-a1 over storybook-2, phone speaker"></audio></td><td>2.8 s; voice 0.35 to 1.743 s; -16.3 LUFS, peak -2.4 dBFS; voice over bed 14.8 dB; mono fold 0.0 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting jessica-a1 storybook-2</code></td></tr>
+</tbody></table></div>
+<h3>don-a1: “Epic Audio Games!”</h3>
+<p class="muted">Don, movie trailer voice; stability 0.35, style 0.45, seed 1.</p>
+<audio controls preload="none" src="../voice/don/1ffeaf578070580b.mp3" aria-label="don-a1, the voice alone"></audio>
+<div class="scroll"><table><thead><tr><th scope="col">Bed</th><th scope="col">Sting</th><th scope="col">Phone speaker</th><th scope="col">Numbers</th><th scope="col">Pick it</th></tr></thead><tbody>
+<tr><th scope="row">adventure-1</th><td><audio controls preload="none" src="sting/don-a1__adventure-1.m4a" aria-label="don-a1 over adventure-1"></audio></td><td><audio controls preload="none" src="sting/don-a1__adventure-1-phone.mp3" aria-label="don-a1 over adventure-1, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.0 LUFS, peak -3.2 dBFS; voice over bed 15.1 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 adventure-1</code></td></tr>
+<tr><th scope="row">adventure-2</th><td><audio controls preload="none" src="sting/don-a1__adventure-2.m4a" aria-label="don-a1 over adventure-2"></audio></td><td><audio controls preload="none" src="sting/don-a1__adventure-2-phone.mp3" aria-label="don-a1 over adventure-2, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.0 LUFS, peak -3.2 dBFS; voice over bed 14.4 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 adventure-2</code></td></tr>
+<tr><th scope="row">arcade-1</th><td><audio controls preload="none" src="sting/don-a1__arcade-1.m4a" aria-label="don-a1 over arcade-1"></audio></td><td><audio controls preload="none" src="sting/don-a1__arcade-1-phone.mp3" aria-label="don-a1 over arcade-1, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.0 LUFS, peak -3.3 dBFS; voice over bed 15.4 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 arcade-1</code></td></tr>
+<tr><th scope="row">arcade-2</th><td><audio controls preload="none" src="sting/don-a1__arcade-2.m4a" aria-label="don-a1 over arcade-2"></audio></td><td><audio controls preload="none" src="sting/don-a1__arcade-2-phone.mp3" aria-label="don-a1 over arcade-2, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.0 LUFS, peak -3.1 dBFS; voice over bed 15.3 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 arcade-2</code></td></tr>
+<tr><th scope="row">cinematic-1</th><td><audio controls preload="none" src="sting/don-a1__cinematic-1.m4a" aria-label="don-a1 over cinematic-1"></audio></td><td><audio controls preload="none" src="sting/don-a1__cinematic-1-phone.mp3" aria-label="don-a1 over cinematic-1, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.0 LUFS, peak -3.4 dBFS; voice over bed 14.8 dB; mono fold 0.2 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 cinematic-1</code></td></tr>
+<tr><th scope="row">cinematic-2</th><td><audio controls preload="none" src="sting/don-a1__cinematic-2.m4a" aria-label="don-a1 over cinematic-2"></audio></td><td><audio controls preload="none" src="sting/don-a1__cinematic-2-phone.mp3" aria-label="don-a1 over cinematic-2, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.0 LUFS, peak -3.2 dBFS; voice over bed 14.4 dB; mono fold 0.2 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 cinematic-2</code></td></tr>
+<tr><th scope="row">radio-drama-1</th><td><audio controls preload="none" src="sting/don-a1__radio-drama-1.m4a" aria-label="don-a1 over radio-drama-1"></audio></td><td><audio controls preload="none" src="sting/don-a1__radio-drama-1-phone.mp3" aria-label="don-a1 over radio-drama-1, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.1 LUFS, peak -3.3 dBFS; voice over bed 12.7 dB; mono fold 0.0 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 radio-drama-1</code></td></tr>
+<tr><th scope="row">radio-drama-2</th><td><audio controls preload="none" src="sting/don-a1__radio-drama-2.m4a" aria-label="don-a1 over radio-drama-2"></audio></td><td><audio controls preload="none" src="sting/don-a1__radio-drama-2-phone.mp3" aria-label="don-a1 over radio-drama-2, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.0 LUFS, peak -3.2 dBFS; voice over bed 15.9 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 radio-drama-2</code></td></tr>
+<tr><th scope="row">storybook-1</th><td><audio controls preload="none" src="sting/don-a1__storybook-1.m4a" aria-label="don-a1 over storybook-1"></audio></td><td><audio controls preload="none" src="sting/don-a1__storybook-1-phone.mp3" aria-label="don-a1 over storybook-1, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.1 LUFS, peak -3.7 dBFS; voice over bed 18.7 dB; mono fold 0.0 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 storybook-1</code></td></tr>
+<tr><th scope="row">storybook-2</th><td><audio controls preload="none" src="sting/don-a1__storybook-2.m4a" aria-label="don-a1 over storybook-2"></audio></td><td><audio controls preload="none" src="sting/don-a1__storybook-2-phone.mp3" aria-label="don-a1 over storybook-2, phone speaker"></audio></td><td>3.052 s; voice 0.35 to 2.115 s; -16.1 LUFS, peak -3.4 dBFS; voice over bed 15.6 dB; mono fold 0.1 dB. <span class="ok">Checks pass</span></td><td><code>py -3.13 tools/app_audio.py pick sting don-a1 storybook-2</code></td></tr>
+</tbody></table></div>
+<h3>More voice takes</h3>
+<p>Not mixed yet: mix one with every bed with <code>py -3.13 tools/app_audio.py audition sting --voice ID</code>.</p><ul>
+<li>jessica-a2: “Epic Audio Games!” (Jessica, as she hosts the games) <audio controls preload="none" src="../voice/jessica/9d5623ed03d62ca8.mp3" aria-label="jessica-a2"></audio></li>
+<li>jessica-b1: “Welcome to Epic Audio Games!” (Jessica, welcoming) <audio controls preload="none" src="../voice/jessica/cd85de752a85c9c3.mp3" aria-label="jessica-b1"></audio></li>
+<li>jessica-b2: “Welcome to Epic Audio Games!” (Jessica, welcoming) <audio controls preload="none" src="../voice/jessica/76a981503cbced29.mp3" aria-label="jessica-b2"></audio></li>
+<li>don-a2: “Epic Audio Games!” (Don, movie trailer voice) <audio controls preload="none" src="../voice/don/01307a268917e211.mp3" aria-label="don-a2"></audio></li>
+<li>don-a3: “Epic Audio Games!” (Don, movie trailer voice) <audio controls preload="none" src="../voice/don/301045f94b6c7865.mp3" aria-label="don-a3"></audio></li>
+<li>don-b1: “Epic Audio Games!” (Don, a word at a time) <audio controls preload="none" src="../voice/don/96e0eba2b21dbe7e.mp3" aria-label="don-b1"></audio></li>
+<li>don-b2: “Epic Audio Games!” (Don, a word at a time) <audio controls preload="none" src="../voice/don/d8206e2632df564b.mp3" aria-label="don-b2"></audio></li>
+</ul>
+<h3>The beds alone</h3>
+<p class="muted">ElevenLabs sound effects, as generated (before ducking and levelling).</p><ul>
+<li>adventure-1: “taiko hit and whoosh, heroic horn swell, sparkle tail, no voice” <audio controls preload="none" src="../sfx/13f83986c6ca0907.mp3" aria-label="adventure-1 alone"></audio></li>
+<li>adventure-2: “taiko hit and whoosh, heroic horn swell, sparkle tail, no voice” <audio controls preload="none" src="../sfx/07711cec8c39ef44.mp3" aria-label="adventure-2 alone"></audio></li>
+<li>arcade-1: “playful video game logo jingle, bright synth arpeggio rising to a sparkling chime, no voice” <audio controls preload="none" src="../sfx/e4356bd059ef8c5b.mp3" aria-label="arcade-1 alone"></audio></li>
+<li>arcade-2: “playful video game logo jingle, bright synth arpeggio rising to a sparkling chime, no voice” <audio controls preload="none" src="../sfx/e260da035d65f39b.mp3" aria-label="arcade-2 alone"></audio></li>
+<li>cinematic-1: “short cinematic logo sting, deep boom and orchestral brass hit swelling into a bright shimmering resolve, no voice” <audio controls preload="none" src="../sfx/16ddc3d0b010a676.mp3" aria-label="cinematic-1 alone"></audio></li>
+<li>cinematic-2: “short cinematic logo sting, deep boom and orchestral brass hit swelling into a bright shimmering resolve, no voice” <audio controls preload="none" src="../sfx/e674b455e0df364b.mp3" aria-label="cinematic-2 alone"></audio></li>
+<li>radio-drama-1: “old-time radio drama organ and timpani flourish, no voice” <audio controls preload="none" src="../sfx/4bc7b351028d9ffd.mp3" aria-label="radio-drama-1 alone"></audio></li>
+<li>radio-drama-2: “old-time radio drama organ and timpani flourish, no voice” <audio controls preload="none" src="../sfx/03064b956aec567a.mp3" aria-label="radio-drama-2 alone"></audio></li>
+<li>storybook-1: “harp glissando and celesta bells rising to a warm shimmer, no voice” <audio controls preload="none" src="../sfx/605928464744fbad.mp3" aria-label="storybook-1 alone"></audio></li>
+<li>storybook-2: “harp glissando and celesta bells rising to a warm shimmer, no voice” <audio controls preload="none" src="../sfx/b2c7151fac2226b2.mp3" aria-label="storybook-2 alone"></audio></li>
+</ul>
+<h2 id="earcons">Earcons</h2>
+<p>The sounds of the microphone opening and closing, and of a pack installed. The in-game demo plays the end of a question (“Welcome back Pinocchio! Want to play Battle or Challenge mode?”), the listening sound, 1.2 s for an answer, then the stopped sound; the Bluetooth demo is the same through a call-quality headset link (300 to 3400 Hz). The listening sound must be easy to hear over the story and never sound like a word. <strong>Above 3.4 kHz</strong> is how much of a sound such a link loses.</p>
+<div class="card picked"><h3 style="margin-top:0">marimba (picked)</h3><div class="scroll"><table><tbody>
+<tr><th scope="row">listen-start</th><td><audio controls preload="none" src="earcons/marimba/listen-start.wav" aria-label="marimba, listen-start"></audio></td><td>145 ms; peak -3.0 dBFS; RMS -17.5 dBFS; above 3.4 kHz -34.4 dB</td></tr>
+<tr><th scope="row">listen-stop</th><td><audio controls preload="none" src="earcons/marimba/listen-stop.wav" aria-label="marimba, listen-stop"></audio></td><td>118 ms; peak -5.0 dBFS; RMS -18.6 dBFS; above 3.4 kHz -34.4 dB</td></tr>
+<tr><th scope="row">success</th><td><audio controls preload="none" src="earcons/marimba/success.wav" aria-label="marimba, success"></audio></td><td>240 ms; peak -3.0 dBFS; RMS -17.9 dBFS; above 3.4 kHz -36.1 dB</td></tr>
+<tr><th scope="row">In a game</th><td><audio controls preload="none" src="earcons/marimba/demo.mp3" aria-label="marimba, in a game"></audio></td><td>A question, the listening sound, an answer's pause, the stopped sound</td></tr>
+<tr><th scope="row">Bluetooth headset</th><td><audio controls preload="none" src="earcons/marimba/demo-narrowband.mp3" aria-label="marimba, over a Bluetooth headset"></audio></td><td>The same, over a call-quality link</td></tr>
+</tbody></table></div><p>Pick it: <code>py -3.13 tools/app_audio.py pick earcons marimba</code></p></div>
+<div class="card"><h3 style="margin-top:0">glass</h3><div class="scroll"><table><tbody>
+<tr><th scope="row">listen-start</th><td><audio controls preload="none" src="earcons/glass/listen-start.wav" aria-label="glass, listen-start"></audio></td><td>145 ms; peak -3.0 dBFS; RMS -17.7 dBFS; above 3.4 kHz -31.0 dB</td></tr>
+<tr><th scope="row">listen-stop</th><td><audio controls preload="none" src="earcons/glass/listen-stop.wav" aria-label="glass, listen-stop"></audio></td><td>118 ms; peak -5.0 dBFS; RMS -18.9 dBFS; above 3.4 kHz -31.0 dB</td></tr>
+<tr><th scope="row">success</th><td><audio controls preload="none" src="earcons/glass/success.wav" aria-label="glass, success"></audio></td><td>240 ms; peak -3.0 dBFS; RMS -18.1 dBFS; above 3.4 kHz -29.0 dB</td></tr>
+<tr><th scope="row">In a game</th><td><audio controls preload="none" src="earcons/glass/demo.mp3" aria-label="glass, in a game"></audio></td><td>A question, the listening sound, an answer's pause, the stopped sound</td></tr>
+<tr><th scope="row">Bluetooth headset</th><td><audio controls preload="none" src="earcons/glass/demo-narrowband.mp3" aria-label="glass, over a Bluetooth headset"></audio></td><td>The same, over a call-quality link</td></tr>
+</tbody></table></div><p>Pick it: <code>py -3.13 tools/app_audio.py pick earcons glass</code></p></div>
+<div class="card"><h3 style="margin-top:0">pluck</h3><div class="scroll"><table><tbody>
+<tr><th scope="row">listen-start</th><td><audio controls preload="none" src="earcons/pluck/listen-start.wav" aria-label="pluck, listen-start"></audio></td><td>145 ms; peak -3.0 dBFS; RMS -18.4 dBFS; above 3.4 kHz -22.6 dB</td></tr>
+<tr><th scope="row">listen-stop</th><td><audio controls preload="none" src="earcons/pluck/listen-stop.wav" aria-label="pluck, listen-stop"></audio></td><td>118 ms; peak -5.0 dBFS; RMS -20.0 dBFS; above 3.4 kHz -18.9 dB</td></tr>
+<tr><th scope="row">success</th><td><audio controls preload="none" src="earcons/pluck/success.wav" aria-label="pluck, success"></audio></td><td>240 ms; peak -3.0 dBFS; RMS -19.4 dBFS; above 3.4 kHz -21.6 dB</td></tr>
+<tr><th scope="row">In a game</th><td><audio controls preload="none" src="earcons/pluck/demo.mp3" aria-label="pluck, in a game"></audio></td><td>A question, the listening sound, an answer's pause, the stopped sound</td></tr>
+<tr><th scope="row">Bluetooth headset</th><td><audio controls preload="none" src="earcons/pluck/demo-narrowband.mp3" aria-label="pluck, over a Bluetooth headset"></audio></td><td>The same, over a call-quality link</td></tr>
+</tbody></table></div><p>Pick it: <code>py -3.13 tools/app_audio.py pick earcons pluck</code></p></div>
+<div class="card"><h3 style="margin-top:0">bubble</h3><div class="scroll"><table><tbody>
+<tr><th scope="row">listen-start</th><td><audio controls preload="none" src="earcons/bubble/listen-start.wav" aria-label="bubble, listen-start"></audio></td><td>145 ms; peak -3.0 dBFS; RMS -17.0 dBFS; above 3.4 kHz -78.2 dB</td></tr>
+<tr><th scope="row">listen-stop</th><td><audio controls preload="none" src="earcons/bubble/listen-stop.wav" aria-label="bubble, listen-stop"></audio></td><td>118 ms; peak -5.0 dBFS; RMS -18.1 dBFS; above 3.4 kHz -78.2 dB</td></tr>
+<tr><th scope="row">success</th><td><audio controls preload="none" src="earcons/bubble/success.wav" aria-label="bubble, success"></audio></td><td>240 ms; peak -3.0 dBFS; RMS -17.5 dBFS; above 3.4 kHz -79.2 dB</td></tr>
+<tr><th scope="row">In a game</th><td><audio controls preload="none" src="earcons/bubble/demo.mp3" aria-label="bubble, in a game"></audio></td><td>A question, the listening sound, an answer's pause, the stopped sound</td></tr>
+<tr><th scope="row">Bluetooth headset</th><td><audio controls preload="none" src="earcons/bubble/demo-narrowband.mp3" aria-label="bubble, over a Bluetooth headset"></audio></td><td>The same, over a call-quality link</td></tr>
+</tbody></table></div><p>Pick it: <code>py -3.13 tools/app_audio.py pick earcons bubble</code></p></div>
+<h3>ElevenLabs takes, for comparison</h3>
+<p class="muted">Sound effects cut to 250 ms. They can't be picked: the earcons are synthesised, so they are the same bytes every time and stay inside the band a headset carries.</p><ul>
+<li>listen-start-1: “two soft marimba notes rising, short user interface sound, dry, no reverb” <audio controls preload="none" src="earcons/elevenlabs/listen-start-1.wav" aria-label="ElevenLabs listen-start-1"></audio></li>
+<li>listen-start-2: “two soft marimba notes rising, short user interface sound, dry, no reverb” <audio controls preload="none" src="earcons/elevenlabs/listen-start-2.wav" aria-label="ElevenLabs listen-start-2"></audio></li>
+<li>listen-stop-1: “two soft marimba notes falling, short user interface sound, dry, no reverb” <audio controls preload="none" src="earcons/elevenlabs/listen-stop-1.wav" aria-label="ElevenLabs listen-stop-1"></audio></li>
+<li>listen-stop-2: “two soft marimba notes falling, short user interface sound, dry, no reverb” <audio controls preload="none" src="earcons/elevenlabs/listen-stop-2.wav" aria-label="ElevenLabs listen-stop-2"></audio></li>
+<li>success-1: “three soft marimba notes rising, cheerful success sound, short, dry, no reverb” <audio controls preload="none" src="earcons/elevenlabs/success-1.wav" aria-label="ElevenLabs success-1"></audio></li>
+<li>success-2: “three soft marimba notes rising, cheerful success sound, short, dry, no reverb” <audio controls preload="none" src="earcons/elevenlabs/success-2.wav" aria-label="ElevenLabs success-2"></audio></li>
+</ul>
+</main>
+</body>
+</html>

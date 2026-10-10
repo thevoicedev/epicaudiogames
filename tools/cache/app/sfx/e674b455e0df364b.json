@@ -1,0 +1,8 @@
+{
+ "model": "eleven_text_to_sound_v2",
+ "prompt": "short cinematic logo sting, deep boom and orchestral brass hit swelling into a bright shimmering resolve, no voice",
+ "seconds": 3.2,
+ "influence": 0.6,
+ "take": 2,
+ "made": "2026-10-09"
+}

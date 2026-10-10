@@ -1,0 +1,3235 @@
+{
+ "format": 1,
+ "source": "964bd6f4d17fa04b",
+ "sting": {
+  "file": "sting.m4a",
+  "dur": 2.8,
+  "voiceAt": 0.35,
+  "voiceEnd": 1.743,
+  "text": "Epic Audio Games!"
+ },
+ "earcons": {
+  "listen-start": {
+   "file": "earcons/listen-start.wav",
+   "dur": 0.145
+  },
+  "listen-stop": {
+   "file": "earcons/listen-stop.wav",
+   "dur": 0.118
+  },
+  "success": {
+   "file": "earcons/success.wav",
+   "dur": 0.24
+  }
+ },
+ "welcome": {
+  "title": "Welcome",
+  "text": [
+   "Welcome to Epic Audio Games! The games talk to you, and you answer out loud.",
+   "When the microphone opens, you'll hear a short rising sound.",
+   "Then say your answer. You can also type it, or tap one of the options.",
+   "Put on your headphones, pick a game, and have fun!"
+  ],
+  "clipParagraph": [
+   0,
+   1,
+   -1,
+   2,
+   3
+  ],
+  "steps": [
+   {
+    "play": "tts/welcome-to-epic-audio-games-the-a3ed5e",
+    "dur": 4.5,
+    "lines": [
+     {
+      "at": 0.0,
+      "len": 4.5,
+      "who": "HOST",
+      "text": "Welcome to Epic Audio Games! The games talk to you, and you answer out loud.",
+      "w": [
+       0.0,
+       0.441,
+       0.569,
+       0.859,
+       1.184,
+       1.916,
+       2.078,
+       2.345,
+       2.601,
+       2.728,
+       2.995,
+       3.17,
+       3.379,
+       3.68,
+       3.831
+      ]
+     }
+    ]
+   },
+   {
+    "pause": 0.3
+   },
+   {
+    "play": "tts/when-the-microphone-opens-youll-hear-ffd254",
+    "dur": 3.24,
+    "lines": [
+     {
+      "at": 0.0,
+      "len": 3.24,
+      "who": "HOST",
+      "text": "When the microphone opens, you'll hear a short rising sound.",
+      "w": [
+       0.0,
+       0.197,
+       0.29,
+       0.778,
+       1.265,
+       1.486,
+       1.66,
+       1.765,
+       2.067,
+       2.461
+      ]
+     }
+    ]
+   },
+   {
+    "pause": 0.2
+   },
+   {
+    "play": "earcons/listen-start-demo",
+    "dur": 0.145,
+    "lines": [],
+    "sfx": true
+   },
+   {
+    "pause": 0.6
+   },
+   {
+    "play": "tts/then-say-your-answer-you-can-a64b20",
+    "dur": 4.5,
+    "lines": [
+     {
+      "at": 0.0,
+      "len": 4.5,
+      "who": "HOST",
+      "text": "Then say your answer. You can also type it, or tap one of the options.",
+      "w": [
+       0.0,
+       0.302,
+       0.476,
+       0.639,
+       1.579,
+       1.73,
+       1.869,
+       2.148,
+       2.461,
+       2.682,
+       2.937,
+       3.216,
+       3.344,
+       3.425,
+       3.541
+      ]
+     }
+    ]
+   },
+   {
+    "pause": 0.3
+   },
+   {
+    "play": "tts/put-on-your-headphones-pick-a-8eaeb3",
+    "dur": 2.647,
+    "lines": [
+     {
+      "at": 0.0,
+      "len": 2.647,
+      "who": "HOST",
+      "text": "Put on your headphones, pick a game, and have fun!",
+      "w": [
+       0.0,
+       0.267,
+       0.372,
+       0.499,
+       1.068,
+       1.289,
+       1.358,
+       1.707,
+       1.846,
+       2.032
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ "help": [
+  {
+   "id": "getting-started",
+   "title": "Getting started",
+   "summary": "How the games work, and finding your way around the app.",
+   "text": [
+    "Epic Audio Games are stories and quizzes that you play with your voice. Every word is shown on screen as it's spoken.",
+    "The app has four tabs: Games, Shop, Help and Settings. On a phone, they're along the bottom.",
+    "In Games, tap a game to play. If you're part-way through one, it says Carry on, and picks up where you left off.",
+    "When the game asks you something, answer out loud, type your answer, or tap one of the options.",
+    "Some games have more stories or levels to buy, in the Shop. And headphones make everything sound its best."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "steps": [
+    {
+     "play": "tts/epic-audio-games-are-stories-and-73300c",
+     "dur": 6.8,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.8,
+       "who": "HOST",
+       "text": "Epic Audio Games are stories and quizzes that you play with your voice. Every word is shown on screen as it's spoken.",
+       "w": [
+        0.0,
+        0.348,
+        0.685,
+        1.091,
+        1.289,
+        1.858,
+        2.02,
+        2.496,
+        2.624,
+        2.775,
+        3.007,
+        3.146,
+        3.286,
+        4.331,
+        4.598,
+        4.841,
+        4.934,
+        5.19,
+        5.329,
+        5.712,
+        5.84,
+        5.979
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-app-has-four-tabs-games-a8e92d",
+     "dur": 7.38,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.38,
+       "who": "HOST",
+       "text": "The app has four tabs: Games, Shop, Help and Settings. On a phone, they're along the bottom.",
+       "w": [
+        0.0,
+        0.244,
+        0.499,
+        0.697,
+        0.94,
+        1.834,
+        2.67,
+        3.46,
+        3.855,
+        4.145,
+        5.375,
+        5.561,
+        5.654,
+        6.049,
+        6.258,
+        6.525,
+        6.629
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/in-games-tap-a-game-to-5fd753",
+     "dur": 7.55,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.55,
+       "who": "HOST",
+       "text": "In Games, tap a game to play. If you're part-way through one, it says Carry on, and picks up where you left off.",
+       "w": [
+        0.0,
+        0.279,
+        0.778,
+        1.068,
+        1.126,
+        1.347,
+        1.44,
+        2.728,
+        2.879,
+        3.065,
+        3.518,
+        3.808,
+        4.063,
+        4.214,
+        4.528,
+        4.899,
+        5.677,
+        5.886,
+        6.177,
+        6.316,
+        6.478,
+        6.606,
+        6.861
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/when-the-game-asks-you-something-fc3648",
+     "dur": 4.969,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.969,
+       "who": "HOST",
+       "text": "When the game asks you something, answer out loud, type your answer, or tap one of the options.",
+       "w": [
+        0.0,
+        0.232,
+        0.337,
+        0.569,
+        0.801,
+        0.929,
+        1.416,
+        1.765,
+        1.927,
+        2.403,
+        2.659,
+        2.81,
+        3.262,
+        3.46,
+        3.727,
+        3.855,
+        3.936,
+        4.063
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/some-games-have-more-stories-or-5fce03",
+     "dur": 6.455,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.455,
+       "who": "HOST",
+       "text": "Some games have more stories or levels to buy, in the Shop. And headphones make everything sound its best.",
+       "w": [
+        0.0,
+        0.29,
+        0.557,
+        0.685,
+        0.871,
+        1.324,
+        1.451,
+        1.765,
+        1.881,
+        2.543,
+        2.705,
+        2.821,
+        3.936,
+        4.133,
+        4.598,
+        4.795,
+        5.306,
+        5.573,
+        5.735
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "voice",
+   "title": "Playing with your voice",
+   "summary": "The listening sounds, and saying “repeat” or “stop”.",
+   "text": [
+    "When the microphone opens, you hear a short rising sound.",
+    "That means the game is listening, so say your answer. When it stops listening, you hear a falling sound.",
+    "Answer in a few words. Saying one of the options on screen works well.",
+    "Say “repeat” to hear it again, or “stop” to pause the game.",
+    "If you don't answer, the game asks again. After a second silence, it pauses until you're ready.",
+    "To answer before the voice has finished, tap Talk, next to the answer box. If you need more time, choose a longer Time to answer in Settings."
+   ],
+   "clipParagraph": [
+    0,
+    -1,
+    1,
+    -1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "steps": [
+    {
+     "play": "tts/when-the-microphone-opens-you-hear-8a3d33",
+     "dur": 3.15,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 3.15,
+       "who": "HOST",
+       "text": "When the microphone opens, you hear a short rising sound.",
+       "w": [
+        0.0,
+        0.209,
+        0.302,
+        0.778,
+        1.254,
+        1.416,
+        1.602,
+        1.695,
+        2.009,
+        2.403
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.2
+    },
+    {
+     "play": "earcons/listen-start-demo",
+     "dur": 0.145,
+     "lines": [],
+     "sfx": true
+    },
+    {
+     "pause": 0.6
+    },
+    {
+     "play": "tts/that-means-the-game-is-listening-346215",
+     "dur": 6.48,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.48,
+       "who": "HOST",
+       "text": "That means the game is listening, so say your answer. When it stops listening, you hear a falling sound.",
+       "w": [
+        0.0,
+        0.244,
+        0.499,
+        0.604,
+        0.813,
+        0.94,
+        1.463,
+        1.695,
+        1.869,
+        2.032,
+        3.553,
+        3.75,
+        3.843,
+        4.18,
+        5.004,
+        5.155,
+        5.317,
+        5.399,
+        5.77
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.2
+    },
+    {
+     "play": "earcons/listen-stop-demo",
+     "dur": 0.118,
+     "lines": [],
+     "sfx": true
+    },
+    {
+     "pause": 0.6
+    },
+    {
+     "play": "tts/answer-in-a-few-words-saying-8a39b3",
+     "dur": 4.27,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.27,
+       "who": "HOST",
+       "text": "Answer in a few words. Saying one of the options on screen works well.",
+       "w": [
+        0.0,
+        0.383,
+        0.464,
+        0.534,
+        0.708,
+        1.614,
+        1.985,
+        2.125,
+        2.206,
+        2.334,
+        2.752,
+        2.891,
+        3.251,
+        3.564
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/say-repeat-to-hear-it-again-415e7f",
+     "dur": 4.14,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.14,
+       "who": "HOST",
+       "text": "Say “repeat” to hear it again, or “stop” to pause the game.",
+       "w": [
+        0.0,
+        0.313,
+        0.836,
+        0.975,
+        1.161,
+        1.242,
+        2.09,
+        2.322,
+        2.879,
+        3.042,
+        3.332,
+        3.437
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/if-you-dont-answer-the-game-a77574",
+     "dur": 7.03,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.03,
+       "who": "HOST",
+       "text": "If you don't answer, the game asks again. After a second silence, it pauses until you're ready.",
+       "w": [
+        0.0,
+        0.186,
+        0.302,
+        0.499,
+        1.463,
+        1.625,
+        1.962,
+        2.38,
+        3.75,
+        4.063,
+        4.145,
+        4.493,
+        5.12,
+        5.317,
+        5.909,
+        6.165,
+        6.362
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-answer-before-the-voice-has-e64ffe",
+     "dur": 8.87,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 8.87,
+       "who": "HOST",
+       "text": "To answer before the voice has finished, tap Talk, next to the answer box. If you need more time, choose a longer Time to answer in Settings.",
+       "w": [
+        0.0,
+        0.267,
+        0.627,
+        0.894,
+        1.01,
+        1.265,
+        1.416,
+        2.357,
+        2.647,
+        3.228,
+        3.506,
+        3.599,
+        3.715,
+        4.005,
+        5.364,
+        5.538,
+        5.654,
+        5.851,
+        6.049,
+        6.409,
+        6.699,
+        6.78,
+        7.094,
+        7.361,
+        7.5,
+        7.86,
+        8.011
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "screen-reader",
+   "platform": "ios",
+   "title": "Using VoiceOver",
+   "summary": "Magic Tap, the picture, and the microphone.",
+   "text": [
+    "With VoiceOver on, the microphone doesn't open by itself.",
+    "At the top of a game is a picture. Its name says what it will do: Skip, Talk, Stop listening, or Carry on.",
+    "So when it's your turn, double tap Talk, and say your answer after the rising sound.",
+    "Or do a Magic Tap, a two-finger double tap, anywhere in the game. It does the same as the picture, and so does the button on your headphones.",
+    "To leave a game, do a two-finger scrub. Your place is kept.",
+    "If you'd like the microphone to open by itself, choose that in Settings, under Microphone."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "steps": [
+    {
+     "play": "tts/with-voiceover-on-the-microphone-doesnt-c2cc0c",
+     "dur": 3.2,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 3.2,
+       "who": "HOST",
+       "text": "With VoiceOver on, the microphone doesn't open by itself.",
+       "w": [
+        0.0,
+        0.267,
+        0.813,
+        1.045,
+        1.161,
+        1.649,
+        1.904,
+        2.159,
+        2.322
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/at-the-top-of-a-game-a59be2",
+     "dur": 9.37,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 9.37,
+       "who": "HOST",
+       "text": "At the top of a game is a picture. Its name says what it will do: Skip, Talk, Stop listening, or Carry on.",
+       "w": [
+        0.0,
+        0.186,
+        0.29,
+        0.546,
+        0.65,
+        0.72,
+        0.998,
+        1.115,
+        1.184,
+        2.531,
+        2.798,
+        3.135,
+        3.495,
+        3.646,
+        3.715,
+        3.889,
+        5.027,
+        6.084,
+        7.221,
+        7.546,
+        8.092,
+        8.359,
+        8.742
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/so-when-its-your-turn-double-225c0b",
+     "dur": 4.366,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.365,
+       "who": "HOST",
+       "text": "So when it's your turn, double tap Talk, and say your answer after the rising sound.",
+       "w": [
+        0.0,
+        0.174,
+        0.313,
+        0.464,
+        0.639,
+        1.01,
+        1.277,
+        1.509,
+        1.904,
+        2.148,
+        2.345,
+        2.519,
+        2.868,
+        3.123,
+        3.251,
+        3.646
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/or-do-a-magic-tap-a-4c0bda",
+     "dur": 9.03,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 9.03,
+       "who": "HOST",
+       "text": "Or do a Magic Tap, a two-finger double tap, anywhere in the game. It does the same as the picture, and so does the button on your headphones.",
+       "w": [
+        0.0,
+        0.29,
+        0.441,
+        0.522,
+        0.871,
+        1.556,
+        1.707,
+        2.229,
+        2.496,
+        2.868,
+        3.251,
+        3.332,
+        3.437,
+        4.795,
+        4.946,
+        5.155,
+        5.283,
+        5.538,
+        5.654,
+        5.759,
+        6.873,
+        7.105,
+        7.279,
+        7.43,
+        7.535,
+        7.814,
+        7.918,
+        8.046
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-leave-a-game-do-a-e1192f",
+     "dur": 3.86,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 3.86,
+       "who": "HOST",
+       "text": "To leave a game, do a two-finger scrub. Your place is kept.",
+       "w": [
+        0.0,
+        0.174,
+        0.348,
+        0.418,
+        0.964,
+        1.126,
+        1.196,
+        1.649,
+        2.485,
+        2.682,
+        2.949,
+        3.088
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/if-youd-like-the-microphone-to-3c4dcc",
+     "dur": 4.737,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.737,
+       "who": "HOST",
+       "text": "If you'd like the microphone to open by itself, choose that in Settings, under Microphone.",
+       "w": [
+        0.0,
+        0.151,
+        0.313,
+        0.488,
+        0.604,
+        1.103,
+        1.219,
+        1.498,
+        1.66,
+        2.171,
+        2.473,
+        2.717,
+        2.856,
+        3.564,
+        3.855
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "screen-reader",
+   "platform": "android",
+   "title": "Using TalkBack",
+   "summary": "The picture, your headphones' button, and the microphone.",
+   "text": [
+    "With TalkBack on, the microphone doesn't open by itself.",
+    "At the top of a game is a picture. Its name says what it will do: Skip, Talk, Stop listening, or Carry on.",
+    "So when it's your turn, double tap Talk, and say your answer after the rising sound.",
+    "The button on your headphones does the same as the picture, even with the screen off.",
+    "If you'd like the microphone to open by itself, choose that in Settings, under Microphone."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "steps": [
+    {
+     "play": "tts/with-talkback-on-the-microphone-doesnt-384c40",
+     "dur": 3.49,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 3.49,
+       "who": "HOST",
+       "text": "With TalkBack on, the microphone doesn't open by itself.",
+       "w": [
+        0.0,
+        0.267,
+        0.778,
+        1.161,
+        1.312,
+        1.846,
+        2.136,
+        2.426,
+        2.601
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/at-the-top-of-a-game-a59be2",
+     "dur": 9.37,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 9.37,
+       "who": "HOST",
+       "text": "At the top of a game is a picture. Its name says what it will do: Skip, Talk, Stop listening, or Carry on.",
+       "w": [
+        0.0,
+        0.186,
+        0.29,
+        0.546,
+        0.65,
+        0.72,
+        0.998,
+        1.115,
+        1.184,
+        2.531,
+        2.798,
+        3.135,
+        3.495,
+        3.646,
+        3.715,
+        3.889,
+        5.027,
+        6.084,
+        7.221,
+        7.546,
+        8.092,
+        8.359,
+        8.742
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/so-when-its-your-turn-double-225c0b",
+     "dur": 4.366,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.365,
+       "who": "HOST",
+       "text": "So when it's your turn, double tap Talk, and say your answer after the rising sound.",
+       "w": [
+        0.0,
+        0.174,
+        0.313,
+        0.464,
+        0.639,
+        1.01,
+        1.277,
+        1.509,
+        1.904,
+        2.148,
+        2.345,
+        2.519,
+        2.868,
+        3.123,
+        3.251,
+        3.646
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-button-on-your-headphones-does-c835e5",
+     "dur": 4.32,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.32,
+       "who": "HOST",
+       "text": "The button on your headphones does the same as the picture, even with the screen off.",
+       "w": [
+        0.0,
+        0.186,
+        0.488,
+        0.592,
+        0.731,
+        1.3,
+        1.509,
+        1.637,
+        1.939,
+        2.067,
+        2.171,
+        2.844,
+        3.123,
+        3.262,
+        3.355,
+        3.68
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/if-youd-like-the-microphone-to-3c4dcc",
+     "dur": 4.737,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.737,
+       "who": "HOST",
+       "text": "If you'd like the microphone to open by itself, choose that in Settings, under Microphone.",
+       "w": [
+        0.0,
+        0.151,
+        0.313,
+        0.488,
+        0.604,
+        1.103,
+        1.219,
+        1.498,
+        1.66,
+        2.171,
+        2.473,
+        2.717,
+        2.856,
+        3.564,
+        3.855
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "typing",
+   "platform": "ios",
+   "title": "Typing and choosing answers",
+   "summary": "Answer by typing or tapping, and keyboard shortcuts.",
+   "text": [
+    "You never have to speak. You can type every answer, and many questions have options you can tap.",
+    "To type, use the Type an answer box at the bottom of the game, then tap Send.",
+    "The options are buttons just above the answer box. Tap one to choose it.",
+    "You can type or tap while the voice is still talking: it stops, and the game goes on with your answer.",
+    "When you start typing, the microphone stops listening. Typing and tapping work without a connection, too.",
+    "With a keyboard, press Space to tap the picture, unless you're in the answer box. Return sends your answer, Escape pauses the game, and Command with 1 to 4 switches between the tabs."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "steps": [
+    {
+     "play": "tts/you-never-have-to-speak-you-8c6be0",
+     "dur": 5.6,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.6,
+       "who": "HOST",
+       "text": "You never have to speak. You can type every answer, and many questions have options you can tap.",
+       "w": [
+        0.0,
+        0.209,
+        0.43,
+        0.592,
+        0.685,
+        1.753,
+        1.916,
+        2.043,
+        2.276,
+        2.589,
+        3.053,
+        3.239,
+        3.46,
+        3.959,
+        4.122,
+        4.679,
+        4.795,
+        4.934
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-type-use-the-type-an-069622",
+     "dur": 5.32,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.32,
+       "who": "HOST",
+       "text": "To type, use the Type an answer box at the bottom of the game, then tap Send.",
+       "w": [
+        0.0,
+        0.221,
+        1.033,
+        1.335,
+        1.451,
+        1.66,
+        1.741,
+        2.02,
+        2.334,
+        2.426,
+        2.531,
+        2.821,
+        2.902,
+        3.019,
+        3.646,
+        3.936,
+        4.505
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-options-are-buttons-just-above-521e46",
+     "dur": 4.61,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.61,
+       "who": "HOST",
+       "text": "The options are buttons just above the answer box. Tap one to choose it.",
+       "w": [
+        0.0,
+        0.209,
+        0.662,
+        0.778,
+        1.242,
+        1.498,
+        1.776,
+        1.904,
+        2.218,
+        3.123,
+        3.483,
+        3.692,
+        3.808,
+        4.133
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/you-can-type-or-tap-while-88c7ed",
+     "dur": 6.36,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.36,
+       "who": "HOST",
+       "text": "You can type or tap while the voice is still talking: it stops, and the game goes on with your answer.",
+       "w": [
+        0.0,
+        0.209,
+        0.348,
+        0.662,
+        0.801,
+        1.149,
+        1.335,
+        1.451,
+        1.753,
+        1.858,
+        2.09,
+        3.529,
+        3.715,
+        4.319,
+        4.493,
+        4.598,
+        4.865,
+        5.108,
+        5.306,
+        5.445,
+        5.596
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/when-you-start-typing-the-microphone-11dcfb",
+     "dur": 6.316,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.316,
+       "who": "HOST",
+       "text": "When you start typing, the microphone stops listening. Typing and tapping work without a connection, too.",
+       "w": [
+        0.0,
+        0.209,
+        0.325,
+        0.557,
+        1.393,
+        1.544,
+        2.101,
+        2.508,
+        3.738,
+        4.168,
+        4.284,
+        4.656,
+        4.876,
+        5.143,
+        5.201,
+        5.677
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/with-a-keyboard-press-space-to-c14217",
+     "dur": 11.006,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 11.006,
+       "who": "HOST",
+       "text": "With a keyboard, press Space to tap the picture, unless you're in the answer box. Return sends your answer, Escape pauses the game, and Command with 1 to 4 switches between the tabs.",
+       "w": [
+        0.0,
+        0.255,
+        0.325,
+        0.975,
+        1.289,
+        1.707,
+        1.834,
+        2.067,
+        2.171,
+        2.67,
+        2.961,
+        3.135,
+        3.204,
+        3.32,
+        3.599,
+        4.911,
+        5.364,
+        5.573,
+        5.735,
+        6.374,
+        6.838,
+        7.233,
+        7.349,
+        8.022,
+        8.243,
+        8.626,
+        8.8,
+        8.998,
+        9.125,
+        9.334,
+        9.799,
+        10.112,
+        10.205
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "typing",
+   "platform": "android",
+   "title": "Typing and choosing answers",
+   "summary": "Answer by typing or tapping, and keyboard shortcuts.",
+   "text": [
+    "You never have to speak. You can type every answer, and many questions have options you can tap.",
+    "To type, use the Type an answer box at the bottom of the game, then tap Send.",
+    "The options are buttons just above the answer box. Tap one to choose it.",
+    "You can type or tap while the voice is still talking: it stops, and the game goes on with your answer.",
+    "When you start typing, the microphone stops listening. Typing and tapping work without a connection, too.",
+    "With a keyboard, press Space to tap the picture, unless you're in the answer box. Enter sends your answer, Escape pauses the game, and Control with 1 to 4 switches between the tabs."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "steps": [
+    {
+     "play": "tts/you-never-have-to-speak-you-8c6be0",
+     "dur": 5.6,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.6,
+       "who": "HOST",
+       "text": "You never have to speak. You can type every answer, and many questions have options you can tap.",
+       "w": [
+        0.0,
+        0.209,
+        0.43,
+        0.592,
+        0.685,
+        1.753,
+        1.916,
+        2.043,
+        2.276,
+        2.589,
+        3.053,
+        3.239,
+        3.46,
+        3.959,
+        4.122,
+        4.679,
+        4.795,
+        4.934
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-type-use-the-type-an-069622",
+     "dur": 5.32,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.32,
+       "who": "HOST",
+       "text": "To type, use the Type an answer box at the bottom of the game, then tap Send.",
+       "w": [
+        0.0,
+        0.221,
+        1.033,
+        1.335,
+        1.451,
+        1.66,
+        1.741,
+        2.02,
+        2.334,
+        2.426,
+        2.531,
+        2.821,
+        2.902,
+        3.019,
+        3.646,
+        3.936,
+        4.505
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-options-are-buttons-just-above-521e46",
+     "dur": 4.61,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.61,
+       "who": "HOST",
+       "text": "The options are buttons just above the answer box. Tap one to choose it.",
+       "w": [
+        0.0,
+        0.209,
+        0.662,
+        0.778,
+        1.242,
+        1.498,
+        1.776,
+        1.904,
+        2.218,
+        3.123,
+        3.483,
+        3.692,
+        3.808,
+        4.133
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/you-can-type-or-tap-while-88c7ed",
+     "dur": 6.36,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.36,
+       "who": "HOST",
+       "text": "You can type or tap while the voice is still talking: it stops, and the game goes on with your answer.",
+       "w": [
+        0.0,
+        0.209,
+        0.348,
+        0.662,
+        0.801,
+        1.149,
+        1.335,
+        1.451,
+        1.753,
+        1.858,
+        2.09,
+        3.529,
+        3.715,
+        4.319,
+        4.493,
+        4.598,
+        4.865,
+        5.108,
+        5.306,
+        5.445,
+        5.596
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/when-you-start-typing-the-microphone-11dcfb",
+     "dur": 6.316,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.316,
+       "who": "HOST",
+       "text": "When you start typing, the microphone stops listening. Typing and tapping work without a connection, too.",
+       "w": [
+        0.0,
+        0.209,
+        0.325,
+        0.557,
+        1.393,
+        1.544,
+        2.101,
+        2.508,
+        3.738,
+        4.168,
+        4.284,
+        4.656,
+        4.876,
+        5.143,
+        5.201,
+        5.677
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/with-a-keyboard-press-space-to-6dbf47",
+     "dur": 12.446,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 12.446,
+       "who": "HOST",
+       "text": "With a keyboard, press Space to tap the picture, unless you're in the answer box. Enter sends your answer, Escape pauses the game, and Control with 1 to 4 switches between the tabs.",
+       "w": [
+        0.0,
+        0.232,
+        0.313,
+        1.335,
+        1.637,
+        2.078,
+        2.206,
+        2.438,
+        2.543,
+        3.564,
+        3.831,
+        4.005,
+        4.075,
+        4.191,
+        4.481,
+        5.909,
+        6.327,
+        6.583,
+        6.745,
+        7.767,
+        8.336,
+        8.8,
+        8.916,
+        9.346,
+        9.555,
+        9.996,
+        10.194,
+        10.437,
+        10.588,
+        10.82,
+        11.262,
+        11.54,
+        11.645
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "pausing",
+   "title": "Pausing, repeating and leaving",
+   "summary": "Pause, hear it again, start over, or leave and come back later.",
+   "text": [
+    "To pause, say “stop”. The game also pauses by itself if your headphones come out, or a call comes in.",
+    "To carry on, tap Carry on, and the question plays again. When the game is listening, say “repeat” to hear it again.",
+    "To start a game from the very beginning, open the More menu at the top of the game, and choose Start again.",
+    "To leave, use Back at the top of the game, or Leave game on the pause screen. Your place is kept: next time, the game's card says Carry on."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "steps": [
+    {
+     "play": "tts/to-pause-say-stop-the-game-434a20",
+     "dur": 7.8,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.8,
+       "who": "HOST",
+       "text": "To pause, say “stop”. The game also pauses by itself if your headphones come out, or a call comes in.",
+       "w": [
+        0.0,
+        0.209,
+        1.045,
+        1.463,
+        3.146,
+        3.309,
+        3.564,
+        3.866,
+        4.272,
+        4.447,
+        4.876,
+        5.004,
+        5.155,
+        5.596,
+        5.782,
+        6.385,
+        6.606,
+        6.687,
+        6.966,
+        7.233
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-carry-on-tap-carry-on-eb0456",
+     "dur": 7.59,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.59,
+       "who": "HOST",
+       "text": "To carry on, tap Carry on, and the question plays again. When the game is listening, say “repeat” to hear it again.",
+       "w": [
+        0.0,
+        0.209,
+        0.569,
+        0.801,
+        1.091,
+        1.428,
+        1.718,
+        1.869,
+        1.974,
+        2.415,
+        2.705,
+        4.331,
+        4.528,
+        4.632,
+        4.853,
+        4.969,
+        5.503,
+        5.84,
+        6.432,
+        6.583,
+        6.769,
+        6.861
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-start-a-game-from-the-57dab2",
+     "dur": 6.26,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.26,
+       "who": "HOST",
+       "text": "To start a game from the very beginning, open the More menu at the top of the game, and choose Start again.",
+       "w": [
+        0.0,
+        0.197,
+        0.453,
+        0.522,
+        0.766,
+        0.929,
+        1.068,
+        1.393,
+        2.159,
+        2.485,
+        2.589,
+        2.81,
+        3.123,
+        3.216,
+        3.32,
+        3.564,
+        3.646,
+        3.75,
+        4.656,
+        4.876,
+        5.236,
+        5.538
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-leave-use-back-at-the-aff8b5",
+     "dur": 8.638,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 8.638,
+       "who": "HOST",
+       "text": "To leave, use Back at the top of the game, or Leave game on the pause screen. Your place is kept: next time, the game's card says Carry on.",
+       "w": [
+        0.0,
+        0.267,
+        0.755,
+        1.045,
+        1.324,
+        1.416,
+        1.521,
+        1.741,
+        1.823,
+        1.927,
+        2.31,
+        2.543,
+        2.81,
+        3.065,
+        3.158,
+        3.251,
+        3.506,
+        4.574,
+        4.783,
+        5.039,
+        5.178,
+        6.026,
+        6.293,
+        6.618,
+        6.734,
+        7.07,
+        7.372,
+        7.686,
+        8.069
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "packs",
+   "platform": "ios",
+   "title": "Packs and purchases",
+   "summary": "More stories and levels, and getting them on a new phone.",
+   "text": [
+    "Some games have packs, with more stories or levels. You'll find them all in the Shop, or tap the Get button on a game's card.",
+    "Each pack is a one-time purchase. There are no ads and no subscriptions. A pack downloads once, then plays without a connection.",
+    "Payments are handled by the App Store.",
+    "Got a new iPhone? In the Shop, tap Restore purchases, and use the same Apple Account you bought your packs with.",
+    "If a download is waiting for Wi-Fi, tap Download now to use mobile data instead."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "steps": [
+    {
+     "play": "tts/some-games-have-packs-with-more-1352c6",
+     "dur": 7.2,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.2,
+       "who": "HOST",
+       "text": "Some games have packs, with more stories or levels. You'll find them all in the Shop, or tap the Get button on a game's card.",
+       "w": [
+        0.0,
+        0.255,
+        0.557,
+        0.708,
+        1.3,
+        1.521,
+        1.73,
+        2.171,
+        2.287,
+        3.204,
+        3.46,
+        3.634,
+        3.785,
+        3.971,
+        4.063,
+        4.18,
+        4.911,
+        5.178,
+        5.422,
+        5.538,
+        5.7,
+        6.014,
+        6.118,
+        6.188,
+        6.478
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/each-pack-is-a-onetime-purchase-b588ec",
+     "dur": 7.523,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.523,
+       "who": "HOST",
+       "text": "Each pack is a one-time purchase. There are no ads and no subscriptions. A pack downloads once, then plays without a connection.",
+       "w": [
+        0.0,
+        0.325,
+        0.673,
+        0.813,
+        0.917,
+        1.347,
+        2.345,
+        2.554,
+        2.694,
+        2.868,
+        3.181,
+        3.309,
+        3.471,
+        4.679,
+        4.818,
+        5.05,
+        5.515,
+        5.898,
+        6.095,
+        6.362,
+        6.641,
+        6.699
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/payments-are-handled-by-the-app-743de0",
+     "dur": 2.13,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 2.13,
+       "who": "HOST",
+       "text": "Payments are handled by the App Store.",
+       "w": [
+        0.0,
+        0.476,
+        0.627,
+        0.975,
+        1.091,
+        1.219,
+        1.416
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/got-a-new-iphone-in-the-52d789",
+     "dur": 7.22,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.22,
+       "who": "HOST",
+       "text": "Got a new iPhone? In the Shop, tap Restore purchases, and use the same Apple Account you bought your packs with.",
+       "w": [
+        0.0,
+        0.255,
+        0.325,
+        0.464,
+        2.032,
+        2.218,
+        2.345,
+        3.077,
+        3.367,
+        3.704,
+        4.412,
+        4.621,
+        4.818,
+        4.934,
+        5.213,
+        5.48,
+        5.828,
+        5.956,
+        6.153,
+        6.281,
+        6.583
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/if-a-download-is-waiting-for-fb280f",
+     "dur": 4.83,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.83,
+       "who": "HOST",
+       "text": "If a download is waiting for Wi-Fi, tap Download now to use mobile data instead.",
+       "w": [
+        0.0,
+        0.232,
+        0.302,
+        0.72,
+        0.824,
+        1.091,
+        1.242,
+        2.136,
+        2.438,
+        2.856,
+        3.088,
+        3.228,
+        3.437,
+        3.727,
+        4.017
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "packs",
+   "platform": "android",
+   "title": "Packs and purchases",
+   "summary": "More stories and levels, and getting them on a new phone.",
+   "text": [
+    "Some games have packs, with more stories or levels. You'll find them all in the Shop, or tap the Get button on a game's card.",
+    "Each pack is a one-time purchase. There are no ads and no subscriptions. A pack downloads once, then plays without a connection.",
+    "Payments are handled by Google Play.",
+    "Got a new phone? In the Shop, tap Restore purchases, and use the same Google account you bought your packs with."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "steps": [
+    {
+     "play": "tts/some-games-have-packs-with-more-1352c6",
+     "dur": 7.2,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.2,
+       "who": "HOST",
+       "text": "Some games have packs, with more stories or levels. You'll find them all in the Shop, or tap the Get button on a game's card.",
+       "w": [
+        0.0,
+        0.255,
+        0.557,
+        0.708,
+        1.3,
+        1.521,
+        1.73,
+        2.171,
+        2.287,
+        3.204,
+        3.46,
+        3.634,
+        3.785,
+        3.971,
+        4.063,
+        4.18,
+        4.911,
+        5.178,
+        5.422,
+        5.538,
+        5.7,
+        6.014,
+        6.118,
+        6.188,
+        6.478
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/each-pack-is-a-onetime-purchase-b588ec",
+     "dur": 7.523,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 7.523,
+       "who": "HOST",
+       "text": "Each pack is a one-time purchase. There are no ads and no subscriptions. A pack downloads once, then plays without a connection.",
+       "w": [
+        0.0,
+        0.325,
+        0.673,
+        0.813,
+        0.917,
+        1.347,
+        2.345,
+        2.554,
+        2.694,
+        2.868,
+        3.181,
+        3.309,
+        3.471,
+        4.679,
+        4.818,
+        5.05,
+        5.515,
+        5.898,
+        6.095,
+        6.362,
+        6.641,
+        6.699
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/payments-are-handled-by-google-play-ddcdff",
+     "dur": 2.18,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 2.18,
+       "who": "HOST",
+       "text": "Payments are handled by Google Play.",
+       "w": [
+        0.0,
+        0.476,
+        0.615,
+        0.987,
+        1.149,
+        1.451
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/got-a-new-phone-in-the-e4be81",
+     "dur": 6.78,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.78,
+       "who": "HOST",
+       "text": "Got a new phone? In the Shop, tap Restore purchases, and use the same Google account you bought your packs with.",
+       "w": [
+        0.0,
+        0.232,
+        0.302,
+        0.43,
+        1.707,
+        1.892,
+        2.009,
+        2.67,
+        2.949,
+        3.297,
+        3.936,
+        4.11,
+        4.296,
+        4.412,
+        4.748,
+        5.062,
+        5.387,
+        5.515,
+        5.7,
+        5.828,
+        6.142
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "headphones",
+   "platform": "ios",
+   "title": "Headphones and the lock screen",
+   "summary": "Your headphones' button, and playing with the screen off.",
+   "text": [
+    "The games sound best with headphones, wired or Bluetooth. If yours have a microphone, the game listens through it.",
+    "The button on your headphones does what tapping the picture does: it skips the voice, starts or stops listening, or carries on after a pause.",
+    "You can lock your iPhone and keep playing. The game goes on talking and listening, and its controls are on the lock screen.",
+    "If your headphones come out, the game pauses until you carry on."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "steps": [
+    {
+     "play": "tts/the-games-sound-best-with-headphones-131f81",
+     "dur": 6.52,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.52,
+       "who": "HOST",
+       "text": "The games sound best with headphones, wired or Bluetooth. If yours have a microphone, the game listens through it.",
+       "w": [
+        0.0,
+        0.197,
+        0.488,
+        0.743,
+        1.022,
+        1.184,
+        1.788,
+        2.229,
+        2.322,
+        3.646,
+        3.831,
+        4.11,
+        4.261,
+        4.331,
+        4.957,
+        5.074,
+        5.329,
+        5.712,
+        6.014
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-button-on-your-headphones-does-864612",
+     "dur": 8.31,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 8.31,
+       "who": "HOST",
+       "text": "The button on your headphones does what tapping the picture does: it skips the voice, starts or stops listening, or carries on after a pause.",
+       "w": [
+        0.0,
+        0.209,
+        0.499,
+        0.592,
+        0.731,
+        1.312,
+        1.498,
+        1.66,
+        2.032,
+        2.136,
+        2.473,
+        3.402,
+        3.576,
+        3.901,
+        4.017,
+        4.702,
+        5.213,
+        5.375,
+        5.724,
+        6.258,
+        6.513,
+        6.908,
+        7.14,
+        7.419,
+        7.5
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/you-can-lock-your-iphone-and-2dae30",
+     "dur": 6.6,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.6,
+       "who": "HOST",
+       "text": "You can lock your iPhone and keep playing. The game goes on talking and listening, and its controls are on the lock screen.",
+       "w": [
+        0.0,
+        0.221,
+        0.383,
+        0.592,
+        0.755,
+        1.184,
+        1.3,
+        1.498,
+        2.682,
+        2.844,
+        3.077,
+        3.286,
+        3.483,
+        3.913,
+        4.029,
+        4.54,
+        4.667,
+        4.83,
+        5.306,
+        5.433,
+        5.515,
+        5.631,
+        5.851
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/if-your-headphones-come-out-the-800da0",
+     "dur": 3.39,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 3.39,
+       "who": "HOST",
+       "text": "If your headphones come out, the game pauses until you carry on.",
+       "w": [
+        0.0,
+        0.163,
+        0.313,
+        0.743,
+        0.917,
+        1.207,
+        1.358,
+        1.614,
+        2.078,
+        2.345,
+        2.473,
+        2.833
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "headphones",
+   "platform": "android",
+   "title": "Headphones and the lock screen",
+   "summary": "Your headphones' button, and playing with the screen off.",
+   "text": [
+    "The games sound best with headphones, wired or Bluetooth. If yours have a microphone, the game listens through it.",
+    "The button on your headphones does what tapping the picture does: it skips the voice, starts or stops listening, or carries on after a pause.",
+    "You can turn the screen off and keep playing. The game goes on talking and listening, and its notification has the same button as the picture.",
+    "If your headphones come out, the game pauses until you carry on."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3
+   ],
+   "steps": [
+    {
+     "play": "tts/the-games-sound-best-with-headphones-131f81",
+     "dur": 6.52,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.52,
+       "who": "HOST",
+       "text": "The games sound best with headphones, wired or Bluetooth. If yours have a microphone, the game listens through it.",
+       "w": [
+        0.0,
+        0.197,
+        0.488,
+        0.743,
+        1.022,
+        1.184,
+        1.788,
+        2.229,
+        2.322,
+        3.646,
+        3.831,
+        4.11,
+        4.261,
+        4.331,
+        4.957,
+        5.074,
+        5.329,
+        5.712,
+        6.014
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-button-on-your-headphones-does-864612",
+     "dur": 8.31,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 8.31,
+       "who": "HOST",
+       "text": "The button on your headphones does what tapping the picture does: it skips the voice, starts or stops listening, or carries on after a pause.",
+       "w": [
+        0.0,
+        0.209,
+        0.499,
+        0.592,
+        0.731,
+        1.312,
+        1.498,
+        1.66,
+        2.032,
+        2.136,
+        2.473,
+        3.402,
+        3.576,
+        3.901,
+        4.017,
+        4.702,
+        5.213,
+        5.375,
+        5.724,
+        6.258,
+        6.513,
+        6.908,
+        7.14,
+        7.419,
+        7.5
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/you-can-turn-the-screen-off-fb8fc4",
+     "dur": 8.09,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 8.09,
+       "who": "HOST",
+       "text": "You can turn the screen off and keep playing. The game goes on talking and listening, and its notification has the same button as the picture.",
+       "w": [
+        0.0,
+        0.221,
+        0.372,
+        0.615,
+        0.72,
+        1.022,
+        1.254,
+        1.382,
+        1.579,
+        2.926,
+        3.088,
+        3.344,
+        3.599,
+        3.843,
+        4.331,
+        4.47,
+        5.004,
+        5.224,
+        5.399,
+        6.118,
+        6.316,
+        6.444,
+        6.699,
+        7.047,
+        7.198,
+        7.314
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/if-your-headphones-come-out-the-800da0",
+     "dur": 3.39,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 3.39,
+       "who": "HOST",
+       "text": "If your headphones come out, the game pauses until you carry on.",
+       "w": [
+        0.0,
+        0.163,
+        0.313,
+        0.743,
+        0.917,
+        1.207,
+        1.358,
+        1.614,
+        2.078,
+        2.345,
+        2.473,
+        2.833
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "watch",
+   "platform": "ios",
+   "title": "Using a watch",
+   "summary": "Control the game from your wrist, and our watch app.",
+   "text": [
+    "With an Apple Watch, you can control the game from your wrist, while your iPhone does the talking and listening.",
+    "Now Playing on your watch shows the game. Press pause to stop the voice or the listening. Press play to carry on, or to start listening when it's your turn.",
+    "The Epic Audio Games app for Apple Watch does more. It shows what the game is doing, and its big button does what tapping the picture does: skip, talk, stop listening, or carry on.",
+    "It also buzzes when the microphone opens, so you know when to answer, even if you can't hear the sound.",
+    "To add it, open the Watch app on your iPhone."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "steps": [
+    {
+     "play": "tts/with-an-apple-watch-you-can-0b1386",
+     "dur": 5.25,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.25,
+       "who": "HOST",
+       "text": "With an Apple Watch, you can control the game from your wrist, while your iPhone does the talking and listening.",
+       "w": [
+        0.0,
+        0.232,
+        0.325,
+        0.592,
+        0.906,
+        1.022,
+        1.161,
+        1.498,
+        1.602,
+        1.858,
+        2.02,
+        2.159,
+        2.786,
+        3.007,
+        3.158,
+        3.587,
+        3.796,
+        3.901,
+        4.296,
+        4.412
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/now-playing-on-your-watch-shows-0d28e2",
+     "dur": 9.4,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 9.4,
+       "who": "HOST",
+       "text": "Now Playing on your watch shows the game. Press pause to stop the voice or the listening. Press play to carry on, or to start listening when it's your turn.",
+       "w": [
+        0.0,
+        0.302,
+        0.639,
+        0.743,
+        0.906,
+        1.231,
+        1.556,
+        1.672,
+        2.566,
+        2.879,
+        3.262,
+        3.379,
+        3.657,
+        3.785,
+        4.133,
+        4.261,
+        4.389,
+        5.422,
+        5.735,
+        5.991,
+        6.095,
+        6.444,
+        7.198,
+        7.442,
+        7.546,
+        7.825,
+        8.243,
+        8.371,
+        8.51,
+        8.673
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-epic-audio-games-app-for-8827d4",
+     "dur": 12.16,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 12.16,
+       "who": "HOST",
+       "text": "The Epic Audio Games app for Apple Watch does more. It shows what the game is doing, and its big button does what tapping the picture does: skip, talk, stop listening, or carry on.",
+       "w": [
+        0.0,
+        0.209,
+        0.488,
+        0.824,
+        1.149,
+        1.405,
+        1.579,
+        1.881,
+        2.206,
+        2.45,
+        3.437,
+        3.622,
+        3.855,
+        3.994,
+        4.098,
+        4.307,
+        4.435,
+        4.818,
+        4.981,
+        5.143,
+        5.352,
+        5.677,
+        5.886,
+        6.037,
+        6.397,
+        6.502,
+        6.815,
+        7.906,
+        8.673,
+        9.706,
+        9.996,
+        10.983,
+        11.215,
+        11.54
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/it-also-buzzes-when-the-microphone-3448e9",
+     "dur": 5.805,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.805,
+       "who": "HOST",
+       "text": "It also buzzes when the microphone opens, so you know when to answer, even if you can't hear the sound.",
+       "w": [
+        0.0,
+        0.221,
+        0.534,
+        0.952,
+        1.091,
+        1.196,
+        1.672,
+        2.229,
+        2.426,
+        2.566,
+        2.728,
+        2.902,
+        3.019,
+        3.959,
+        4.226,
+        4.331,
+        4.458,
+        4.702,
+        4.876,
+        5.016
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-add-it-open-the-watch-29d2ae",
+     "dur": 2.833,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 2.833,
+       "who": "HOST",
+       "text": "To add it, open the Watch app on your iPhone.",
+       "w": [
+        0.0,
+        0.221,
+        0.476,
+        0.778,
+        1.091,
+        1.207,
+        1.509,
+        1.753,
+        1.858,
+        2.009
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "watch",
+   "platform": "android",
+   "title": "Using a watch",
+   "summary": "Control the game from your wrist, and our watch app.",
+   "text": [
+    "With a Wear OS watch, you can control the game from your wrist, while your phone does the talking and listening.",
+    "The media controls on your watch show the game. Press pause to stop the voice or the listening. Press play to carry on, or to start listening when it's your turn.",
+    "The Epic Audio Games app for Wear OS does more. It shows what the game is doing, and its big button does what tapping the picture does: skip, talk, stop listening, or carry on.",
+    "It also buzzes when the microphone opens, so you know when to answer, even if you can't hear the sound.",
+    "To add it, open the Play Store on your watch."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "steps": [
+    {
+     "play": "tts/with-a-wear-os-watch-you-b6cd7d",
+     "dur": 5.85,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.85,
+       "who": "HOST",
+       "text": "With a Wear OS watch, you can control the game from your wrist, while your phone does the talking and listening.",
+       "w": [
+        0.0,
+        0.244,
+        0.337,
+        0.72,
+        1.126,
+        1.602,
+        1.753,
+        1.904,
+        2.287,
+        2.403,
+        2.659,
+        2.833,
+        2.984,
+        3.46,
+        3.68,
+        3.831,
+        4.145,
+        4.365,
+        4.47,
+        4.876,
+        4.992
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-media-controls-on-your-watch-33c68a",
+     "dur": 9.44,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 9.44,
+       "who": "HOST",
+       "text": "The media controls on your watch show the game. Press pause to stop the voice or the listening. Press play to carry on, or to start listening when it's your turn.",
+       "w": [
+        0.0,
+        0.221,
+        0.58,
+        1.022,
+        1.126,
+        1.277,
+        1.602,
+        1.858,
+        1.974,
+        3.088,
+        3.413,
+        3.738,
+        3.843,
+        4.098,
+        4.214,
+        4.54,
+        4.644,
+        4.748,
+        6.037,
+        6.351,
+        6.606,
+        6.711,
+        7.059,
+        7.361,
+        7.512,
+        7.605,
+        7.872,
+        8.29,
+        8.417,
+        8.557,
+        8.719
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-epic-audio-games-app-for-731664",
+     "dur": 12.7,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 12.7,
+       "who": "HOST",
+       "text": "The Epic Audio Games app for Wear OS does more. It shows what the game is doing, and its big button does what tapping the picture does: skip, talk, stop listening, or carry on.",
+       "w": [
+        0.0,
+        0.221,
+        0.534,
+        0.94,
+        1.347,
+        1.614,
+        1.788,
+        2.067,
+        2.473,
+        2.694,
+        3.576,
+        3.762,
+        4.04,
+        4.18,
+        4.284,
+        4.493,
+        4.644,
+        5.294,
+        5.492,
+        5.677,
+        5.898,
+        6.269,
+        6.467,
+        6.618,
+        6.966,
+        7.07,
+        7.407,
+        8.324,
+        9.149,
+        10.205,
+        10.519,
+        11.552,
+        11.784,
+        12.109
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/it-also-buzzes-when-the-microphone-3448e9",
+     "dur": 5.805,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.805,
+       "who": "HOST",
+       "text": "It also buzzes when the microphone opens, so you know when to answer, even if you can't hear the sound.",
+       "w": [
+        0.0,
+        0.221,
+        0.534,
+        0.952,
+        1.091,
+        1.196,
+        1.672,
+        2.229,
+        2.426,
+        2.566,
+        2.728,
+        2.902,
+        3.019,
+        3.959,
+        4.226,
+        4.331,
+        4.458,
+        4.702,
+        4.876,
+        5.016
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-add-it-open-the-play-9f21bd",
+     "dur": 2.508,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 2.508,
+       "who": "HOST",
+       "text": "To add it, open the Play Store on your watch.",
+       "w": [
+        0.0,
+        0.186,
+        0.43,
+        0.627,
+        0.94,
+        1.033,
+        1.265,
+        1.544,
+        1.637,
+        1.788
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "display",
+   "title": "Text size and colours",
+   "summary": "Themes, text size and font, and voice speed, music and time to answer.",
+   "text": [
+    "In Settings, under Appearance, you can choose a theme: Match my phone, Light, Dark, or High contrast, which is black, white and yellow.",
+    "Text size makes the words bigger, on top of your phone's own setting. You can also switch from the easy-to-read Atkinson Hyperlegible font to your phone's own.",
+    "Under Transcript, you can turn off the word highlighting, or show the words only as they're spoken.",
+    "Under Sound and voice are Voice speed, Music volume, and Time to answer, which gives you longer to reply.",
+    "The app also follows your phone's own settings, like dark mode, bold text and reduced motion."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "steps": [
+    {
+     "play": "tts/in-settings-under-appearance-you-can-892d86",
+     "dur": 9.55,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 9.55,
+       "who": "HOST",
+       "text": "In Settings, under Appearance, you can choose a theme: Match my phone, Light, Dark, or High contrast, which is black, white and yellow.",
+       "w": [
+        0.0,
+        0.221,
+        0.952,
+        1.207,
+        1.916,
+        2.055,
+        2.218,
+        2.45,
+        2.531,
+        3.541,
+        3.843,
+        3.994,
+        4.957,
+        5.759,
+        6.177,
+        6.502,
+        6.745,
+        7.419,
+        7.639,
+        7.779,
+        8.29,
+        8.649,
+        8.835
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/text-size-makes-the-words-bigger-b7b178",
+     "dur": 9.59,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 9.59,
+       "who": "HOST",
+       "text": "Text size makes the words bigger, on top of your phone's own setting. You can also switch from the easy-to-read Atkinson Hyperlegible font to your phone's own.",
+       "w": [
+        0.0,
+        0.36,
+        0.708,
+        0.929,
+        1.033,
+        1.347,
+        1.962,
+        2.171,
+        2.38,
+        2.473,
+        2.624,
+        2.995,
+        3.228,
+        4.354,
+        4.505,
+        4.644,
+        4.957,
+        5.306,
+        5.48,
+        5.642,
+        6.525,
+        7.152,
+        7.837,
+        8.208,
+        8.348,
+        8.51,
+        8.893
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/under-transcript-you-can-turn-off-fc3605",
+     "dur": 5.45,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.45,
+       "who": "HOST",
+       "text": "Under Transcript, you can turn off the word highlighting, or show the words only as they're spoken.",
+       "w": [
+        0.0,
+        0.348,
+        0.906,
+        1.022,
+        1.161,
+        1.416,
+        1.602,
+        1.707,
+        2.009,
+        2.995,
+        3.262,
+        3.46,
+        3.564,
+        3.924,
+        4.249,
+        4.365,
+        4.574
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/under-sound-and-voice-are-voice-d7bc05",
+     "dur": 6.45,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 6.45,
+       "who": "HOST",
+       "text": "Under Sound and voice are Voice speed, Music volume, and Time to answer, which gives you longer to reply.",
+       "w": [
+        0.0,
+        0.325,
+        0.685,
+        0.824,
+        1.196,
+        1.393,
+        1.695,
+        2.426,
+        2.763,
+        3.228,
+        3.39,
+        3.657,
+        3.785,
+        4.551,
+        4.783,
+        4.992,
+        5.155,
+        5.492,
+        5.608
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/the-app-also-follows-your-phones-d1fb35",
+     "dur": 5.852,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.851,
+       "who": "HOST",
+       "text": "The app also follows your phone's own settings, like dark mode, bold text and reduced motion.",
+       "w": [
+        0.0,
+        0.221,
+        0.464,
+        0.778,
+        1.161,
+        1.312,
+        1.753,
+        1.962,
+        2.752,
+        2.972,
+        3.251,
+        3.843,
+        4.168,
+        4.598,
+        4.737,
+        5.108
+       ]
+      }
+     ]
+    }
+   ],
+   "links": []
+  },
+  {
+   "id": "contact",
+   "title": "Contact and privacy",
+   "summary": "Get in touch, our privacy policy, and your usage data.",
+   "text": [
+    "We'd love to hear from you, especially about how well the app works for you.",
+    "Email us at james@hugo.fm.",
+    "What you say is turned into words by your phone's speech recognition, and never sent to us.",
+    "To help us improve the games, the app sends us usage data, like which games are played, under a random ID. It never includes your voice, what you say or type, or your accessibility settings. You can turn it off, or delete it, in Settings, under Privacy.",
+    "Our privacy policy and accessibility statement are on our website. The links are below."
+   ],
+   "clipParagraph": [
+    0,
+    1,
+    2,
+    3,
+    4
+   ],
+   "steps": [
+    {
+     "play": "tts/wed-love-to-hear-from-you-0c24ec",
+     "dur": 4.19,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 4.19,
+       "who": "HOST",
+       "text": "We'd love to hear from you, especially about how well the app works for you.",
+       "w": [
+        0.0,
+        0.267,
+        0.441,
+        0.534,
+        0.708,
+        0.882,
+        1.602,
+        2.183,
+        2.45,
+        2.601,
+        2.798,
+        2.926,
+        3.135,
+        3.425,
+        3.587
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/email-us-at-jameshugofm-1dfa21",
+     "dur": 3.38,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 3.38,
+       "who": "HOST",
+       "text": "Email us at james@hugo.fm."
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/what-you-say-is-turned-into-0e5bb4",
+     "dur": 5.28,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.28,
+       "who": "HOST",
+       "text": "What you say is turned into words by your phone's speech recognition, and never sent to us.",
+       "w": [
+        0.0,
+        0.267,
+        0.464,
+        0.836,
+        0.975,
+        1.231,
+        1.463,
+        1.846,
+        1.985,
+        2.136,
+        2.45,
+        2.775,
+        3.75,
+        3.982,
+        4.249,
+        4.47,
+        4.621
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/to-help-us-improve-the-games-a7b3f4",
+     "dur": 15.69,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 15.69,
+       "who": "HOST",
+       "text": "To help us improve the games, the app sends us usage data, like which games are played, under a random ID. It never includes your voice, what you say or type, or your accessibility settings. You can turn it off, or delete it, in Settings, under Privacy.",
+       "w": [
+        0.0,
+        0.221,
+        0.418,
+        0.546,
+        0.871,
+        0.975,
+        1.393,
+        1.544,
+        1.776,
+        2.078,
+        2.276,
+        2.694,
+        3.495,
+        3.738,
+        4.005,
+        4.284,
+        4.4,
+        4.83,
+        5.108,
+        5.201,
+        5.596,
+        6.92,
+        7.129,
+        7.419,
+        7.86,
+        8.022,
+        8.394,
+        8.568,
+        8.731,
+        8.986,
+        9.137,
+        9.474,
+        9.613,
+        9.764,
+        10.542,
+        11.726,
+        11.889,
+        12.028,
+        12.26,
+        12.376,
+        12.632,
+        12.783,
+        13.131,
+        13.305,
+        13.503,
+        14.466,
+        14.745
+       ]
+      }
+     ]
+    },
+    {
+     "pause": 0.3
+    },
+    {
+     "play": "tts/our-privacy-policy-and-accessibility-statement-e8c4cf",
+     "dur": 5.016,
+     "lines": [
+      {
+       "at": 0.0,
+       "len": 5.016,
+       "who": "HOST",
+       "text": "Our privacy policy and accessibility statement are on our website. The links are below.",
+       "w": [
+        0.0,
+        0.267,
+        0.72,
+        1.184,
+        1.277,
+        2.032,
+        2.438,
+        2.577,
+        2.67,
+        2.786,
+        3.773,
+        3.947,
+        4.191,
+        4.319
+       ]
+      }
+     ]
+    }
+   ],
+   "links": [
+    {
+     "label": "Email james@hugo.fm",
+     "url": "mailto:james@hugo.fm?subject=Epic%20Audio%20Games"
+    },
+    {
+     "label": "Privacy policy",
+     "url": "https://epicaudiogames.com/privacy"
+    },
+    {
+     "label": "Accessibility statement",
+     "url": "https://epicaudiogames.com/accessibility"
+    },
+    {
+     "label": "Support website",
+     "url": "https://epicaudiogames.com/support"
+    }
+   ]
+  }
+ ]
+}
