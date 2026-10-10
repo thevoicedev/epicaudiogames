@@ -1,13 +1,16 @@
-# Epic Audio Games on the App Store: the listing, the screenshots, each in-app purchase's review screenshot, the
-# App Privacy answers and TestFlight builds. README.md here says what each lane needs and what stays on the website.
+# Epic Audio Games on the App Store: the listing, the screenshots, the App Previews, each in-app purchase's review
+# screenshot, the App Privacy answers and TestFlight builds. README.md here says what each lane needs and what stays
+# on the website.
 #
 # What gets uploaded lives next to this file:
 #   metadata/                  the listing, in deliver's layout (en-US/*.txt, copyright.txt, primary_category.txt,
 #                              review_information/*.txt)
 #   app_rating_config.json     the age rating answers
 #   screenshots/en-US/         the App Store screenshots
+#   app_previews/en-US/        optional: the App Previews, the iPhone size in each name (01_IPHONE_67.mp4)
 #   iap_review/<product>.png   each in-app purchase's screenshot for App Review
 #   app_privacy_details.json   the App Privacy answers
+#   testflight/what_to_test.txt   each TestFlight build's "What to Test"
 #   metadata/review_information/attachment.<mov|mp4|pdf|png|jpg>   optional: a file for App Review (a demo video)
 # Nothing here submits anything for review.
 #
@@ -18,6 +21,7 @@ skip_docs # README.md is written by hand: without this, fastlane replaces it wit
 
 require "digest"
 require "json"
+require "open3"
 
 default_platform(:ios)
 
@@ -35,13 +39,66 @@ CATALOG = File.join(REPO_DIR, "games", "catalog.json")
 
 METADATA_DIR = File.join(FASTLANE_DIR, "metadata")
 SCREENSHOTS_DIR = File.join(FASTLANE_DIR, "screenshots")
+PREVIEWS_DIR = File.join(FASTLANE_DIR, "app_previews")
 IAP_REVIEW_DIR = File.join(FASTLANE_DIR, "iap_review")
 RATING_CONFIG = File.join(FASTLANE_DIR, "app_rating_config.json")
 PRIVACY_DETAILS = File.join(FASTLANE_DIR, "app_privacy_details.json")
 PRIVACY_MANIFEST = File.join(IOS_DIR, "EpicAudioGames", "Resources", "PrivacyInfo.xcprivacy")
+APP_ICON_SET = File.join(IOS_DIR, "EpicAudioGames", "Resources", "Assets.xcassets", "AppIcon.appiconset")
 REVIEW_NOTES = File.join(METADATA_DIR, "review_information", "notes.txt")
 REVIEW_NOTES_LIMIT = 4000
 REVIEW_ATTACHMENT_TYPES = %w[mov mp4 m4v pdf png jpg jpeg].freeze
+
+# Each TestFlight build's "What to Test". fastlane cuts it at 4,000 bytes and takes out any "<".
+WHAT_TO_TEST = File.join(FASTLANE_DIR, "testflight", "what_to_test.txt")
+WHAT_TO_TEST_LIMIT = 4000
+
+# The pack server App Store builds download from: the R2 bucket (docs/R2_PACKS.md), as Base.xcconfig sets it.
+R2_PACKS_URL = "https://packs.epicaudiogames.com"
+
+# App Previews: the iPhone sizes a file's name can give (deliver reads the size from the name, not the video), and the
+# frame sizes Apple takes for each. Apple's other limits: 15 to 30 seconds, 30 frames a second at most, H.264 High
+# profile up to level 4.0, stereo AAC, 500 MB.
+PREVIEW_SIZES = {
+  "IPHONE_67" => [[886, 1920], [1920, 886]], # the 6.9" and 6.7" iPhones
+  "IPHONE_65" => [[886, 1920], [1920, 886]],
+  "IPHONE_61" => [[886, 1920], [1920, 886]], # the 6.3" and 6.1" iPhones
+  "IPHONE_58" => [[886, 1920], [1920, 886]],
+  "IPHONE_55" => [[1080, 1920], [1920, 1080]],
+  "IPHONE_47" => [[750, 1334], [1334, 750]],
+  "IPHONE_40" => [[1080, 1920], [1920, 1080]]
+}.freeze
+PREVIEW_EXTENSIONS = %w[mp4 mov m4v].freeze
+# The poster frame, hours:minutes:seconds:hundredths: 5 seconds in, as App Store Connect picks by default.
+PREVIEW_FRAME_TIME_CODE = "00:00:05:00"
+
+# PNG colour types (byte 25 of the file) with an alpha channel: 4 is grey with alpha, 6 is RGB with alpha.
+PNG_ALPHA_TYPES = [4, 6].freeze
+
+# PrivacyInfo.xcprivacy's collected data types, and the App Privacy categories in app_privacy_details.json that say
+# the same. The two have to agree: App Review reads both.
+COLLECTED_DATA_CATEGORIES = {
+  "NSPrivacyCollectedDataTypeProductInteraction" => "PRODUCT_INTERACTION",
+  "NSPrivacyCollectedDataTypeDeviceID" => "DEVICE_ID",
+  "NSPrivacyCollectedDataTypePurchaseHistory" => "PURCHASE_HISTORY",
+  "NSPrivacyCollectedDataTypeOtherDiagnosticData" => "OTHER_DIAGNOSTIC_DATA",
+  "NSPrivacyCollectedDataTypeCrashData" => "CRASH_DATA",
+  "NSPrivacyCollectedDataTypePerformanceData" => "PERFORMANCE_DATA",
+  "NSPrivacyCollectedDataTypeOtherUsageData" => "OTHER_USAGE_DATA",
+  "NSPrivacyCollectedDataTypeUserID" => "USER_ID",
+  "NSPrivacyCollectedDataTypeEmailAddress" => "EMAIL_ADDRESS",
+  "NSPrivacyCollectedDataTypeName" => "NAME",
+  "NSPrivacyCollectedDataTypeAudioData" => "AUDIO",
+  "NSPrivacyCollectedDataTypeGameplayContent" => "GAMEPLAY_CONTENT"
+}.freeze
+COLLECTED_DATA_PURPOSES = {
+  "NSPrivacyCollectedDataTypePurposeThirdPartyAdvertising" => "THIRD_PARTY_ADVERTISING",
+  "NSPrivacyCollectedDataTypePurposeDeveloperAdvertising" => "DEVELOPERS_ADVERTISING",
+  "NSPrivacyCollectedDataTypePurposeAnalytics" => "ANALYTICS",
+  "NSPrivacyCollectedDataTypePurposeProductPersonalization" => "PRODUCT_PERSONALIZATION",
+  "NSPrivacyCollectedDataTypePurposeAppFunctionality" => "APP_FUNCTIONALITY",
+  "NSPrivacyCollectedDataTypePurposeOther" => "OTHER_PURPOSES"
+}.freeze
 
 # Age rating questions in App Store Connect's API (AgeRatingDeclaration) that fastlane 2.232.2 doesn't list yet.
 # deliver sends them as they are, so they're answered; true or false.
@@ -86,7 +143,8 @@ IAP_REVIEW_MIN_SIZE = [640, 920].freeze
 
 platform :ios do
   desc "Check everything the upload lanes send, offline (nothing leaves this Mac): the listing's files and limits,"
-  desc "the age rating and privacy answers, the screenshots' sizes and each in-app purchase's review screenshot"
+  desc "the age rating and privacy answers (and that they match the privacy manifest), the app icon, the screenshots'"
+  desc "sizes, the App Previews, each in-app purchase's review screenshot, What to Test and the builds' pack server"
   lane :check do
     errors = []
     warnings = []
@@ -94,8 +152,13 @@ platform :ios do
     check_rating(errors, warnings)
     check_privacy(errors, warnings)
     check_privacy_manifest(errors)
+    check_privacy_agreement(errors, warnings)
+    check_app_icon(errors, warnings)
     check_screenshots(errors, warnings, required: false)
+    check_previews(errors, warnings, required: false)
     check_iap_review(errors, warnings, required: false)
+    check_what_to_test(errors, warnings)
+    check_packs_url(errors, warnings)
     check_key_paths(warnings)
     report!(errors, warnings)
     UI.success(warnings.empty? ? "Everything the lanes upload looks right" : "Nothing that stops an upload (warnings above)")
@@ -174,6 +237,43 @@ platform :ios do
     )
   end
 
+  desc "Upload the App Previews in app_previews/<language>/, replacing the ones there now, with the poster frame 5"
+  desc "seconds in. Each file's name says its iPhone size (01_IPHONE_67.mp4: the 6.9-inch group); up to 3 per size."
+  desc "Needs fastlane 2.233.0 or later (deliver's app_previews_path); with an older one, add them on the website"
+  lane :previews do
+    errors = []
+    warnings = []
+    check_previews(errors, warnings, required: true)
+    report!(errors, warnings)
+
+    require "deliver"
+    unless Deliver::Options.available_options.any? { |option| option.key == :app_previews_path }
+      UI.user_error!("fastlane #{Fastlane::VERSION} can't upload App Previews (deliver's app_previews_path came in " \
+                     "2.233.0): run `brew upgrade fastlane`, or add #{rel(PREVIEWS_DIR)}/'s videos on the App Store " \
+                     "Connect website (the version's page, Previews and Screenshots)")
+    end
+
+    asc_api_key!
+    editable_version!(asc_app)
+
+    deliver(
+      app_identifier: BUNDLE_ID,
+      platform: "ios",
+      metadata_path: METADATA_DIR,
+      app_previews_path: PREVIEWS_DIR,
+      overwrite_preview_videos: true,
+      preview_frame_time_code: PREVIEW_FRAME_TIME_CODE,
+      skip_metadata: true,
+      skip_screenshots: true,
+      skip_binary_upload: true,
+      skip_app_version_update: true,
+      force: true,
+      submit_for_review: false,
+      run_precheck_before_submit: false,
+      precheck_include_in_app_purchases: false
+    )
+  end
+
   desc "Upload each in-app purchase's App Review screenshot from iap_review/<product id>.png. One that's already"
   desc "there unchanged is left alone. Option: only:<product id>"
   lane :iap_review_screenshots do |options|
@@ -204,6 +304,7 @@ platform :ios do
     warnings = []
     check_privacy(errors, warnings)
     errors << "#{rel(PRIVACY_DETAILS)} is missing" unless File.exist?(PRIVACY_DETAILS)
+    check_privacy_agreement(errors, warnings)
     report!(errors, warnings)
 
     params = {
@@ -215,23 +316,30 @@ platform :ios do
     upload_app_privacy_details_to_app_store(params)
   end
 
-  desc "Build for the App Store and upload to TestFlight. The build number is the time, yyyymmddHHMM, given to"
-  desc "xcodebuild (no file changes). Needs content/ (the real audio), the pack server (EPIC_PACKS_URL) and the API"
-  desc "key. Options: dry_run:true prints what it would do; cloud_signing:true signs with the API key, for a Mac"
-  desc "where Xcode isn't signed in; allow_no_packs:true builds without a pack server (it can't sell packs)"
+  desc "Build for the App Store and upload to TestFlight, with testflight/what_to_test.txt as its What to Test. The"
+  desc "build number is the time, yyyymmddHHMM, given to xcodebuild (no file changes). Needs content/ (the real"
+  desc "audio), the R2 pack server (EPIC_PACKS_URL, Base.xcconfig) and the API key. Options: dry_run:true prints what"
+  desc "it would do; cloud_signing:true signs with the API key, for a Mac where Xcode isn't signed in;"
+  desc "allow_no_packs:true builds without a pack server (it can't sell packs); allow_other_packs:true builds with"
+  desc "another pack server (a test build only)"
   lane :beta do |options|
     version = marketing_version
     build = Time.now.strftime("%Y%m%d%H%M")
     team = development_team
     content = content_dir
     output = File.join(IOS_DIR, "build", "testflight")
+    url = packs_url
+    packs = url.nil? ? "(none: buying packs is hidden)" : url
+    packs += " (#{rel(packs_url_file)}: not R2, so the lane stops without allow_other_packs:true)" if url && url != R2_PACKS_URL
+    what_to_test = read_text(WHAT_TO_TEST)
 
     summary = {
       "Version" => version,
       "Build" => build,
       "Team" => team,
       "Content" => content,
-      "Packs URL" => packs_url || "(none: buying packs is hidden)",
+      "Packs URL" => packs,
+      "What to Test" => what_to_test.empty? ? "(none)" : "#{rel(WHAT_TO_TEST)}, #{what_to_test.length} characters",
       "Output" => output
     }
     FastlaneCore::PrintTable.print_values(config: summary, title: "TestFlight build")
@@ -240,12 +348,23 @@ platform :ios do
     unless File.directory?(content) && !Dir.empty?(content)
       UI.user_error!("No audio at #{content}: a Release build needs the real content/ (README, Building the content)")
     end
-    unless packs_url
-      message = "No pack server (EPIC_PACKS_URL in ios/Config/Local.xcconfig): this build would hide buying packs, " \
-                "and App Review couldn't find the in-app purchases"
+    if url.nil?
+      message = "No pack server (EPIC_PACKS_URL is empty in #{rel(packs_url_file)}): this build would hide buying " \
+                "packs, and App Review couldn't find the in-app purchases"
       UI.user_error!("#{message}. Set it, or pass allow_no_packs:true for a build that doesn't sell packs") unless truthy?(options[:allow_no_packs])
       UI.important(message)
+    elsif url != R2_PACKS_URL
+      # An old Local.xcconfig can still point at the website's retired /packs, or at this Mac for the simulator.
+      message = "The pack server is #{url} (#{rel(packs_url_file)}), not #{R2_PACKS_URL}: testers' purchases " \
+                "would download from there"
+      UI.user_error!("#{message}. Take EPIC_PACKS_URL out of ios/Config/Local.xcconfig, or pass allow_other_packs:true " \
+                     "for a test build") unless truthy?(options[:allow_other_packs])
+      UI.important(message)
     end
+    errors = []
+    warnings = []
+    check_what_to_test(errors, warnings)
+    report!(errors, warnings)
 
     asc_api_key!
     signing = ["-allowProvisioningUpdates"]
@@ -272,11 +391,15 @@ platform :ios do
       }
     )
 
-    upload_to_testflight(
+    # With a changelog, pilot waits only until the build appears in App Store Connect, sets What to Test, and returns
+    # without waiting for Apple to process it.
+    testflight = {
       ipa: ipa,
       skip_waiting_for_build_processing: true,
       distribute_external: false
-    )
+    }
+    testflight[:changelog] = what_to_test unless what_to_test.empty?
+    upload_to_testflight(testflight)
     UI.success("Uploaded #{version} (#{build}). It shows in TestFlight once Apple has processed it.")
   end
 end
@@ -330,8 +453,13 @@ end
 # Local.xcconfig writes the URL as https:/$()/host, since // starts a comment there.
 # Local.xcconfig's, else Base.xcconfig's, as Xcode reads them (Base includes Local after its own settings).
 def packs_url
-  url = (xcconfig_value(LOCAL_XCCONFIG, "EPIC_PACKS_URL") || xcconfig_value(BASE_XCCONFIG, "EPIC_PACKS_URL")).to_s.gsub("$()", "")
+  url = xcconfig_value(packs_url_file, "EPIC_PACKS_URL").to_s.gsub("$()", "")
   url.empty? || url.include?("example.com") ? nil : url
+end
+
+# The file the build's EPIC_PACKS_URL comes from: Local.xcconfig if it sets one (even to nothing), else Base.xcconfig.
+def packs_url_file
+  xcconfig_value(LOCAL_XCCONFIG, "EPIC_PACKS_URL") ? LOCAL_XCCONFIG : BASE_XCCONFIG
 end
 
 # The packs on sale, from games/catalog.json: [{ id:, game:, title:, description: }]
@@ -585,6 +713,70 @@ def check_privacy_manifest(errors)
   end
 end
 
+# PrivacyInfo.xcprivacy's collected data types against the App Privacy answers: the same data, purposes, link to the
+# player and tracking. The manifest says what the app collects; app_privacy_details.json is what the App Store shows.
+def check_privacy_agreement(errors, warnings)
+  return unless File.exist?(PRIVACY_MANIFEST) && File.exist?(PRIVACY_DETAILS) # check_privacy* report missing files
+
+  require "plist"
+  manifest = Plist.parse_xml(PRIVACY_MANIFEST) || {}
+  begin
+    usages = JSON.parse(File.read(PRIVACY_DETAILS))
+  rescue JSON::ParserError
+    return # check_privacy reports it
+  end
+  return unless usages.kind_of?(Array)
+
+  where = "#{rel(PRIVACY_MANIFEST)} and #{rel(PRIVACY_DETAILS)}"
+  declared = {} # category => { purposes:, linked:, tracking: } from the manifest
+  (manifest["NSPrivacyCollectedDataTypes"] || []).each do |entry|
+    type = entry["NSPrivacyCollectedDataType"].to_s
+    category = COLLECTED_DATA_CATEGORIES[type]
+    unless category
+      warnings << "#{rel(PRIVACY_MANIFEST)}: #{type} isn't in COLLECTED_DATA_CATEGORIES (Fastfile), so it wasn't compared " \
+                  "with #{rel(PRIVACY_DETAILS)}"
+      next
+    end
+    declared[category] = {
+      purposes: (entry["NSPrivacyCollectedDataTypePurposes"] || []).map { |purpose| COLLECTED_DATA_PURPOSES[purpose] || purpose }.sort,
+      linked: entry["NSPrivacyCollectedDataTypeLinked"] == true,
+      tracking: entry["NSPrivacyCollectedDataTypeTracking"] == true
+    }
+  end
+  if manifest["NSPrivacyTracking"] != true && declared.values.any? { |data| data[:tracking] }
+    errors << "#{rel(PRIVACY_MANIFEST)}: NSPrivacyTracking is false, but a collected data type is used for tracking"
+  end
+
+  answered = {}
+  usages.each do |usage|
+    next unless usage.kind_of?(Hash) && usage["category"]
+
+    protections = usage["data_protections"] || []
+    answered[usage["category"]] = {
+      purposes: (usage["purposes"] || []).sort,
+      linked: protections.include?("DATA_LINKED_TO_YOU"),
+      tracking: protections.include?("DATA_USED_TO_TRACK_YOU")
+    }
+  end
+
+  (declared.keys - answered.keys).each do |category|
+    errors << "#{where}: the manifest collects #{category}, the App Privacy answers don't"
+  end
+  (answered.keys - declared.keys).each do |category|
+    errors << "#{where}: the App Privacy answers collect #{category}, the manifest doesn't"
+  end
+  (declared.keys & answered.keys).each do |category|
+    ours = declared[category]
+    theirs = answered[category]
+    if ours[:purposes] != theirs[:purposes]
+      errors << "#{where}: #{category}'s purposes differ (the manifest: #{ours[:purposes].join(', ')}; the answers: " \
+                "#{theirs[:purposes].join(', ')})"
+    end
+    errors << "#{where}: #{category} is linked to the player in one and not the other" if ours[:linked] != theirs[:linked]
+    errors << "#{where}: #{category} is used for tracking in one and not the other" if ours[:tracking] != theirs[:tracking]
+  end
+end
+
 # A key kept inside the repo could be committed: warn.
 def check_key_paths(warnings)
   path = ENV["ASC_KEY_PATH"].to_s.strip
@@ -592,6 +784,159 @@ def check_key_paths(warnings)
 
   full = File.expand_path(path)
   warnings << "ASC_KEY_PATH is inside this repo (#{rel(full)}): keep the .p8 file outside it" if full.start_with?("#{REPO_DIR}/")
+end
+
+# Whether a PNG has an alpha channel, or a transparent colour (a tRNS chunk before the image data).
+def png_alpha?(path)
+  bytes = File.binread(path)
+  return false unless bytes.start_with?("\x89PNG\r\n\x1A\n".b)
+  return true if PNG_ALPHA_TYPES.include?(bytes.getbyte(25))
+
+  offset = 8
+  while offset + 8 <= bytes.bytesize
+    length = bytes.byteslice(offset, 4).unpack1("N")
+    type = bytes.byteslice(offset + 4, 4)
+    return true if type == "tRNS"
+    break if type == "IDAT"
+
+    offset += length + 12 # length, type, data, CRC
+  end
+  false
+end
+
+# The App Store icon: 1024 x 1024 and without an alpha channel (App Store Connect refuses a build whose icon has one:
+# ITMS-90717), plus iOS 18's dark and tinted versions.
+def check_app_icon(errors, warnings)
+  contents = File.join(APP_ICON_SET, "Contents.json")
+  unless File.exist?(contents)
+    errors << "#{rel(contents)} is missing (the app icon)"
+    return
+  end
+  begin
+    images = JSON.parse(File.read(contents))["images"] || []
+  rescue JSON::ParserError => e
+    errors << "#{rel(contents)} isn't valid JSON: #{e.message}"
+    return
+  end
+
+  # An appearance-specific image says which in its "appearances": luminosity dark or tinted.
+  look = lambda do |image|
+    (image["appearances"] || []).find { |appearance| appearance["appearance"] == "luminosity" }&.fetch("value", nil)
+  end
+  main = images.find { |image| image["filename"] && look.call(image).nil? }
+  if main.nil?
+    errors << "#{rel(contents)} names no icon file"
+  else
+    path = File.join(APP_ICON_SET, main["filename"])
+    if File.exist?(path)
+      require "fastimage"
+      size = FastImage.size(path)
+      errors << "#{rel(path)} is #{size ? size.join(' x ') : 'not an image'}; the App Store icon is 1024 x 1024" unless size == [1024, 1024]
+      errors << "#{rel(path)} has an alpha channel: App Store Connect refuses the build (ITMS-90717)" if png_alpha?(path)
+    else
+      errors << "#{rel(path)} is missing (the app icon)"
+    end
+  end
+  %w[dark tinted].each do |appearance|
+    next if images.any? { |image| image["filename"] && look.call(image) == appearance }
+
+    warnings << "#{rel(APP_ICON_SET)} has no #{appearance} icon for iOS 18's #{appearance} home screen " \
+                "(tools/make_art.py export icons makes one)"
+  end
+end
+
+# Release builds download packs from the R2 bucket. A Local.xcconfig copied from an old example still points at the
+# website's retired /packs, and one set up for the simulator points at this Mac.
+def check_packs_url(errors, warnings)
+  url = packs_url
+  if url.nil?
+    warnings << "No pack server: EPIC_PACKS_URL is empty in #{rel(packs_url_file)}, so a build would hide buying packs"
+  elsif url != R2_PACKS_URL
+    errors << "The builds' pack server is #{url} (#{rel(packs_url_file)}), not #{R2_PACKS_URL}: take EPIC_PACKS_URL " \
+              "out of ios/Config/Local.xcconfig (Base.xcconfig has the R2 one)"
+  end
+end
+
+def check_what_to_test(errors, warnings)
+  text = read_text(WHAT_TO_TEST)
+  if text.empty?
+    warnings << "#{rel(WHAT_TO_TEST)} is missing or empty: TestFlight builds go up without What to Test"
+    return
+  end
+  errors << "#{rel(WHAT_TO_TEST)} is #{text.bytesize} bytes; TestFlight takes #{WHAT_TO_TEST_LIMIT}" if text.bytesize > WHAT_TO_TEST_LIMIT
+  warnings << "#{rel(WHAT_TO_TEST)} has a \"<\", which fastlane takes out" if text.include?("<")
+end
+
+# The App Previews against Apple's limits, with ffprobe (Homebrew's ffmpeg). deliver skips a video it doesn't like
+# with only a message, so this stops first.
+def check_previews(errors, warnings, required:)
+  videos = PREVIEW_EXTENSIONS.flat_map { |ext| Dir.glob(File.join(PREVIEWS_DIR, "*", "*.{#{ext},#{ext.upcase}}")) }.uniq.sort
+  if videos.empty?
+    errors << "no App Previews in #{rel(PREVIEWS_DIR)}/en-US/ (01_IPHONE_67.mp4, ...)" if required
+    return
+  end
+
+  probes = true
+  videos.group_by { |path| File.basename(File.dirname(path)) }.each do |language, paths|
+    by_type = paths.group_by { |path| PREVIEW_SIZES.keys.find { |type| File.basename(path).upcase.include?(type) } }
+    (by_type.delete(nil) || []).each do |path|
+      errors << "#{rel(path)}: the name doesn't say the iPhone size (#{PREVIEW_SIZES.keys.join(', ')}), so deliver skips it"
+    end
+    by_type.each do |type, list|
+      errors << "#{rel(PREVIEWS_DIR)}/#{language}: #{list.count} #{type} previews; Apple takes 3" if list.count > 3
+      list.each do |path|
+        errors << "#{rel(path)} is over 500 MB" if File.size(path) > 500 * 1024 * 1024
+        next unless probes
+
+        probes = check_preview_video(path, PREVIEW_SIZES[type], errors)
+      end
+    end
+  end
+  warnings << "ffprobe isn't installed (brew install ffmpeg): the App Previews' codecs, sizes and lengths weren't checked" unless probes
+end
+
+# One preview's video and sound; false when ffprobe isn't there to ask.
+def check_preview_video(path, sizes, errors)
+  output, _error, status = Open3.capture3("ffprobe", "-v", "error", "-print_format", "json", "-show_format", "-show_streams", path)
+  unless status.success?
+    errors << "#{rel(path)}: ffprobe can't read it"
+    return true
+  end
+  info = JSON.parse(output)
+  video = (info["streams"] || []).find { |stream| stream["codec_type"] == "video" }
+  audio = (info["streams"] || []).find { |stream| stream["codec_type"] == "audio" }
+  seconds = info.dig("format", "duration").to_f
+
+  if video.nil?
+    errors << "#{rel(path)} has no video"
+  else
+    size = [video["width"], video["height"]]
+    unless sizes.include?(size)
+      allowed = sizes.map { |pair| pair.join(" x ") }.join(" or ")
+      errors << "#{rel(path)} is #{size.join(' x ')}; for the iPhone size in its name, Apple takes #{allowed}"
+    end
+    errors << "#{rel(path)}: the video is #{video['codec_name']}, not H.264" unless video["codec_name"] == "h264"
+    errors << "#{rel(path)}: H.264 #{video['profile']} profile, not High" if video["codec_name"] == "h264" && video["profile"] != "High"
+    errors << "#{rel(path)}: H.264 level #{video['level'].to_i / 10.0}, above 4.0" if video["level"].to_i > 40
+    errors << "#{rel(path)}: pixels are #{video['pix_fmt']}, not yuv420p" unless video["pix_fmt"] == "yuv420p"
+    numerator, denominator = video["avg_frame_rate"].to_s.split("/").map(&:to_f)
+    fps = denominator.to_f.positive? ? numerator / denominator : 0
+    errors << "#{rel(path)}: #{fps.round(2)} frames a second; Apple takes 30 at most" if fps > 30.01
+  end
+  if audio.nil?
+    errors << "#{rel(path)} has no sound track (Apple wants stereo AAC, even if quiet)"
+  else
+    errors << "#{rel(path)}: the sound is #{audio['codec_name']}, not AAC" unless audio["codec_name"] == "aac"
+    errors << "#{rel(path)}: the sound isn't stereo (#{audio['channels']} channel(s))" unless audio["channels"].to_i == 2
+    errors << "#{rel(path)}: the sound is #{audio['sample_rate']} Hz, not 44,100 or 48,000" unless %w[44100 48000].include?(audio["sample_rate"].to_s)
+  end
+  errors << "#{rel(path)} is #{seconds.round(1)} seconds; Apple takes 15 to 30" unless seconds.between?(15, 30)
+  true
+rescue Errno::ENOENT
+  false # no ffprobe
+rescue JSON::ParserError
+  errors << "#{rel(path)}: ffprobe's answer wasn't JSON"
+  true
 end
 
 def check_screenshots(errors, warnings, required:)
@@ -609,15 +954,26 @@ def check_screenshots(errors, warnings, required:)
     return
   end
 
-  big_iphones = [Deliver::AppScreenshot::DisplayType::APP_IPHONE_67, Deliver::AppScreenshot::DisplayType::APP_IPHONE_65]
+  # The iPhone sizes App Store Connect takes for an iPhone app: 6.9" (APP_IPHONE_67, 1320 x 2868), 6.5"
+  # (APP_IPHONE_65) or 6.3" (APP_IPHONE_61, 1206 x 2622, "iPhone with Dynamic Island"). The listing has both 6.9" and
+  # 6.3", made from the same captures (tools/make_art.py shots ios --sizes 6.9,6.3).
+  display = Deliver::AppScreenshot::DisplayType
+  iphones = [display::APP_IPHONE_67, display::APP_IPHONE_65, display::APP_IPHONE_61]
   screenshots.group_by(&:language).each do |language, list|
     by_type = list.group_by(&:display_type)
-    if (by_type.keys & big_iphones).empty?
-      errors << "#{rel(SCREENSHOTS_DIR)}/#{language}: an iPhone app needs 6.9-inch (1320 x 2868) or 6.5-inch (1284 x 2778) screenshots"
+    if (by_type.keys & iphones).empty?
+      errors << "#{rel(SCREENSHOTS_DIR)}/#{language}: an iPhone app needs 6.9-inch (1320 x 2868), 6.5-inch (1284 x 2778) " \
+                "or 6.3-inch (1206 x 2622) screenshots"
+    elsif !(by_type.key?(display::APP_IPHONE_67) && by_type.key?(display::APP_IPHONE_61))
+      warnings << "#{rel(SCREENSHOTS_DIR)}/#{language}: not both the 6.9-inch (1320 x 2868) and 6.3-inch (1206 x 2622) " \
+                  "sets (tools/make_art.py shots ios --sizes 6.9,6.3 makes both)"
     end
     by_type.each do |type, shots|
       errors << "#{rel(SCREENSHOTS_DIR)}/#{language}: #{shots.count} #{type} screenshots; at most 10" if shots.count > 10
     end
+  end
+  files.each do |path|
+    errors << "#{rel(path)} has an alpha channel; App Store screenshots can't" if png_alpha?(path)
   end
 end
 

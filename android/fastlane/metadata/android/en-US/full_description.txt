@@ -1,8 +1,18 @@
-Epic Audio Games are stories and games you play with your voice. Put on your headphones, listen, and answer out loud. The characters ask you what to do, and the story goes where you take it.
+Epic Audio Games are stories and games you play with your voice, designed for blind and partially sighted players first, and for everyone else too. Put on your headphones, listen, and answer out loud. The characters ask you what to do, and the story goes where you take it.
 
-It works like a chat. Every word appears on screen as it's spoken, so you can read along. When a question comes, the mic opens by itself. Say your answer, type it, or tap one of the options at the end of the chat. You can answer while the voice is still talking.
+When it's your turn, say your answer, type it, or tap an option. Every word appears on screen as it's spoken, with the word being read highlighted, so you can read along or just listen. You can answer while the voice is still talking.
 
-EIGHT GAMES
+Made to be easy to play
+
+- Big, clear text in Atkinson Hyperlegible, a typeface made for readers with low vision, or in your device's own font. Three text sizes, on top of your device's font size.
+- Dark, light and high-contrast themes, or follow your device's own settings.
+- Voice speed from 0.75 to 2 times, music volume, and more time to answer if you need it.
+- A short sound tells you when the game starts listening.
+- Help pages you can listen to as well as read.
+- Play with your phone locked and in your pocket. The headphones' button skips the voice, starts listening, or carries on.
+- Plays on phones and tablets. On a tablet, play upright or sideways, in a window of any size, with the story beside the controls when there's room. With a keyboard, Space skips the voice, starts listening, or carries on.
+
+Eight games
 
 The Kingdom of Frootopia
 Join Cosmo and friends on a galaxy adventure, and save the Kingdom of Frootopia. Story 1 is free. The Stories 2 to 5 pack has the rest of the adventure.
@@ -28,16 +38,17 @@ Listen to the villagers and find out which of them is the werewolf, before it st
 Nuclear War
 Play as France, the USA, the UK, China or Russia through five rounds of nuclear war. Shield your cities, sanction your rivals and choose when to strike. The whole war is free.
 
-PACKS
+Packs
 
-Three games have a pack with more stories or levels. Each pack is a one-time purchase, with no subscription. A pack downloads once, then plays offline like the rest.
+Three games have a pack with more stories or levels, all in the Shop. Each pack is a one-time purchase, with no subscription. A pack downloads once, then plays offline like the rest.
 
-GOOD TO KNOW
+Good to know
 
-- No ads, no account, and no tracking.
+- No ads.
 - The games are inside the app, so they play offline. Buying and downloading a pack needs a connection.
-- Your phone's speech recognition (usually Google's) turns what you say into words. Many phones do this on the phone itself. Others use an online speech service, which needs a connection. Typing and tapping always work.
+- Your device's speech recognition (usually Google's) turns what you say into words. Many devices do this on the device itself. Others use an online speech service, which needs a connection. Typing and tapping always work.
 - Your place in each game is saved at every question, so you can pick up where you left off.
+- The app shares usage data with us under a random ID, to show us which games and screens people use. Never your name, email or voice, never what you say or type, and nothing about accessibility settings. You can turn it off in Settings.
 
 Epic Audio Games is made by Hugo FM.
 Privacy policy: https://epicaudiogames.com/privacy

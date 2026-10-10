@@ -3,7 +3,9 @@
 Everything Google Play shows about Epic Audio Games lives here as files, and fastlane sends it to the Play Console
 (package `com.epicaudiogames.app`). The app is in the HUGO.FM GAMES LIMITED organisation account, and steps 1 to 5
 below were done on 7 October 2026. Version 2 (1.0) is on the internal testing track, for the "Epic Audio Games"
-tester list. Steps 6 and 7 (App content, EU trader status) are still to finish.
+tester list; versionCode 3 is the accessibility release (`docs/RELEASE.md`). Steps 6 and 7 (App content, EU trader
+status) are still to finish, and App content's Data safety answers have changed with the apps' usage data
+(`docs/STORE_LISTING.md`).
 
 ## A new build
 
@@ -22,7 +24,7 @@ The app uses `billing-ktx` 8.0.0 because 8.1 and later need Kotlin 2.2, and this
 
 | Here | What it is |
 |---|---|
-| `metadata/android/en-US/` | the listing, in supply's layout: `title.txt` (30 characters), `short_description.txt` (80), `full_description.txt` (4,000), `images/icon.png` (512 x 512, 32-bit with alpha), `images/featureGraphic.png` (1024 x 500, no alpha), `images/phoneScreenshots/` (2 to 8, 9:16, no alpha), and `changelogs/<versionCode>.txt` or `changelogs/default.txt` (a build's "what's new", 500) |
+| `metadata/android/en-US/` | the listing, in supply's layout: `title.txt` (30 characters), `short_description.txt` (80), `full_description.txt` (4,000), `images/icon.png` (512 x 512, 32-bit with alpha), `images/featureGraphic.png` (1024 x 500, no alpha), `images/phoneScreenshots/` (2 to 8, 9:16, no alpha), `changelogs/<versionCode>.txt` or `changelogs/default.txt` (a build's "what's new", 500), and, once the promo video is on YouTube, `video.txt` (its address, `https://www.youtube.com/watch?v=<id>`, with no newline) |
 | `games/catalog.json` (repo root) | the packs' product ids |
 | `PLAY_PRODUCTS` in the `Fastfile` | each pack's Play name and description (the names are the App Store ones) |
 | `Fastfile`, `Appfile` | the lanes below |
@@ -44,9 +46,12 @@ The passwords stay in the macOS keychain: `security add-generic-password -a "$US
 stores one (it asks for it). fastlane also reads `android/fastlane/.env` by itself, which git ignores. `check` warns
 if `PLAY_JSON_KEY` or `EAG_UPLOAD_KEYSTORE` points inside this repo.
 
-The pack server's address goes in `~/.gradle/gradle.properties` (`epicPacksUrl=https://...`) or
-`ORG_GRADLE_PROJECT_epicPacksUrl`. Without it a release build hides buying packs, so `build` and `internal` stop
-unless you pass `allow_no_packs:true`.
+The pack server's address is in `android/gradle.properties`: `epicPacksUrl=https://packs.epicaudiogames.com`, the
+R2 bucket (`docs/R2_PACKS.md`). Gradle takes `ORG_GRADLE_PROJECT_epicPacksUrl` or an `epicPacksUrl` in
+`~/.gradle/gradle.properties` before it, so one left there for an emulator test server would go into a release
+build. `check`, `build` and `internal` work out the address Gradle will use, as Gradle does, and stop unless it's
+R2's: `allow_other_packs:true` builds with another one, and `allow_no_packs:true` without one (a build that can't
+sell packs), for tests only.
 
 ## Once, in the Play Console and Google Cloud
 
@@ -104,11 +109,14 @@ fastlane android build       # a signed build, not uploaded
 ```
 
 - **check** sends nothing. It checks the texts against Google's limits as supply sends them (supply doesn't trim, so
-  a trailing newline counts: keep `short_description.txt` without one), the images' sizes and colour types (the
-  icon with alpha, the rest without), and the packs' names and descriptions (55 and 200 characters). It warns when
-  a phone screenshot isn't 9:16 of at least 1080 x 1920, since Google only promotes games whose screenshots are. It
-  also warns about anything a release build is missing: the keys, the audio (`content/`), the pack server
-  (`epicPacksUrl`), and a versionName that differs from the iPhone app's.
+  a trailing newline counts: keep `short_description.txt` without one), `video.txt` if there is one (a YouTube
+  video's address, nothing around it), the images' sizes and colour types (the icon with alpha, the rest without),
+  and the packs' names and descriptions (55 and 200 characters). It warns when a phone screenshot isn't 9:16 of at
+  least 1080 x 1920, since Google only promotes games whose screenshots are, and when `versionCode` has no
+  `changelogs/<versionCode>.txt` of its own. It also warns about anything a release build is missing: the keys, the
+  audio (`content/`), and a versionName that differs from the iPhone app's; and it fails if the pack server Gradle
+  would use isn't R2. `python3 tools/check_store.py` (`py -3.13` on the Windows PC) checks the same files without
+  Ruby or fastlane, and the App Store's too.
 - **metadata** uploads the listing without a build or release notes. Google files a listing against a release, so it
   uses the newest build on the internal track (`track:` and `version_code:` choose another). Images Google already
   has (the same SHA-256) aren't sent again, so it's safe to run again.
@@ -119,14 +127,16 @@ fastlane android build       # a signed build, not uploaded
   conversion of it (`convertRegionPrices`, with local price patterns). The lane then puts each product on sale. It
   uses the one-time products API that Google introduced in 2025 (`monetization.onetimeproducts`, in the
   `google-apis-androidpublisher_v3` 0.96.0 that fastlane 2.232.2 bundles). Each product has one purchase option,
-  `buy`, marked legacy-compatible so that the app's Play Billing Library 7 sees an ordinary in-app product. A
-  product made in the Play Console keeps its own purchase option. With an older client library the lane falls back
+  `buy`, marked legacy-compatible so that the app sees an ordinary in-app product: it uses Play Billing Library 8.0.0
+  (`billing-ktx`) and reads one price per product (`oneTimePurchaseOfferDetails`, `Store.kt`). A product made in the
+  Play Console keeps its own purchase option. With an older client library the lane falls back
   to the old `inappproducts` API. Run it after the first build is uploaded: Google wants a build that uses Play
   Billing before it takes products.
 - **internal** checks that `versionCode` in `android/app/build.gradle.kts` is higher than every build Google has on
   any track (custom closed tracks too), so raise it there before each upload. Then it builds the signed bundle and
   uploads it to the internal testing track, or the one `track:` names (`alpha` is closed testing), with its R8
-  mapping file. It also sends `changelogs/<versionCode>.txt`, or `changelogs/default.txt` when there's none. While Google still
+  mapping file. It also sends `changelogs/<versionCode>.txt`, or `changelogs/default.txt` (a line for any build)
+  when there's none. While Google still
   calls the app a draft, it only takes draft releases: if it says so, run `fastlane android internal status:draft`
   and roll the release out in the Play Console.
 - **build** makes the same signed bundle without uploading it. `content_dir:<path>` builds with another content

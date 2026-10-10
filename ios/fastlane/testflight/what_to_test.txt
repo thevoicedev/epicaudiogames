@@ -1,0 +1,27 @@
+This build is the new design, made for blind and partially sighted players first, now on iPad as well as iPhone. Please try it with and without VoiceOver, and tell us what is hard to find, hard to read or confusing.
+
+What's new
+- Four tabs: Games, Shop, Help and Settings.
+- A short intro with the Epic Audio Games sound (tap to skip, or turn it off in Settings), and a welcome on the first launch.
+- Clearer text (Atkinson Hyperlegible), dark, light and high-contrast themes, and three text sizes on top of your device's.
+- The word being spoken is highlighted in the transcript.
+- A sound and a tick you can feel when the microphone opens. With VoiceOver on, the microphone no longer opens by itself: tap the big circle or the mic button, use Magic Tap, or press your headphones' button.
+- Settings: voice speed (0.75 to 2 times), music volume, time to answer, when the microphone opens by itself, and how the transcript looks. Turning on the intro sound, and each music volume, plays a short sample.
+- Help pages you can read or listen to.
+- The Shop: every pack in one place, with Restore purchases.
+- iPad: any orientation and any window size, the story beside the controls in a wide window, and a keyboard: Space for the big circle, Escape to pause, Command-1 to 4 for the tabs.
+- Apple Watch: the Epic Audio Games watch app shows what the game on your iPhone is doing, with one big button (skip, talk, stop listening or carry on) and Pause, and buzzes when the microphone opens. Add it from the Watch app on your iPhone.
+- Usage data: the app now tells us which screens and games are used, under a random ID. Never what you say or type, and nothing about accessibility settings. Settings, then Privacy, turns it off and deletes it.
+
+Please check
+- A whole game with VoiceOver and the screen curtain on.
+- Answering out loud straight after the listening sound.
+- Voice speed: does the highlighted word keep up with the voice?
+- The largest text sizes and Bold Text: is anything cut off or hard to reach?
+- High contrast, and Increase Contrast in your device's settings.
+- On iPad: turning it, a smaller window, and a keyboard.
+- With an Apple Watch: can you feel the buzz when the microphone opens, and do the watch's buttons work with your iPhone locked in a pocket?
+- Buying, downloading and restoring a pack with a sandbox account.
+- Turning usage data off, and Delete my usage data.
+
+Send what you find through TestFlight's feedback (a screenshot helps) or to james@hugo.fm.

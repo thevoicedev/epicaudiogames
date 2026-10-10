@@ -3,6 +3,7 @@
 #
 # What gets uploaded lives next to this file, in supply's layout:
 #   metadata/android/en-US/title.txt, short_description.txt, full_description.txt
+#   metadata/android/en-US/video.txt   (optional: the promo video's YouTube address)
 #   metadata/android/en-US/images/icon.png, featureGraphic.png, phoneScreenshots/*.png
 #   metadata/android/en-US/changelogs/<versionCode>.txt   (optional: a build's "what's new"; default.txt otherwise)
 # The packs' product ids come from games/catalog.json; their Play names and descriptions are PLAY_PRODUCTS below.
@@ -27,6 +28,7 @@ REPO_DIR = File.dirname(ANDROID_DIR)
 PACKAGE_NAME = "com.epicaudiogames.app"
 CATALOG = File.join(REPO_DIR, "games", "catalog.json")
 APP_GRADLE = File.join(ANDROID_DIR, "app", "build.gradle.kts")
+GRADLE_PROPERTIES = File.join(ANDROID_DIR, "gradle.properties")
 IOS_BASE_XCCONFIG = File.join(REPO_DIR, "ios", "Config", "Base.xcconfig")
 METADATA_DIR = File.join(FASTLANE_DIR, "metadata", "android")
 BUNDLE = File.join(ANDROID_DIR, "app", "build", "outputs", "bundle", "release", "app-release.aab")
@@ -38,10 +40,17 @@ CHANGELOG_LIMIT = 500
 PRODUCT_TITLE_LIMIT = 55
 PRODUCT_DESCRIPTION_LIMIT = 200
 
+# The promo video: a YouTube video's own address (public or unlisted), not a playlist, channel or Short.
+VIDEO_URL = %r{\Ahttps://(www\.)?youtube\.com/watch\?v=[A-Za-z0-9_-]{11}\z}
+
+# The pack server release builds download from: the R2 bucket (docs/R2_PACKS.md), as android/gradle.properties sets
+# it. The iPhone app's Base.xcconfig has the same.
+R2_PACKS_URL = "https://packs.epicaudiogames.com"
+
 # Each pack's price in US dollars. Google converts it for every other country, with its local price patterns.
 PACK_PRICE_USD = "1.99"
-# A one-time product's way to buy it. Legacy-compatible, so the app's Play Billing Library 7 (which predates
-# purchase options) sees an ordinary in-app product.
+# A one-time product's way to buy it. Legacy-compatible, so the app (billing-ktx 8.0.0, which reads one price per
+# product, oneTimePurchaseOfferDetails, in Store.kt) sees an ordinary in-app product.
 PURCHASE_OPTION_ID = "buy"
 
 # Each pack's name and description on Google Play. The names are the App Store Connect ones, so both stores match;
@@ -72,22 +81,24 @@ PNG_ALPHA_TYPES = [4, 6].freeze
 UPLOAD_KEY_VARIABLES = %w[EAG_UPLOAD_KEYSTORE EAG_UPLOAD_KEYSTORE_PASSWORD EAG_UPLOAD_KEY_ALIAS EAG_UPLOAD_KEY_PASSWORD].freeze
 
 platform :android do
-  desc "Check everything the upload lanes send, offline (nothing leaves this Mac): the listing's texts and"
-  desc "images, the packs' names, and what a release build needs (keys, audio, version)"
+  desc "Check everything the upload lanes send, offline (nothing leaves this Mac): the listing's texts, video and"
+  desc "images, the release notes, the packs' names, and what a release build needs (keys, audio, version, and the R2"
+  desc "pack server)"
   lane :check do
     errors = []
     warnings = []
     check_listing(errors, warnings)
     check_products(errors)
-    check_release_setup(warnings)
+    check_release_setup(errors, warnings)
     check_key_paths(warnings)
     report!(errors, warnings)
     UI.success(warnings.empty? ? "Everything the lanes upload looks right" : "Nothing that stops an upload (warnings above)")
   end
 
-  desc "Upload the store listing: the texts and images in metadata/android/. No build, no release notes; images"
-  desc "Google already has are skipped, so it's safe to run again. Options: validate_only:true (Google checks it"
-  desc "and nothing changes); track:<name> (default internal: Google files the listing against a release there)"
+  desc "Upload the store listing: the texts, the video's address and the images in metadata/android/. No build, no"
+  desc "release notes; images Google already has are skipped, so it's safe to run again. Options: validate_only:true"
+  desc "(Google checks it and nothing changes); track:<name> (default internal: Google files the listing against a"
+  desc "release there)"
   lane :metadata do |options|
     errors = []
     warnings = []
@@ -114,9 +125,11 @@ platform :android do
 
   desc "Build the release bundle, signed with the upload key, without uploading it: Google takes an app's first"
   desc "build only in the Play Console. Options: content_dir:<path> (another content folder, as -PepicContentDir);"
-  desc "allow_no_packs:true (build without a pack server: that build can't sell packs)"
+  desc "allow_no_packs:true (build without a pack server: that build can't sell packs); allow_other_packs:true (build"
+  desc "with a pack server other than R2: a test build only)"
   lane :build do |options|
-    bundle = build_bundle!(options[:content_dir], allow_no_packs: truthy?(options[:allow_no_packs]))
+    bundle = build_bundle!(options[:content_dir], allow_no_packs: truthy?(options[:allow_no_packs]),
+                                                  allow_other_packs: truthy?(options[:allow_other_packs]))
     UI.success("#{bundle} (versionCode #{gradle_value('versionCode')}, versionName #{gradle_value('versionName')})")
   end
 
@@ -124,14 +137,15 @@ platform :android do
   desc "mapping and changelogs/<versionCode>.txt (or default.txt). versionCode (android/app/build.gradle.kts) has to"
   desc "be higher than any build Google has, on any track. Options: track:<name> (alpha is closed testing, or a"
   desc "custom closed track's name); status:draft (while Google still calls the app a draft); validate_only:true;"
-  desc "content_dir:<path>; allow_no_packs:true"
+  desc "content_dir:<path>; allow_no_packs:true; allow_other_packs:true"
   lane :internal do |options|
     key = play_key!
     track = (options[:track] || "internal").to_s
     UI.user_error!("This lane uploads to testing tracks only; promote to production in the Play Console") if track == "production"
     version_code = gradle_value("versionCode").to_i
     ensure_unused_version_code!(key, version_code)
-    bundle = build_bundle!(options[:content_dir], allow_no_packs: truthy?(options[:allow_no_packs]))
+    bundle = build_bundle!(options[:content_dir], allow_no_packs: truthy?(options[:allow_no_packs]),
+                                                  allow_other_packs: truthy?(options[:allow_other_packs]))
 
     changelog = Dir.glob(File.join(METADATA_DIR, "*", "changelogs", "{#{version_code},default}.txt")).any?
     params = {
@@ -270,7 +284,29 @@ def check_listing(errors, warnings)
       length = sent_text(path).length
       errors << "#{rel(path)} is #{length} characters as supply sends it; the limit is #{CHANGELOG_LIMIT}" if length > CHANGELOG_LIMIT
     end
+    # The internal lane sends this build's own notes, else default.txt (written for no build in particular).
+    version_code = gradle_value("versionCode")
+    notes = File.join(dir, "changelogs", "#{version_code}.txt")
+    unless File.exist?(notes)
+      fallback = File.exist?(File.join(dir, "changelogs", "default.txt")) ? "changelogs/default.txt instead" : "no release notes"
+      warnings << "#{rel(notes)} is missing (versionCode #{version_code}): the internal lane sends #{fallback}"
+    end
+    check_video(File.join(dir, "video.txt"), errors, warnings)
     check_images(File.join(dir, "images"), errors, warnings, required: language == "en-US")
+  end
+end
+
+# The promo video's address, if there is one. supply sends the file as it is, and an empty one takes the video away.
+def check_video(path, errors, warnings)
+  return unless File.exist?(path)
+
+  url = sent_text(path)
+  if url.strip.empty?
+    warnings << "#{rel(path)} is empty: supply would take the listing's video away"
+  elsif url != url.strip
+    errors << "#{rel(path)} has a newline or spaces around the address, and supply sends it as it is"
+  elsif !url.match?(VIDEO_URL)
+    errors << "#{rel(path)} isn't a YouTube video's address (https://www.youtube.com/watch?v=<id>): #{url}"
   end
 end
 
@@ -336,7 +372,7 @@ def check_products(errors)
   end
 end
 
-def check_release_setup(warnings)
+def check_release_setup(errors, warnings)
   key = ENV["PLAY_JSON_KEY"].to_s
   if key.empty?
     warnings << "PLAY_JSON_KEY isn't set (the service account key every upload needs)"
@@ -347,7 +383,14 @@ def check_release_setup(warnings)
   missing = UPLOAD_KEY_VARIABLES.select { |name| ENV[name].to_s.empty? }
   warnings << "#{missing.join(', ')} not set (the upload key that signs release builds)" unless missing.empty?
   warnings << "content/ is missing: a release build without the audio is no use (README, Building the content)" unless File.directory?(File.join(REPO_DIR, "content"))
-  warnings << "no pack server (epicPacksUrl): release builds won't sell packs" unless packs_url_set?
+  url, source = packs_url
+  if url.to_s.empty?
+    warnings << "no pack server (#{source ? "epicPacksUrl is empty in #{source}" : 'nothing sets epicPacksUrl'}): " \
+                "release builds won't sell packs"
+  elsif url != R2_PACKS_URL
+    errors << "epicPacksUrl is #{url} (#{source}), not #{R2_PACKS_URL}: release builds would download packs from there. " \
+              "Take it out of #{source}, or set the R2 address there"
+  end
 
   ios_version = File.exist?(IOS_BASE_XCCONFIG) ? File.read(IOS_BASE_XCCONFIG)[/^\s*MARKETING_VERSION\s*=\s*(\S+)/, 1] : nil
   version_name = gradle_value("versionName")
@@ -367,12 +410,33 @@ def check_key_paths(warnings)
   end
 end
 
-def packs_url_set?
-  return true if ENV["ORG_GRADLE_PROJECT_epicPacksUrl"].to_s != ""
+# The pack server a release build gets (BuildConfig.PACKS_URL, from the Gradle property epicPacksUrl), where Gradle
+# finds it first: the environment (ORG_GRADLE_PROJECT_epicPacksUrl), then the user's gradle.properties
+# (~/.gradle, or GRADLE_USER_HOME), then android/gradle.properties. The lanes pass no -PepicPacksUrl of their own.
+# Returns [url, where it's set]; both nil when nothing sets it.
+def packs_url
+  env = ENV["ORG_GRADLE_PROJECT_epicPacksUrl"]
+  return [env, "ORG_GRADLE_PROJECT_epicPacksUrl"] unless env.nil?
 
-  [File.join(Dir.home, ".gradle", "gradle.properties"), File.join(ANDROID_DIR, "gradle.properties")].any? do |path|
-    File.exist?(path) && File.read(path).match?(/^\s*epicPacksUrl\s*=\s*\S/)
+  user_home = ENV["GRADLE_USER_HOME"].to_s.empty? ? File.join(Dir.home, ".gradle") : File.expand_path(ENV["GRADLE_USER_HOME"])
+  [File.join(user_home, "gradle.properties"), GRADLE_PROPERTIES].each do |path|
+    value = gradle_property(path, "epicPacksUrl")
+    return [value, rel(path)] unless value.nil?
   end
+  [nil, nil]
+end
+
+# A property's value in a .properties file, as Java reads it: the last "key=value", "key: value" or "key value"
+# line, with backslash escapes ("https\://") undone.
+def gradle_property(path, key)
+  return nil unless File.exist?(path)
+
+  value = nil
+  File.foreach(path, encoding: "UTF-8") do |line|
+    match = line.chomp.match(/^\s*#{Regexp.escape(key)}(?:\s*[=:]\s*|\s+)(.*)$/)
+    value = match[1].gsub(/\\(.)/, '\1') if match
+  end
+  value
 end
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -397,17 +461,26 @@ end
 # gradlew :app:bundleRelease, signed with the upload key through Android Gradle Plugin's injected signing
 # properties (what Android Studio's "Generate Signed Bundle" passes), so build.gradle.kts keeps no key settings.
 # The command isn't printed, since it carries the passwords.
-def build_bundle!(content_dir = nil, allow_no_packs: false)
+def build_bundle!(content_dir = nil, allow_no_packs: false, allow_other_packs: false)
   store = upload_key!
   content = content_dir ? File.expand_path(content_dir.to_s, REPO_DIR) : File.join(REPO_DIR, "content")
   unless File.directory?(content) && !Dir.empty?(content)
     UI.user_error!("No audio at #{content}: a release build needs the real content (README, Building the content)")
   end
-  unless packs_url_set?
-    message = "No pack server (epicPacksUrl in ~/.gradle/gradle.properties or ORG_GRADLE_PROJECT_epicPacksUrl): this " \
+  url, source = packs_url
+  if url.to_s.empty?
+    message = "No pack server (#{source ? "epicPacksUrl is empty in #{source}" : 'nothing sets epicPacksUrl'}): this " \
               "build would hide buying packs"
     UI.user_error!("#{message}. Set it, or pass allow_no_packs:true for a build that doesn't sell packs") unless allow_no_packs
     UI.important(message)
+  elsif url != R2_PACKS_URL
+    # ~/.gradle/gradle.properties or the environment wins over android/gradle.properties: an emulator test server
+    # set there would go into the release build.
+    message = "The pack server is #{url} (#{source}), not #{R2_PACKS_URL}: this build's purchases would download from there"
+    UI.user_error!("#{message}. Take it out of #{source}, or pass allow_other_packs:true for a test build") unless allow_other_packs
+    UI.important(message)
+  else
+    UI.message("Packs download from #{url} (#{source})")
   end
 
   arguments = [

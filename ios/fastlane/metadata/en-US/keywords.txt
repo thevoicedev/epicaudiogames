@@ -1,1 +1,1 @@
-interactive,adventure,drama,mystery,werewolf,pirate,speak,talk,offline,trivia,alien,quiz,detective
+blind,accessible,low vision,interactive,adventure,mystery,werewolf,pirate,speak,talk,offline,quiz

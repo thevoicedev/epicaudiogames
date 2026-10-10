@@ -1,35 +1,35 @@
-Epic Audio Games is eight voice-first audio games. No account, login or demo account is needed.
+Epic Audio Games is eight voice-first audio games for iPhone and iPad, designed for blind and partially sighted players first. No account, login or demo account is needed. Every game plays offline; only packs need a connection.
 
 HOW TO PLAY
-- Headphones are best, but the speaker works too.
-- Tap a game on the list to open it. The game talks, and every line appears in the chat as it is spoken.
-- When a question comes, the mic opens by itself. Answer by speaking, by typing in the text box, or by tapping one of the options shown as chips at the end of the chat. Tapping is the quickest way to test.
-- In The Werewolf, accuse a villager by typing or saying their name ("List villagers" reads them out).
-- Tap the big circle to skip the voice. The menu (three dots, top right) has "Start again", and "Help" and "Privacy policy", which open our support and privacy pages in Safari.
-- If nobody answers, the question plays again. A second silence pauses the game until you tap.
+- The first launch plays a short intro (tap to skip), then a welcome you can skip. The tabs: Games, Shop, Help, Settings.
+- Tap a game on the Games tab. It talks, and every line appears in the chat as it is spoken.
+- When it's your turn, a short sound plays and the mic opens by itself (with VoiceOver on, it waits: tap the big circle or the mic button, or use Magic Tap). Answer by speaking, typing, or tapping one of the options at the end of the chat. Tapping is the quickest way to test.
+- Tap the big circle to skip the voice. The game's menu (three dots) has "Start again", "More stories and levels" and "How to play"; the privacy policy and support page are in Settings.
+- If nobody answers, the question plays again; a second silence pauses the game until you tap.
 - Noodle Rush is the shortest game: a few minutes to an ending.
+- iPad: any orientation and window size; a wide window puts a game's controls beside its chat. Keys: Space is the big circle, Escape pauses, Command-1 to 4 pick a tab.
 
 PERMISSIONS
-The first time a game opens, iOS asks for the microphone, then for speech recognition. Both are used only to hear answers while a game is open. Speech is recognised on the iPhone where it supports it, and otherwise by Apple's speech service. The app doesn't store or send recordings. If you decline, the games still work by typing and tapping.
+The welcome explains the microphone before iOS asks for it and for speech recognition ("Not now" skips). Both serve only to hear answers while a game is open (on the device where it can, else by Apple's speech service); the app doesn't store or send recordings. Without them, typing and tapping work.
 
 BACKGROUND AUDIO
-The games are played with headphones, often with the phone locked in a pocket. While a game is open, the voice keeps playing and the game keeps listening for spoken answers with the screen locked (background audio mode), so the microphone indicator stays on until the player leaves the game. The lock screen and the headphone buttons control the game: pause, carry on, skip the voice or answer. Leaving the game, a call, or taking the headphones off pauses it.
+Players often pocket a locked phone. While a game is open, the voice plays and the game listens with the screen locked (background audio mode), so the microphone indicator stays on until the player leaves the game. The lock screen and headphone buttons pause, carry on, skip or answer.
+
+APPLE WATCH
+The watch app is a remote for the game on the iPhone, with no content of its own: with a game open there, it shows the game's state, one big button (skip, talk, stop listening or carry on) and Pause, and buzzes as the mic opens.
 
 IN-APP PURCHASES
-Three non-consumable packs, each adding more of one game:
-- frootopia_stories: The Kingdom of Frootopia, stories 2 to 5 (15 MB download)
-- alien_customs_levels: Alien Customs, levels 6 to 15 (26 MB download)
-- the_werewolf_stories: The Werewolf, stories 6 to 50 (133 MB download)
+Three non-consumable packs:
+- frootopia_stories: The Kingdom of Frootopia, stories 2 to 5 (15 MB)
+- alien_customs_levels: Alien Customs, levels 6 to 15 (26 MB)
+- the_werewolf_stories: The Werewolf, stories 6 to 50 (133 MB)
 
-To reach a purchase:
-- On the game list, tap the yellow pill on a game's card ("+ STORIES 2 TO 5" on The Kingdom of Frootopia, "+ 10 MORE LEVELS" on Alien Customs, "+ 45 MORE MYSTERIES" on The Werewolf). It opens the store sheet with the pack, its price and "Restore purchases".
-- Or finish story 1 of The Kingdom of Frootopia. The chapter end offers the pack.
-- Inside a game, the menu (three dots) also has "More stories and levels".
+To reach them: the Shop tab (each pack's "Buy for" price, and "Restore purchases"); the "Get" button on a game's card (such as "Get 45 more mysteries" on The Werewolf); the end of Frootopia's story 1; or a game's menu, "More stories and levels".
 
-After a purchase, the pack downloads from our pack server over HTTPS, is checked against the checksum built into the app, and unpacked. The game then carries on at NEXT CHAPTER. "Restore purchases" in the store sheet brings back packs bought before. A download the app starts by itself (for example at launch, for a pack bought on another device) waits for Wi-Fi unless you tap DOWNLOAD NOW.
+A bought pack downloads over HTTPS from packs.epicaudiogames.com, is checked against the app's built-in checksum, and installs; the game carries on at "Next chapter".
 
-OFFLINE
-All eight games are inside the app and play with no connection. Only buying and downloading packs needs one (and speech recognition on iPhones that can't do it on the device).
+USAGE DATA
+The app sends usage data to our own server under a random ID made on the device: the tabs and games opened, how far games get, and purchase and download results. Never audio, what the player says or types, or anything about VoiceOver or accessibility settings. No third-party SDKs, and nothing is shared with other companies or used for ads or tracking (so no tracking prompt). It's on by default, stated on the welcome page with a "Turn off" button; Settings > Privacy turns it off and deletes it. Details: https://epicaudiogames.com/privacy#usage-data
 
 CONTENT
-Nuclear War is a light-hearted strategy game for one player. The player picks any of five countries (France, the USA, the UK, China or Russia); the other four are run by the game, and any country can be a target, so no single real country or government is singled out. Their leaders have fictional parody names. Each round they spend money on shields, sanctions and bombs, and the announcer says when a city has been destroyed. It's all spoken, with no images of violence and nothing graphic. Pirate Quest has a dice game played for in-game coins only, with no real money. The app has no ads, no analytics, no web views, no chat or messaging with other people, and no user accounts.
+Nuclear War is a light-hearted strategy game for one player. The player picks any of five countries (France, the USA, the UK, China or Russia); the game runs the other four, and any country can be a target, so no real country or government is singled out. The leaders have fictional parody names. Each round they spend money on shields, sanctions and bombs, and the announcer says when a city has been destroyed: all spoken, with no images of violence and nothing graphic. Pirate Quest's dice game is played for in-game coins only. The app has no ads, web views, chat or user accounts.
